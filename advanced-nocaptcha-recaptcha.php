@@ -1,14 +1,14 @@
 <?php
 /*
 Plugin Name: Advanced noCaptcha & invisible Captcha
-Plugin URI: https://www.shamimsplugins.com/contact-us/
-Description: Show noCaptcha or invisible captcha in Comment Form, bbPress, BuddyPress, WooCommerce, CF7, Login, Register, Lost Password, Reset Password. Also can implement in any other form easily.
+Plugin URI: https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/
+Description: Implement any type of Captcha check in comment, password, login & registration forms, & also on BuddyPress, WooCommerce, CF7 & forms by other plugins.
 Version: 6.1.5
-Author: Shamim Hasan
-Author URI: https://www.shamimsplugins.com/contact-us/
+Author: WP White Security
+Author URI: https://www.wpwhitesecurity.com/
 Text Domain: advanced-nocaptcha-recaptcha
 License: GPLv2 or later
-WC tested up to: 4.5.2
+WC tested up to: 5.6.0
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
