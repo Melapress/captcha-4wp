@@ -24,6 +24,35 @@ class ANR_Settings {
 			add_action( 'admin_menu', array( $this, 'menu_page' ) );
 		}
 
+		// Admin notices, temporary.
+		add_action('admin_notices', [ $this, 'adv_nocaptcha_plugin_notice' ] );
+		add_action('admin_init', [ $this, 'adv_nocaptcha_plugin_notice_ignore'] );
+	}
+
+	function adv_nocaptcha_plugin_notice() {			
+		global $current_user;		
+		$user_id = $current_user->ID;
+		$current_screen = get_current_screen();
+
+		$logo_img_src = ANR_PLUGIN_URL . 'assets/img/hero-logo.png';
+
+		// General notice in dashboard.
+		if ( current_user_can( 'manage_options' ) && ! get_user_meta( $user_id, 'nocaptcha_plugin_notice_ignore') && $current_screen->base !== 'settings_page_anr-admin-settings' ) {	
+			echo '<div class="updated notice" style="position: relative; display: flex;"><img style="width: 100px; height: 100px; margin-top: 9px; margin-right: 5px;" src="' . esc_url( $logo_img_src ) . '"><div><h3 style="position: relative; top: 7px; font-size: 1.7em;">Exciting news!</h3><p style="margin-top: 15px;">'. __('Finally! The Advanced noCaptcha & invisible Captcha plugin is getting an update') .' <a href="https://www.wpwhitesecurity.com/advanced-nocaptcha-recaptcha-joins-wp-white-security/" target="blank">Learn more.</a></p></div>  <a style="position: absolute; right: 15px; top: 15px;" href="?adv-nocaptcha-ignore-notice" target="blank">Dismiss.</a></p></div>';	
+		}		
+
+		// General notice in dashboard.
+		if ( current_user_can( 'manage_options' ) && $current_screen->base === 'settings_page_anr-admin-settings' ) {	
+			echo '<div class="updated notice" style="position: relative; display: flex; margin-top: 15px;"><img style="width: 100px; height: 100px; margin-top: 9px; margin-right: 5px;" src="' . esc_url( $logo_img_src ) . '"><div><h3 style="position: relative; top: 7px; font-size: 1.7em;">Great news!</h3><p style="margin-top: 15px;">'. __('This plugin joins WP White Security and it will soon be getting a well deserved update. ') .' <a href="https://www.wpwhitesecurity.com/advanced-nocaptcha-recaptcha-joins-wp-white-security/" target="blank">Read our announcement for more details.</a></p><p style="margin-top: -7px; margin-bottom: 15px;">Thank you for using this plugin.</p></div></p></div>';	
+		}		
+	}
+		
+	function adv_nocaptcha_plugin_notice_ignore() {		
+		global $current_user;		
+		$user_id = $current_user->ID;		
+		if ( isset( $_GET['adv-nocaptcha-ignore-notice'] ) ) {			
+			add_user_meta( $user_id, 'nocaptcha_plugin_notice_ignore', 'true', true );			
+		}		
 	}
 	
 	function admin_enqueue_scripts() {
