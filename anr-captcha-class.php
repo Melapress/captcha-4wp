@@ -492,7 +492,7 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 				return $verify;
 			}
 
-				$result = json_decode( $request_body, true );
+			$result = json_decode( $request_body, true );
 			if ( isset( $result['success'] ) && true == $result['success'] ) {
 				if ( 'v3' === anr_get_option( 'captcha_version' ) ) {
 					$score = isset( $result['score'] ) ? $result['score'] : 0;
@@ -611,6 +611,11 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 		}
 
 		function lostpassword_verify_44( $errors ) {
+			// Allow admins to send reset links.
+			if ( current_user_can( 'manage_options' ) && isset( $_REQUEST['action'] ) && 'resetpassword' == $_REQUEST['action'] || current_user_can( 'manage_options' ) && isset( $_REQUEST['action'] ) && 'send-password-reset' == $_REQUEST['action'] ) {
+				return $errors;
+			}
+
 			if ( ! $this->verify() ) {
 				$errors->add( 'anr_error', $this->add_error_to_mgs() );
 			}
