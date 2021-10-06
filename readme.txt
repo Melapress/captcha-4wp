@@ -1,7 +1,6 @@
 === Advanced noCaptcha & invisible Captcha (v2 & v3) ===
 Contributors: WPWhiteSecurity
 Tags: recaptcha, nocaptcha, captcha, invisible captcha, bot, spam protection, captch for WooCommerce, forms captcha
-Donate link: https://www.shamimsplugins.com/products/advanced-nocaptcha-and-invisible-captcha-pro/
 Requires at least: 4.4
 Tested up to: 5.8
 Stable tag: 6.1.6
@@ -9,37 +8,35 @@ Requires PHP: 5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Show noCaptcha or invisible captcha in comment, login & registration forms, & also on forms by Contact Form 7, BuddyPress, WooCommerce & other plugins.
+Show noCaptcha or invisible captcha in Comment (after Comment textarea before submit button), CF7, bbpress, BuddyPress, woocommerce, Login, Register, Lost & Reset Password.
 
 == Description ==
 
-Show any type of Captcha (such as noCaptcha or invisible Captcha) on any form on your WordPress website, such as on comment forms, Contact Form 7, bbPress, BuddyPress, woocommerce, Login, Register, Lost Password, Reset Password. With this plugin you can implement any type of Captcha check to any form easily, within just minutes.
+Show noCaptcha or invisible captcha in Comment Form (after Comment textarea before submit button), Contact Form 7, bbPress, BuddyPress, woocommerce, Login, Register, Lost Password, Reset Password. Also can implement in any other form easily.
 
 * **Allow multiple captcha in same page.**
 * **Allow conditional login captcha** (you can set after how many failed login attempts login captcha will show)
 
-> [For **Advanced noCaptcha & invisible Captcha PRO** click here](https://www.shamimsplugins.com/products/advanced-nocaptcha-and-invisible-captcha-pro/?utm_campaign=wordpress&utm_source=readme_pro&utm_medium=description)
-
-#### Maintained & Supported by WP White Security
-
-WP White Security is a European development company that builds high-quality WordPress security & management plugins. Check out our list of [WordPress plugins](https://www.wpwhitesecurity.com/wordpress-plugins/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=all+plugins&utm_content=plugin+repos+description) that can help you better manage and improve the security of your WordPress websites and users.
-
+> [For **Advanced noCaptcha & invisible Captcha PRO** click here](https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/)
 
 = Show noCaptcha on =
 
-* Comment forms
+* Comment Form (after Comment textarea before submit button)
 * WooCommerce
-* Login page
-* Registration page
-* Multisite user signup
-* Lost and / or reset password
+* Login
+* Register
+* Multisite User Signup
+* Lost Password
+* Reset Password
 * Contact Form 7
 * FEP Contact Form
-* bbPress(New topic, reply to topic & registration)
+* bbPress New topic
+* bbPress reply to topic
+* BuddyPress register
 
-= Additional features =
+= Options =
 
-* You can select which version of reCaptcha to use (v2 I'm not robot checkbox, v2 invisible or v3)
+* You can select which version of reCaptcha will be used (v2 I'm not robot checkbox, v2 invisible or v3)
 * Language can be changed
 * Error message can be changed
 * For v2 I'm not robot: Theme, Size can be changed.
@@ -50,7 +47,7 @@ WP White Security is a European development company that builds high-quality Wor
 
 = Privacy Notices =
 
-* This plugin sends the visitor's IP address to Google for captcha verification (this is normal on all websites that use any type of Captcha). Please read the [Google Privacy Policy](https://policies.google.com/) for more information.
+* This plugin send IP address go Google for captcha verification. Please read [Google Privacy Policy](https://policies.google.com/).
 * If you set "Show login Captcha after how many failed attempts" to more than 0(zero) then user hash from ip address will be stored in database. After successful login, hash of that ip address will be deleted. 
 
 == Installation ==
@@ -93,8 +90,9 @@ You can access your file via FTP or file manager and rename "advanced-nocaptcha-
 
 == Changelog ==
 
-= 6.1.6 (20210907) =
+= 6.1.6 =
 
+* UPDATE: Updated the Freemius SDK to the latest version (2.4.2).
 * UPDATE: Announcing new owner + future updates.
 
 = 6.1.5 =
