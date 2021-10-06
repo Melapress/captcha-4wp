@@ -134,7 +134,7 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 
 			$field = '<div class="anr_captcha_field"><div id="anr_captcha_field_' . $number . '" class="anr_captcha_field_div">';
 			if ( 'v3' === $version ) {
-				$field .= '<input type="hidden" name="g-recaptcha-response" value="" />';
+				$field .= '<input type="hidden" name="g-recaptcha-response" value=""/>';
 			}
 			$field .= '</div></div>';
 
@@ -175,6 +175,11 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 			}
 
 			if ( $included ) {
+				return;
+			}
+
+			// Ensure JS is not embedded if veiwing from within the WP customizer or widgets admin areas.
+			if ( ! $this->check_should_js_embed() ) {
 				return;
 			}
 
@@ -253,11 +258,10 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 								'theme' : '<?php echo esc_js( anr_get_option( 'theme', 'light' ) ); ?>',
 								'badge' : '<?php echo esc_js( anr_get_option( 'badge', 'bottomright' ) ); ?>',
 								'callback' : function ( token ) {
-									if( typeof jQuery !== 'undefined' ){
-										jQuery(form).submit();
-										grecaptcha.reset( anr_captcha );
+									if ( jQuery( '.woocommerce-checkout' ).length ) {
+										jQuery( '.woocommerce-checkout' ).submit();
 									} else {
-										HTMLFormElement.prototype.submit.call( form );
+										form.submit();
 									}
 								},
 								'expired-callback' : function(){
@@ -272,6 +276,11 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 									jQuery( '.ajax-loader', form ).addClass( 'is-active' );
 									grecaptcha.execute( anr_captcha );
 								});
+							} else if ( jQuery( '.woocommerce-checkout' ).length ) {								
+								jQuery( 'body' ).on( 'click', '#place_order', function( e ) {
+									e.preventDefault();
+									grecaptcha.execute( anr_captcha );
+								});								
 							} else {
 								form.onsubmit = function( e ){
 									e.preventDefault();
@@ -603,6 +612,12 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 		}
 
 		function lostpassword_verify( $result, $user_id ) {
+
+			// Allow admins to send reset links.
+			if ( current_user_can( 'manage_options' ) && isset( $_REQUEST['action'] ) && in_array( wp_unslash( $_REQUEST['action'] ), array('resetpassword', 'send-password-reset') ) ) {
+				return $errors;
+			}
+			
 			if ( ! $this->verify() ) {
 				return new WP_Error( 'anr_error', $this->add_error_to_mgs() );
 			}
@@ -645,7 +660,7 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 
 		function wpcf7_form_field( $tag ) {
 
-			return $this->form_field_return() . sprintf( '<span class="wpcf7-form-control-wrap %s"></span>', $tag->name );
+			return $this->form_field_return() . sprintf( '<span class="wpcf7-form-control-wrap %s"><span class="wpcf7-form-control"></span></span>', $tag->name );
 		}
 
 		function wpcf7_verify( $result, $tag ) {
@@ -679,7 +694,18 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 			}
 		}
 
-
+		/**
+		 * Checks if the current page load is actually an iframe found in the new customizer/widgets areas within WP 5.8+.
+		 *
+		 * @return bool
+		 */
+		function check_should_js_embed() {
+			// Ensure we dont load inside an iframe/preview.
+			if ( isset( $_GET['legacy-widget-preview'] ) || isset( $_GET['customize_messenger_channel'] ) ) {
+				return false;
+			} 
+			return true;
+		}
 	} //END CLASS
 } //ENDIF
 

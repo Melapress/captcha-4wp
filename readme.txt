@@ -1,10 +1,9 @@
 === Advanced noCaptcha & invisible Captcha (v2 & v3) ===
-Contributors: shamim51
-Tags: recaptcha,nocaptcha,invisible,bot,spam
-Donate link: https://www.shamimsplugins.com/products/advanced-nocaptcha-and-invisible-captcha-pro/
+Contributors: WPWhiteSecurity
+Tags: recaptcha, nocaptcha, captcha, invisible captcha, bot, spam protection, captch for WooCommerce, forms captcha
 Requires at least: 4.4
-Tested up to: 5.5
-Stable tag: 6.1.5
+Tested up to: 5.8
+Stable tag: 6.1.6
 Requires PHP: 5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -18,7 +17,7 @@ Show noCaptcha or invisible captcha in Comment Form (after Comment textarea befo
 * **Allow multiple captcha in same page.**
 * **Allow conditional login captcha** (you can set after how many failed login attempts login captcha will show)
 
-> [For **Advanced noCaptcha & invisible Captcha PRO** click here](https://www.shamimsplugins.com/products/advanced-nocaptcha-and-invisible-captcha-pro/?utm_campaign=wordpress&utm_source=readme_pro&utm_medium=description)
+> [For **Advanced noCaptcha & invisible Captcha PRO** click here](https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/)
 
 = Show noCaptcha on =
 
@@ -90,6 +89,11 @@ You can access your file via FTP or file manager and rename "advanced-nocaptcha-
 8. Advanced noCaptcha reCaptcha Setup Instruction
 
 == Changelog ==
+
+= 6.1.6 =
+
+* UPDATE: Updated the Freemius SDK to the latest version (2.4.2).
+* UPDATE: Announcing new owner + future updates.
 
 = 6.1.5 =
 

@@ -24,6 +24,46 @@ class ANR_Settings {
 			add_action( 'admin_menu', array( $this, 'menu_page' ) );
 		}
 
+		// Admin notices, temporary.
+		add_action('admin_notices', [ $this, 'adv_nocaptcha_plugin_notice' ] );		
+		add_action( 'wp_ajax_adv_nocaptcha_plugin_notice_ignore', array( $this, 'adv_nocaptcha_plugin_notice_ignore' ), 10, 1 );
+	}
+
+	function adv_nocaptcha_plugin_notice() {			
+		global $current_user;		
+		$user_id        = $current_user->ID;
+		$current_screen = get_current_screen();
+		$notice_nonce   = wp_create_nonce( 'dismiss_captcha_notice' );
+		$logo_img_src   = ANR_PLUGIN_URL . 'assets/img/hero-logo.png';
+
+		// General notice in dashboard.
+		if ( current_user_can( 'manage_options' ) && ! get_user_meta( $user_id, 'nocaptcha_plugin_notice_ignore') && $current_screen->base !== 'settings_page_anr-admin-settings' ) {	
+			// Add scripts.
+			wp_enqueue_script( 'anr-admin' );
+
+			echo '<div id="adv-captcha-notice" class="updated notice" style="position: relative; display: flex;"><img style="width: 100px; height: 100px; margin-top: 9px; margin-right: 5px;" src="' . esc_url( $logo_img_src ) . '"><div><h3 style="position: relative; top: 7px; font-size: 1.7em;">Exciting news!</h3><p style="margin-top: 15px;">'. __('Finally! The Advanced noCaptcha & invisible Captcha plugin is getting an update') .' <a href="https://www.wpwhitesecurity.com/advanced-nocaptcha-recaptcha-joins-wp-white-security/" target="_blank">Learn more.</a></p></div>  <a style="position: absolute; right: 15px; top: 15px;" href="#dismiss-captcha-notice" data-nonce="'.esc_attr( $notice_nonce ).'">Dismiss.</a></p></div>';	
+		}		
+
+		// General notice in dashboard.
+		if ( current_user_can( 'manage_options' ) && $current_screen->base === 'settings_page_anr-admin-settings' ) {	
+			echo '<div class="updated notice" style="position: relative; display: flex; margin-top: 15px;"><img style="width: 100px; height: 100px; margin-top: 9px; margin-right: 5px;" src="' . esc_url( $logo_img_src ) . '"><div><h3 style="position: relative; top: 7px; font-size: 1.7em;">Great news!</h3><p style="margin-top: 15px;">'. __('This plugin joins WP White Security and it will soon be getting a well deserved update. ') .' <a href="https://www.wpwhitesecurity.com/advanced-nocaptcha-recaptcha-joins-wp-white-security/" target="_blank">Read our announcement for more details.</a></p><p style="margin-top: -7px; margin-bottom: 15px;">Thank you for using this plugin.</p></div></p></div>';	
+		}		
+	}
+		
+	function adv_nocaptcha_plugin_notice_ignore() {	
+		// Grab POSTed data.
+		$nonce           = filter_input( INPUT_POST, 'nonce', FILTER_SANITIZE_STRING );
+
+		// Check nonce.
+		if ( empty( $nonce ) || ! wp_verify_nonce( $nonce, 'dismiss_captcha_notice' ) ) {
+			wp_send_json_error( esc_html__( 'Nonce Verification Failed.','advanced-nocaptcha-recaptcha' ) );
+		}
+
+		global $current_user;		
+		$user_id = $current_user->ID;		
+		$updated = add_user_meta( $user_id, 'nocaptcha_plugin_notice_ignore', 'true', true );		
+		wp_send_json_success($updated);
+	
 	}
 	
 	function admin_enqueue_scripts() {
@@ -45,7 +85,7 @@ class ANR_Settings {
 			'google_keys' => array(
 				'section_title'    => __( 'Google Keys', 'advanced-nocaptcha-recaptcha' ),
 				'section_callback' => function() {
-					printf( __( 'Get reCaptcha keys from <a href="%s" target="_blank" rel="noopener noreferrer">Google</a>. Make sure to get keys for your selected captcha type. <a href="%s" target="_blank" rel="noopener noreferrer">How to get google reCAPTCHA keys?</a>.', 'advanced-nocaptcha-recaptcha' ), 'https://www.google.com/recaptcha/admin', 'https://www.shamimsplugins.com/docs/advanced-nocaptcha-recaptcha/getting-started-advanced-nocaptcha-recaptcha/how-to-get-google-recaptcha-keys/' );
+					printf( __( 'Get reCaptcha keys from <a href="%s" target="_blank" rel="noopener noreferrer">Google</a>. Make sure to get keys for your selected captcha type. <a href="%s" target="_blank" rel="noopener noreferrer">How to get google reCAPTCHA keys?</a>.', 'advanced-nocaptcha-recaptcha' ), 'https://www.google.com/recaptcha/admin', 'https://www.wpwhitesecurity.com/support/kb/get-google-recaptcha-keys/' );
 				},
 			),
 			'forms'       => array(
@@ -63,6 +103,13 @@ class ANR_Settings {
 		for ( $i = 0.0; $i <= 1; $i += 0.1 ) {
 			$score_values[ "$i" ] = number_format_i18n( $i, 1 );
 		}
+		$score_description = sprintf(
+			/* translators: expression "very restrictive" in bold */
+			esc_html__( 'Any value above 0.5 is %s.', 'advanced-nocaptcha-recaptcha' ),
+			'<strong>'.__( 'very restrictive', 'advanced-nocaptcha-recaptcha' ) . '</strong>'
+		);		
+		$score_description .= ' ' . esc_html__( 'This means that you might end up locked out from your website. Therefore test this on a staging website website beforehand.', 'advanced-nocaptcha-recaptcha' );
+
 		$fields = array(
 			'captcha_version'            => array(
 				'label'      => __( 'reCAPTCHA type', 'advanced-nocaptcha-recaptcha' ),
@@ -102,7 +149,7 @@ class ANR_Settings {
 					'bp_register'       => __( 'BuddyPress register', 'advanced-nocaptcha-recaptcha' ),
 					'wc_checkout'    => __( 'WooCommerce Checkout', 'advanced-nocaptcha-recaptcha' ),
 				),
-				'desc'       => sprintf( __( 'For "Contact Form 7" you need to follow <a target="_blank" rel="noopener noreferrer" href="%1$s">this instruction</a>. For other forms see <a href="%2$s">this instruction</a>', 'advanced-nocaptcha-recaptcha' ), esc_url( 'https://www.shamimsplugins.com/docs/advanced-nocaptcha-recaptcha/getting-started-advanced-nocaptcha-recaptcha/implement-in-contact-form-7/' ), esc_url( anr_settings_page_url( 'instruction' ) ) ),
+				'desc'       => sprintf( __( 'For "Contact Form 7" you need to follow <a target="_blank" rel="noopener noreferrer" href="%1$s">this instruction</a>. For other forms see <a href="%2$s">this instruction</a>', 'advanced-nocaptcha-recaptcha' ), esc_url( 'https://www.wpwhitesecurity.com/support/kb/adding-captcha-contact-form-7-forms/' ), esc_url( anr_settings_page_url( 'instruction' ) ) ),
 			),
 			'error_message'      => array(
 				'label'      => __( 'Error Message', 'advanced-nocaptcha-recaptcha' ),
@@ -227,7 +274,7 @@ class ANR_Settings {
 				'class'      => 'regular hidden anr-show-field-for-v3',
 				'std'        => '0.5',
 				'options'    => $score_values,
-				'desc'       => __( 'Higher means more sensitive', 'advanced-nocaptcha-recaptcha' ),
+				'desc'       => $score_description,				
 			),
 			'whitelisted_ips'              => array(
 				'label'      => __( 'Whitelisted IPs', 'advanced-nocaptcha-recaptcha' ),
@@ -279,7 +326,7 @@ class ANR_Settings {
 				'type'       => 'html',
 				'std'        => sprintf( '<div class="notice notice-success inline">
 					<p>To support development of "Advanced noCaptcha & invisible Captcha" plugin please purchase PRO version. <a class="button button-secondary" href="%1$s">' . __( 'View Details', 'advanced-nocaptcha-recaptcha' ) . '</a></p>
-				</div>', function_exists( 'anr_fs' ) ? anr_fs()->get_upgrade_url() : 'https://www.shamimsplugins.com/products/advanced-nocaptcha-and-invisible-captcha-pro/' ),
+				</div>', function_exists( 'anr_fs' ) ? anr_fs()->get_upgrade_url() : 'https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/' ),
 			);
 		endif;
 
@@ -559,12 +606,12 @@ class ANR_Settings {
 	}
 	function instruction_page(){
 		?>
-			<div><?php printf( __( 'Get your site key and secret key from <a href="%s" target="_blank" rel="noopener noreferrer">GOOGLE</a> if you do not have already. <a href="%s" target="_blank" rel="noopener noreferrer">How to get google reCAPTCHA keys?</a>.', 'advanced-nocaptcha-recaptcha' ), esc_url( 'https://www.google.com/recaptcha/admin' ), 'https://www.shamimsplugins.com/docs/advanced-nocaptcha-recaptcha/getting-started-advanced-nocaptcha-recaptcha/how-to-get-google-recaptcha-keys/' ); ?></div>
+			<div><?php printf( __( 'Get your site key and secret key from <a href="%s" target="_blank" rel="noopener noreferrer">GOOGLE</a> if you do not have already. <a href="%s" target="_blank" rel="noopener noreferrer">How to get google reCAPTCHA keys?</a>.', 'advanced-nocaptcha-recaptcha' ), esc_url( 'https://www.google.com/recaptcha/admin' ), 'https://www.wpwhitesecurity.com/support/kb/get-google-recaptcha-keys/' ); ?></div>
 			<div><?php printf( __( 'Goto %s page of this plugin and set up as you need. and ENJOY...', 'advanced-nocaptcha-recaptcha' ), '<a href="' . esc_url( anr_settings_page_url() ) . '">' . esc_html__( 'Settings', 'advanced-nocaptcha-recaptcha' ) . '</a>' ); ?></div>
 
 			<h3><?php _e( 'Implement noCaptcha in Contact Form 7', 'advanced-nocaptcha-recaptcha' ); ?></h3>
 			<div><?php printf( __( 'To show noCaptcha use %s', 'advanced-nocaptcha-recaptcha' ), '<code>[anr_nocaptcha g-recaptcha-response]</code>' ); ?></div>
-			<div><?php printf( __( 'Full details can be found in <a target="_blank" rel="noopener noreferrer" href="%1$s">this instruction</a>', 'advanced-nocaptcha-recaptcha' ), esc_url( 'https://www.shamimsplugins.com/docs/advanced-nocaptcha-recaptcha/getting-started-advanced-nocaptcha-recaptcha/implement-in-contact-form-7/' ) ) ?></div>
+			<div><?php printf( __( 'Full details can be found in <a target="_blank" rel="noopener noreferrer" href="%1$s">this instruction</a>', 'advanced-nocaptcha-recaptcha' ), esc_url( 'https://www.wpwhitesecurity.com/support/kb/adding-captcha-contact-form-7-forms/' ) ) ?></div>
 
 			<h3><?php _e( 'Implement noCaptcha in WooCommerce', 'advanced-nocaptcha-recaptcha' ); ?></h3>
 			<div><?php _e( 'If Login Form, Registration Form, Lost Password Form, Reset Password Form is selected in SETTINGS page of this plugin they will show and verify Captcha in WooCommerce respective forms also.', 'advanced-nocaptcha-recaptcha' ); ?></div>
@@ -572,7 +619,6 @@ class ANR_Settings {
 			<h3><?php _e( 'If you want to implement noCaptcha in any other custom form', 'advanced-nocaptcha-recaptcha' ); ?></h3>
 			<div><?php printf( __( 'To show noCaptcha in a form use %1$s OR %2$s', 'advanced-nocaptcha-recaptcha' ), "<code>do_action( 'anr_captcha_form_field' )</code>", '<code>[anr-captcha]</code>' ); ?></div>
 			<div><?php printf( __( 'To verify use %s. It will return true on success otherwise false.', 'advanced-nocaptcha-recaptcha' ), '<code>anr_verify_captcha()</code>' ); ?></div>
-			<div><?php printf( __( 'For paid support pleasse visit <a href="%s" target="_blank" rel="noopener noreferrer">Advanced noCaptcha reCaptcha</a>', 'advanced-nocaptcha-recaptcha' ), esc_url( 'https://www.shamimsplugins.com/hire/' ) ); ?></div>
 						
 		<?php
 	}
@@ -597,7 +643,7 @@ class ANR_Settings {
 						<p style="text-align: center; margin: auto"><a class="button button-secondary" href="%1$s">' . __( 'View Details', 'advanced-nocaptcha-recaptcha' ) . '</a></p>
 					</div>
 				</div>
-			</div>', function_exists( 'anr_fs' ) ? anr_fs()->get_upgrade_url() : 'https://www.shamimsplugins.com/products/advanced-nocaptcha-and-invisible-captcha-pro/' );
+			</div>', function_exists( 'anr_fs' ) ? anr_fs()->get_upgrade_url() : 'https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/' );
 		endif;
 		return $return;
 	}

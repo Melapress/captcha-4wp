@@ -198,7 +198,7 @@ function anr_fs_uninstall_cleanup() {
 }
 
 function anr_fs_support_forum_url( $wp_org_support_forum_url ) {
-	return 'https://www.shamimsplugins.com/support/forum/advanced-nocaptcha-and-invisible-captcha-pro/';
+	return 'https://www.wpwhitesecurity.com/contact/';
 }
 
 function anr_recaptcha_domain(){
