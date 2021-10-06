@@ -2,8 +2,8 @@
 /*
 Plugin Name: Advanced noCaptcha & invisible Captcha
 Plugin URI: https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/
-Description: Implement any type of Captcha check in comment, password, login & registration forms, & also on BuddyPress, WooCommerce, CF7 & forms by other plugins.
-Version: 6.1.5
+Description: Show noCaptcha or invisible captcha in Comment Form, bbPress, BuddyPress, WooCommerce, CF7, Login, Register, Lost Password, Reset Password. Also can implement in any other form easily.
+Version: 6.1.7
 Author: WP White Security
 Author URI: https://www.wpwhitesecurity.com/
 Text Domain: advanced-nocaptcha-recaptcha
@@ -42,7 +42,7 @@ class ANR {
 	}
 
 	private function constants() {
-		define( 'ANR_PLUGIN_VERSION', '6.1.5' );
+		define( 'ANR_PLUGIN_VERSION', '6.1.7' );
 		define( 'ANR_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'ANR_PLUGIN_URL', plugins_url( '/', __FILE__ ) );
 		define( 'ANR_PLUGIN_FILE', __FILE__ );
