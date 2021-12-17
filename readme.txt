@@ -1,4 +1,4 @@
-=== Advanced noCaptcha & invisible Captcha (v2 & v3) ===
+=== CAPTCHA 4WP (v2 & v3) ===
 Contributors: WPWhiteSecurity
 Tags: recaptcha, nocaptcha, captcha, invisible captcha, bot, spam protection, captch for WooCommerce, forms captcha
 Donate link: https://www.shamimsplugins.com/products/advanced-nocaptcha-and-invisible-captcha-pro/
@@ -18,7 +18,7 @@ Show any type of Captcha (such as noCaptcha or invisible Captcha) on any form on
 * **Allow multiple captcha in same page.**
 * **Allow conditional login captcha** (you can set after how many failed login attempts login captcha will show)
 
-> [For **Advanced noCaptcha & invisible Captcha PRO** click here](https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=C4WP&utm_content=plugin+repos+description)
+> [For **CAPTCHA 4WP PRO** click here](https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=C4WP&utm_content=plugin+repos+description)
 
 #### Maintained & Supported by WP White Security
 
@@ -34,7 +34,6 @@ WP White Security is a European development company that builds high-quality Wor
 * Multisite user signup
 * Lost and / or reset password
 * Contact Form 7
-* FEP Contact Form
 * bbPress(New topic, reply to topic & registration)
 
 = Additional features =
@@ -72,7 +71,7 @@ Loading v3 script in All Pages help google for analytics. If you want to load sc
 If you are not using v3 then script will only load when there is form in that page. no settings required.
 
 = How to set captcha in contact form 7? =
-To show noCaptcha use [anr_nocaptcha g-recaptcha-response]
+To show noCaptcha use [c4wp_nocaptcha g-recaptcha-response]
 
 = How to set captcha in WooCommerce? =
 If Login Form, Registration Form, Lost Password Form, Reset Password Form is selected in SETTINGS page of this plugin, they will show and verify Captcha in WooCommerce respective forms as well.
