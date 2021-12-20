@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Advanced noCaptcha & invisible Captcha
+Plugin Name: Captcha 4WP
 Plugin URI: https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/
 Description: Show noCaptcha or invisible captcha in Comment Form, bbPress, BuddyPress, WooCommerce, CF7, Login, Register, Lost Password, Reset Password. Also can implement in any other form easily.
 Version: 6.1.7
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 require_once ABSPATH . '/wp-admin/includes/plugin.php';
 
-class ANR {
+class C4WP {
 
 	private static $instance;
 
