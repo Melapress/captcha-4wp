@@ -413,18 +413,3 @@ function c4wp_is_premium_version() {
 	return ( class_exists( 'C4WP_Pro' ) && ! c4wp_fs()->is_not_paying() ) ? true : false;
 }
 
-/**
- * Check if user is a role we wish to hide captca from, or if we are globally hiding them for logged in users.
- *
- * @return bool
- */
-function c4wp_hide_for_logged_in_user_or_role() {
-	$user  = wp_get_current_user();
-	$roles = ( array ) $user->roles;
-	
-	$roles_to_hide = ( empty( c4wp_get_option( 'loggedin_hide_roles' ) ) ) ? [] : c4wp_get_option( 'loggedin_hide_roles' );
-	if ( c4wp_get_option( 'loggedin_hide' ) || array_intersect( $roles, $roles_to_hide ) ) {
-		return true;
-	}	
-	return false;
-}
