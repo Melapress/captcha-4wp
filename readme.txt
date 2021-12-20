@@ -1,4 +1,4 @@
-=== CAPTCHA 4WP (v2 & v3) ===
+=== CAPTCHA 4WP ===
 Contributors: WPWhiteSecurity
 Tags: recaptcha, nocaptcha, captcha, invisible captcha, bot, spam protection, captch for WooCommerce, forms captcha
 Donate link: https://www.shamimsplugins.com/products/advanced-nocaptcha-and-invisible-captcha-pro/
