@@ -68,5 +68,6 @@ class C4WP
 
 }
 //END Class
-
-C4WP::init();
+    
+    // ... Your plugin's main file logic ...
+    add_action( 'plugins_loaded', array( 'C4WP', 'init' ) );
