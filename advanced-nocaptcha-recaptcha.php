@@ -56,69 +56,7 @@ class ANR {
 		add_action( 'after_setup_theme', 'anr_include_require_files' );
 		add_action( 'init', 'anr_translation' );
 		add_action( 'login_enqueue_scripts', 'anr_login_enqueue_scripts' );
-
-		//cleanup after uninstall
-		anr_fs()->add_action('after_uninstall', 'anr_fs_uninstall_cleanup');
-		//Support fourm link in admin dashboard sidebar
-		anr_fs()->add_filter( 'support_forum_url', 'anr_fs_support_forum_url' );
 	}
 } //END Class
 
-
-if ( function_exists( 'anr_fs' ) ) {
-	anr_fs()->set_basename( false, __FILE__ );
-} else {
-	// DO NOT REMOVE THIS IF, IT IS ESSENTIAL FOR THE `function_exists` CALL ABOVE TO PROPERLY WORK.
-	if ( ! function_exists( 'anr_fs' ) ) {
-		// Create a helper function for easy SDK access.
-		function anr_fs() {
-			global $anr_fs;
-			$for_network = is_plugin_active_for_network( plugin_basename( __FILE__ ) );
-	
-			if ( ! isset( $anr_fs ) ) {
-				// Activate multisite network integration.
-				if ( $for_network && ! defined( 'WP_FS__PRODUCT_5860_MULTISITE' ) ) {
-					define( 'WP_FS__PRODUCT_5860_MULTISITE', true );
-				}
-				// Include Freemius SDK.
-				require_once dirname(__FILE__) . '/freemius/start.php';
-	
-				$anr_fs = fs_dynamic_init( array(
-					'id'                  => '5860',
-					'slug'                => 'advanced-nocaptcha-recaptcha',
-					'premium_slug'        => 'advanced-nocaptcha-and-invisible-captcha-pro',
-					'type'                => 'plugin',
-					'public_key'          => 'pk_8758a9fa397c3760defbec41e2e35',
-					'is_premium'          => false,
-					'premium_suffix'      => 'PRO',
-					// If your plugin is a serviceware, set this option to false.
-					'has_premium_version' => true,
-					'has_addons'          => false,
-					'has_paid_plans'      => true,
-					'anonymous_mode'      => true,
-					'navigation'          => 'tabs',
-					'is_live'             => true,
-					'menu'                => array(
-						'slug'           => 'anr-admin-settings',
-						'contact'        => false,
-						'network'        => $for_network,
-						'parent'         => array(
-							'slug' => $for_network ? 'settings.php' : 'options-general.php',
-						),
-					),
-				) );
-			}
-	
-			return $anr_fs;
-		}
-	
-		// Init Freemius.
-		anr_fs();
-		// Signal that SDK was initiated.
-		do_action( 'anr_fs_loaded' );
-	}
-
-	// ... Your plugin's main file logic ...
-	ANR::init();
-}
-
+ANR::init();
