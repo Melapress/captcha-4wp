@@ -68,3 +68,5 @@ class C4WP
 
 }
 //END Class
+
+C4WP::init();
