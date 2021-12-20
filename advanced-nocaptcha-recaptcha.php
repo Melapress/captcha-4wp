@@ -1,15 +1,15 @@
 <?php
 
 /*
-Plugin Name: CAPTCHA 4WP (Premium)
-Plugin URI: https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/
-Description: Show noCaptcha or invisible captcha in Comment Form, bbPress, BuddyPress, WooCommerce, CF7, Login, Register, Lost Password, Reset Password. Also can implement in any other form easily.
-Version: 6.1.7
-Author: WP White Security
-Author URI: https://www.wpwhitesecurity.com/
-Text Domain: advanced-nocaptcha-recaptcha
-License: GPLv2 or later
-WC tested up to: 5.6.0
+* Plugin Name: CAPTCHA 4WP (Premium)
+* Plugin URI: https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/
+* Description: Show noCaptcha or invisible captcha in Comment Form, bbPress, BuddyPress, WooCommerce, CF7, Login, Register, Lost Password, Reset Password. Also can implement in any other form easily.
+* Version: 7.0.0
+* Author: WP White Security
+* Author URI: https://www.wpwhitesecurity.com/
+* Text Domain: advanced-nocaptcha-recaptcha
+* License: GPLv2 or later
+* WC tested up to: 5.6.0
 */
 
 if ( !defined( 'ABSPATH' ) ) {
