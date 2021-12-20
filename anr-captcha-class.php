@@ -1,7 +1,7 @@
 <?php
 
-if ( ! class_exists( 'anr_captcha_class' ) ) {
-	class anr_captcha_class {
+if ( ! class_exists( 'c4wp_captcha_class' ) ) {
+	class c4wp_captcha_class {
 
 		private static $instance;
 
@@ -15,62 +15,36 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 		}
 
 		function actions_filters() {
-			if ( anr_is_form_enabled( 'fep_contact_form' ) ) {
-				add_action( 'fepcf_message_form_after_content', array( $this, 'form_field' ), 99 );
-				add_action( 'fepcf_action_message_before_send', array( $this, 'fepcf_verify' ) );
-			}
-
-			if ( anr_is_form_enabled( 'login' ) && ! defined( 'XMLRPC_REQUEST' ) ) {
+			if ( c4wp_is_form_enabled( 'login' ) && ! defined( 'XMLRPC_REQUEST' ) ) {
 				add_action( 'login_form', array( $this, 'login_form_field' ), 99 );
 				add_filter( 'login_form_middle', array( $this, 'login_form_return' ), 99 );
 				add_action( 'um_after_login_fields', array( $this, 'login_form_field' ), 99 );
-				add_action( 'woocommerce_login_form', array( $this, 'login_form_field' ), 99 );
 				add_filter( 'authenticate', array( $this, 'login_verify' ), 999, 3 );
-
-				add_action( 'wp_login', array( $this, 'clear_data' ), 10, 2 );
 			}
 
-			if ( anr_is_form_enabled( 'wc_checkout' ) ) {
-				add_action( 'woocommerce_after_checkout_validation', array( $this, 'wc_checkout_verify' ), 10, 2 );
-				add_action( 'woocommerce_checkout_after_order_review', array( $this, 'wc_form_field' ) );
-			}
-
-			if ( anr_is_form_enabled( 'registration' ) ) {
+			if ( c4wp_is_form_enabled( 'registration' ) ) {
 				add_action( 'register_form', array( $this, 'form_field' ), 99 );
-				add_action( 'woocommerce_register_form', array( $this, 'form_field' ), 99 );
 				add_filter( 'registration_errors', array( $this, 'registration_verify' ), 10, 3 );
-				add_filter( 'woocommerce_registration_errors', array( $this, 'wc_registration_verify' ), 10, 3 );
-				// add_action ('woocommerce_checkout_after_order_review', array($this, 'wc_form_field') );
 			}
 
-			if ( anr_is_form_enabled( 'bp_register' ) ) {
-				add_action( 'bp_before_registration_submit_buttons', array( $this, 'bp_form_field' ), 99 );
-				add_action( 'bp_signup_validate', array( $this, 'bp_registration_verify' ) );
-			}
-
-			if ( anr_is_form_enabled( 'ms_user_signup' ) && is_multisite() ) {
+			if ( c4wp_is_form_enabled( 'ms_user_signup' ) && is_multisite() ) {
 				add_action( 'signup_extra_fields', array( $this, 'ms_form_field' ), 99 );
 				add_filter( 'wpmu_validate_user_signup', array( $this, 'ms_form_field_verify' ) );
-
 				add_action( 'signup_blogform', array( $this, 'ms_form_field' ), 99 );
 				add_filter( 'wpmu_validate_blog_signup', array( $this, 'ms_blog_verify' ) );
-
 			}
 
-			if ( anr_is_form_enabled( 'lost_password' ) ) {
+			if ( c4wp_is_form_enabled( 'lost_password' ) ) {
 				add_action( 'lostpassword_form', array( $this, 'form_field' ), 99 );
-				add_action( 'woocommerce_lostpassword_form', array( $this, 'form_field' ), 99 );
-				// add_action ('allow_password_reset', array($this, 'lostpassword_verify'), 10, 2); //lostpassword_post does not return wp_error( prior WP 4.4 )
 				add_action( 'lostpassword_post', array( $this, 'lostpassword_verify_44' ) );
 			}
 
-			if ( anr_is_form_enabled( 'reset_password' ) ) {
+			if ( c4wp_is_form_enabled( 'reset_password' ) ) {
 				add_action( 'resetpass_form', array( $this, 'form_field' ), 99 );
-				add_action( 'woocommerce_resetpassword_form', array( $this, 'form_field' ), 99 );
 				add_filter( 'validate_password_reset', array( $this, 'reset_password_verify' ), 10, 2 );
 			}
 
-			if ( anr_is_form_enabled( 'comment' ) && ( ! is_admin() || ! current_user_can( 'moderate_comments' ) ) ) {
+			if ( c4wp_is_form_enabled( 'comment' ) && ( ! is_admin() || ! current_user_can( 'moderate_comments' ) ) ) {
 				if ( ! is_user_logged_in() ) {
 					add_action( 'comment_form_after_fields', array( $this, 'form_field' ), 99 );
 				} else {
@@ -82,43 +56,17 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 					add_filter( 'preprocess_comment', array( $this, 'comment_verify' ) );
 				}
 			}
-
-			if ( function_exists( 'wpcf7_add_form_tag' ) ) {
-				if( class_exists( 'WPCF7' ) && WPCF7::get_option( 'recaptcha' ) && apply_filters( 'anr_remove_cf7_recaptcha', false ) ) {
-					//remove recaptcha keys from CF7 which will disable CF7 recaptcha
-					WPCF7::update_option( 'recaptcha', null );
-				}
-				if( is_user_logged_in() && anr_get_option( 'loggedin_hide' ) ) {
-					//enable verify nonce otherwie is_user_logged_in() return false when validate recaptcha
-					add_filter( 'wpcf7_verify_nonce', '__return_true' );
-				}
-				wpcf7_add_form_tag( 'anr_nocaptcha', array( $this, 'wpcf7_form_field' ), array( 'name-attr' => true ) );
-				add_filter( 'wpcf7_validate_anr_nocaptcha', array( $this, 'wpcf7_verify' ), 10, 2 );
-			} elseif ( function_exists( 'wpcf7_add_shortcode' ) ) {
-				wpcf7_add_shortcode( 'anr_nocaptcha', array( $this, 'wpcf7_form_field' ), true );
-				add_filter( 'wpcf7_validate_anr_nocaptcha', array( $this, 'wpcf7_verify' ), 10, 2 );
-			}
-
-			if ( anr_is_form_enabled( 'bbp_new' ) ) {
-				add_action( 'bbp_theme_before_topic_form_submit_wrapper', array( $this, 'form_field' ), 99 );
-				add_action( 'bbp_new_topic_pre_extras', array( $this, 'bbp_new_verify' ) );
-			}
-
-			if ( anr_is_form_enabled( 'bbp_reply' ) ) {
-				add_action( 'bbp_theme_before_reply_form_submit_wrapper', array( $this, 'form_field' ), 99 );
-				add_action( 'bbp_new_reply_pre_extras', array( $this, 'bbp_reply_verify' ), 10, 2 );
-			}
 		}
 
 		function add_error_to_mgs( $mgs = false ) {
 			if ( false === $mgs ) {
-				$mgs = anr_get_option( 'error_message', '' );
+				$mgs = c4wp_get_option( 'error_message', '' );
 			}
 			if ( ! $mgs ) {
 				$mgs = __( 'Please solve Captcha correctly', 'advanced-nocaptcha-recaptcha' );
 			}
 			$message = '<strong>' . __( 'ERROR', 'advanced-nocaptcha-recaptcha' ) . '</strong>: ' . $mgs;
-			return apply_filters( 'anr_error_message', $message, $mgs );
+			return apply_filters( 'c4wp_error_message', $message, $mgs );
 		}
 
 		function total_captcha() {
@@ -127,40 +75,15 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 
 		function captcha_form_field() {
 			self::$captcha_count++;
-			$no_js    = anr_get_option( 'no_js' );
-			$site_key = trim( anr_get_option( 'site_key' ) );
+			$site_key = trim( c4wp_get_option( 'site_key' ) );
 			$number   = $this->total_captcha();
-			$version = anr_get_option( 'captcha_version', 'v2_checkbox' );
+			$version = c4wp_get_option( 'captcha_version', 'v2_checkbox' );
 
-			$field = '<div class="anr_captcha_field"><div id="anr_captcha_field_' . $number . '" class="anr_captcha_field_div">';
+			$field = '<div class="c4wp_captcha_field"><div id="c4wp_captcha_field_' . $number . '" class="c4wp_captcha_field_div">';
 			if ( 'v3' === $version ) {
-				$field .= '<input type="hidden" name="g-recaptcha-response" value=""/>';
+				$field .= '<input type="hidden" name="g-recaptcha-response" aria-label="do not use" aria-readonly="true" value=""/>';
 			}
 			$field .= '</div></div>';
-
-			if ( 1 == $no_js && 'v2_checkbox' === $version ) {
-				$field .= sprintf( '<noscript>
-						  <div>
-							<div style="width: 302px; height: 422px; position: relative;">
-							  <div style="width: 302px; height: 422px; position: absolute;">
-								<iframe src="https://www.%s/recaptcha/api/fallback?k=' . $site_key . '"
-										frameborder="0" scrolling="no"
-										style="width: 302px; height:422px; border-style: none;">
-								</iframe>
-							  </div>
-							</div>
-							<div style="width: 300px; height: 60px; border-style: none;
-										   bottom: 12px; left: 25px; margin: 0px; padding: 0px; right: 25px;
-										   background: #f9f9f9; border: 1px solid #c1c1c1; border-radius: 3px;">
-							  <textarea id="g-recaptcha-response-' . $number . '" name="g-recaptcha-response"
-										   class="g-recaptcha-response"
-										   style="width: 250px; height: 40px; border: 1px solid #c1c1c1;
-												  margin: 10px 25px; padding: 0px; resize: none;" ></textarea>
-							</div>
-						  </div>
-						</noscript>', anr_recaptcha_domain() );
-			}
-
 			return $field;
 		}
 
@@ -168,9 +91,9 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 			static $included = false;
 
 			$number          = $this->total_captcha();
-			$version = anr_get_option( 'captcha_version', 'v2_checkbox' );
-
-			if ( ! $number && ( 'v3' !== $version || 'all_pages' !== anr_get_option( 'v3_script_load', 'all_pages' ) ) ) {
+			$version = c4wp_get_option( 'captcha_version', 'v2_checkbox' );
+			
+			if ( ! $number && ( 'v3' !== $version || 'all_pages' !== c4wp_get_option( 'v3_script_load', 'all_pages' ) ) ) {
 				return;
 			}
 
@@ -197,42 +120,31 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 		function v2_checkbox_script() {
 			?>
 			<script type="text/javascript">
-				var anr_onloadCallback = function() {
+				var c4wp_onloadCallback = function() {
 					for ( var i = 0; i < document.forms.length; i++ ) {
 						var form = document.forms[i];
-						var captcha_div = form.querySelector( '.anr_captcha_field_div' );
-
+						var captcha_div = form.querySelector( '.c4wp_captcha_field_div' );
 						if ( null === captcha_div )
 							continue;
 						captcha_div.innerHTML = '';
 						( function( form ) {
-							var anr_captcha = grecaptcha.render( captcha_div,{
-								'sitekey' : '<?php echo esc_js( trim( anr_get_option( 'site_key' ) ) ); ?>',
-								'size'  : '<?php echo esc_js( anr_get_option( 'size', 'normal' ) ); ?>',
-								'theme' : '<?php echo esc_js( anr_get_option( 'theme', 'light' ) ); ?>'
+							var c4wp_captcha = grecaptcha.render( captcha_div,{
+								'sitekey' : '<?php echo esc_js( trim( c4wp_get_option( 'site_key' ) ) ); ?>',
+								'size'  : '<?php echo esc_js( c4wp_get_option( 'size', 'normal' ) ); ?>',
+								'theme' : '<?php echo esc_js( c4wp_get_option( 'theme', 'light' ) ); ?>'
 							});
-							if ( typeof jQuery !== 'undefined' ) {
-								jQuery( document.body ).on( 'checkout_error', function(){
-									grecaptcha.reset(anr_captcha);
-								});
-							}
-							if ( typeof wpcf7 !== 'undefined' ) {
-								document.addEventListener( 'wpcf7submit', function() {
-									grecaptcha.reset(anr_captcha);
-								}, false );
-							}
+							<?php
+								$additonal_js = apply_filters( 'c4wp_captcha_callback_additonal_js', false );
+								echo $additonal_js;
+							?>
 						})(form);
 					}
 				};
+			
 			</script>
 			<?php
-			$language = trim( anr_get_option( 'language' ) );
-
-			$lang = '';
-			if ( $language ) {
-				$lang = '&hl=' . $language;
-			}
-			$google_url = apply_filters( 'anr_v2_checkbox_script_api_src', sprintf( 'https://www.%s/recaptcha/api.js?onload=anr_onloadCallback&render=explicit' . $lang, anr_recaptcha_domain() ), $lang );
+			$lang = $this->determine_captcha_language();
+			$google_url = apply_filters( 'c4wp_v2_checkbox_script_api_src', sprintf( 'https://www.%s/recaptcha/api.js?onload=c4wp_onloadCallback&render=explicit' . $lang, c4wp_recaptcha_domain() ), $lang );
 			?>
 			<script src="<?php echo esc_url( $google_url ); ?>"
 				async defer>
@@ -243,62 +155,55 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 		function v2_invisible_script() {
 			?>
 			<script type="text/javascript">
-				var anr_onloadCallback = function() {
+				var c4wp_onloadCallback = function() {
 					for ( var i = 0; i < document.forms.length; i++ ) {
 						var form = document.forms[i];
-						var captcha_div = form.querySelector( '.anr_captcha_field_div' );
+						var captcha_div = form.querySelector( '.c4wp_captcha_field_div' );
 
 						if ( null === captcha_div )
 							continue;
 						captcha_div.innerHTML = '';
 						( function( form ) {
-							var anr_captcha = grecaptcha.render( captcha_div,{
-								'sitekey' : '<?php echo esc_js( trim( anr_get_option( 'site_key' ) ) ); ?>',
+							var c4wp_captcha = grecaptcha.render( captcha_div,{
+								'sitekey' : '<?php echo esc_js( trim( c4wp_get_option( 'site_key' ) ) ); ?>',
 								'size'  : 'invisible',
-								'theme' : '<?php echo esc_js( anr_get_option( 'theme', 'light' ) ); ?>',
-								'badge' : '<?php echo esc_js( anr_get_option( 'badge', 'bottomright' ) ); ?>',
+								'theme' : '<?php echo esc_js( c4wp_get_option( 'theme', 'light' ) ); ?>',
+								'badge' : '<?php echo esc_js( c4wp_get_option( 'badge', 'bottomright' ) ); ?>',
 								'callback' : function ( token ) {
-									if ( jQuery( '.woocommerce-checkout' ).length ) {
+									if ( ( typeof jQuery !== 'undefined' ) && jQuery( '.woocommerce-checkout' ).length ) {
 										jQuery( '.woocommerce-checkout' ).submit();
 									} else {
 										form.submit();
 									}
+
+									// Apply relevent accessibility attributes to response.
+									var responseTextareas = document.querySelectorAll(".g-recaptcha-response");
+									responseTextareas.forEach(function(textarea) {
+										textarea.setAttribute("aria-hidden", "true");
+										textarea.setAttribute("aria-label", "do not use");
+										textarea.setAttribute("aria-readonly", "true");
+									});
 								},
 								'expired-callback' : function(){
-									grecaptcha.reset( anr_captcha );
+									grecaptcha.reset( c4wp_captcha );
 								}
 							});
-							var cf7_submit = form.querySelector( '.wpcf7-submit' );
 
-							if( null !== cf7_submit && ( typeof jQuery !== 'undefined' ) ){
-								jQuery( cf7_submit ).off('click').on('click', function( e ){
-									e.preventDefault();
-									jQuery( '.ajax-loader', form ).addClass( 'is-active' );
-									grecaptcha.execute( anr_captcha );
-								});
-							} else if ( jQuery( '.woocommerce-checkout' ).length ) {								
-								jQuery( 'body' ).on( 'click', '#place_order', function( e ) {
-									e.preventDefault();
-									grecaptcha.execute( anr_captcha );
-								});								
-							} else {
-								form.onsubmit = function( e ){
-									e.preventDefault();
-									grecaptcha.execute( anr_captcha );
-								};
-							}
+							<?php
+								$additonal_js = apply_filters( 'c4wp_captcha_callback_additonal_js', false );
+								echo $additonal_js;
+							?>
+							form.onsubmit = function( e ){
+								e.preventDefault();
+								grecaptcha.execute( c4wp_captcha );
+							};
 						})(form);
 					}
 				};
 			</script>
-			<?php
-			$language = trim( anr_get_option( 'language' ) );
-
-			$lang = '';
-			if ( $language ) {
-				$lang = '&hl=' . $language;
-			}
-			$google_url = apply_filters( 'anr_v2_invisible_script_api_src', sprintf( 'https://www.%s/recaptcha/api.js?onload=anr_onloadCallback&render=explicit' . $lang, anr_recaptcha_domain() ), $lang );
+			<?php			
+			$lang = $this->determine_captcha_language();
+			$google_url = apply_filters( 'c4wp_v2_invisible_script_api_src', sprintf( 'https://www.%s/recaptcha/api.js?onload=c4wp_onloadCallback&render=explicit' . $lang, c4wp_recaptcha_domain() ), $lang );
 			?>
 			<script src="<?php echo esc_url( $google_url ); ?>"
 				async defer>
@@ -307,24 +212,17 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 		}
 
 		function v3_script() {
-			// v3 support v2 script. So use it
-			// $this->v2_invisible_script();
+			
+			$site_key = trim( c4wp_get_option( 'site_key' ) );
+			$lang = $this->determine_captcha_language();
 
-			$language = trim( anr_get_option( 'language' ) );
-			$site_key = trim( anr_get_option( 'site_key' ) );
-
-			$lang = '';
-			if ( $language ) {
-				$lang = '&hl=' . $language;
-			}
-
-			$google_url = apply_filters( 'anr_v3_script_api_src', sprintf( 'https://www.%s/recaptcha/api.js?render=' . $site_key . $lang, anr_recaptcha_domain() ), $site_key, $lang );
+			$google_url = apply_filters( 'c4wp_v3_script_api_src', sprintf( 'https://www.%s/recaptcha/api.js?render=' . $site_key . $lang, c4wp_recaptcha_domain() ), $site_key, $lang );
 			?>
 			<script src="<?php echo esc_url( $google_url ); ?>"></script>
 			<script type="text/javascript">
 				( function( grecaptcha ) {
 
-					var anr_onloadCallback = function() {
+					var c4wp_onloadCallback = function() {
 						grecaptcha.execute(
 							'<?php echo esc_js( $site_key ); ?>',
 							{ action: 'advanced_nocaptcha_recaptcha' }
@@ -337,18 +235,18 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 
 								captcha.value = token;
 							}
+							// Apply relevent accessibility attributes to response.
+							var responseTextareas = document.querySelectorAll(".g-recaptcha-response");
+							responseTextareas.forEach(function(textarea) {
+								textarea.setAttribute("aria-hidden", "true");
+								textarea.setAttribute("aria-label", "do not use");
+								textarea.setAttribute("aria-readonly", "true");
+							});
 						});
 					};
 
-					grecaptcha.ready( anr_onloadCallback );
-
-					document.addEventListener( 'wpcf7submit', anr_onloadCallback, false );
-					if ( typeof jQuery !== 'undefined' ) {
-						//Woocommerce
-						jQuery( document.body ).on( 'checkout_error', anr_onloadCallback );
-					}
 					//token is valid for 2 minutes, So get new token every after 1 minutes 50 seconds
-					setInterval(anr_onloadCallback, 110000);
+					setInterval(c4wp_onloadCallback, 110000);
 
 				} )( grecaptcha );
 			</script>
@@ -361,59 +259,16 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 			}
 
 		function form_field_return( $return = '' ) {
-			if ( is_user_logged_in() && anr_get_option( 'loggedin_hide' ) ) {
+			if ( is_user_logged_in() && c4wp_hide_for_logged_in_user_or_role() ) {
 				return $return;
 			}
 			$ip = $_SERVER['REMOTE_ADDR'];
-			if ( in_array( $ip, array_filter( explode( '\n', anr_get_option( 'whitelisted_ips' ) ) ) ) ) {
+			if ( in_array( $ip, array_filter( explode( '\n', c4wp_get_option( 'whitelisted_ips' ) ) ) ) ) {
 				return $return;
 			}
 			return $return . $this->captcha_form_field();
 		}
-
-		function post_id() {
-			global $wpdb;
-			static $post_id;
-
-			if ( ! absint( anr_get_option( 'failed_login_allow' ) ) ) {
-				return 0;
-			}
-			if ( is_numeric( $post_id ) ) {
-				return $post_id;
-			}
-			$post_id = $wpdb->get_var( "SELECT ID FROM $wpdb->posts WHERE post_type = 'anr-post' LIMIT 1" );
-
-			if ( ! $post_id ) {
-				$wpdb->insert( $wpdb->posts, array( 'post_type' => 'anr-post' ) );
-				$post_id = $wpdb->insert_id;
-			}
-			$post_id = absint( $post_id );
-
-			return $post_id;
-		}
-
-		function show_login_captcha() {
-			global $wpdb;
-
-			$show_captcha = true;
-			$ip           = $_SERVER['REMOTE_ADDR'];
-			if ( in_array( $ip, array_filter( explode( '\n', anr_get_option( 'whitelisted_ips' ) ) ) ) ) {
-				return false;
-			}
-			// filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE );
-			$count   = absint( anr_get_option( 'failed_login_allow' ) );
-			$post_id = $this->post_id();
-
-			if ( $count && $post_id && filter_var( $ip, FILTER_VALIDATE_IP ) ) {
-				$user_logins = $wpdb->get_col( $wpdb->prepare( "SELECT meta_value FROM $wpdb->postmeta WHERE post_id = %d AND meta_key = %s", $post_id, md5( $ip ) ) );
-
-				if ( count( $user_logins ) < $count && count( array_unique( $user_logins ) ) <= 1 ) {
-					$show_captcha = false;
-				}
-			}
-
-			return $show_captcha;
-		}
+		
 		function login_form_field() {
 			if ( $this->show_login_captcha() ) {
 				$this->form_field();
@@ -426,19 +281,21 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 				}
 			return $field;
 		}
-
-		function wc_form_field() {
-			if ( ! is_user_logged_in() && 'yes' == get_option( 'woocommerce_enable_signup_and_login_from_checkout', 'yes' ) && anr_is_form_enabled( 'registration' ) ) {
-				$this->form_field();
-
-			} elseif ( anr_is_form_enabled( 'wc_checkout' ) ) {
-				$this->form_field();
+		
+		function show_login_captcha() {			
+			$show_captcha = true;
+			$ip           = $_SERVER['REMOTE_ADDR'];
+			if ( in_array( $ip, array_filter( explode( '\n', c4wp_get_option( 'whitelisted_ips' ) ) ) ) ) {
+				return false;
 			}
 
+			$show_captcha = apply_filters( 'c4wp_login_captcha_filter', $show_captcha, $ip );
+
+			return $show_captcha;
 		}
 
 		function ms_form_field( $errors ) {
-			if ( $errmsg = $errors->get_error_message( 'anr_error' ) ) {
+			if ( $errmsg = $errors->get_error_message( 'c4wp_error' ) ) {
 				echo '<p class="error">' . $errmsg . '</p>';
 			}
 			$this->form_field();
@@ -447,15 +304,15 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 		function verify( $response = false ) {
 			static $last_verify = null;
 
-			if ( is_user_logged_in() && anr_get_option( 'loggedin_hide' ) ) {
+			if ( is_user_logged_in() && c4wp_hide_for_logged_in_user_or_role() ) {
 				return true;
 			}
 	
-			$secre_key  = trim( anr_get_option( 'secret_key' ) );
+			$secre_key  = trim( c4wp_get_option( 'secret_key' ) );
 			$remoteip = $_SERVER['REMOTE_ADDR'];
 			$verify = false;
 
-			if ( in_array( $remoteip, array_filter( explode( '\n', anr_get_option( 'whitelisted_ips' ) ) ) ) ) {
+			if ( in_array( $remoteip, array_filter( explode( '\n', c4wp_get_option( 'whitelisted_ips' ) ) ) ) ) {
 				return true;
 			}
 			
@@ -463,7 +320,7 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 				$response = isset( $_POST['g-recaptcha-response'] ) ? $_POST['g-recaptcha-response'] : '';
 			}
 			
-			$pre_check = apply_filters( 'anr_verify_captcha_pre', null, $response );
+			$pre_check = apply_filters( 'c4wp_verify_captcha_pre', null, $response );
 			
 			if ( null !== $pre_check ) {
 				return $pre_check;
@@ -481,7 +338,7 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 				return $last_verify;
 			}
 
-			$url = apply_filters( 'anr_google_verify_url', sprintf( 'https://www.%s/recaptcha/api/siteverify', anr_recaptcha_domain() ) );
+			$url = apply_filters( 'c4wp_google_verify_url', sprintf( 'https://www.%s/recaptcha/api/siteverify', c4wp_recaptcha_domain() ) );
 
 			// make a POST request to the Google reCAPTCHA Server
 			$request = wp_remote_post(
@@ -501,26 +358,20 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 				return $verify;
 			}
 
-				$result = json_decode( $request_body, true );
+			$result = json_decode( $request_body, true );
 			if ( isset( $result['success'] ) && true == $result['success'] ) {
-				if ( 'v3' === anr_get_option( 'captcha_version' ) ) {
+				if ( 'v3' === c4wp_get_option( 'captcha_version' ) ) {
 					$score = isset( $result['score'] ) ? $result['score'] : 0;
 					$action = isset( $result['action'] ) ? $result['action'] : '';
-					$verify = anr_get_option( 'score', '0.5' ) <= $score && 'advanced_nocaptcha_recaptcha' == $action;
+					$verify = c4wp_get_option( 'score', '0.5' ) <= $score && 'advanced_nocaptcha_recaptcha' == $action;
 				} else {
 					$verify = true;
 				}
 			}
-			$verify = apply_filters( 'anr_verify_captcha', $verify, $result, $response );
+			$verify = apply_filters( 'c4wp_verify_captcha', $verify, $result, $response );
 			$last_verify = $verify;
 
 			return $verify;
-		}
-
-		function fepcf_verify( $errors ) {
-			if ( ! $this->verify() ) {
-				$errors->add( 'anr_error', anr_get_option( 'error_message' ) );
-			}
 		}
 
 		function login_verify( $user, $username = '', $password = '' ) {
@@ -529,75 +380,63 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 				return $user;
 			}
 
+			// Bail if a rest request.
+			if ( $this->is_rest_request() ) {
+				return $user;
+			}
+
 			$show_captcha = $this->show_login_captcha();
 
-			if ( ! ( $user instanceof WP_User ) ) {
-				if ( ! $show_captcha && ( $post_id = $this->post_id() ) ) {
-					if ( is_email( $username ) ) {
-						$user_data = get_user_by( 'email', $username );
-						if ( $user_data ) {
-							$username = $user_data->user_login;
-						}
-					}
-					$wpdb->insert(
-						$wpdb->postmeta, array(
-						'post_id'    => $post_id,
-						'meta_key'   => md5( $_SERVER['REMOTE_ADDR'] ),
-						'meta_value' => $username,
-					), array( '%d', '%s', '%s' )
-					);
-				}
-				// return $user;
-			}
 			if ( $show_captcha && ! $this->verify() ) {
-				return new WP_Error( 'anr_error', $this->add_error_to_mgs() );
+				return new WP_Error( 'c4wp_error', $this->add_error_to_mgs() );
 			}
 
 			return $user;
 		}
 
-		function clear_data( $user_login, $user ) {
-			global $wpdb;
+		/**
+		 * Checks if the current authentication request is RESTy or a custom URL where it should not load.
+		 */
+		function is_rest_request() {
+			$is_rest = false;
 
-			if ( $post_id = $this->post_id() ) {
-				$wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->postmeta WHERE post_id = %d AND ( meta_key = %s OR meta_value = %s )", $post_id, md5( $_SERVER['REMOTE_ADDR'] ), $user_login ) );
+			if ( ! empty( $_SERVER['REQUEST_URI'] ) ) {
+				$rest_url_path = false;
+				$possible_paths = [
+					'/wp-json/',
+				];
+				$whitelisted_urls = ( empty( c4wp_get_option( 'whitelisted_urls' ) ) ) ? [] : explode( ',', c4wp_get_option( 'whitelisted_urls' ) );
+				$possible_paths = array_merge( $whitelisted_urls, $possible_paths );
+
+				foreach( $possible_paths as $path ) {
+					$rest_url_path = trim( parse_url( home_url( $path ), PHP_URL_PATH ), '/' );
+				}
+				
+				$request_path  = trim( $_SERVER['REQUEST_URI'], '/' );
+
+				/*
+				 * If we have both a url and a request patch check if this is
+				 * a rest request.
+				 */
+				if ( ! empty( $rest_url_path ) && $request_path ) {
+					$is_rest = ( strpos( $request_path, $rest_url_path ) === 0 ) || isset( $_GET['rest_route'] );
+				}
 			}
-		}
 
+			return $is_rest;
+		}
+		
 		function registration_verify( $errors, $sanitized_user_login, $user_email ) {
 			if ( ! $this->verify() ) {
-				$errors->add( 'anr_error', $this->add_error_to_mgs() );
+				$errors->add( 'c4wp_error', $this->add_error_to_mgs() );
 			}
 
 			return $errors;
 		}
-
-		function wc_registration_verify( $errors, $sanitized_user_login, $user_email ) {
-			if ( defined( 'WOOCOMMERCE_CHECKOUT' ) && ! anr_is_form_enabled( 'wc_checkout' ) ) {
-				return $errors;
-			}
-			if ( ! $this->verify() ) {
-				$errors->add( 'anr_error', anr_get_option( 'error_message' ) );
-			}
-
-			return $errors;
-		}
-
-		function bp_form_field() {
-			do_action( 'bp_anr_error_errors' );
-
-			$this->form_field();
-		}
-
-		function bp_registration_verify() {
-			if ( ! $this->verify() ) {
-				buddypress()->signup->errors['anr_error'] = anr_get_option( 'error_message' );
-			}
-		}
-
+		
 		function ms_form_field_verify( $result ) {
 			if ( isset( $_POST['stage'] ) && 'validate-user-signup' === $_POST['stage'] && ! $this->verify() ) {
-				$result['errors']->add( 'anr_error', anr_get_option( 'error_message' ) );
+				$result['errors']->add( 'c4wp_error', c4wp_get_option( 'error_message' ) );
 			}
 
 			return $result;
@@ -605,7 +444,7 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 
 		function ms_blog_verify( $result ) {
 			if ( ! $this->verify() ) {
-				$result['errors']->add( 'anr_error', anr_get_option( 'error_message' ) );
+				$result['errors']->add( 'c4wp_error', c4wp_get_option( 'error_message' ) );
 			}
 
 			return $result;
@@ -619,7 +458,7 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 			}
 			
 			if ( ! $this->verify() ) {
-				return new WP_Error( 'anr_error', $this->add_error_to_mgs() );
+				return new WP_Error( 'c4wp_error', $this->add_error_to_mgs() );
 			}
 
 			return $result;
@@ -627,14 +466,14 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 
 		function lostpassword_verify_44( $errors ) {
 			if ( ! $this->verify() ) {
-				$errors->add( 'anr_error', $this->add_error_to_mgs() );
+				$errors->add( 'c4wp_error', $this->add_error_to_mgs() );
 			}
 		}
 
 
 		function reset_password_verify( $errors, $user ) {
 			if ( ! $this->verify() ) {
-				$errors->add( 'anr_error', $this->add_error_to_mgs() );
+				$errors->add( 'c4wp_error', $this->add_error_to_mgs() );
 			}
 		}
 
@@ -653,47 +492,11 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 
 		function comment_verify_490( $approved ) {
 			if ( ! $this->verify() ) {
-				return new WP_Error( 'anr_error', $this->add_error_to_mgs(), 403 );
+				return new WP_Error( 'c4wp_error', $this->add_error_to_mgs(), 403 );
 			}
 			return $approved;
 		}
-
-		function wpcf7_form_field( $tag ) {
-
-			return $this->form_field_return() . sprintf( '<span class="wpcf7-form-control-wrap %s"><span class="wpcf7-form-control"></span></span>', $tag->name );
-		}
-
-		function wpcf7_verify( $result, $tag ) {
-			if ( ! $this->verify() ) {
-				$result->invalidate( $tag, anr_get_option( 'error_message' ) );
-			}
-
-			return $result;
-		}
-
-		function bbp_new_verify( $forum_id ) {
-			if ( ! $this->verify() ) {
-				bbp_add_error( 'anr_error', $this->add_error_to_mgs() );
-			}
-		}
-
-		function bbp_reply_verify( $topic_id, $forum_id ) {
-			if ( ! $this->verify() ) {
-				bbp_add_error( 'anr_error', $this->add_error_to_mgs() );
-			}
-		}
-
-		function wc_checkout_verify( $data, $errors ) {
-			$is_reg_enable   = apply_filters( 'woocommerce_checkout_registration_enabled', 'yes' === get_option( 'woocommerce_enable_signup_and_login_from_checkout' ) );
-			$is_reg_required = apply_filters( 'woocommerce_checkout_registration_required', 'yes' !== get_option( 'woocommerce_enable_guest_checkout' ) );
-
-			if ( ! is_user_logged_in() && $is_reg_enable && anr_is_form_enabled( 'registration' ) && ( $is_reg_required || ! empty( $data['createaccount'] ) ) ) {
-				// verification done during ragistration, So no need any more verification
-			} elseif ( ! $this->verify() ) {
-				$errors->add( 'anr_error', anr_get_option( 'error_message' ) );
-			}
-		}
-
+		
 		/**
 		 * Checks if the current page load is actually an iframe found in the new customizer/widgets areas within WP 5.8+.
 		 *
@@ -706,8 +509,9 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 			} 
 			return true;
 		}
+
 	} //END CLASS
 } //ENDIF
 
-add_action( 'init', array( anr_captcha_class::init(), 'actions_filters' ), -9 );
+add_action( 'init', array( c4wp_captcha_class::init(), 'actions_filters' ), -9 );
 
