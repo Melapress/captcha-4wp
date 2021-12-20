@@ -68,5 +68,3 @@ class C4WP
 
 }
 //END Class
-
-}
