@@ -256,16 +256,9 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 
 		function form_field() {
 			echo $this->form_field_return();
-			}
+		}
 
 		function form_field_return( $return = '' ) {
-			if ( is_user_logged_in() && c4wp_hide_for_logged_in_user_or_role() ) {
-				return $return;
-			}
-			$ip = $_SERVER['REMOTE_ADDR'];
-			if ( in_array( $ip, array_filter( explode( '\n', c4wp_get_option( 'whitelisted_ips' ) ) ) ) ) {
-				return $return;
-			}
 			return $return . $this->captcha_form_field();
 		}
 		
@@ -274,20 +267,15 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 				$this->form_field();
 			}
 		}
-
+		
 		function login_form_return( $field = '' ) {
 			if ( $this->show_login_captcha() ) {
 				$field = $this->form_field_return( $field );
-				}
+			}
 			return $field;
 		}
 		
-		function show_login_captcha() {			
-			$show_captcha = true;
-			$ip           = $_SERVER['REMOTE_ADDR'];
-			if ( in_array( $ip, array_filter( explode( '\n', c4wp_get_option( 'whitelisted_ips' ) ) ) ) ) {
-				return false;
-			}
+		function show_login_captcha() {
 
 			$show_captcha = apply_filters( 'c4wp_login_captcha_filter', $show_captcha, $ip );
 
@@ -304,18 +292,15 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 		function verify( $response = false ) {
 			static $last_verify = null;
 
-			if ( is_user_logged_in() && c4wp_hide_for_logged_in_user_or_role() ) {
+			if ( is_user_logged_in() 
+			) {
 				return true;
 			}
 	
 			$secre_key  = trim( c4wp_get_option( 'secret_key' ) );
-			$remoteip = $_SERVER['REMOTE_ADDR'];
 			$verify = false;
 
-			if ( in_array( $remoteip, array_filter( explode( '\n', c4wp_get_option( 'whitelisted_ips' ) ) ) ) ) {
-				return true;
-			}
-			
+
 			if ( false === $response ) {
 				$response = isset( $_POST['g-recaptcha-response'] ) ? $_POST['g-recaptcha-response'] : '';
 			}
