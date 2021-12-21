@@ -10,6 +10,14 @@
 * Text Domain: advanced-nocaptcha-recaptcha
 * License: GPLv2 or later
 * WC tested up to: 5.6.0
+
+
+
+
+
+
+
+
 */
 
 if ( !defined( 'ABSPATH' ) ) {
