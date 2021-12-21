@@ -275,7 +275,8 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 			return $field;
 		}
 		
-		function show_login_captcha() {
+		function show_login_captcha() {				
+			$show_captcha = true;
 
 			$show_captcha = apply_filters( 'c4wp_login_captcha_filter', $show_captcha, $ip );
 
