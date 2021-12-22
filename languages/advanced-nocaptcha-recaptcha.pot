@@ -578,83 +578,87 @@ msgstr ""
 msgid "No hook defined for %s"
 msgstr ""
 
-#: admin/settings.php:701, admin/settings.php:702, admin/settings.php:711, admin/settings.php:712
+#: admin/settings.php:701, admin/settings.php:702, admin/settings.php:716, admin/settings.php:717
 msgid "CAPTCHA Configuration"
 msgstr ""
 
-#: admin/settings.php:701, admin/settings.php:711
+#: admin/settings.php:701, admin/settings.php:716
 msgid "CAPTCHA 4WP"
 msgstr ""
 
-#: admin/settings.php:702, admin/settings.php:712
+#: admin/settings.php:702, admin/settings.php:717
 msgid "CAPTCHA"
 msgstr ""
 
-#: admin/settings.php:703, admin/settings.php:713
+#: admin/settings.php:703, admin/settings.php:718
 msgid "CAPTCHA 4WP Settings"
 msgstr ""
 
-#: admin/settings.php:703, admin/settings.php:713, admin/settings.php:764, admin/settings.php:907
+#: admin/settings.php:703, admin/settings.php:718, admin/settings.php:775, admin/settings.php:924
 msgid "Settings"
 msgstr ""
 
-#: admin/settings.php:704, admin/settings.php:704, admin/settings.php:714, admin/settings.php:714
+#: admin/settings.php:704, admin/settings.php:704, admin/settings.php:719, admin/settings.php:719
 msgid "Help & Contact Us"
 msgstr ""
 
-#: admin/settings.php:748
+#: admin/settings.php:706, admin/settings.php:706, admin/settings.php:722, admin/settings.php:722
+msgid "Premium Features ➤"
+msgstr ""
+
+#: admin/settings.php:759
 msgid "Please supply a valid IP"
 msgstr ""
 
-#: admin/settings.php:762
+#: admin/settings.php:773
 msgid "Captcha Configuration"
 msgstr ""
 
-#: admin/settings.php:824
+#: admin/settings.php:841
 msgid "The site key that you have entered is invalid. Please try again."
 msgstr ""
 
-#: admin/settings.php:827
+#: admin/settings.php:844
 msgid "The secret key that you have entered is invalid. Please try again."
 msgstr ""
 
-#: admin/settings.php:830
+#: admin/settings.php:847
 msgid "Captcha settings"
 msgstr ""
 
-#: admin/settings.php:832
+#: admin/settings.php:849
 msgid "Captcha configuration"
 msgstr ""
 
-#: admin/settings.php:834
+#: admin/settings.php:851
 msgid " updated"
 msgstr ""
 
-#: admin/settings.php:849
+#: admin/settings.php:866
 msgid "PRO Features"
 msgstr ""
 
-#: admin/settings.php:854
+#: admin/settings.php:871
 msgid "WooCommerce forms"
 msgstr ""
 
-#: admin/settings.php:855
+#: admin/settings.php:872
 msgid "Contact Form 7 forms"
 msgstr ""
 
-#: admin/settings.php:856
+#: admin/settings.php:873
 msgid "bbPress New topic form"
 msgstr ""
 
-#: admin/settings.php:857
+#: admin/settings.php:874
 msgid "bbPress reply to topic form"
 msgstr ""
 
-#: admin/settings.php:858
+#: admin/settings.php:875
 msgid "BuddyPress register form"
 msgstr ""
 
-#: admin/settings.php:860
+#: admin/settings.php:877
 msgid "View Details"
 msgstr ""
 
@@ -776,4 +780,8 @@ msgstr ""
 
 #: admin/templates/help/system-info.php:8
 msgid "System information"
+msgstr ""
+
+#: admin/templates/upgrade/index.php:4
+msgid "Premium features"
 msgstr ""
