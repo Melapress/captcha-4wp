@@ -699,20 +699,31 @@ class C4WP_Settings {
 
 	function menu_page() {
 		add_menu_page( esc_html__( 'CAPTCHA Configuration', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'CAPTCHA 4WP', 'advanced-nocaptcha-recaptcha' ), 'manage_options', 'c4wp-admin-captcha', [ $this, 'admin_settings' ],  '', 99 );
-		add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'CAPTCHA Configuration', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'CAPTCHA', 'advanced-nocaptcha-recaptcha' ), 'manage_options', 'c4wp-admin-captcha', [ $this, 'admin_settings' ] );
+		$hook_captcha_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'CAPTCHA Configuration', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'CAPTCHA', 'advanced-nocaptcha-recaptcha' ), 'manage_options', 'c4wp-admin-captcha', [ $this, 'admin_settings' ] );
 		$hook_settings_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'CAPTCHA 4WP Settings', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'Settings', 'advanced-nocaptcha-recaptcha' ), 'manage_options', 'c4wp-admin-settings', [ $this, 'admin_settings' ] );
 		$hook_help_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'Help & Contact Us', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'Help & Contact Us', 'advanced-nocaptcha-recaptcha' ), 'manage_options', 'c4wp-admin-help', [ $this, 'admin_settings' ] );
+		/* @free:start */
+		$hook_upgrade_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'Premium Features ➤', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'Premium Features ➤', 'advanced-nocaptcha-recaptcha' ), 'manage_options', 'c4wp-admin-upgrade', [ $this, 'admin_settings' ] );
+		add_action( "load-$hook_upgrade_submenu", [ $this, 'c4wp_admin_page_enqueue_scripts' ] );
+		/* @free:end */
 
+		add_action( "load-$hook_captcha_submenu", [ $this, 'c4wp_admin_page_enqueue_scripts' ] );
 		add_action( "load-$hook_help_submenu", [ $this, 'c4wp_admin_page_enqueue_scripts' ] );
 		add_action( "load-$hook_settings_submenu", [ $this, 'c4wp_admin_page_enqueue_scripts' ] );
 	}
-
+	
 	function network_menu_page() {
 		add_menu_page( esc_html__( 'CAPTCHA Configuration', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'CAPTCHA 4WP', 'advanced-nocaptcha-recaptcha' ), 'manage_network_options', 'c4wp-admin-captcha', [ $this, 'admin_settings' ],  '', 99 );
 		add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'CAPTCHA Configuration', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'CAPTCHA', 'advanced-nocaptcha-recaptcha' ), 'manage_network_options', 'c4wp-admin-captcha', [ $this, 'admin_settings' ] );
 		$hook_settings_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'CAPTCHA 4WP Settings', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'Settings', 'advanced-nocaptcha-recaptcha' ), 'manage_network_options', 'c4wp-admin-settings', [ $this, 'admin_settings' ] );
 		$hook_help_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'Help & Contact Us', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'Help & Contact Us', 'advanced-nocaptcha-recaptcha' ), 'manage_network_options', 'c4wp-admin-help', [ $this, 'admin_settings' ] );
 
+		/* @free:start */
+		$hook_upgrade_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'Premium Features ➤', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'Premium Features ➤', 'advanced-nocaptcha-recaptcha' ), 'manage_network_options', 'c4wp-admin-upgrade', [ $this, 'admin_settings' ] );
+		add_action( "load-$hook_upgrade_submenu", [ $this, 'c4wp_admin_page_enqueue_scripts' ] );
+		/* @free:end */
+
+		add_action( "load-$hook_captcha_submenu", [ $this, 'c4wp_admin_page_enqueue_scripts' ] );
 		add_action( "load-$hook_help_submenu", [ $this, 'c4wp_admin_page_enqueue_scripts' ] );
 		add_action( "load-$hook_settings_submenu", [ $this, 'c4wp_admin_page_enqueue_scripts' ] );
 	}
@@ -774,6 +785,12 @@ class C4WP_Settings {
 							} else if ( 'c4wp-admin-help' == $current_tab ) {
 								$this->display_help_page();
 							}
+
+							/* @free:start */
+							if ( 'c4wp-admin-upgrade' == $current_tab ) {
+								$this->display_upgrade_page();
+							}
+							/* @free:end */
 							?>
 						</div><!-- #tab_container-->
 					</div><!-- #post-body-content-->
@@ -912,6 +929,12 @@ class C4WP_Settings {
 	function display_help_page() {
 		require_once 'templates/help/index.php';
 	}
+
+	/* @free:start */
+	function display_upgrade_page() {
+		require_once 'templates/upgrade/index.php';
+	}
+	/* @free:end */
 
 	function push_at_to_associative_array( $array, $key, $new ){
         $keys  = array_keys( $array );

@@ -246,8 +246,8 @@ function c4wp_same_settings_for_all_sites(){
 }
 
 function c4wp_settings_page_url( $tab = false ){
-	$url = c4wp_same_settings_for_all_sites() ? network_admin_url( 'admin.php?page=c4wp-admin-settings' ) : admin_url( 'admin.php?page=c4wp-admin-settings' );
-	return add_query_arg( 'page', $tab, $url );
+	$url = c4wp_same_settings_for_all_sites() ? network_admin_url( 'admin.php?page=c4wp-admin-captcha' ) : admin_url( 'admin.php?page=c4wp-admin-captcha' );
+	return $url;
 }
 
 function hide_freemius_submenu_items( $is_visible, $submenu_id ) {
