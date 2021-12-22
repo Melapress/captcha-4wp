@@ -64,8 +64,6 @@ jQuery(document).ready(function( $ ){
 		if ( $( this ).is(':checked') ) {
 			$( '#c4wp_admin_options_loggedin_hide' ).prop( "checked", false );
 		} else {
-			$( this ).prop( "checked", true );
-			$( this ).click();
 			$( '.loggedin_hide.disabled' ).removeClass( 'disabled' );
 		}
 	});
@@ -73,8 +71,6 @@ jQuery(document).ready(function( $ ){
 		if ( $( this ).is(':checked') ) {
 			$( '#c4wp_admin_options_loggedin_hide_for_roles' ).prop( "checked", false );
 		} else {
-			$( this ).prop( "checked", true );
-			$( this ).click();
 			$( '.loggedin_hide' ).addClass( 'disabled' );
 		}
 	});
@@ -113,36 +109,6 @@ jQuery(document).ready(function( $ ){
 		}
 		$( '#whitelist_urls_input' ).val( '' );
 	});
-
-  	// Toggle checkboxes and incompatible settings when changed in admin.
-	$('.form-table').on( "change", '#c4wp_admin_options_loggedin_hide_for_roles', function(e) {
-		if ( $( this ).is(':checked') ) {
-			$( '#c4wp_admin_options_loggedin_hide' ).prop( "checked", false );
-		} else {
-			$( this ).prop( "checked", true );
-			$( this ).click();
-			$( '.loggedin_hide.disabled' ).removeClass( 'disabled' );
-		}
-	});
-	$('.form-table').on( "change", '#c4wp_admin_options_loggedin_hide', function(e) {
-		if ( $( this ).is(':checked') ) {
-			$( '#c4wp_admin_options_loggedin_hide_for_roles' ).prop( "checked", false );
-		} else {
-			$( this ).prop( "checked", true );
-			$( this ).click();
-			$( '.loggedin_hide' ).addClass( 'disabled' );
-		}
-	});
-
-	// Toggle "hide for these roles" options based on input in admin.
-	$('.form-table').on( "change", '#c4wp_admin_options_loggedin_hide_for_roles, #c4wp_admin_options_loggedin_hide', function(e) {
-		toggleRoleOptions();
-	});
-
-	// Append newly added ips to neat list.
-	$('.form-table').on( "change", '#c4wp_admin_options_whitelisted_ips', function(e) {
-		buildWhitelistList()
-	});
 	
 	// Remove an IP from the list.
 	jQuery( 'body' ).on( 'click', 'span#removeip', function ( e ) {
@@ -175,8 +141,7 @@ jQuery(document).ready(function( $ ){
 
 
 // Handle dismissal of admin notice
-jQuery(function() {
-	
+jQuery(function() {	
 	/**
 	 * Checks if the supplied value is valid.
 	 */

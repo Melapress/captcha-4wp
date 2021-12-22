@@ -147,7 +147,7 @@ class C4WP_Settings {
 				'section_id' => 'google_keys',
 				'desc'       => sprintf(
 					'</br> ' . esc_html__( 'To communicate with Google and utilize the reCAPTCHA service you need to get a Site Key and Secret Key. You can obtain these keys for free by registering for your Google reCAPTCHA. Refer to %s if you need help with the process.', 'advanced-nocaptcha-recaptcha' ),					
-					'<a href="' . esc_url( '#' ) . '">' . esc_html__( 'how to get the Google reCAPTCHA keys', 'advanced-nocaptcha-recaptcha' ) . '</a>'			
+					'<a href="' . esc_url( 'https://www.wpwhitesecurity.com/support/kb/get-google-recaptcha-keys/' ) . '" target="_blank">' . esc_html__( 'how to get the Google reCAPTCHA keys', 'advanced-nocaptcha-recaptcha' ) . '</a>'			
 				),
 				'required'   => true,
 			),
@@ -408,7 +408,7 @@ class C4WP_Settings {
 			'failed_login_allow' => array(
 				'label'             => esc_html__( 'Number of failed logins required to trigger CAPTCHA tests', 'advanced-nocaptcha-recaptcha' ),
 				'section_id'        => 'forms',
-				'std'               => 0,
+				'std'               => 3,
 				'type'              => 'number',
 				'class'             =>  $premium_setting_class .' regular-number remove-space-below',
 				'sanitize_callback' => 'absint',
@@ -418,7 +418,7 @@ class C4WP_Settings {
 				'cb_label'          => esc_html__( 'Flush the list of IP addresses every', 'advanced-nocaptcha-recaptcha' ),
 				'cb_label_after'    => esc_html__( 'days', 'advanced-nocaptcha-recaptcha' ),
 				'section_id'        => 'forms',
-				'std'               => 0,
+				'std'               => 7,
 				'type'              => 'number-inline',
 				'class'             =>  $premium_setting_class .' regular-number number-inline',
 				'sanitize_callback' => 'absint',
