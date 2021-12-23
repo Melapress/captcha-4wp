@@ -495,7 +495,19 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 			} 
 			return true;
 		}
-
+		
+		/**
+		 * Auto detects language if applicable, otherwise returns the users desired language from the settings.
+		 * 
+		 * @return string
+		 */
+		function determine_captcha_language() {			
+			$language    = trim( c4wp_get_option( 'language' ) );
+			/* @free:start */
+			$lang = '&hl=' . $language;
+			/* @free:end */	
+			return $lang;
+		}
 	} //END CLASS
 } //ENDIF
 
