@@ -277,6 +277,7 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 		
 		function show_login_captcha() {				
 			$show_captcha = true;
+			$ip           = $_SERVER['REMOTE_ADDR'];
 
 			$show_captcha = apply_filters( 'c4wp_login_captcha_filter', $show_captcha, $ip );
 
