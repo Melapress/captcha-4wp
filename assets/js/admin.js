@@ -164,11 +164,11 @@ jQuery(function() {
 			url: ajaxurl,
 			async: true,
 			data: {
-				action: 'adv_nocaptcha_plugin_notice_ignore',
+				action: 'c4wp_nocaptcha_plugin_notice_ignore',
 				nonce: nonce,
 			},
 			success: function ( result ) {
-				jQuery( '#adv-captcha-notice' ).slideUp();
+				jQuery( '#network-captcha-notice' ).slideUp();
 			}
 		});
 	});
