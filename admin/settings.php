@@ -50,7 +50,7 @@ class C4WP_Settings {
 			'google_keys' => [
 				'section_title'    => '',
 				'section_callback' => function() {
-					$settings_url = c4wp_same_settings_for_all_sites() ? network_admin_url( 'admin.php?page=c4wp-admin-settings' ) : admin_url( 'admin.php?page=c4wp-admin-settings' );
+					$settings_url = function_exists( 'c4wp_same_settings_for_all_sites' ) && c4wp_same_settings_for_all_sites() ? network_admin_url( 'admin.php?page=c4wp-admin-settings' ) : admin_url( 'admin.php?page=c4wp-admin-settings' );
           			echo '<span style="margin-top: 10px; display: block;">';
 					printf(
 						/* translators: link to the settings page with text "Settings page" */
