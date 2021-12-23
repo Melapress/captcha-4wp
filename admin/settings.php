@@ -17,7 +17,7 @@ class C4WP_Settings {
 		add_filter( 'plugin_action_links_' . plugin_basename( C4WP_PLUGIN_FILE ), [ $this, 'add_settings_link' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_scripts' ] );
 
-		if ( c4wp_same_settings_for_all_sites() ) {
+		if ( function_exists( 'c4wp_same_settings_for_all_sites' ) && c4wp_same_settings_for_all_sites() ) {
 			add_action( 'network_admin_menu', [ $this, 'network_menu_page' ] );
 			add_filter( 'network_admin_plugin_action_links_' . plugin_basename( C4WP_PLUGIN_FILE ), [ $this, 'add_settings_link' ] );
 		} else {
