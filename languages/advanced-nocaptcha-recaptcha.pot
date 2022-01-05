@@ -1,4 +1,4 @@
-# Copyright (C) 2021 captcha-4wp
+# Copyright (C) 2022 captcha-4wp
 # This file is distributed under the same license as the captcha-4wp package.
 msgid ""
 msgstr ""
