@@ -264,8 +264,9 @@
 	border-radius: 5px;
 	margin-top: 15px;
 	display: inline-block;
+	color: #2b597a;
 }
 
-a[href*=c4wp-admin-upgrade] {
+a[href*=c4wp-admin-upgrade]:not(.premium-link ) {
     color: #adff2f !important;
 }

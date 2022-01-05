@@ -421,16 +421,17 @@ class C4WP_Settings {
 		);
 		if ( ! c4wp_is_premium_version() ) :
 
+			$features_url = function_exists( 'c4wp_same_settings_for_all_sites' ) && c4wp_same_settings_for_all_sites() ? network_admin_url( 'admin.php?page=c4wp-admin-upgrade' ) : admin_url( 'admin.php?page=c4wp-admin-upgrade' );
 			$premium_area['premium_title'] = array(
 				'section_id' => 'forms',
 				'type'       => 'html',				
 				'class'      => 'premium-title-wrapper',
 				'label'      => sprintf(
-					'<strong class="premium-title">%1$s </br></br><span style="font-weight: normal;">%2$s </br><a href="%4$s" target="_blank" class="premium-link">%3$s</a></span></strong>',
+					'<strong class="premium-title">%1$s </br></br><span style="font-weight: normal;">%2$s </br><a href="%4$s" class="premium-link">%3$s</a></span></strong>',
 					esc_html__( 'Upgrade now for these premium features.', 'advanced-nocaptcha-recaptcha' ),
 					esc_html__( 'With CAPTCHA 4WP Pro you can quickly and easily add s CAPTCHA to your WooCommerce checkout, login, and registration forms. Using Contact Form 7? No problem, CAPTCHA 4WP has you covered and so much more.', 'advanced-nocaptcha-recaptcha' ),
 					esc_html__( 'Find out more', 'advanced-nocaptcha-recaptcha' ),
-					esc_url( 'http://captcha-pro.local/wp-admin/admin.php?billing_cycle=annual&page=c4wp-admin-captcha-pricing' )
+					esc_url( $features_url )
 				),
 			);
 
@@ -697,10 +698,11 @@ class C4WP_Settings {
 		$hook_captcha_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'CAPTCHA Configuration', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'CAPTCHA', 'advanced-nocaptcha-recaptcha' ), 'manage_options', 'c4wp-admin-captcha', [ $this, 'admin_settings' ] );
 		$hook_settings_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'CAPTCHA 4WP Settings', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'Settings', 'advanced-nocaptcha-recaptcha' ), 'manage_options', 'c4wp-admin-settings', [ $this, 'admin_settings' ] );
 		$hook_help_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'Help & Contact Us', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'Help & Contact Us', 'advanced-nocaptcha-recaptcha' ), 'manage_options', 'c4wp-admin-help', [ $this, 'admin_settings' ] );
-		/* @free:start */
-		$hook_upgrade_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'Premium Features ➤', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'Premium Features ➤', 'advanced-nocaptcha-recaptcha' ), 'manage_options', 'c4wp-admin-upgrade', [ $this, 'admin_settings' ] );
-		add_action( "load-$hook_upgrade_submenu", [ $this, 'c4wp_admin_page_enqueue_scripts' ] );
-		/* @free:end */
+		
+		if ( ! function_exists( 'c4wp_fs' ) || function_exists( 'c4wp_fs' ) && c4wp_fs()->is_not_paying() ) {
+			$hook_upgrade_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'Premium Features ➤', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'Premium Features ➤', 'advanced-nocaptcha-recaptcha' ), 'manage_options', 'c4wp-admin-upgrade', [ $this, 'admin_settings' ] );
+			add_action( "load-$hook_upgrade_submenu", [ $this, 'c4wp_admin_page_enqueue_scripts' ] );
+		}
 
 		add_action( "load-$hook_captcha_submenu", [ $this, 'c4wp_admin_page_enqueue_scripts' ] );
 		add_action( "load-$hook_help_submenu", [ $this, 'c4wp_admin_page_enqueue_scripts' ] );
@@ -713,10 +715,10 @@ class C4WP_Settings {
 		$hook_settings_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'CAPTCHA 4WP Settings', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'Settings', 'advanced-nocaptcha-recaptcha' ), 'manage_network_options', 'c4wp-admin-settings', [ $this, 'admin_settings' ] );
 		$hook_help_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'Help & Contact Us', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'Help & Contact Us', 'advanced-nocaptcha-recaptcha' ), 'manage_network_options', 'c4wp-admin-help', [ $this, 'admin_settings' ] );
 
-		/* @free:start */
-		$hook_upgrade_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'Premium Features ➤', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'Premium Features ➤', 'advanced-nocaptcha-recaptcha' ), 'manage_network_options', 'c4wp-admin-upgrade', [ $this, 'admin_settings' ] );
-		add_action( "load-$hook_upgrade_submenu", [ $this, 'c4wp_admin_page_enqueue_scripts' ] );
-		/* @free:end */
+		if ( ! function_exists( 'c4wp_fs' ) || function_exists( 'c4wp_fs' ) && c4wp_fs()->is_not_paying() ) {
+			$hook_upgrade_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'Premium Features ➤', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'Premium Features ➤', 'advanced-nocaptcha-recaptcha' ), 'manage_network_options', 'c4wp-admin-upgrade', [ $this, 'admin_settings' ] );
+			add_action( "load-$hook_upgrade_submenu", [ $this, 'c4wp_admin_page_enqueue_scripts' ] );
+		}
 
 		add_action( "load-$hook_captcha_submenu", [ $this, 'c4wp_admin_page_enqueue_scripts' ] );
 		add_action( "load-$hook_help_submenu", [ $this, 'c4wp_admin_page_enqueue_scripts' ] );
@@ -779,13 +781,9 @@ class C4WP_Settings {
 								$this->settings_form();
 							} else if ( 'c4wp-admin-help' == $current_tab ) {
 								$this->display_help_page();
-							}
-
-							/* @free:start */
-							if ( 'c4wp-admin-upgrade' == $current_tab ) {
+							} else if ( 'c4wp-admin-upgrade' == $current_tab ) {
 								$this->display_upgrade_page();
 							}
-							/* @free:end */
 							?>
 						</div><!-- #tab_container-->
 					</div><!-- #post-body-content-->
@@ -925,11 +923,9 @@ class C4WP_Settings {
 		require_once 'templates/help/index.php';
 	}
 
-	/* @free:start */
 	function display_upgrade_page() {
 		require_once 'templates/upgrade/index.php';
 	}
-	/* @free:end */
 
 	function push_at_to_associative_array( $array, $key, $new ){
         $keys  = array_keys( $array );
