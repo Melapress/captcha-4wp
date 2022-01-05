@@ -3,7 +3,7 @@
 /*
 * Plugin Name: CAPTCHA 4WP
 * Plugin URI: https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/
-* Description: Show noCaptcha or invisible captcha in Comment Form, bbPress, BuddyPress, WooCommerce, CF7, Login, Register, Lost Password, Reset Password. Also can implement in any other form easily.
+* Description: Easily show any type of Captcha check (such as noCaptcha or invisible Captcha) on any form on your website, including login pages, comments and password reset forms, and also forms by third party plugins such as Contact Form 7, BuddyPress & WooCommerce.
 * Version: 7.0.0
 * Author: WP White Security
 * Author URI: https://www.wpwhitesecurity.com/
@@ -72,3 +72,31 @@ class C4WP
     
     // ... Your plugin's main file logic ...
     add_action( 'plugins_loaded', array( 'C4WP', 'init' ) );
+
+/* @free:start */
+register_activation_hook( __FILE__, 'c4wp_redirect_after_activation' );
+
+/**
+ * Setup admin for redirection upon activation.
+ *
+ * @return void
+ */
+function c4wp_redirect_after_activation() {
+    add_option( 'c4wp_redirect_after_activation', true );
+}
+
+add_action( 'admin_init', 'c4wp_activation_redirect' );
+
+
+/**
+ * Redirect users to the plugins settings page upon activation.
+ *
+ * @return void
+ */
+function c4wp_activation_redirect() {
+    if ( is_admin() && get_option( 'c4wp_redirect_after_activation', false ) ) {
+        delete_option(' c4wp_redirect_after_activation' );
+        exit( wp_redirect( c4wp_settings_page_url() ) );
+    }
+}
+/* @free:end */
