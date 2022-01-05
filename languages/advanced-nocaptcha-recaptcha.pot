@@ -502,163 +502,163 @@ msgstr ""
 msgid "days"
 msgstr ""
 
-#: admin/settings.php:430
+#: admin/settings.php:431
 msgid "Upgrade now for these premium features."
 msgstr ""
 
-#: admin/settings.php:431
+#: admin/settings.php:432
 msgid "With CAPTCHA 4WP Pro you can quickly and easily add s CAPTCHA to your WooCommerce checkout, login, and registration forms. Using Contact Form 7? No problem, CAPTCHA 4WP has you covered and so much more."
 msgstr ""
 
-#: admin/settings.php:432
+#: admin/settings.php:433
 msgid "Find out more"
 msgstr ""
 
-#: admin/settings.php:442
+#: admin/settings.php:443
 msgid "Multisite User Signup Form"
 msgstr ""
 
-#: admin/settings.php:443
+#: admin/settings.php:444
 msgid "bbPress New topic"
 msgstr ""
 
-#: admin/settings.php:444
+#: admin/settings.php:445
 msgid "bbPress reply to topic"
 msgstr ""
 
-#: admin/settings.php:445
+#: admin/settings.php:446
 msgid "BuddyPress register"
 msgstr ""
 
-#: admin/settings.php:446
+#: admin/settings.php:447
 msgid "BuddyPress comments form"
 msgstr ""
 
-#: admin/settings.php:447
+#: admin/settings.php:448
 msgid "BuddyPress create group"
 msgstr ""
 
-#: admin/settings.php:448
+#: admin/settings.php:449
 msgid "WooCommerce Checkout"
 msgstr ""
 
-#: admin/settings.php:449
+#: admin/settings.php:450
 msgid "WooCommerce Login"
 msgstr ""
 
-#: admin/settings.php:455
+#: admin/settings.php:456
 msgid "WooCommerce checkout position"
 msgstr ""
 
-#: admin/settings.php:461
+#: admin/settings.php:462
 msgid "Below checkout"
 msgstr ""
 
-#: admin/settings.php:462
+#: admin/settings.php:463
 msgid "Above checkout button"
 msgstr ""
 
-#: admin/settings.php:463
+#: admin/settings.php:464
 msgid "Above payment selection"
 msgstr ""
 
-#: admin/settings.php:465
+#: admin/settings.php:466
 msgid "Choose a location for the captcha input (v2 checkbox only)"
 msgstr ""
 
-#: admin/settings.php:472
+#: admin/settings.php:473
 msgid "Auto detect language"
 msgstr ""
 
-#: admin/settings.php:476
+#: admin/settings.php:477
 msgid "Enable this setting to have our plugin auto-detect the correct language."
 msgstr ""
 
-#: admin/settings.php:626
+#: admin/settings.php:627
 msgid "No hook defined for %s"
 msgstr ""
 
-#: admin/settings.php:696, admin/settings.php:697, admin/settings.php:711, admin/settings.php:712
+#: admin/settings.php:697, admin/settings.php:698, admin/settings.php:713, admin/settings.php:714
 msgid "CAPTCHA Configuration"
 msgstr ""
 
-#: admin/settings.php:696, admin/settings.php:711
+#: admin/settings.php:697, admin/settings.php:713
 msgid "CAPTCHA 4WP"
 msgstr ""
 
-#: admin/settings.php:697, admin/settings.php:712
+#: admin/settings.php:698, admin/settings.php:714
 msgid "CAPTCHA"
 msgstr ""
 
-#: admin/settings.php:698, admin/settings.php:713
+#: admin/settings.php:699, admin/settings.php:715
 msgid "CAPTCHA 4WP Settings"
 msgstr ""
 
-#: admin/settings.php:698, admin/settings.php:713, admin/settings.php:770, admin/settings.php:919
+#: admin/settings.php:699, admin/settings.php:715, admin/settings.php:772, admin/settings.php:917
 msgid "Settings"
 msgstr ""
 
-#: admin/settings.php:699, admin/settings.php:699, admin/settings.php:714, admin/settings.php:714
+#: admin/settings.php:700, admin/settings.php:700, admin/settings.php:716, admin/settings.php:716
 msgid "Help & Contact Us"
 msgstr ""
 
-#: admin/settings.php:701, admin/settings.php:701, admin/settings.php:717, admin/settings.php:717
+#: admin/settings.php:703, admin/settings.php:703, admin/settings.php:719, admin/settings.php:719
 msgid "Premium Features ➤"
 msgstr ""
 
-#: admin/settings.php:754
+#: admin/settings.php:756
 msgid "Please supply a valid IP"
 msgstr ""
 
-#: admin/settings.php:768
+#: admin/settings.php:770
 msgid "Captcha Configuration"
 msgstr ""
 
-#: admin/settings.php:836
+#: admin/settings.php:834
 msgid "The site key that you have entered is invalid. Please try again."
 msgstr ""
 
-#: admin/settings.php:839
+#: admin/settings.php:837
 msgid "The secret key that you have entered is invalid. Please try again."
 msgstr ""
 
-#: admin/settings.php:842
+#: admin/settings.php:840
 msgid "Captcha settings"
 msgstr ""
 
-#: admin/settings.php:844
+#: admin/settings.php:842
 msgid "Captcha configuration"
 msgstr ""
 
-#: admin/settings.php:846
+#: admin/settings.php:844
 msgid " updated"
 msgstr ""
 
-#: admin/settings.php:861
+#: admin/settings.php:859
 msgid "PRO Features"
 msgstr ""
 
-#: admin/settings.php:866
+#: admin/settings.php:864
 msgid "WooCommerce forms"
 msgstr ""
 
-#: admin/settings.php:867
+#: admin/settings.php:865
 msgid "Contact Form 7 forms"
 msgstr ""
 
-#: admin/settings.php:868
+#: admin/settings.php:866
 msgid "bbPress New topic form"
 msgstr ""
 
-#: admin/settings.php:869
+#: admin/settings.php:867
 msgid "bbPress reply to topic form"
 msgstr ""
 
-#: admin/settings.php:870
+#: admin/settings.php:868
 msgid "BuddyPress register form"
 msgstr ""
 
-#: admin/settings.php:872
+#: admin/settings.php:870
 msgid "View Details"
 msgstr ""
 
@@ -672,18 +672,6 @@ msgstr ""
 
 #: extensions/third-party/contact-form-7.php:106
 msgid "Insert Tag"
-msgstr ""
-
-#: admin/templates/help/contact-us.php:8, admin/templates/help/index.php:8
-msgid "Contact Us"
-msgstr ""
-
-#: admin/templates/help/contact-us.php:13
-msgid "Having trouble with our plugin? Feel free to get in touch via our contact form. We will be more than happy to assist you in anyway we can."
-msgstr ""
-
-#: admin/templates/help/contact-us.php:15, admin/templates/help/help.php:28
-msgid "Free support forum"
 msgstr ""
 
 #: admin/templates/help/help.php:8
@@ -712,6 +700,10 @@ msgstr ""
 
 #: admin/templates/help/help.php:26
 msgid "You can post your question on our support forum or send us an email for 1 to 1 support. Email support is provided to both free and premium plugin users."
+msgstr ""
+
+#: admin/templates/help/help.php:28
+msgid "Free support forum"
 msgstr ""
 
 #: admin/templates/help/help.php:29
@@ -750,7 +742,7 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: admin/templates/help/index.php:9
+#: admin/templates/help/index.php:8
 msgid "System Info"
 msgstr ""
 
