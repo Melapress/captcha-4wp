@@ -96,7 +96,6 @@ class C4WP
     // ... Your plugin's main file logic ...
     add_action( 'plugins_loaded', array( 'C4WP', 'init' ) );
 
-/* @free:start */
 register_activation_hook( __FILE__, 'c4wp_redirect_after_activation' );
 
 /**
@@ -122,4 +121,3 @@ function c4wp_activation_redirect() {
         exit( wp_redirect( c4wp_settings_page_url() ) );
     }
 }
-/* @free:end */

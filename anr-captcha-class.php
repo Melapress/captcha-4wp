@@ -365,7 +365,7 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 			$last_verify = $verify;     
             
 			// If we know this is a duplicated request, pass verification.
-            if ( $duplicate_response ) {
+            if ( isset( $result['error-codes'] ) && 'timeout-or-duplicate' == $result['error-codes'][0] && $duplicate_response ) {
             	$verify = true;
             }
 
@@ -503,9 +503,7 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 		 */
 		function determine_captcha_language() {			
 			$language    = trim( c4wp_get_option( 'language' ) );
-			/* @free:start */
 			$lang = '&hl=' . $language;
-			/* @free:end */	
 			return $lang;
 		}
 	} //END CLASS
