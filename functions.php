@@ -237,6 +237,13 @@ function c4wp_recaptcha_domain(){
 	return apply_filters( 'c4wp_recaptcha_domain', $domain );
 }
 
+function c4wp_same_settings_for_all_sites(){
+	// Makes sure the plugin is defined before trying to use it
+	if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
+		require_once ABSPATH . '/wp-admin/includes/plugin.php';
+	}
+	return is_plugin_active_for_network( plugin_basename( C4WP_PLUGIN_FILE ) );
+}
 
 function c4wp_settings_page_url( $tab = false ){
 	$url = ( function_exists( 'c4wp_same_settings_for_all_sites' ) && c4wp_same_settings_for_all_sites() || ! function_exists( 'c4wp_same_settings_for_all_sites' ) ) ? network_admin_url( 'admin.php?page=c4wp-admin-captcha' ) : admin_url( 'admin.php?page=c4wp-admin-captcha' );
@@ -406,3 +413,18 @@ function c4wp_is_premium_version() {
 	return ( class_exists( 'C4WP_Pro' ) && ! c4wp_fs()->is_not_paying() ) ? true : false;
 }
 
+/**
+ * Check if user is a role we wish to hide captca from, or if we are globally hiding them for logged in users.
+ *
+ * @return bool
+ */
+function c4wp_hide_for_logged_in_user_or_role() {
+	$user  = wp_get_current_user();
+	$roles = ( array ) $user->roles;
+	
+	$roles_to_hide = ( empty( c4wp_get_option( 'loggedin_hide_roles' ) ) ) ? [] : c4wp_get_option( 'loggedin_hide_roles' );
+	if ( c4wp_get_option( 'loggedin_hide' ) || array_intersect( $roles, $roles_to_hide ) ) {
+		return true;
+	}	
+	return false;
+}
