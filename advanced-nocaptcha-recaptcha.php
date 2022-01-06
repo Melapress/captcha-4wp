@@ -1,17 +1,40 @@
 <?php
 
-/*
-* Plugin Name: CAPTCHA 4WP
-* Plugin URI: https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/
-* Description: Easily show any type of Captcha check (such as noCaptcha or invisible Captcha) on any form on your website, including login pages, comments and password reset forms, and also forms by third party plugins such as Contact Form 7, BuddyPress & WooCommerce.
-* Version: 7.0.0
-* Author: WP White Security
-* Author URI: https://www.wpwhitesecurity.com/
-* Text Domain: advanced-nocaptcha-recaptcha
-* License: GPLv2 or later
-* WC tested up to: 5.6.0
-* Network: true
-*/
+/**
+ * CAPTCHA 4WP (Premium)
+ *
+ * @copyright Copyright (C) 20013-2022, WP White Security - support@wpwhitesecurity.com
+ * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 or higher
+ *
+ * @wordpress-plugin
+ * Plugin Name: CAPTCHA 4WP
+ * Version:     7.0.0
+ * Plugin URI:  https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/
+ * Description: Easily add any type of Captcha check (such as noCaptcha or invisible Captcha) on any website form, including login pages, comments and password reset forms, and also forms by third party plugins such as Contact Form 7, WooCommerce & BuddyPress.
+ * Author:      WP White Security
+ * Author URI:  https://www.wpwhitesecurity.com/
+ * Text Domain: advanced-nocaptcha-recaptcha
+ * Domain Path: /languages/
+ * License:     GPL v3
+ * Requires at least: 5.0
+ * WC tested up to: 5.6.0
+ * Requires PHP: 7.0
+ * Network: true
+ *
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 if ( !defined( 'ABSPATH' ) ) {
     exit;
