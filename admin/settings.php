@@ -17,7 +17,15 @@ class C4WP_Settings {
 		add_filter( 'plugin_action_links_' . plugin_basename( C4WP_PLUGIN_FILE ), [ $this, 'add_settings_link' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_scripts' ] );
 
+		if ( function_exists( 'c4wp_same_settings_for_all_sites' ) && c4wp_same_settings_for_all_sites() || ! function_exists( 'c4wp_same_settings_for_all_sites' ) ) {
+			add_action( 'network_admin_menu', [ $this, 'network_menu_page' ] );
+			add_filter( 'network_admin_plugin_action_links_' . plugin_basename( C4WP_PLUGIN_FILE ), [ $this, 'add_settings_link' ] );
+		} else {
 			add_action( 'admin_menu', [ $this, 'menu_page' ] );
+		}
+
+		add_action( 'wp_ajax_c4wp_freemius_opt_in', [ $this, 'c4wp_freemius_opt_in' ] );
+		add_action( 'wp_ajax_c4wp_nocaptcha_plugin_notice_ignore', array( $this, 'c4wp_nocaptcha_plugin_notice_ignore' ), 10, 1 );
 	}
 	
 	function admin_enqueue_scripts() {
@@ -760,6 +768,27 @@ class C4WP_Settings {
 		if( ! empty( $_GET['page'] ) ) {
 			$current_tab = $_GET['page'];
 		}
+		$needed              = false;
+		$using_same_settings = c4wp_same_settings_for_all_sites();
+		$notice_nonce        = wp_create_nonce( 'dismiss_captcha_notice' );
+		if ( $using_same_settings ) {
+			$needed       = get_site_option( 'c4wp_network_notice_dismissed', false );
+			$notice_title = esc_html__( 'Setup CAPTCHA 4WP per-site instead?', 'advanced-nocaptcha-recaptcha' );
+			$notice_text  = esc_html__( 'CAPTCHA 4WP is currently configured as a network-wide plugin. If you would prefer to allow each child site to enable/disable and control CAPTCHA 4WP on a per-site basis, please disable this plugin at a network level and simply re-activate on your desired child-site(s) and configure to your needs.', 'advanced-nocaptcha-recaptcha' );
+		} else {
+			$needed       = get_option( 'c4wp_network_notice_dismissed', false  );
+			$notice_title = esc_html__( 'Setup CAPTCHA 4WP globally instead?', 'advanced-nocaptcha-recaptcha' );
+			$notice_text  = esc_html__( 'CAPTCHA 4WP is currently configured on a per-site basis, if you would prefer to setup CAPTCHA 4WP for your whole network globally, simply deactivate this plugin on all child-sites where it is currently active and re-activate at a network level instead.', 'advanced-nocaptcha-recaptcha' );
+		}
+		if ( is_multisite() && ! $needed ) :
+		?>
+			<div id="network-captcha-notice" class="notice notice-success">
+				<p><strong><?php echo $notice_title; ?></strong></p>
+				<p><?php echo $notice_text; ?></p>
+				<p><a href="#dismiss-captcha-notice" data-nonce="<?php echo esc_attr( $notice_nonce ); ?>"><?php esc_html_e( 'Dismiss notice', 'advanced-nocaptcha-recaptcha' ); ?></a></p>
+			</div>
+		<?php
+		endif;
 		?>
 		<div class="wrap fs-section">
 			<!-- Plugin settings go here -->
@@ -805,6 +834,28 @@ class C4WP_Settings {
 
 	function settings_form(){
 
+		$freemius_state = get_option( 'c4wp_freemius_state' );
+
+		if (
+			c4wp_fs()->is_anonymous() // Anonymous mode option.
+			&& c4wp_fs()->is_not_paying() // Not paying customer.
+			&& c4wp_fs()->has_api_connectivity() // Check API connectivity.
+			&& empty( $freemius_state )
+		) {
+			if ( ! is_multisite() || ( is_multisite() && is_network_admin() ) ) :
+				?>
+				<div class="notice notice-success">
+					<p><strong><?php esc_html_e( 'Help Captcha 4WP improve.', 'advanced-nocaptcha-recaptcha' ); ?></strong></p>
+					<p><?php echo esc_html__( 'You can help us improve the plugin by opting in to share non-sensitive data about the plugin usage. The technical data will be shared over a secure channel. Activity log data will never be shared. When you opt-in, you also subscribe to our announcement and newsletter (you can opt-out at any time). If you would rather not opt-in, we will not collect any data.', 'advanced-nocaptcha-recaptcha' ) . ' <a href="https://wpactivitylog.com/support/kb/non-sensitive-diagnostic-data/" target="_blank">' . esc_html__( 'Read more about what data we collect and how.', 'advanced-nocaptcha-recaptcha' ) . '</a>'; ?></p>
+					<p>
+						<a href="javascript:;" class="button button-primary" onclick="c4wp_freemius_opt_in(this)" data-opt="yes"><?php esc_html_e( 'Sure, opt-in', 'advanced-nocaptcha-recaptcha' ); ?></a>
+						<a href="javascript:;" class="button" onclick="c4wp_freemius_opt_in(this)" data-opt="no"><?php esc_html_e( 'No, thank you', 'advanced-nocaptcha-recaptcha'  ); ?></a>
+						<input type="hidden" id="c4wp-freemius-opt-nonce" value="<?php echo esc_attr( wp_create_nonce( 'c4wp-freemius-opt' ) ); ?>" />
+					</p>
+				</div>
+				<?php
+			endif;
+		}
 		?>
 			<?php $this->c4wp_settings_notice(); ?>
 			<form method="post" action="">
@@ -936,6 +987,101 @@ class C4WP_Settings {
         return $array;
     }
 
+  	/**
+	 * Ajax callback to handle freemius opt in/out.
+	 */
+	function c4wp_freemius_opt_in() {
+		// Die if not have access.
+		if ( ! current_user_can( 'manage_options' ) ) {
+			die( 'Access Denied.' );
+		}
+
+		// Get post array through filter.
+		$nonce  = filter_input( INPUT_POST, 'opt_nonce', FILTER_SANITIZE_STRING ); // Nonce.
+		$choice = filter_input( INPUT_POST, 'choice', FILTER_SANITIZE_STRING ); // Choice selected by user.
+
+		// Verify nonce.
+		if ( empty( $nonce ) || ! wp_verify_nonce( $nonce, 'c4wp-freemius-opt' ) ) {
+			// Nonce verification failed.
+			echo wp_json_encode(
+				array(
+					'success' => false,
+					'message' => esc_html__( 'Nonce verification failed.', 'advanced-nocaptcha-recaptcha' ),
+				)
+			);
+			exit();
+		}
+
+		// Check if choice is not empty.
+		if ( ! empty( $choice ) ) {
+			if ( 'yes' === $choice ) {
+				if ( ! is_multisite() ) {
+					c4wp_fs()->opt_in(); // Opt in.
+				} else {
+					// Get sites.
+					$sites      = Freemius::get_sites();
+					$sites_data = array();
+
+					if ( ! empty( $sites ) ) {
+						foreach ( $sites as $site ) {
+							$sites_data[] = c4wp_fs()->get_site_info( $site );
+						}
+					}
+					c4wp_fs()->opt_in( false, false, false, false, false, false, false, false, $sites_data );
+				}
+
+				// Update freemius state.
+				update_option( 'cs4wp_freemius_state', 'in', false );
+			} elseif ( 'no' === $choice ) {
+				if ( ! is_multisite() ) {
+					c4wp_fs()->skip_connection(); // Opt out.
+				} else {
+					c4wp_fs()->skip_connection( null, true ); // Opt out for all websites.
+				}
+
+				// Update freemius state.
+				update_option( 'cs4wp_freemius_state', 'skipped', false );
+			}
+
+			echo wp_json_encode(
+				array(
+					'success' => true,
+					'message' => esc_html__( 'Freemius opt choice selected.', 'advanced-nocaptcha-recaptcha' ),
+				)
+			);
+		} else {
+			echo wp_json_encode(
+				array(
+					'success' => false,
+					'message' => esc_html__( 'Freemius opt choice not found.', 'advanced-nocaptcha-recaptcha' ),
+				)
+			);
+		}
+		exit();
+	}
+
+	function c4wp_nocaptcha_plugin_notice_ignore() {	
+		// Grab POSTed data.
+		$nonce           = filter_input( INPUT_POST, 'nonce', FILTER_SANITIZE_STRING );
+
+		// Check nonce.
+		if ( empty( $nonce ) || ! wp_verify_nonce( $nonce, 'dismiss_captcha_notice' ) ) {
+			wp_send_json_error( esc_html__( 'Nonce Verification Failed.','advanced-nocaptcha-recaptcha' ) );
+		}
+
+		global $current_user;		
+		$user_id = $current_user->ID;		
+		$updated = add_user_meta( $user_id, 'nocaptcha_plugin_notice_ignore', 'true', true );		
+
+		if ( c4wp_same_settings_for_all_sites() ) {
+			update_site_option( 'c4wp_network_notice_dismissed', true );
+		} else {
+			update_option( 'c4wp_network_notice_dismissed', true  );
+		}
+
+		wp_send_json_success($updated);
+	
+	}
 		
 } //END CLASS
 

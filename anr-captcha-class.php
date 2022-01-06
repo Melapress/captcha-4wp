@@ -259,6 +259,14 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 		}
 
 		function form_field_return( $return = '' ) {
+			if ( is_user_logged_in() && c4wp_hide_for_logged_in_user_or_role() ) {
+				return $return;
+			}
+			
+			$ip = $_SERVER['REMOTE_ADDR'];
+			if ( in_array( $ip, array_filter( explode( '\n', c4wp_get_option( 'whitelisted_ips' ) ) ) ) ) {
+				return $return;
+			}
 			return $return . $this->captcha_form_field();
 		}
 		
@@ -278,6 +286,9 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 		function show_login_captcha() {				
 			$show_captcha = true;
 			$ip           = $_SERVER['REMOTE_ADDR'];
+			if ( in_array( $ip, array_filter( explode( '\n', c4wp_get_option( 'whitelisted_ips' ) ) ) ) ) {
+				return false;
+			}			
 
 			$show_captcha = apply_filters( 'c4wp_login_captcha_filter', $show_captcha, $ip );
 
@@ -296,10 +307,17 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
             static $last_response      = null;
             static $duplicate_response = false;
 
+			if ( is_user_logged_in() && function_exists( 'c4wp_hide_for_logged_in_user_or_role' ) && c4wp_hide_for_logged_in_user_or_role() ) {
+				return true;
+			}
 	
 			$secret_key  = trim( c4wp_get_option( 'secret_key' ) );
+			$remoteip    = $_SERVER['REMOTE_ADDR'];
 			$verify      = false;
 			
+			if ( in_array( $remoteip, array_filter( explode( '\n', c4wp_get_option( 'whitelisted_ips' ) ) ) ) ) {
+				return true;
+			}
 
 			if ( false === $response ) {
 				$response = isset( $_POST['g-recaptcha-response'] ) ? $_POST['g-recaptcha-response'] : '';
@@ -365,7 +383,7 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 			$last_verify = $verify;     
             
 			// If we know this is a duplicated request, pass verification.
-            if ( $duplicate_response ) {
+            if ( isset( $result['error-codes'] ) && 'timeout-or-duplicate' == $result['error-codes'][0] && $duplicate_response ) {
             	$verify = true;
             }
 
@@ -383,6 +401,9 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 				return $user;
 			}
 
+			if ( $this->is_whitelisted() ) {
+				return $user;
+			}
 
 			$show_captcha = $this->show_login_captcha();
 
@@ -393,6 +414,30 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 			return $user;
 		}
 
+		/**
+		 * Checks if the current authentication request is whitelisted from verification.
+		 */
+		function is_whitelisted() {
+			if ( ! empty( $_SERVER['REQUEST_URI'] ) ) {
+				$rest_url_path  = false;
+				$possible_paths = [
+					'/wp-json/',
+				];
+				$whitelisted_urls = ( empty( c4wp_get_option( 'whitelisted_urls' ) ) ) ? [] : explode( ',', c4wp_get_option( 'whitelisted_urls' ) );
+				$possible_paths   = array_merge( $whitelisted_urls, $possible_paths );
+				$request_path     = trim( $_SERVER['REQUEST_URI'], '/' );
+				$rest_url_path    = trim( parse_url( home_url( $path ), PHP_URL_PATH ), '/' );
+
+				foreach( $possible_paths as $path ) {
+					$is_whitelisted = ( $request_path == $rest_url_path );
+					if ( $is_whitelisted ) {
+						return true;
+					}
+				}
+			}
+
+			return false;
+		}
 
 		/**
 		 * Checks if the current authentication request is RESTy or a custom URL where it should not load.
@@ -503,9 +548,16 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 		 */
 		function determine_captcha_language() {			
 			$language    = trim( c4wp_get_option( 'language' ) );
+			$auto_detect = c4wp_get_option( 'auto_detect_lang' );
+
+			$lang = '';
+			if ( ! $auto_detect ) {
+				$lang = '&hl=' . $language;
+			} else {
+				$lang = '&hl=' . get_bloginfo( 'language' );
+			}			
 			/* @free:start */
 			$lang = '&hl=' . $language;
-			/* @free:end */	
 			return $lang;
 		}
 	} //END CLASS
