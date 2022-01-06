@@ -3,7 +3,7 @@
 /**
  * CAPTCHA 4WP (Premium)
  *
- * @copyright Copyright (C) 20013-2022, WP White Security - support@wpwhitesecurity.com
+ * @copyright Copyright (C) 2013-2022, WP White Security - support@wpwhitesecurity.com
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 or higher
  *
  * @wordpress-plugin
