@@ -292,20 +292,24 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 		}
 
 		function verify( $response = false ) {
-			static $last_verify = null;
+			static $last_verify        = null;
+            static $last_response      = null;
+            static $duplicate_response = false;
 
-			if ( is_user_logged_in() 
-			) {
-				return true;
-			}
 	
-			$secre_key  = trim( c4wp_get_option( 'secret_key' ) );
-			$verify = false;
-
+			$secret_key  = trim( c4wp_get_option( 'secret_key' ) );
+			$verify      = false;
+			
 
 			if ( false === $response ) {
 				$response = isset( $_POST['g-recaptcha-response'] ) ? $_POST['g-recaptcha-response'] : '';
 			}
+			
+			// Store what we send to google in case we need to verify if its a duplicated request.
+            $last_response = $response;            
+            if ( $response == $last_response ) {
+            	$duplicate_response = true;
+            }
 			
 			$pre_check = apply_filters( 'c4wp_verify_captcha_pre', null, $response );
 			
@@ -313,7 +317,7 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 				return $pre_check;
 			}
 
-			if ( ! $secre_key ) { // if $secre_key is not set
+			if ( ! $secret_key ) { // if $secre_key is not set
 				return true;
 			}
 
@@ -346,6 +350,7 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 			}
 
 			$result = json_decode( $request_body, true );
+            
 			if ( isset( $result['success'] ) && true == $result['success'] ) {
 				if ( 'v3' === c4wp_get_option( 'captcha_version' ) ) {
 					$score = isset( $result['score'] ) ? $result['score'] : 0;
@@ -355,8 +360,14 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 					$verify = true;
 				}
 			}
+            
 			$verify = apply_filters( 'c4wp_verify_captcha', $verify, $result, $response );
-			$last_verify = $verify;
+			$last_verify = $verify;     
+            
+			// If we know this is a duplicated request, pass verification.
+            if ( $duplicate_response ) {
+            	$verify = true;
+            }
 
 			return $verify;
 		}
@@ -372,6 +383,7 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 				return $user;
 			}
 
+
 			$show_captcha = $this->show_login_captcha();
 
 			if ( $show_captcha && ! $this->verify() ) {
@@ -381,34 +393,21 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 			return $user;
 		}
 
+
 		/**
 		 * Checks if the current authentication request is RESTy or a custom URL where it should not load.
 		 */
 		function is_rest_request() {
-			$is_rest = false;
-
-			if ( ! empty( $_SERVER['REQUEST_URI'] ) ) {
-				$rest_url_path = false;
-				$possible_paths = [
-					'/wp-json/',
-				];
-				$whitelisted_urls = ( empty( c4wp_get_option( 'whitelisted_urls' ) ) ) ? [] : explode( ',', c4wp_get_option( 'whitelisted_urls' ) );
-				$possible_paths = array_merge( $whitelisted_urls, $possible_paths );
-
-				foreach( $possible_paths as $path ) {
-					$rest_url_path = trim( parse_url( home_url( $path ), PHP_URL_PATH ), '/' );
-				}
-				
-				$request_path  = trim( $_SERVER['REQUEST_URI'], '/' );
-
-				/*
-				 * If we have both a url and a request patch check if this is
-				 * a rest request.
-				 */
-				if ( ! empty( $rest_url_path ) && $request_path ) {
-					$is_rest = ( strpos( $request_path, $rest_url_path ) === 0 ) || isset( $_GET['rest_route'] );
-				}
+			if ( defined( 'REST_REQUEST' ) && REST_REQUEST || isset( $_GET[ 'rest_route' ] ) && strpos( $_GET[ 'rest_route' ], '/', 0 ) === 0 ) {
+				return true;
 			}
+			
+			global $wp_rewrite;
+			if ( $wp_rewrite === null ) $wp_rewrite = new WP_Rewrite();
+			
+			$rest_url    = wp_parse_url( trailingslashit( rest_url() ) );
+			$current_url = wp_parse_url( add_query_arg( [] ) );
+			$is_rest     = strpos( $current_url[ 'path' ], $rest_url[ 'path' ], 0 ) === 0;
 
 			return $is_rest;
 		}

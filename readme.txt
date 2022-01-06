@@ -1,13 +1,12 @@
 === CAPTCHA 4WP ===
 Contributors: WPWhiteSecurity
 Tags: recaptcha, nocaptcha, captcha, invisible captcha, bot, spam protection, captch for WooCommerce, forms captcha
-Donate link: https://www.shamimsplugins.com/products/advanced-nocaptcha-and-invisible-captcha-pro/
-Requires at least: 4.4
+Requires at least: 5.0
 Tested up to: 5.8.1
 Stable tag: 6.1.7
-Requires PHP: 5.4
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Requires PHP: 7.0
+License: GPLv3
+License URI: http://www.gnu.org/licenses/gpl.html
 
 Show noCaptcha or invisible captcha in comment, login & registration forms, & also on forms by Contact Form 7, BuddyPress, WooCommerce & other plugins.
 
