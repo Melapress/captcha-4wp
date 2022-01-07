@@ -44,19 +44,19 @@ if ( !defined( 'ABSPATH' ) ) {
 require_once ABSPATH . '/wp-admin/includes/plugin.php';
 class C4WP
 {
-    private static  $instance ;
+    private static $instance;
     private function __construct()
     {
         
-        if ( is_plugin_active( 'advanced-nocaptcha-recaptcha/advanced-nocaptcha-recaptcha.php' ) ) {
-            deactivate_plugins( 'advanced-nocaptcha-recaptcha/advanced-nocaptcha-recaptcha.php' );
+
+        if ( is_plugin_active( 'advanced-nocaptcha-and-invisible-captcha-pro/advanced-nocaptcha-and-invisible-captcha-pro.php' ) ) {
+            deactivate_plugins( 'advanced-nocaptcha-and-invisible-captcha-pro/advanced-nocaptcha-and-invisible-captcha-pro.php' );
             return;
         }
         
         $this->constants();
         $this->includes();
         $this->actions();
-        // $this->filters();
     }
     
     public static function init()
@@ -109,7 +109,6 @@ function c4wp_redirect_after_activation() {
 
 add_action( 'admin_init', 'c4wp_activation_redirect' );
 
-
 /**
  * Redirect users to the plugins settings page upon activation.
  *
@@ -117,7 +116,8 @@ add_action( 'admin_init', 'c4wp_activation_redirect' );
  */
 function c4wp_activation_redirect() {
     if ( is_admin() && get_option( 'c4wp_redirect_after_activation', false ) ) {
-        delete_option(' c4wp_redirect_after_activation' );
-        exit( wp_redirect( c4wp_settings_page_url() ) );
+        delete_option( 'c4wp_redirect_after_activation' );
+        $admin_url = ( function_exists( 'c4wp_same_settings_for_all_sites' ) ) ? network_admin_url( 'admin.php?page=c4wp-admin-captcha' ) : admin_url( 'admin.php?page=c4wp-admin-captcha' );
+        exit( wp_redirect( $admin_url ) );
     }
 }
