@@ -502,15 +502,11 @@ msgstr ""
 msgid "days"
 msgstr ""
 
-#: admin/settings.php:431
-msgid "Upgrade now for these premium features."
+#: admin/settings.php:431, admin/settings.php:870
+msgid "Upgrade to Premium"
 msgstr ""
 
-#: admin/settings.php:432
-msgid "With CAPTCHA 4WP Pro you can quickly and easily add s CAPTCHA to your WooCommerce checkout, login, and registration forms. Using Contact Form 7? No problem, CAPTCHA 4WP has you covered and so much more."
-msgstr ""
-
-#: admin/settings.php:433
+#: admin/settings.php:432, admin/settings.php:870
 msgid "Find out more"
 msgstr ""
 
@@ -594,7 +590,7 @@ msgstr ""
 msgid "CAPTCHA 4WP Settings"
 msgstr ""
 
-#: admin/settings.php:699, admin/settings.php:715, admin/settings.php:772, admin/settings.php:917
+#: admin/settings.php:699, admin/settings.php:715, admin/settings.php:772, admin/settings.php:920
 msgid "Settings"
 msgstr ""
 
@@ -635,7 +631,7 @@ msgid " updated"
 msgstr ""
 
 #: admin/settings.php:859
-msgid "PRO Features"
+msgid "Upgrade to Premium for added support for:"
 msgstr ""
 
 #: admin/settings.php:864
@@ -656,10 +652,6 @@ msgstr ""
 
 #: admin/settings.php:868
 msgid "BuddyPress register form"
-msgstr ""
-
-#: admin/settings.php:870
-msgid "View Details"
 msgstr ""
 
 #: extensions/third-party/contact-form-7.php:78

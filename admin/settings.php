@@ -320,7 +320,7 @@ class C4WP_Settings {
 			'loggedin_hide_title'            => array(
 				'section_id' => 'forms',
 				'type'       => 'html',
-				'class'      => $premium_setting_class,
+				'class'      => $premium_setting_class . ' c4wp-border-top',
 				'label'      => sprintf(
 					'<strong style="position: absolute;">%1$s</strong>',
 					esc_html__( 'Do you want to hide CAPTCHA tests for logged in users?', 'advanced-nocaptcha-recaptcha' )
@@ -427,15 +427,15 @@ class C4WP_Settings {
 				'type'       => 'html',				
 				'class'      => 'premium-title-wrapper',
 				'label'      => sprintf(
-					'<strong class="premium-title">%1$s </br></br><span style="font-weight: normal;">%2$s </br><a href="%4$s" class="premium-link">%3$s</a></span></strong>',
-					esc_html__( 'Upgrade now for these premium features.', 'advanced-nocaptcha-recaptcha' ),
-					esc_html__( 'With CAPTCHA 4WP Pro you can quickly and easily add s CAPTCHA to your WooCommerce checkout, login, and registration forms. Using Contact Form 7? No problem, CAPTCHA 4WP has you covered and so much more.', 'advanced-nocaptcha-recaptcha' ),
+					'<span class="premium-title"><a href="%3$s" class="premium-link" target="_blank">%1$s</a> <a href="%4$s" class="premium-link-not-btn">%2$s</a></span>',
+					esc_html__( 'Upgrade to Premium', 'advanced-nocaptcha-recaptcha' ),
 					esc_html__( 'Find out more', 'advanced-nocaptcha-recaptcha' ),
-					esc_url( $features_url )
+					esc_url( 'https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/pricing/?utm_source=plugin&utm_medium=referral&utm_campaign=C4WP&utm_content=plugin+premium+button' ),					
+					esc_url( $features_url ),
 				),
 			);
 
-			$fields = $this->push_at_to_associative_array( $fields, 'enabled_forms', $premium_area );
+			$fields = $this->push_at_to_associative_array( $fields, 'failed_login_cron_schedule', $premium_area );
 		endif;
 
 		if ( c4wp_is_premium_version() ) {
@@ -852,25 +852,28 @@ class C4WP_Settings {
 
 	function c4wp_admin_sidebar() {
 			$return = '';
-			if ( ! class_exists( 'C4WP_Pro' ) ) :
-			$return .= '<style>ul.c4wp-pro-features-ul li.dashicons-yes-alt:before {color:green;}</style>';
-			$return .= sprintf( '<div class="postbox">
-				<h3 class="hndle" style="text-align: center;">
-					<span>' . esc_html__( 'PRO Features', 'advanced-nocaptcha-recaptcha' ) . '</span>
-				</h3>
-				<div class="inside">
-					<div>
-						<ul class="c4wp-pro-features-ul">
-							<li class="dashicons-before dashicons-yes-alt"> ' . esc_html__( 'WooCommerce forms', 'advanced-nocaptcha-recaptcha' ) . '</li>
-							<li class="dashicons-before dashicons-yes-alt"> ' . esc_html__( 'Contact Form 7 forms', 'advanced-nocaptcha-recaptcha' ) . '</li>
-							<li class="dashicons-before dashicons-yes-alt"> ' . esc_html__( 'bbPress New topic form', 'advanced-nocaptcha-recaptcha' ) . '</li>
-							<li class="dashicons-before dashicons-yes-alt"> ' . esc_html__( 'bbPress reply to topic form', 'advanced-nocaptcha-recaptcha' ) . '</li>
-							<li class="dashicons-before dashicons-yes-alt"> ' . esc_html__( 'BuddyPress register form', 'advanced-nocaptcha-recaptcha' ) . '</li>
-						</ul>
-						<p style="text-align: center; margin: auto"><a class="button button-secondary" href="%1$s">' . esc_html__( 'View Details', 'advanced-nocaptcha-recaptcha' ) . '</a></p>
+			if ( ! c4wp_is_premium_version() ) :
+				$return .= '<style>ul.c4wp-pro-features-ul li.dashicons-yes-alt:before {color:#2b597a;}</style>';
+				$return .= sprintf( '<div class="postbox">
+					<h3 class="hndle" style="text-align: center;">
+						<span>' . esc_html__( 'Upgrade to Premium for added support for:', 'advanced-nocaptcha-recaptcha' ) . '</span>
+					</h3>
+					<div class="inside">
+						<div>
+							<ul class="c4wp-pro-features-ul">
+								<li class="dashicons-before dashicons-yes-alt"> ' . esc_html__( 'WooCommerce forms', 'advanced-nocaptcha-recaptcha' ) . '</li>
+								<li class="dashicons-before dashicons-yes-alt"> ' . esc_html__( 'Contact Form 7 forms', 'advanced-nocaptcha-recaptcha' ) . '</li>
+								<li class="dashicons-before dashicons-yes-alt"> ' . esc_html__( 'bbPress New topic form', 'advanced-nocaptcha-recaptcha' ) . '</li>
+								<li class="dashicons-before dashicons-yes-alt"> ' . esc_html__( 'bbPress reply to topic form', 'advanced-nocaptcha-recaptcha' ) . '</li>
+								<li class="dashicons-before dashicons-yes-alt"> ' . esc_html__( 'BuddyPress register form', 'advanced-nocaptcha-recaptcha' ) . '</li>
+							</ul>
+							<p style="text-align: center; margin: auto"><a class="premium-link" href="%1$s" target="_blank">' . esc_html__( 'Upgrade to Premium', 'advanced-nocaptcha-recaptcha' ) . '</a> <a class="premium-link-not-btn" href="%2$s">' . esc_html__( 'Find out more', 'advanced-nocaptcha-recaptcha' ) . '</a></p>
+						</div>
 					</div>
-				</div>
-			</div>', function_exists( 'c4wp_fs' ) ? c4wp_fs()->get_upgrade_url() : 'https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/' );
+				</div>',
+				esc_url( 'https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/pricing/?utm_source=plugin&utm_medium=referral&utm_campaign=C4WP&utm_content=plugin+premium+button' ),
+				function_exists( 'c4wp_fs' ) ? c4wp_fs()->get_upgrade_url() : 'https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/'
+			);
 		endif;
 		return $return;
 	}
