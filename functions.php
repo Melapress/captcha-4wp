@@ -142,7 +142,7 @@ function c4wp_is_form_enabled( $form ) {
 	if ( ! $form ) {
 		return false;
 	}
-	$enabled_forms = c4wp_get_option( 'enabled_forms', array() );
+	$enabled_forms = array_merge( c4wp_get_option( 'enabled_forms', array() ), c4wp_get_option( 'enabled_forms_wc', array() ), c4wp_get_option( 'enabled_forms_bp', array() ), c4wp_get_option( 'enabled_forms_bbp', array() ) );
 	
 	if ( ! is_array( $enabled_forms ) ) {
 		return false;
@@ -398,7 +398,7 @@ function c4wp_get_sysinfo() {
 }
 
 /**
- * THIS IS A PLACEHOLDER FOR A LATER TASK
+ * Determines if an install is premium/paying.
  *
  * @return void
  */

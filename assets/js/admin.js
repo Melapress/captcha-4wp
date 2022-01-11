@@ -10,17 +10,18 @@ jQuery(document).ready(function( $ ){
 	 * Handles checking and unchecking of role settings within the admin.
 	 */
 	function toggleRoleOptions() {
-		if ( $( '#c4wp_admin_options_loggedin_hide_for_roles' ).is(':checked') ) {
-			$( '#c4wp_admin_options_loggedin_hide' ).prop( "checked", false );
+		var selected_value = $( '[name="c4wp_admin_options[loggedin_hide_selection]"]:checked' ).val();
+		if ( selected_value == 'loggedin_hide_for_roles' ) {
 			$( '.loggedin_hide.disabled' ).not( 'tr' ).removeClass( 'disabled' );
 		} else {
-			$( '.checkbox.loggedin_hide' ).prop( "checked", false );
 			$( '.loggedin_hide' ).not( 'tr' ).addClass( 'disabled' );
 		}
-		if ( $( '#c4wp_admin_options_auto_detect_lang' ).is(':checked') ) {
-			$( '#c4wp_admin_options_language' ).closest( 'tr' ).addClass( 'disabled' );
+		
+		var selected_lang_value = $( '[name="c4wp_admin_options[language_handling]"]:checked' ).val();
+		if ( 'auto_detect' == selected_lang_value ) {
+			$( 'select.lang_select' ).addClass( 'disabled' );
 		} else {			
-			$( '#c4wp_admin_options_language' ).closest( 'tr' ).removeClass( 'disabled' );
+			$( 'select.lang_select' ).removeClass( 'disabled' );
 		}	
 	}
 
@@ -47,9 +48,14 @@ jQuery(document).ready(function( $ ){
 		}
 	}
 
+	function moveLangPicker() {
+		$( '.lang_select' ).appendTo( '#manually_choose + label' );
+	}
+
 	toggleRoleOptions();
 	buildWhitelistList();
 	buildWhitelistListURLs();
+	moveLangPicker();
 
 	// Toggle options on/off based on current captcha version.
 	if( $( '[name="c4wp_admin_options[captcha_version]"]' ).length ){
@@ -83,7 +89,7 @@ jQuery(document).ready(function( $ ){
 	});
 
 	// Toggle "hide for these roles" options based on input in admin.
-	$('.form-table').on( "change", '#c4wp_admin_options_loggedin_hide_for_roles, #c4wp_admin_options_loggedin_hide', function(e) {
+	$('.form-table').on( "change", '[name="c4wp_admin_options[loggedin_hide_selection]"], [name="c4wp_admin_options[language_handling]"]', function(e) {
 		toggleRoleOptions();
 	});
 
@@ -135,6 +141,10 @@ jQuery(document).ready(function( $ ){
 		}
 		$( '#c4wp_admin_options_whitelisted_urls' ).val( newValue );
 		$( this ).parent().remove();
+	});
+
+	jQuery( 'body' ).on( 'click', 'input.disabled', function ( e ) {
+		e.preventDefault();
 	});
 });
 

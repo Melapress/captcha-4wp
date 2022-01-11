@@ -1,5 +1,5 @@
 <div class="our-wordpress-plugins side-bar">
-	<h3><?php esc_html_e( 'Getting started', 'advanced-nocaptcha-recaptcha' ); ?></h3>
+	<h3><?php esc_html_e( 'Other plugins developed by us:', 'advanced-nocaptcha-recaptcha' ); ?></h3>
 	<ul>
 		<li>
 			<div class="plugin-box">
@@ -64,29 +64,6 @@
 									'utm_content'  => 'C4WP+banner',
 								),
 								'https://www.wpwhitesecurity.com/wordpress-plugins/website-file-changes-monitor/'
-							)
-						); ?>" target="_blank"><?php esc_html_e( 'LEARN MORE', 'advanced-nocaptcha-recaptcha' ); ?></a>
-					</div>
-				</div>
-			</div>
-		</li>
-		<li>
-			<div class="plugin-box">
-				<div class="plugin-img">
-					<img src="<?php echo C4WP_PLUGIN_URL; ?>assets/img/activity-log-for-mainwp.jpg" alt="">
-				</div>
-				<div class="plugin-desc">
-					<p><?php esc_html_e( 'See the activity logs of all child sites from one central place - the MainWP dashboard.', 'advanced-nocaptcha-recaptcha' ); ?></p>
-					<div class="cta-btn">
-						<a href="<?php echo esc_url(
-							add_query_arg(
-								array(
-									'utm_source'   => 'plugin',
-									'utm_medium'   => 'referral',
-									'utm_campaign' => 'AL4MWP',
-									'utm_content'  => 'C4WP+banner',
-								),
-								'https://wpactivitylog.com/extensions/mainwp-activity-log/'
 							)
 						); ?>" target="_blank"><?php esc_html_e( 'LEARN MORE', 'advanced-nocaptcha-recaptcha' ); ?></a>
 					</div>
