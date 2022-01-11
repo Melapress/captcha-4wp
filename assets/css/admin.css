@@ -122,7 +122,7 @@
 }
 .c4wp-help-main {
     width: 60%;
-    padding: 10px 20px;
+    padding: 10px 20px 0 10px !important;
 }
 .c4wp-logo{
 	text-align: center;
@@ -290,4 +290,31 @@ tr.upgrade-required > th {
 }
 a[href*=c4wp-admin-upgrade]:not(.premium-link ):not(.premium-link-not-btn ) {
     color: #adff2f !important;
+}
+
+.remove-radio-br br + br {
+	display: none;
+}
+
+.loggedin_hide > td {
+	padding-top: 10px;
+}
+
+.c4wp-desc {
+	margin-top: -17px !important;
+    font-weight: normal;
+}
+
+.mb-10 {
+	margin-bottom: 10px !important;
+}
+
+.loggedin_hide td {
+	padding-left: 30px !important;
+}
+
+select.lang_select {
+	clear: left;
+    display: block;
+    margin-top: 10px;
 }

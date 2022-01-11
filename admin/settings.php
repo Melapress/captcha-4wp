@@ -92,12 +92,14 @@ class C4WP_Settings {
 		global $wp_roles;
 		$allRoles      = $wp_roles->role_names;
 
-		$forms_preamble_desc = esc_html__( 'You can add a CAPTCHA check to the above list of pages on WordPress.', 'advanced-nocaptcha-recaptcha' );
+		$forms_preamble_desc = esc_html__( 'You can add a CAPTCHA check to the below list of pages on WordPress.', 'advanced-nocaptcha-recaptcha' );
+		$lang_selector_desc  =  esc_html__( 'Use the setting below to select the language of the text used in the CAPTCHA text.', 'advanced-nocaptcha-recaptcha' );
 		
 		if ( ! c4wp_is_premium_version() ) {
 			$forms_preamble_desc .= sprintf( __( 'To add CAPTCHA checks to WooCommerce, Contact Form 7, BuddyPress and other forms created by third party plugins you need to %s', 'advanced-nocaptcha-recaptcha' ),
 				'<a target="_blank" rel="noopener noreferrer" href="' . esc_url( '#' ) . '">' . esc_html__( 'upgrade to Premium', 'advanced-nocaptcha-recaptcha' ) . '</a>'
 			);
+			$lang_selector_desc .= esc_html__( ' In the Premium edition you can configure the plugin to automatically detect the language settings of the visitor\'s and use that language.', 'advanced-nocaptcha-recaptcha' );
 		}
 
 		$premium_setting_class = ( c4wp_is_premium_version() ) ? 'premium-only' : 'disabled upgrade-required';
@@ -108,7 +110,15 @@ class C4WP_Settings {
 				'type'       => 'html',
 				'label'      => sprintf(
 					'<strong style="position: absolute;">%1$s</strong>',
-					esc_html__( 'Select the type of reCAPTCHA you want to use', 'advanced-nocaptcha-recaptcha' )
+					esc_html__( 'Select the type of reCAPTCHA you want to use', 'advanced-nocaptcha-recaptcha' )					
+				),
+			),
+			'captcha_version_subtitle' => array(
+				'section_id' => 'google_keys',
+				'type'       => 'html',
+				'label'      => sprintf(
+					'<p class="description c4wp-desc" style="position: absolute;">%1$s</p>',					
+					esc_html__( 'For more details and a highlight of the differences between the different reCAPTCHA versions, refer to [XXX].', 'advanced-nocaptcha-recaptcha' )
 				),
 			),
 			'captcha_version' => array(
@@ -122,7 +132,6 @@ class C4WP_Settings {
 					'v2_invisible' => esc_html__( 'Version 2 (No user interaction needed, however, if traffic is suspicious, users are asked to solve a CAPTCHA)', 'advanced-nocaptcha-recaptcha' ),
 					'v3'           => esc_html__( 'Version 3 (verify request with a score without user interaction)', 'advanced-nocaptcha-recaptcha' ),
 				),
-				'desc'       => esc_html__( 'For more details and a highlight of the differences between the different reCAPTCHA versions, refer to [XXX].', 'advanced-nocaptcha-recaptcha' ),
 			),
 			'site_key_title' => array(
 				'section_id' => 'google_keys',
@@ -130,6 +139,17 @@ class C4WP_Settings {
 				'label'      => sprintf(
 					'<strong style="position: absolute;">%1$s</strong>',
 					esc_html__( 'Specify the Site & Secret key', 'advanced-nocaptcha-recaptcha' )
+				),
+			),
+			'site_key_subtitle' => array(
+				'section_id' => 'google_keys',
+				'type'       => 'html',
+				'label'      => sprintf(
+					'<p class="description c4wp-desc" style="position: absolute;">%1$s</p>',					
+					sprintf(
+						esc_html__( 'To communicate with Google and utilize the reCAPTCHA service you need to get a Site Key and Secret Key. You can obtain these keys for free by registering for your Google reCAPTCHA. Refer to %s if you need help with the process.', 'advanced-nocaptcha-recaptcha' ),					
+						'<a href="' . esc_url( 'https://www.wpwhitesecurity.com/support/kb/get-google-recaptcha-keys/' ) . '" target="_blank">' . esc_html__( 'how to get the Google reCAPTCHA keys', 'advanced-nocaptcha-recaptcha' ) . '</a>'			
+					)
 				),
 			),
 			'site_key' => array(
@@ -140,10 +160,6 @@ class C4WP_Settings {
 			'secret_key' => array(
 				'label'      => esc_html__( 'Secret Key', 'advanced-nocaptcha-recaptcha' ),
 				'section_id' => 'google_keys',
-				'desc'       => sprintf(
-					'</br> ' . esc_html__( 'To communicate with Google and utilize the reCAPTCHA service you need to get a Site Key and Secret Key. You can obtain these keys for free by registering for your Google reCAPTCHA. Refer to %s if you need help with the process.', 'advanced-nocaptcha-recaptcha' ),					
-					'<a href="' . esc_url( 'https://www.wpwhitesecurity.com/support/kb/get-google-recaptcha-keys/' ) . '" target="_blank">' . esc_html__( 'how to get the Google reCAPTCHA keys', 'advanced-nocaptcha-recaptcha' ) . '</a>'			
-				),
 				'required'   => true,
 			),
 			'score_title'            => array(
@@ -161,7 +177,7 @@ class C4WP_Settings {
 				'class'      => 'regular toggleable disabled c4wp-show-field-for-v3',
 				'std'        => '0.5',
 				'options'    => $score_values,
-				'desc'       => '</br>'. esc_html__( 'Use this setting to specify sensitivity of the CAPTCHA check. The closer to 1 the more sensitive the CAPTCHA check will be, which also means more traffic will be marked as spam. This option is only available for reCAPTCHA v3.', 'advanced-nocaptcha-recaptcha' ),			
+				'desc'       => esc_html__( 'Use this setting to specify sensitivity of the CAPTCHA check. The closer to 1 the more sensitive the CAPTCHA check will be, which also means more traffic will be marked as spam. This option is only available for reCAPTCHA v3.', 'advanced-nocaptcha-recaptcha' ) . '</br>',			
 			),
 			'v3_script_load'     => array(
 				'label'      => esc_html__( 'Load CAPTCHA v3 scripts on:', 'advanced-nocaptcha-recaptcha' ),
@@ -173,14 +189,25 @@ class C4WP_Settings {
 					'all_pages'  => esc_html__( 'All Pages', 'advanced-nocaptcha-recaptcha' ),
 					'form_pages' => esc_html__( 'Form Pages', 'advanced-nocaptcha-recaptcha' ),
 				),
-				'desc'       => '</br>'. esc_html__( 'By default CAPTCHA only loads on the pages where it is required, mainly forms. However, for V3 you can configure it to load on all pages so it has a better context of the traffic and works more efficiently. The CAPTCHA test will never interrupt users on non-form pages.', 'advanced-nocaptcha-recaptcha' ),
+				'desc'       => esc_html__( 'By default CAPTCHA only loads on the pages where it is required, mainly forms. However, for V3 you can configure it to load on all pages so it has a better context of the traffic and works more efficiently. The CAPTCHA test will never interrupt users on non-form pages.', 'advanced-nocaptcha-recaptcha' ). '</br>',
+			),
+			'language_handling' => array(
+				'label'      => esc_html__( 'CAPTCHA language', 'advanced-nocaptcha-recaptcha' ),
+				'section_id' => 'google_keys',
+				'type'       => 'radio',
+				'class'      => 'regular remove-space-below remove-radio-br',
+				'std'        => 'no',
+				'options'    => array(
+					'manually_choose'         => esc_html__( 'Select a language', 'advanced-nocaptcha-recaptcha' ),
+				),
+				'desc'       => $lang_selector_desc . '</br>',
 			),
 			'language'           => array(
-				'label'      => esc_html__( 'CAPTCHA language', 'advanced-nocaptcha-recaptcha' ),
+				'label'      => '',
 				'section_id' => 'google_keys',
 				'type'       => 'select',
 				'std'        => 'en',
-				'class'      => 'regular',
+				'class'      => 'regular lang_select',
 				'options'    => array(
 					'ar'     => esc_html__( 'Arabic', 'advanced-nocaptcha-recaptcha' ),
 					'bg'     => esc_html__( 'Bulgarian', 'advanced-nocaptcha-recaptcha' ),
@@ -228,13 +255,13 @@ class C4WP_Settings {
 					'tr'     => esc_html__( 'Turkish', 'advanced-nocaptcha-recaptcha' ),
 					'uk'     => esc_html__( 'Ukrainian', 'advanced-nocaptcha-recaptcha' ),
 					'vi'     => esc_html__( 'Vietnamese', 'advanced-nocaptcha-recaptcha' ),
-				),
+				),				
 			),
 			'error_message'      => array(
 				'label'      => esc_html__( 'Error message', 'advanced-nocaptcha-recaptcha' ),
 				'section_id' => 'google_keys',
 				'std'        => esc_html__( 'Please solve the CAPTCHA to proceed', 'advanced-nocaptcha-recaptcha' ),
-				'desc'       =>  '</br>'. esc_html__( 'Specify the message you want to show users who do not complete the CAPTCHA.', 'advanced-nocaptcha-recaptcha' ),
+				'desc'       => esc_html__( 'Specify the message you want to show users who do not complete the CAPTCHA.', 'advanced-nocaptcha-recaptcha' ) . '</br>',
 			),
 			'theme'              => array(
 				'label'      => esc_html__( 'Theme', 'advanced-nocaptcha-recaptcha' ),
@@ -269,7 +296,7 @@ class C4WP_Settings {
 					'bottomleft'  => esc_html__( 'Bottom Left', 'advanced-nocaptcha-recaptcha' ),
 					'inline'      => esc_html__( 'Inline', 'advanced-nocaptcha-recaptcha' ),
 				),
-				'desc'       =>  '</br>'. esc_html__( 'Badge shows for invisible captcha', 'advanced-nocaptcha-recaptcha' ),
+				'desc'       => esc_html__( 'Badge shows for invisible captcha', 'advanced-nocaptcha-recaptcha' ) . '</br>',
 			),
 			'recaptcha_domain'      => array(
 				'label'      => esc_html__( 'reCAPTCHA domain', 'advanced-nocaptcha-recaptcha' ),
@@ -282,7 +309,7 @@ class C4WP_Settings {
 					'google.net'   => 'google.net',
 					'recaptcha.net' => 'recaptcha.net',
 				),
-				'desc'        =>  '</br>'. esc_html__( 'Use this setting to change the domain if Google is not accessible or blocked.', 'advanced-nocaptcha-recaptcha' ),
+				'desc'        => esc_html__( 'Use this setting to change the domain if Google is not accessible or blocked.', 'advanced-nocaptcha-recaptcha' ) . '</br>',
 			),			
 			'remove_css'         => array(
 				'label'      => esc_html__( 'Remove CSS', 'advanced-nocaptcha-recaptcha' ),
@@ -290,7 +317,7 @@ class C4WP_Settings {
 				'type'       => 'checkbox',
 				'class'      => 'checkbox toggleable disabled c4wp-show-field-for-v2_checkbox',
 				'cb_label'   => esc_html__( "Remove this plugin's css from login page?", 'advanced-nocaptcha-recaptcha' ),
-				'desc'       => '</br>'.__( 'This css increase login page width to adjust with Captcha width.', 'advanced-nocaptcha-recaptcha' ),
+				'desc'       => __( 'This css increase login page width to adjust with Captcha width.', 'advanced-nocaptcha-recaptcha' ) . '</br>',
 			),
 
 			// Settings.
@@ -302,8 +329,16 @@ class C4WP_Settings {
 					esc_html__( 'Select where on your website you want to add the CAPTCHA check', 'advanced-nocaptcha-recaptcha' )
 				),
 			),
+			'enabled_forms_subtitle' => array(
+				'section_id' => 'forms',
+				'type'       => 'html',
+				'label'      => sprintf(
+					'<p class="description c4wp-desc" style="position: absolute;">%1$s</p>',					
+					$forms_preamble_desc
+				),
+			),
 			'enabled_forms'      => array(
-				'label'      => esc_html__( 'Add CAPTCHA check on these pages', 'advanced-nocaptcha-recaptcha' ),
+				'label'      => esc_html__( 'WordPress pages', 'advanced-nocaptcha-recaptcha' ),
 				'section_id' => 'forms',
 				'type'       => 'multicheck',
 				'class'      => 'checkbox',
@@ -314,7 +349,6 @@ class C4WP_Settings {
 					'lost_password'  => esc_html__( 'Lost password form', 'advanced-nocaptcha-recaptcha' ),
 					'comment'        => esc_html__( 'Comments form', 'advanced-nocaptcha-recaptcha' ),
 				),
-				'desc'       => '</br>'. $forms_preamble_desc,
 			),
 
 			'loggedin_hide_title'            => array(
@@ -326,27 +360,33 @@ class C4WP_Settings {
 					esc_html__( 'Do you want to hide CAPTCHA tests for logged in users?', 'advanced-nocaptcha-recaptcha' )
 				),
 			),
-			'loggedin_hide'      => array(
-				'label'      => esc_html__( 'Logged in Hide', 'advanced-nocaptcha-recaptcha' ),
+			'loggedin_hide_subtitle' => array(
 				'section_id' => 'forms',
-				'type'       => 'checkbox',
-				'class'      => $premium_setting_class .' checkbox remove-space-below',
-				'cb_label'   => esc_html__( 'Hide Captcha for logged in users?', 'advanced-nocaptcha-recaptcha' ),
+				'type'       => 'html',
+				'class'      => $premium_setting_class,
+				'label'      => sprintf(
+					'<p class="description c4wp-desc" style="position: absolute;">%1$s</p>',					
+					esc_html__( 'By default the CAPTCHA tests are always shown. However, you can disable CAPTCHA tests for logged in users, or for users with a specific user role.', 'advanced-nocaptcha-recaptcha' )
+				),
 			),
-			'loggedin_hide_for_roles'      => array(
-				'label'      => '',
+			'loggedin_hide_selection' => array(
+				'label'      => esc_html__( 'Remove CAPTCHA tests for logged in users', 'advanced-nocaptcha-recaptcha' ),
 				'section_id' => 'forms',
-				'type'       => 'checkbox',
-				'class'      => $premium_setting_class .' checkbox remove-space-below remove-space-above',
-				'cb_label'   => esc_html__( 'Hide CAPTCHA tests for logged in users with these user roles', 'advanced-nocaptcha-recaptcha' ),
+				'type'       => 'radio',
+				'class'      =>  $premium_setting_class .' regular remove-space-below remove-radio-br',
+				'std'        => 'no',
+				'options'    => array(
+					'no'                      => esc_html__( 'No', 'advanced-nocaptcha-recaptcha' ),
+					'loggedin_hide'           => esc_html__( 'Remove CAPTCHA tests for all logged in users', 'advanced-nocaptcha-recaptcha' ),
+					'loggedin_hide_for_roles' => esc_html__( 'Remove CAPTCHA tests for users with these user roles', 'advanced-nocaptcha-recaptcha' ),
+				),
 			),
 			'loggedin_hide_roles'      => array(
-				'label'      =>  esc_html__( 'Select roles', 'advanced-nocaptcha-recaptcha' ),
+				'label'      =>  '',
 				'section_id' => 'forms',
 				'type'       => 'multicheck',
-				'class'      => $premium_setting_class .' checkbox loggedin_hide',
+				'class'      => $premium_setting_class .' checkbox loggedin_hide remove-space-above',
 				'options'    => $allRoles,
-				'desc'       => '</br>'. esc_html__( 'By default the CAPTCHA tests are always shown. However, you can disable CAPTCHA tests for logged in users, or for users with a specific user role.', 'advanced-nocaptcha-recaptcha' ),
 			),
 			'whitelisted_ips_title'            => array(
 				'section_id' => 'forms',
@@ -357,26 +397,51 @@ class C4WP_Settings {
 					esc_html__( 'Do you want to remove CAPTCHA tests for some IP addresses?', 'advanced-nocaptcha-recaptcha' )
 				),
 			),
+			'whitelisted_ips_subtitle' => array(
+				'section_id' => 'forms',
+				'type'       => 'html',
+				'class'      => $premium_setting_class,
+				'label'      => sprintf(
+					'<p class="description c4wp-desc" style="position: absolute;">%1$s</p>',					
+					esc_html__( 'If you do not want any CAPTCHA tests from traffic coming from specific IP addresses, add these IP addresses in the option above.', 'advanced-nocaptcha-recaptcha' )
+				),
+			),
 			'whitelisted_ips_input'              => array(
 				'label'      => esc_html__( 'No CAPTCHA tests for these IP addresses', 'advanced-nocaptcha-recaptcha' ),
 				'section_id' => 'forms',
 				'type'       => 'html',
 				'class'      => $premium_setting_class .' regular',
 				'std'        => '<div id="whitelist-ips-userfacing"></div><input type="text" id="whitelist_ips_input"></input><a href="#" class="button button-primary" id="add-ip">Add IP</a>',
-				'desc'       => esc_html__( 'If you do not want any CAPTCHA tests from traffic coming from specific IP addresses, add these IP addresses in the option above.', 'advanced-nocaptcha-recaptcha' ),
 			),
 			'whitelisted_ips'              => array(
 				'section_id' => 'forms',
 				'type'       => 'textarea',
 				'class'      => $premium_setting_class .' regular hidden',
 			),
+			'whitelisted_urls_title'            => array(
+				'section_id' => 'forms',
+				'type'       => 'html',
+				'class'      => $premium_setting_class,
+				'label'      => sprintf(
+					'<strong style="position: absolute;">%1$s</strong>',
+					esc_html__( 'Do you want to remove CAPTCHA tests on some specific website pages / URLs?', 'advanced-nocaptcha-recaptcha' )
+				),
+			),
+			'whitelisted_urls_subtitle' => array(
+				'section_id' => 'forms',
+				'type'       => 'html',
+				'class'      => $premium_setting_class,
+				'label'      => sprintf(
+					'<p class="description c4wp-desc" style="position: absolute;">%1$s</p>',					
+					esc_html__( 'When using CAPTCHA v3 you can configure it to work on all pages. This is very useful for CAPTCHA itself to learn about the type of traffic / spam traffic your website receives. If you are using CAPTCHA v3 and would like to exclude CAPTCHA from specific URLs, use the below setting. You should only specify the path of the page / URL, without the domain. For example /wp-json/, /contact-us/', 'advanced-nocaptcha-recaptcha' )
+				),
+			),
 			'whitelisted_urls_input'              => array(
-				'label'      => esc_html__( 'Exclude CAPTCHA from these URLs', 'advanced-nocaptcha-recaptcha' ),
+				'label'      => esc_html__( 'Remove CAPTCHA from these URLs:', 'advanced-nocaptcha-recaptcha' ),
 				'section_id' => 'forms',
 				'type'       => 'html',
 				'class'      => $premium_setting_class .' regular',
 				'std'        => '<div id="whitelist-urls-userfacing"></div><input type="text" id="whitelist_urls_input"></input><a href="#" class="button button-primary" id="add-url">Add  URL</a>',
-				'desc'       => esc_html__( 'If you want to exlude certain paths from CAPTCHA verification (for example /wp-json/, add the path to the option above.', 'advanced-nocaptcha-recaptcha' ),
 			),
 			'whitelisted_urls'              => array(
 				'section_id' => 'forms',
@@ -389,16 +454,24 @@ class C4WP_Settings {
 				'class'      => $premium_setting_class,
 				'label'      => sprintf(
 					'<strong style="position: absolute;">%1$s</strong>',
-					esc_html__( 'Trigger the CAPTCHA check on the login page only when there are failed logins', 'advanced-nocaptcha-recaptcha' )
+					esc_html__( 'Do you want a CAPTCHA test on the login page only when there are failed logins?', 'advanced-nocaptcha-recaptcha' )
+				),
+			),
+			'failed_login_subtitle' => array(
+				'section_id' => 'forms',
+				'type'       => 'html',
+				'class'      => $premium_setting_class,
+				'label'      => sprintf(
+					'<p class="description c4wp-desc" style="position: absolute;">%1$s</p>',					
+					esc_html__( 'You can configure the plugin to not show a CAPTCHA test by default on the login page and only show it after a number of failed logins from an IP address. By default, the list of offending IP address is flushed every 7 days. Use the setting below to specify a shorter or longer time period.', 'advanced-nocaptcha-recaptcha' )
 				),
 			),
 			'failed_login_enable' => array(
-				'label'             => esc_html__( 'Only trigger CAPTCHA on failed logins', 'advanced-nocaptcha-recaptcha' ),
+				'label'             => esc_html__( 'Show CAPTCHA test only when there are failed logins', 'advanced-nocaptcha-recaptcha' ),
 				'section_id'        => 'forms',
 				'std'               => 0,
-				'type'       => 'checkbox',
-				'class'      =>  $premium_setting_class .' checkbox',
-				'desc'              => esc_html__( 'You can bypass the CAPTCHA tests by default and only initialize it when there are a number of failed logins from a particular IP address.', 'advanced-nocaptcha-recaptcha' ),
+				'type'              => 'checkbox',
+				'class'             =>  $premium_setting_class .' checkbox remove-space-below',
 			),
 			'failed_login_allow' => array(
 				'label'             => esc_html__( 'Number of failed logins required to trigger CAPTCHA tests', 'advanced-nocaptcha-recaptcha' ),
@@ -406,17 +479,21 @@ class C4WP_Settings {
 				'std'               => 3,
 				'type'              => 'number',
 				'class'             =>  $premium_setting_class .' regular-number remove-space-below',
-				'sanitize_callback' => 'absint',
-				'desc'              => esc_html__( 'Number of failed login attempts can be between 1 and 20.', 'advanced-nocaptcha-recaptcha' ),				
+				'sanitize_callback' => 'absint',			
+				'min_val'           => '1',	
+				'max_val'           => '20',	
 			),
 			'failed_login_cron_schedule' => array(
-				'cb_label'          => esc_html__( 'Flush the list of IP addresses every', 'advanced-nocaptcha-recaptcha' ),
-				'cb_label_after'    => esc_html__( 'days', 'advanced-nocaptcha-recaptcha' ),
+				'label'          => esc_html__( 'Specify how often should the plugin flush the list of IP addresses', 'advanced-nocaptcha-recaptcha' ),
 				'section_id'        => 'forms',
 				'std'               => 7,
 				'type'              => 'number-inline',
 				'class'             =>  $premium_setting_class .' regular-number number-inline',
-				'sanitize_callback' => 'absint',
+				'desc'              => esc_html__( 'Number of days can be between 1 and 10 days.', 'advanced-nocaptcha-recaptcha' ) . '</br>',
+				'cb_label'          => esc_html__( 'Every', 'advanced-nocaptcha-recaptcha' ),
+				'cb_label_after'    => esc_html__( 'days.', 'advanced-nocaptcha-recaptcha' ),			
+				'min_val'           => '1',	
+				'max_val'           => '10',
 			),
 		);
 		if ( ! c4wp_is_premium_version() ) :
@@ -441,18 +518,60 @@ class C4WP_Settings {
 		if ( c4wp_is_premium_version() ) {
 			$additonal_options = [
 				'ms_user_signup'   => esc_html__( 'Multisite User Signup Form', 'advanced-nocaptcha-recaptcha' ),
-				'bbp_new'          => esc_html__( 'bbPress New topic', 'advanced-nocaptcha-recaptcha' ),
-				'bbp_reply'        => esc_html__( 'bbPress reply to topic', 'advanced-nocaptcha-recaptcha' ),
-				'bp_register'      => esc_html__( 'BuddyPress register', 'advanced-nocaptcha-recaptcha' ),
-				'bp_comments_form' => esc_html__( 'BuddyPress comments form', 'advanced-nocaptcha-recaptcha' ),
-				'bp_create_group'  => esc_html__( 'BuddyPress create group', 'advanced-nocaptcha-recaptcha' ),
-				'wc_checkout'      => esc_html__( 'WooCommerce Checkout', 'advanced-nocaptcha-recaptcha' ),
-				'wc_login'         => esc_html__( 'WooCommerce Login', 'advanced-nocaptcha-recaptcha' ),
 			];
 
 			$fields['enabled_forms']['options'] = $fields['enabled_forms']['options'] + $additonal_options;
-			
-			$additonal_wc_options['wc_checkout_position'] = [
+
+			$additonal_wc_options['enabled_forms_wc'] = [
+				'label'      => esc_html__( 'WooCommerces pages', 'advanced-nocaptcha-recaptcha' ),
+				'section_id' => 'forms',
+				'type'       => 'multicheck',
+				'class'      => 'checkbox',
+				'options'    => array(
+					'wc_checkout'      => esc_html__( 'WooCommerce Checkout', 'advanced-nocaptcha-recaptcha' ),
+					'wc_login'         => esc_html__( 'WooCommerce Login', 'advanced-nocaptcha-recaptcha' ),
+					'wc_registration'   => esc_html__( 'WooCommerce Registration form', 'advanced-nocaptcha-recaptcha' ),
+					'wc_reset_password' => esc_html__( 'WooCommerce Reset password form', 'advanced-nocaptcha-recaptcha' ),
+					'wc_lost_password'  => esc_html__( 'WooCommerce Lost password form', 'advanced-nocaptcha-recaptcha' ),
+				),
+			];
+
+			$fields = $this->push_at_to_associative_array( $fields, 'enabled_forms', $additonal_wc_options );
+
+			$additonal_bp_options['enabled_forms_bp'] = [
+				'label'      => esc_html__( 'BuddyPress pages', 'advanced-nocaptcha-recaptcha' ),
+				'section_id' => 'forms',
+				'type'       => 'multicheck',
+				'class'      => 'checkbox',
+				'options'    => array(
+					'bp_register'      => esc_html__( 'BuddyPress register', 'advanced-nocaptcha-recaptcha' ),
+					'bp_comments_form' => esc_html__( 'BuddyPress comments form', 'advanced-nocaptcha-recaptcha' ),
+					'bp_create_group'  => esc_html__( 'BuddyPress create group', 'advanced-nocaptcha-recaptcha' ),
+				),
+			];
+
+			$fields = $this->push_at_to_associative_array( $fields, 'enabled_forms_wc', $additonal_bp_options );
+
+			$additonal_bbp_options['enabled_forms_bbp'] = [
+				'label'      =>  esc_html__( 'bbPress pages', 'advanced-nocaptcha-recaptcha' ),
+				'section_id' => 'forms',
+				'type'       => 'multicheck',
+				'class'      => 'checkbox',
+				'options'    => array(
+					'bbp_new'          => esc_html__( 'bbPress New topic', 'advanced-nocaptcha-recaptcha' ),
+					'bbp_reply'        => esc_html__( 'bbPress reply to topic', 'advanced-nocaptcha-recaptcha' ),
+				),
+			];
+
+			$fields = $this->push_at_to_associative_array( $fields, 'enabled_forms_bp', $additonal_bbp_options );
+
+			$additonal_options = [
+				'auto_detect' => esc_html__( 'Automatically detect and match the visitor\'s language settings (better user experience).', 'advanced-nocaptcha-recaptcha' ),
+			];
+
+			$fields['language_handling']['options'] = $fields['language_handling']['options'] + $additonal_options;
+
+			$additonal_checkout_options['wc_checkout_position'] = [
 				'label'      => esc_html__( 'WooCommerce checkout position', 'advanced-nocaptcha-recaptcha' ),
 				'section_id' => 'forms',
 				'type'       => 'select',
@@ -463,21 +582,10 @@ class C4WP_Settings {
 					'above_checkout_btn' => esc_html__( 'Above checkout button', 'advanced-nocaptcha-recaptcha' ),
 					'above_payment'      => esc_html__( 'Above payment selection', 'advanced-nocaptcha-recaptcha' ),
 				),
-				'desc'        =>  '</br>'. esc_html__( 'Choose a location for the captcha input (v2 checkbox only)', 'advanced-nocaptcha-recaptcha' ),
+				'desc'        => esc_html__( 'Choose a location for the captcha input (v2 checkbox only)', 'advanced-nocaptcha-recaptcha' )  . '</br>',
 			];
 
-			$fields = $this->push_at_to_associative_array( $fields, 'enabled_forms', $additonal_wc_options );
-
-			$premium_area['auto_detect_lang'] = array(
-				'section_id' => 'google_keys',
-				'label'      => esc_html__( 'Auto detect language', 'advanced-nocaptcha-recaptcha' ),
-				'std'        => 0,
-				'type'       => 'checkbox',
-				'class'      =>  $premium_setting_class .'checkbox',
-				'cb_label'   => esc_html__( 'Enable this setting to have our plugin auto-detect the correct language.', 'advanced-nocaptcha-recaptcha' ),
-			);
-
-			$fields = $this->push_at_to_associative_array( $fields, 'v3_script_load', $premium_area );
+			$fields = $this->push_at_to_associative_array( $fields, 'enabled_forms_wc', $additonal_checkout_options );
 		}
 
 		$fields = apply_filters( 'c4wp_settings_fields', $fields );
@@ -494,6 +602,8 @@ class C4WP_Settings {
 					'section_id'     => '',
 					'desc'           => '',
 					'std'            => '',
+					'min_val'        => '',
+					'max_val'        => '',
 				]
 			);
 		}
@@ -521,11 +631,15 @@ class C4WP_Settings {
 
 		$value = c4wp_get_option( $field['id'], $field['std'] );
 
+		
+		if ( ! empty( $field['desc'] ) ) {
+			printf( '<p class="description mb-10">%s</p>', $field['desc'] );
+		}
+
 		switch ( $field['type'] ) {
 			case 'text':
 			case 'email':
 			case 'url':
-			case 'number':
 			case 'submit':
 				printf(
 					'<input type="%1$s" id="c4wp_admin_options_%2$s" class="%3$s" name="c4wp_admin_options[%4$s]" placeholder="%5$s" value="%6$s"%7$s />',
@@ -538,9 +652,23 @@ class C4WP_Settings {
 					$attrib
 				);
 				break;
+			case 'number':
+				printf(
+					'<input type="%1$s" id="c4wp_admin_options_%2$s" class="%3$s" name="c4wp_admin_options[%4$s]" placeholder="%5$s" min="%8$s" max="%9$s" value="%6$s"%7$s />',
+					esc_attr( $field['type'] ),
+					esc_attr( $field['id'] ),
+					esc_attr( $field['class'] ),
+					esc_attr( $field['id'] ),
+					isset( $field['placeholder'] ) ? esc_attr( $field['placeholder'] ) : '',
+					esc_attr( $value ),
+					$attrib,
+					esc_attr( $field['min_val'] ),
+					esc_attr( $field['max_val'] ),
+				);
+				break;
 			case 'number-inline':
 				printf(
-						'%8$s <input type="%1$s" id="c4wp_admin_options_%2$s" class="%3$s" name="c4wp_admin_options[%4$s]" placeholder="%5$s" value="%6$s"%7$s /> %9$s',
+						'%8$s <input type="%1$s" id="c4wp_admin_options_%2$s" class="%3$s" name="c4wp_admin_options[%4$s]" placeholder="%5$s" min="%8$s" max="%9$s" value="%6$s" %7$s /> %9$s',
 						esc_attr( 'number' ),
 						esc_attr( $field['id'] ),
 						esc_attr( $field['class'] ),
@@ -549,7 +677,9 @@ class C4WP_Settings {
 						esc_attr( $value ),
 						$attrib,
 						esc_attr( $field['cb_label'] ),
-						esc_attr( $field['cb_label_after'] )
+						esc_attr( $field['cb_label_after'] ),
+						esc_attr( $field['min_val'] ),
+						esc_attr( $field['max_val'] )
 					);
 					break;
 			case 'textarea':
@@ -627,9 +757,6 @@ class C4WP_Settings {
 				printf( esc_html__( 'No hook defined for %s', 'advanced-nocaptcha-recaptcha' ), esc_html( $field['type'] ) );
 				break;
 		}
-		if ( ! empty( $field['desc'] ) ) {
-			printf( '<p class="description">%s</p>', $field['desc'] );
-		}
 	}
 
 	function options_sanitize( $value ) {
@@ -662,6 +789,20 @@ class C4WP_Settings {
 				break;
 			case 'number':
 			case 'number-inline':
+				if ( isset( $field['id'] ) && 'failed_login_cron_schedule' == $field['id'] ) {
+					if ( absint( $value ) > 10 ) {
+						$value = 10;
+					} else if ( absint( $value ) < 1 ) {
+						$value = 1;
+					}
+				}
+				if ( isset( $field['id'] ) && 'failed_login_allow' == $field['id'] ) {
+					if ( absint( $value ) > 20 ) {
+						$value = 10;
+					} else if ( absint( $value ) < 1 ) {
+						$value = 1;
+					}
+				}				
 				$sanitized = absint( $value );
 				break;
 			case 'textarea':
@@ -695,12 +836,12 @@ class C4WP_Settings {
 
 	function menu_page() {
 		add_menu_page( esc_html__( 'CAPTCHA Configuration', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'CAPTCHA 4WP', 'advanced-nocaptcha-recaptcha' ), 'manage_options', 'c4wp-admin-captcha', [ $this, 'admin_settings' ],  '', 99 );
-		$hook_captcha_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'CAPTCHA Configuration', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'CAPTCHA', 'advanced-nocaptcha-recaptcha' ), 'manage_options', 'c4wp-admin-captcha', [ $this, 'admin_settings' ] );
-		$hook_settings_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'CAPTCHA 4WP Settings', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'Settings', 'advanced-nocaptcha-recaptcha' ), 'manage_options', 'c4wp-admin-settings', [ $this, 'admin_settings' ] );
-		$hook_help_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'Help & Contact Us', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'Help & Contact Us', 'advanced-nocaptcha-recaptcha' ), 'manage_options', 'c4wp-admin-help', [ $this, 'admin_settings' ] );
+		$hook_captcha_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'CAPTCHA Configuration', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'CAPTCHA Configuration', 'advanced-nocaptcha-recaptcha' ), 'manage_options', 'c4wp-admin-captcha', [ $this, 'admin_settings' ], 0 );
+		$hook_settings_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'CAPTCHA 4WP Settings', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'Settings & Placements', 'advanced-nocaptcha-recaptcha' ), 'manage_options', 'c4wp-admin-settings', [ $this, 'admin_settings' ], 1 );
+		$hook_help_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'Help & Contact Us', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'Help & Contact Us', 'advanced-nocaptcha-recaptcha' ), 'manage_options', 'c4wp-admin-help', [ $this, 'admin_settings' ], 5 );
 		
 		if ( ! function_exists( 'c4wp_fs' ) || function_exists( 'c4wp_fs' ) && c4wp_fs()->is_not_paying() ) {
-			$hook_upgrade_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'Premium Features ➤', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'Premium Features ➤', 'advanced-nocaptcha-recaptcha' ), 'manage_options', 'c4wp-admin-upgrade', [ $this, 'admin_settings' ] );
+			$hook_upgrade_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'Premium Features ➤', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'Premium Features ➤', 'advanced-nocaptcha-recaptcha' ), 'manage_options', 'c4wp-admin-upgrade', [ $this, 'admin_settings' ], 2 );
 			add_action( "load-$hook_upgrade_submenu", [ $this, 'c4wp_admin_page_enqueue_scripts' ] );
 		}
 
@@ -711,12 +852,12 @@ class C4WP_Settings {
 	
 	function network_menu_page() {
 		add_menu_page( esc_html__( 'CAPTCHA Configuration', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'CAPTCHA 4WP', 'advanced-nocaptcha-recaptcha' ), 'manage_network_options', 'c4wp-admin-captcha', [ $this, 'admin_settings' ],  '', 99 );
-		$hook_captcha_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'CAPTCHA Configuration', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'CAPTCHA', 'advanced-nocaptcha-recaptcha' ), 'manage_network_options', 'c4wp-admin-captcha', [ $this, 'admin_settings' ] );
-		$hook_settings_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'CAPTCHA 4WP Settings', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'Settings', 'advanced-nocaptcha-recaptcha' ), 'manage_network_options', 'c4wp-admin-settings', [ $this, 'admin_settings' ] );
-		$hook_help_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'Help & Contact Us', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'Help & Contact Us', 'advanced-nocaptcha-recaptcha' ), 'manage_network_options', 'c4wp-admin-help', [ $this, 'admin_settings' ] );
+		$hook_captcha_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'CAPTCHA Configuration', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'CAPTCHA Configuration', 'advanced-nocaptcha-recaptcha' ), 'manage_network_options', 'c4wp-admin-captcha', [ $this, 'admin_settings' ], 0 );
+		$hook_settings_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'CAPTCHA 4WP Settings', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'Settings & Placements', 'advanced-nocaptcha-recaptcha' ), 'manage_network_options', 'c4wp-admin-settings', [ $this, 'admin_settings' ], 1 );
+		$hook_help_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'Help & Contact Us', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'Help & Contact Us', 'advanced-nocaptcha-recaptcha' ), 'manage_network_options', 'c4wp-admin-help', [ $this, 'admin_settings' ], 5 );
 
 		if ( ! function_exists( 'c4wp_fs' ) || function_exists( 'c4wp_fs' ) && c4wp_fs()->is_not_paying() ) {
-			$hook_upgrade_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'Premium Features ➤', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'Premium Features ➤', 'advanced-nocaptcha-recaptcha' ), 'manage_network_options', 'c4wp-admin-upgrade', [ $this, 'admin_settings' ] );
+			$hook_upgrade_submenu = add_submenu_page( 'c4wp-admin-captcha',  esc_html__( 'Premium Features ➤', 'advanced-nocaptcha-recaptcha' ), esc_html__( 'Premium Features ➤', 'advanced-nocaptcha-recaptcha' ), 'manage_network_options', 'c4wp-admin-upgrade', [ $this, 'admin_settings' ], 2 );
 			add_action( "load-$hook_upgrade_submenu", [ $this, 'c4wp_admin_page_enqueue_scripts' ] );
 		}
 
@@ -763,7 +904,7 @@ class C4WP_Settings {
 		?>
 		<div class="wrap fs-section">
 			<!-- Plugin settings go here -->
-			<div id="poststuff">
+			<div id="c4wp-help">
 				<h1>
 				<?php
 				if ( 'c4wp-admin-captcha' == $current_tab ) {
@@ -773,7 +914,7 @@ class C4WP_Settings {
 				}
 				?>
 				</h1>
-				<div id="post-body" class="metabox-holder columns-2">
+				<div id="post-body" class="metabox-holder columns-2 c4wp-settings">
 					<div id="post-body-content">
 						<div id="tab_container">
 							<?php

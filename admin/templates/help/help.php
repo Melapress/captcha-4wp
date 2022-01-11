@@ -44,7 +44,7 @@
 	<br>
 	<!-- Plugin documentation -->
 	<div class="title">
-		<h2 style="padding-left: 0;"><?php esc_html_e( 'Pate CAPTCHA 4WP', 'advanced-nocaptcha-recaptcha' ); ?></h2>
+		<h2 style="padding-left: 0;"><?php esc_html_e( 'Rate CAPTCHA 4WP', 'advanced-nocaptcha-recaptcha' ); ?></h2>
 	</div>
 	<p><?php esc_html_e( 'We work really hard to deliver a plugin that enables you to add CAPTCHA checks and tests on your WordPress website to protect it against spam bots and other automated malicious attacks. It takes thousands of man-hours every year and an endless amount of dedication to research, develop and maintain the free edition of CAPTCHA 4WP. If you like what you see, and find CAPTCHA 4WP useful we ask you nothing more than to please rate our plugin. We appreciate every star!', 'advanced-nocaptcha-recaptcha' ); ?></p>
 	<div class="btn">
