@@ -2,7 +2,7 @@
 Contributors: WPWhiteSecurity
 Tags: recaptcha, nocaptcha, captcha, invisible captcha, bot, spam protection, captch for WooCommerce, forms captcha
 Requires at least: 5.0
-Tested up to: 5.8.1
+Tested up to: 5.8.3
 Stable tag: 6.1.7
 Requires PHP: 7.0
 License: GPLv3
