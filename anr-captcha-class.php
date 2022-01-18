@@ -299,6 +299,7 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 	
 			$secret_key  = trim( c4wp_get_option( 'secret_key' ) );
 			$verify      = false;
+			$remoteip    = $_SERVER['REMOTE_ADDR'];
 			
 
 			if ( false === $response ) {
@@ -336,7 +337,7 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 				$url, array(
 					'timeout' => 10,
 					'body'    => array(
-						'secret'   => $secre_key,
+						'secret'   => $secret_key,
 						'response' => $response,
 						'remoteip' => $remoteip,
 					),
