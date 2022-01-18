@@ -36,7 +36,7 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 
 			if ( c4wp_is_form_enabled( 'lost_password' ) ) {
 				add_action( 'lostpassword_form', array( $this, 'form_field' ), 99 );
-				add_action( 'lostpassword_post', array( $this, 'lostpassword_verify_44' ) );
+				add_action( 'lostpassword_post', array( $this, 'lostpassword_verify' ), 10, 2 );
 			}
 
 			if ( c4wp_is_form_enabled( 'reset_password' ) ) {
@@ -393,7 +393,6 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 			return $user;
 		}
 
-
 		/**
 		 * Checks if the current authentication request is RESTy or a custom URL where it should not load.
 		 */
@@ -450,14 +449,13 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 			return $result;
 		}
 
-		function lostpassword_verify_44( $errors ) {
-			if ( ! $this->verify() ) {
-				$errors->add( 'c4wp_error', $this->add_error_to_mgs() );
-			}
-		}
-
-
 		function reset_password_verify( $errors, $user ) {
+			
+			// Allow admins to send reset links.
+			if ( current_user_can( 'manage_options' ) && isset( $_REQUEST['action'] ) && in_array( wp_unslash( $_REQUEST['action'] ), array('resetpassword', 'send-password-reset') ) ) {
+				return $errors;
+			}
+			
 			if ( ! $this->verify() ) {
 				$errors->add( 'c4wp_error', $this->add_error_to_mgs() );
 			}
