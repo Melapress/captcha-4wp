@@ -405,4 +405,3 @@ function c4wp_get_sysinfo() {
 function c4wp_is_premium_version() {
 	return ( class_exists( 'C4WP_Pro' ) && ! c4wp_fs()->is_not_paying() ) ? true : false;
 }
-

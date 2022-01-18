@@ -253,25 +253,34 @@ tr.upgrade-required > th {
 .upgrade-required * {
 	opacity: 0.8;
 }
-.premium-title {
-    position: absolute;
-    margin-top: -20px;
-    background: #d7e5ef;
-    padding: 20px 20px;
-    width: calc( 100% - 40px );
-    left: -1px;
-    border: 1px solid #2b597a;
-    border-top: none;
-    padding-top: 0;
+
+.premium-title-wrapper strong {
+	font-size: 16px;
+}
+
+.premium-title-wrapper p {
+	font-size: 14px;
+	font-weight: 400;
 }
 
 .premium-title-wrapper {
 	overflow: hidden;
     position: relative;	
-	height: 70px;
+	height: 180px; 
+}
+.premium-title-wrapper th {
+    width: calc( 100% - 43px );
+    position: absolute;
+    padding: 20px;
+    border: 1px solid #c3c4c7;
+    box-shadow: 0 1px 1px rgb(0 0 0 / 4%);
+    background: #fff;
+}
+.premium-title-wrapper td {
+	display: none;;
 }
 .premium-link {
-	background: #2b597a;
+	background: #50284E;
 	color: #fff !important;
 	padding: 8px 12px;
 	font-weight: bold;
@@ -282,10 +291,10 @@ tr.upgrade-required > th {
 }
 
 .premium-link:hover {
-	background: #416177;
+	background: #50284E;
 }
 .premium-link-not-btn {
-	color: #2b597a;
+	color: #50284E;
 	margin-left: 15px;
 }
 a[href*=c4wp-admin-upgrade]:not(.premium-link ):not(.premium-link-not-btn ) {
@@ -317,4 +326,32 @@ select.lang_select {
 	clear: left;
     display: block;
     margin-top: 10px;
+}
+
+@media all and (min-width: 1024px) {
+	.c4wp-settings #post-body-content {
+		width: calc( 100% - 300px );
+		overflow: hidden;
+		position: relative;
+	}
+	
+	.c4wp-settings #postbox-container-1 {
+		margin-right: 0 !important;
+	}
+}
+
+.c4wp-help-main ol {
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+ul.c4wp-pro-features-ul li.dashicons-yes-alt:before {
+    color: #50284E;
+    position: absolute;
+    left: -2px;
+    top: 1px;
+} 
+.c4wp-pro-features-ul li {
+	padding-left: 25px;
+    position: relative;
+    margin-bottom: 15px;
 }
