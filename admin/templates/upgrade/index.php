@@ -27,10 +27,9 @@
 							<p class="c7"><span class="c5">Free</span></p>
 						</td>
 					</tr>
-
 					<tr class="c2">
 						<td class="c6" colspan="1" rowspan="1">
-							<p class="c10"><span class="c5"><strong>One to one email support & forums</strong>We are well known for our world-class support. Regardless of which edition you are using, you will receive support from us. </span></p>
+							<p class="c10"><span class="c5"><strong>Email support and forum access</strong>We stand behind all of our products with world-class support and a team of professionals who absolutely care.</span></p>
 						</td>
 						<td class="c8" colspan="1" rowspan="1">
 							<p class="c7"><span class="c5"><span class="dashicons dashicons-saved"></span></span></p>
@@ -41,7 +40,7 @@
 					</tr>
 					<tr class="c2">
 						<td class="c6" colspan="1" rowspan="1">
-							<p class="c10"><span class="c5"><strong>Quick to set up and easy to use</strong>Setup CAPTCHA within just minutes and add it to the form you want to with just a mouse click. It's as easy as ABC</span></p>
+							<p class="c10"><span class="c5"><strong>Easy to set up and use</strong>Set up CAPTCHA in minutes and add it to virtually any form you want at the click of a button.</span></p>
 						</td>
 						<td class="c8" colspan="1" rowspan="1">
 							<p class="c7"><span class="c5"><span class="dashicons dashicons-saved"></span></span></p>
@@ -52,7 +51,7 @@
 					</tr>
 					<tr class="c2">
 						<td class="c6" colspan="1" rowspan="1">
-							<p class="c10"><span class="c5"><strong>Select your favourite type of CAPTCHA tests</strong>Support for "I'm not a Robot" CAPTCHA, invisible and noCAPTCHA methods</span></p>
+							<p class="c10"><span class="c5"><strong>Choose from different types of tests</strong>With support for multiple CAPTCHA methods available straight out of the box, you can choose the one that best fits your requirements.</span></p>
 						</td>
 						<td class="c8" colspan="1" rowspan="1">
 							<p class="c7"><span class="c5"><span class="dashicons dashicons-saved"></span></span></p>
@@ -63,7 +62,7 @@
 					</tr>
 					<tr class="c2">
 						<td class="c6" colspan="1" rowspan="1">
-							<p class="c10"><span class="c5"><strong>WordPress login pages & comments spam protection</strong>Add a CAPTCHA test of choice to the login pages and comments section to protect your website from spam bots.3</span></p>
+							<p class="c10"><span class="c5"><strong>WordPress login and comments spam protection</strong>Easily add CAPTCHA to your WordPress login page and comments section to protect your website from spam.</span></p>
 						</td>
 						<td class="c8" colspan="1" rowspan="1">
 							<p class="c7"><span class="c5"><span class="dashicons dashicons-saved"></span></span></p>
@@ -74,7 +73,7 @@
 					</tr>
 					<tr class="c2">
 						<td class="c6" colspan="1" rowspan="1">
-							<p class="c10"><span class="c5"><strong>WordPress registrations & lost / password reset forms spam protection</strong></span></p>
+							<p class="c10"><span class="c5"><strong>WordPress registration and lost password/reset form protection</strong>Easily add CAPTCHA to protect your website from spam and fake users registration and lost password/reset pages from spam.</span></p>
 						</td>
 						<td class="c8" colspan="1" rowspan="1">
 							<p class="c7"><span class="c5"><span class="dashicons dashicons-saved"></span></span></p>
@@ -85,7 +84,7 @@
 					</tr>
 					<tr class="c2">
 						<td class="c6" colspan="1" rowspan="1">
-							<p class="c10"><span class="c5"><strong>Use CAPTCHA tests in any country</strong>Change the reCAPTCHA domain if need be so you can still use the most powerful CAPTCHA service.</span></p>
+							<p class="c10"><span class="c5"><strong>Use CAPTCHA in any country</strong>Select from different domains to prevent service outages due to domain restrictions.</span></p>
 						</td>
 						<td class="c8" colspan="1" rowspan="1">
 							<p class="c7"><span class="c5"><span class="dashicons dashicons-saved"></span></span></p>
@@ -96,7 +95,7 @@
 					</tr>
 					<tr class="c2">
 						<td class="c6" colspan="1" rowspan="1">
-							<p class="c10"><span class="c5"><strong>Configure the CAPTCHA test passability level</strong>Configure the CAPTCHA score & strictness, & personalize it by changing the theme, size and other aspects.</span></p>
+							<p class="c10"><span class="c5"><strong>Set CAPTCHA passmark score</strong>Fine-tune CAPTCHA tests in real-time by setting the passmark score to avoid false positives.</span></p>
 						</td>
 						<td class="c8" colspan="1" rowspan="1">
 							<p class="c7"><span class="c5"><span class="dashicons dashicons-saved"></span></span></p>
@@ -107,7 +106,7 @@
 					</tr>
 					<tr class="c2">
 						<td class="c6" colspan="1" rowspan="1">
-							<p class="c10"><span class="c5"><strong>Configurable CAPTCHA test language</strong>Specify in which language should the CAPTCHA text be.</span></p>
+							<p class="c10"><span class="c5"><strong>Configurable CAPTCHA language</strong>Choose from multiple CAPTCHA text languages.</span></p>
 						</td>
 						<td class="c8" colspan="1" rowspan="1">
 							<p class="c7"><span class="c5"><span class="dashicons dashicons-saved"></span></span></p>
@@ -118,7 +117,7 @@
 					</tr>
 					<tr class="c2">
 						<td class="c6" colspan="1" rowspan="1">
-							<p class="c10"><span class="c5"><strong>Use the language that your website viewers understand</strong>Do you have a multi-lingual website? Configure the plugin to automatically detect the visitors' languange and show the matching language in the CAPTCHA test. </span></p>
+							<p class="c10"><span class="c5"><strong>Use the language that your website viewers understand</strong>Avoid confusion and configure the plugin to automatically change the CAPTCHA text language to match that of the visitor.</span></p>
 						</td>
 						<td class="c8" colspan="1" rowspan="1">
 							<p class="c7"><span class="c5"><span class="dashicons dashicons-saved"></span></span></p>
@@ -129,7 +128,7 @@
 					</tr>
 					<tr class="c2">
 						<td class="c6" colspan="1" rowspan="1">
-							<p class="c10"><span class="c5"><strong>Spam protection for your WooCommerce stores</strong>Add CAPTCHA tests to WooCommerce forms such as the login page and checkout with just a mouse click.</span></p>
+							<p class="c10"><span class="c5"><strong>Spam protection for your WooCommerce stores</strong>Add CAPTCHA to WooCommerce forms such as the login page and checkout at the click of a mouse.</span></p>
 						</td>
 						<td class="c8" colspan="1" rowspan="1">
 							<p class="c7"><span class="c5"><span class="dashicons dashicons-saved"></span></span></p>
@@ -151,7 +150,7 @@
 					</tr>
 					<tr class="c2">
 						<td class="c6" colspan="1" rowspan="1">
-							<p class="c10"><span class="c5"><strong>One-click Contact Form 7 forms spam protection</strong>Add a CAPTCHA test to any Contact form 7 form with just a click. No shortcodes required.</span></p>
+							<p class="c10"><span class="c5"><strong>1-click Contact Form 7 spam protection</strong>Add CAPTCHA to any Contact Form 7 form at the click of a button. No shortcodes required.</span></p>
 						</td>
 						<td class="c8" colspan="1" rowspan="1">
 							<p class="c7"><span class="c5"><span class="dashicons dashicons-saved"></span></span></p>
@@ -162,7 +161,7 @@
 					</tr>
 					<tr class="c2">
 						<td class="c6" colspan="1" rowspan="1">
-							<p class="c10"><span class="c5"><strong>One-click spam protection for Mailchimp for WordPress forms</strong>Add a CAPTCHA test to any form created with MC4WP with just a click. No shortcodes required.</span></p>
+							<p class="c10"><span class="c5"><strong>1-click spam protection for Mailchimp for WordPress forms</strong>Add CAPTCHA to any MC4WP form at the click of a button. No shortcodes required.</span></p>
 						</td>
 						<td class="c8" colspan="1" rowspan="1">
 							<p class="c7"><span class="c5"><span class="dashicons dashicons-saved"></span></span></p>
@@ -173,7 +172,7 @@
 					</tr>
 					<tr class="c2">
 						<td class="c6" colspan="1" rowspan="1">
-							<p class="c10"><span class="c5"><strong>CAPTCHA tests & spam protection for BuddyPress, bbPress & other third party plugins</strong>Out of the box support for many popular third party plugins.</span></p>
+							<p class="c10"><span class="c5"><strong>CAPTCHA spam protection for BuddyPress, bbPress, & many other third-party plugins</strong>Out of the box support for many popular third-party plugins.</span></p>
 						</td>
 						<td class="c8" colspan="1" rowspan="1">
 							<p class="c7"><span class="c5"><span class="dashicons dashicons-saved"></span></span></p>
@@ -195,7 +194,7 @@
 					</tr>
 					<tr class="c2">
 						<td class="c6" colspan="1" rowspan="1">
-							<p class="c10"><span class="c5"><strong>Boost login security, add CAPTCHA tests only failed logins</strong>For an improved user experience and as an extra security measure, only add CAPTCHA tests when there are failed logins from a specific IP address.</span></p>
+							<p class="c10"><span class="c5"><strong>Strike a balance between security and usability</strong>Request CAPTCHA on failed logins only for an improved user experience that doesn't compromise security.</span></p>
 						</td>
 						<td class="c8" colspan="1" rowspan="1">
 							<p class="c7"><span class="c5"><span class="dashicons dashicons-saved"></span></span></p>
@@ -206,7 +205,7 @@
 					</tr>
 					<tr class="c2">
 						<td class="c6" colspan="1" rowspan="1">
-							<p class="c10"><span class="c5"><strong>Remove CAPTCHA for logged in users</strong>Logged in users can be trusted, so there is no need for CAPTCHA tests. You can also configure this by user role.</span></p>
+							<p class="c10"><span class="c5"><strong>White-list logged in users</strong>Logged in users can be trusted, so there is no need for CAPTCHA. You can also configure this by user role.</span></p>
 						</td>
 						<td class="c8" colspan="1" rowspan="1">
 							<p class="c7"><span class="c5"><span class="dashicons dashicons-saved"></span></span></p>
@@ -217,7 +216,7 @@
 					</tr>
 					<tr class="c2">
 						<td class="c6" colspan="1" rowspan="1">
-							<p class="c10"><span class="c5"><strong>Remove CAPTCHA for specific IP addresses</strong>Even though you have CAPTCHA tests you can still have automated process & integrations running to your website.</span></p>
+							<p class="c10"><span class="c5"><strong>White-list specific IP addresses</strong>White-list IPs to ensure automated process & integrations running to your website continue to operate smoothly.</span></p>
 						</td>
 						<td class="c8" colspan="1" rowspan="1">
 							<p class="c7"><span class="c5"><span class="dashicons dashicons-saved"></span></span></p>
@@ -228,7 +227,17 @@
 					</tr>
 					<tr class="c2">
 						<td class="c6" colspan="1" rowspan="1">
-							<p class="c10"><span class="c5"><strong>Remove CAPTCHA from specific URLs</strong>If you configure CAPTCHA to run invisibly on all pages, use this setting to exclude it from specific URLs.</span></p>
+							<p class="c10"><span class="c5"><strong>White-list specific URLs</strong>If you configure CAPTCHA to run invisibly on all pages, use this setting to exclude it from specific URLs.</span></p>
+						</td>
+						<td class="c8" colspan="1" rowspan="1">
+							<p class="c7"><span class="c5"><span class="dashicons dashicons-saved"></span></span></p>
+						</td>
+						<td class="c12" colspan="1" rowspan="1">
+							<p class="c7"><span class="c5"><span class="dashicons dashicons-no"></span></span></p>
+						</td>
+					</tr><tr class="c2">
+						<td class="c6" colspan="1" rowspan="1">
+							<p class="c10"><span class="c5"><strong>No Ads!</strong></span></p>
 						</td>
 						<td class="c8" colspan="1" rowspan="1">
 							<p class="c7"><span class="c5"><span class="dashicons dashicons-saved"></span></span></p>

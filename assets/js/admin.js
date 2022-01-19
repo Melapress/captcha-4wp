@@ -1,4 +1,12 @@
 jQuery(document).ready(function( $ ){
+
+	// Tidy desc areas.	
+	function tidySettingsDescs() {
+		jQuery( '.c4wp-desc' ).each(function(index, value) {
+			var height = jQuery( this ).height();
+			jQuery( this ).parent().css( 'height', height - 40 );
+		});
+	}
 		
 	function c4wp_admin_show_hide_fields(){
 		var selected_value = $( '[name="c4wp_admin_options[captcha_version]"]:checked' ).val();
@@ -56,6 +64,11 @@ jQuery(document).ready(function( $ ){
 	buildWhitelistList();
 	buildWhitelistListURLs();
 	moveLangPicker();
+	tidySettingsDescs();
+
+	jQuery(window).on('resize', function(){
+		tidySettingsDescs();
+	});
 
 	// Toggle options on/off based on current captcha version.
 	if( $( '[name="c4wp_admin_options[captcha_version]"]' ).length ){

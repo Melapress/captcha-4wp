@@ -79,7 +79,7 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 			$number   = $this->total_captcha();
 			$version = c4wp_get_option( 'captcha_version', 'v2_checkbox' );
 
-			$field = '<div class="c4wp_captcha_field"><div id="c4wp_captcha_field_' . $number . '" class="c4wp_captcha_field_div">';
+			$field = '<div class="c4wp_captcha_field" style="margin-bottom: 10px;"><div id="c4wp_captcha_field_' . $number . '" class="c4wp_captcha_field_div">';
 			if ( 'v3' === $version ) {
 				$field .= '<input type="hidden" name="g-recaptcha-response" aria-label="do not use" aria-readonly="true" value=""/>';
 			}
@@ -244,6 +244,8 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 							});
 						});
 					};
+
+					grecaptcha.ready( c4wp_onloadCallback );
 
 					//token is valid for 2 minutes, So get new token every after 1 minutes 50 seconds
 					setInterval(c4wp_onloadCallback, 110000);
