@@ -344,19 +344,23 @@ class C4WP_Settings {
 				),
 			),
 		);
-		if ( ! c4wp_is_premium_version() || c4wp_is_premium_version() && ! class_exists( 'C4WP_Failed_Logins_Captcha' ) ) :
+		if ( ! c4wp_is_premium_version() ) :
 
 			$features_url = function_exists( 'c4wp_same_settings_for_all_sites' ) && c4wp_same_settings_for_all_sites() ? network_admin_url( 'admin.php?page=c4wp-admin-upgrade' ) : admin_url( 'admin.php?page=c4wp-admin-upgrade' );
 			$premium_area['premium_title'] = array(
 				'section_id' => 'forms',
 				'type'       => 'html',				
-				'class'      => 'premium-title-wrapper',
+				'class'      => 'premium-title-wrapper h-140',
 				'label'      => sprintf(
-					'<span class="premium-title"><strong>Upgrade to Premium for:</strong><p>Add spam protection to block spam bots and allow real humans to easily interact with your WordPress website by adding CAPTCHA to any form on your website, including comments forms, login forms, and checkout pages.</p><a href="%3$s" class="premium-link" target="_blank">%1$s</a> <a href="%4$s" class="premium-link-not-btn">%2$s</a></span>',
+					'<span class="premium-title"><strong>Upgrade to Premium to:</strong><p>Add spam protection to block spam bots and allow real humans to easily interact with your WordPress website by adding CAPTCHA to any form on your website, including out of the box support for forms on third party plugins such as:</p><p><ul style="list-style: disc; padding-left: 17px; font-weight: 400; }"><li>%5$s</li><li>%6$s</li><li>%7$s</li><li>%8$s</li></ul></p><a href="%3$s" class="premium-link" target="_blank">%1$s</a> <a href="%4$s" class="premium-link-not-btn">%2$s</a></span>',
 					esc_html__( 'Upgrade to Premium', 'advanced-nocaptcha-recaptcha' ),
 					esc_html__( 'Find out more', 'advanced-nocaptcha-recaptcha' ),
 					esc_url( 'https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/pricing/?utm_source=plugin&utm_medium=referral&utm_campaign=C4WP&utm_content=plugin+premium+button' ),					
 					esc_url( $features_url ),
+					esc_html__( 'Checkout and login pages on WooCommerce stores', 'advanced-nocaptcha-recaptcha' ),
+					esc_html__( 'Contact Form 7, MailChimp 4 WordPress forms', 'advanced-nocaptcha-recaptcha' ),
+					esc_html__( 'BuddyPress and bbPress', 'advanced-nocaptcha-recaptcha' ),
+					esc_html__( 'And others', 'advanced-nocaptcha-recaptcha' ),
 				),
 			);
 
@@ -686,7 +690,7 @@ class C4WP_Settings {
 				if ( 'c4wp-admin-captcha' == $current_tab ) {
 					_e( 'Captcha Configuration', 'advanced-nocaptcha-recaptcha' );
 				} else if ( 'c4wp-admin-settings' == $current_tab ) {
-					_e( 'Settings', 'advanced-nocaptcha-recaptcha' );
+					_e( 'CAPTCHA Placements', 'advanced-nocaptcha-recaptcha' );
 				}
 				?>
 				</h1>
@@ -790,13 +794,14 @@ class C4WP_Settings {
 								<li class="dashicons-before dashicons-yes-alt"> ' . esc_html__( 'Remove CAPTCHA for logged in users', 'advanced-nocaptcha-recaptcha' ) . '</li>
 								<li class="dashicons-before dashicons-yes-alt"> ' . esc_html__( 'Remove CAPTCHA for specific IP addresses', 'advanced-nocaptcha-recaptcha' ) . '</li>
 								<li class="dashicons-before dashicons-yes-alt"> ' . esc_html__( 'Remove CAPTCHA from specific URLs', 'advanced-nocaptcha-recaptcha' ) . '</li>
+								<li class="dashicons-before dashicons-yes-alt"> ' . esc_html__( 'No Ads!', 'advanced-nocaptcha-recaptcha' ) . '</li>
 							</ul>
-							<p style="text-align: center; margin: auto"><a class="premium-link" href="%1$s" target="_blank">' . esc_html__( 'Upgrade to Premium', 'advanced-nocaptcha-recaptcha' ) . '</a> <a class="premium-link-not-btn" href="%2$s">' . esc_html__( 'Find out more', 'advanced-nocaptcha-recaptcha' ) . '</a></p>
+							<p style="text-align: center; margin: auto"><a class="premium-link" href="%1$s" target="_blank">' . esc_html__( 'Upgrade to Premium', 'advanced-nocaptcha-recaptcha' ) . '</a> <a class="premium-link-not-btn" href="%2$s" target="_blank">' . esc_html__( 'Find out more', 'advanced-nocaptcha-recaptcha' ) . '</a></p>
 						</div>
 					</div>
 				</div>',
 				esc_url( 'https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/pricing/?utm_source=plugin&utm_medium=banner&utm_campaign=C4WP&utm_content=plugin+premium+button' ),
-				function_exists( 'c4wp_fs' ) ? c4wp_fs()->get_upgrade_url() : 'https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/'
+				function_exists( 'c4wp_fs' ) ? c4wp_fs()->get_upgrade_url() : 'https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/?utm_source=plugin&utm_medium=banner&utm_campaign=C4WP&utm_content=find+out+more+button'
 			);
 		endif;
 		return $return;
