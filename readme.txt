@@ -99,14 +99,12 @@ Simply select the WooCommerce page you want to add CAPTCHA to in the plugin's CA
 
 == Screenshots ==
 
-1. Captcha in comment form
-2. Captcha in Contact Form 7
-3. Captcha in WooCommerce (multiple in same page)
-4. Captcha in Login Form
-5. Captcha in Register Form
-6. Captcha in Lost Password Form
-7. Advanced noCaptcha reCaptcha Settings
-8. Advanced noCaptcha reCaptcha Setup Instruction
+1. CAPTCHA in the WordPress login form
+2. CAPTCHA in the WordPress comments form
+3. CAPTCHA in WooCommerce (multiple CAPTCHA's in the same page)
+4. CAPTCHA in user registration form
+5. CAPTCHA in password reset / change form
+6. CAPTCHA in lost password request form
 
 == Changelog ==
 
