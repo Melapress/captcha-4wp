@@ -18,10 +18,8 @@ Add CAPTCHA to any form on your WordPress website. Protect the WordPress comment
 
 CAPTCHA 4WP is very easy to us, allowing you to implement CAPTCHA to any form easily, including your WooCommerce checkout page within just minutes. The plugin is trusted by more than 200,000 administrators to protect their websites from spam, fake accounts, & fake orders!
 
-> The free edition of the plugin allows you to add CAPTCHA to the built-in forms in WordPress, such as the login and comments form. To add CAPTCHA to forms by third party plugins, such as WooCommerce, Contact Form 7, BuddyPress and MC4WP <strong>[upgrade to CAPTCHA 4WP Premium](https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/pricing/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=C4WP&utm_content=plugin+repos+description)</strong>.<strong>
+> With the free edition you can add CAPTCHA to the built-in forms in WordPress, such as the login and comments form. To add CAPTCHA to forms by third party plugins, such as WooCommerce, Contact Form 7 and BuddyPress <strong>[upgrade to CAPTCHA 4WP Premium](https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/pricing/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=C4WP&utm_content=plugin+repos+description)</strong>.<strong>
 >
-
-Refer to the [complete list of CAPTCHA 4WP benefits & features](https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/features-benefits/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=all+plugins&utm_content=plugin+repos+description) for more information and the differences between the free and premium edition of this plugin.
 
 #### Maintained & Supported by WP White Security
 
@@ -47,9 +45,7 @@ WP White Security is a European development company that builds high-quality Wor
 * Add CAPTCHA to any type of form, including PHP forms
 * Show CAPTCHA on login page if there are failed logins
 
-[Upgrade to CAPTCHA 4WP Premium](https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/pricing/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=all+plugins&utm_content=plugin+repos+description) to benefit from all of the above features and more.
-
-Refer to the [CAPTCHA plugin benefits and features](https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/features-benefits/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=all+plugins&utm_content=plugin+repos+description) for more information about the features you can take advantage of to protect your website and e-commerce store from spam, automated spam bots, fake registrations, and fake orders!
+Refer to the <strong>[CAPTCHA plugin benefits and features](https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/features-benefits/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=all+plugins&utm_content=plugin+repos+description)</strong> for a complete list of all the features you can take advantage of to protect your website and e-commerce store from spam, automated spam bots, fake registrations, and fake orders!
 
 ### Free and Premium Support
 
