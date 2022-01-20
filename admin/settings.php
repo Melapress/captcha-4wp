@@ -15,10 +15,43 @@ class C4WP_Settings {
 		add_action( 'admin_init', [ $this, 'admin_init' ] );
 		add_action( 'admin_init', [ $this, 'settings_save' ], 99 );
 		add_filter( 'plugin_action_links_' . plugin_basename( C4WP_PLUGIN_FILE ), [ $this, 'add_settings_link' ] );
-		add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_scripts' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_scripts' ] );		
 
 			add_action( 'admin_menu', [ $this, 'menu_page' ] );
+
+		add_action('admin_notices', [ $this, 'c4wp_nocaptcha_70_plugin_notice' ] );
+		add_action( 'wp_ajax_c4wp_nocaptcha_upgrade_plugin_notice_ignore', array( $this, 'c4wp_nocaptcha_upgrade_plugin_notice_ignore' ), 10, 1 );
 	}
+
+	function c4wp_nocaptcha_70_plugin_notice() {			
+		global $current_user;		
+		$user_id        = $current_user->ID;
+		$current_screen = get_current_screen();
+		$notice_nonce   = wp_create_nonce( 'dismiss_captcha_notice' );
+		$logo_img_src   = C4WP_PLUGIN_URL . 'assets/img/c4wp-logo-300x300.png';
+
+		// General notice in dashboard.
+		if ( current_user_can( 'manage_options' ) && ! get_user_meta( $user_id, 'c4wp_nocaptcha_plugin_notice_ignore') ) {	
+			// Add scripts.
+			wp_enqueue_script( 'c4wp-admin' );
+			
+			echo '<div id="adv-captcha-notice" class="updated notice" style="position: relative; display: flex; border-left-color: #824780;"><img style="width: 85px; height: 85px; margin-top: 10px; margin-right: 12px; margin-bottom: 10px;" src="' . esc_url( $logo_img_src ) . '"><div><h3 style="position: relative; top: -10px; font-size: 1.7em;">Breaking change:</h3><p style="margin-top: -15px;">'. __('Support for adding CAPTCHA on forms by third party plugins has now been moved to Premium only (as it was originally supposed to be). If you have been using any of these features <a href="mailto:support@wpwhitesecurity.com">send us an email</a> and we will give you a free 3-months license so you can keep on using the plugin and have enough time to think about ') .' <a href="https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/pricing/?utm_source=plugin&utm_medium=referral&utm_campaign=C4WP&utm_content=features+page+upgrade" target="_blank">upgrading to Premium.</a></p></div>  <a style="position: absolute; right: 15px; top: 15px;" href="#dismiss-upgrade-captcha-notice" data-nonce="'.esc_attr( $notice_nonce ).'">Dismiss.</a></p></div>';	
+		}	
+	}
+		
+	function c4wp_nocaptcha_upgrade_plugin_notice_ignore() {	
+		// Grab POSTed data.
+		$nonce           = filter_input( INPUT_POST, 'nonce', FILTER_SANITIZE_STRING );
+		// Check nonce.
+		if ( empty( $nonce ) || ! wp_verify_nonce( $nonce, 'dismiss_captcha_notice' ) ) {
+			wp_send_json_error( esc_html__( 'Nonce Verification Failed.','advanced-nocaptcha-recaptcha' ) );
+		}
+
+		global $current_user;		
+		$user_id = $current_user->ID;		
+		$updated = add_user_meta( $user_id, 'c4wp_nocaptcha_plugin_notice_ignore', 'true', true );	
+		wp_send_json_success($updated);
+	}	
 	
 	function admin_enqueue_scripts() {
 		wp_register_script( 'c4wp-admin', C4WP_PLUGIN_URL . 'assets/js/admin.js', array( 'jquery' ), C4WP_PLUGIN_VERSION, false );
