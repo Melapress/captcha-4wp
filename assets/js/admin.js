@@ -196,6 +196,25 @@ jQuery(function() {
 		});
 	});
 
+	jQuery( 'body' ).on( 'click', 'a[href="#dismiss-upgrade-captcha-notice"]', function ( e ) {
+		e.preventDefault();
+		var ourButton  = jQuery( this );
+		var nonce      = ourButton.attr( 'data-nonce' );
+		
+		jQuery.ajax({
+			type: 'POST',
+			url: ajaxurl,
+			async: true,
+			data: {
+				action: 'c4wp_nocaptcha_upgrade_plugin_notice_ignore',
+				nonce: nonce,
+			},
+			success: function ( result ) {
+				jQuery( '#adv-captcha-notice' ).slideUp();
+			}
+		});
+	});
+
 	// Add new IP to whitelist, if its oK.
 	jQuery( 'body' ).on( 'click', 'a#add-ip', function ( e ) {
 		e.preventDefault();
