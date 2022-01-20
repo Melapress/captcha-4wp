@@ -148,7 +148,7 @@ Release notes: [Plugin reload: Advanced noCaptcha & invisible Captcha is now CAP
 	* Fixed: plugin "blocking" admin request to send a "reset password" email via a user's profile page.
 	* Fixed: CAPTCHA not appearing on WordPress "lost password" form.
 	* Removed obsolete code related to "FEP" forms.
-
+	
 = 6.1.7 (20211006) =
 
 * IMPROVEMENT: Updated all the FAQs and help text links to point to the new documentation pages.
