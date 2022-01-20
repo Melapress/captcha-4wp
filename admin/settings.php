@@ -360,8 +360,8 @@ class C4WP_Settings {
 					esc_html__( 'Checkout and login pages on WooCommerce stores', 'advanced-nocaptcha-recaptcha' ),
 					esc_html__( 'Contact Form 7, MailChimp 4 WordPress forms', 'advanced-nocaptcha-recaptcha' ),
 					esc_html__( 'BuddyPress and bbPress', 'advanced-nocaptcha-recaptcha' ),
-					esc_html__( 'And others', 'advanced-nocaptcha-recaptcha' ),
-				),
+					esc_html__( 'And others', 'advanced-nocaptcha-recaptcha' )
+				)
 			);
 
 			$fields = self::push_at_to_associative_array( $fields, 'failed_login_cron_schedule', $premium_area );
@@ -442,7 +442,7 @@ class C4WP_Settings {
 					esc_attr( $value ),
 					$attrib,
 					esc_attr( $field['min_val'] ),
-					esc_attr( $field['max_val'] ),
+					esc_attr( $field['max_val'] )
 				);
 				break;
 			case 'number-inline':
