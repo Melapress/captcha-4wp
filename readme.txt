@@ -3,7 +3,7 @@ Contributors: WPWhiteSecurity
 Tags: recaptcha, nocaptcha, captcha, invisible captcha, spam protection, captcha for WooCommerce, forms captcha
 Requires at least: 5.0
 Tested up to: 5.8.3
-Stable tag: 7.0.0
+Stable tag: 7.0.2
 Requires PHP: 7.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
@@ -108,6 +108,11 @@ Simply select the WooCommerce page you want to add CAPTCHA to in the plugin's CA
 
 == Changelog ==
 
+= 7.0.2 (20220119) =
+
+* **Bug fixes**
+	* Fixed: Ensure plugin does not interfere with unwanted "authenticate" calls.
+
 = 7.0.1 (20220119) =
 
 * **Bug fixes**
@@ -120,7 +125,10 @@ Release notes: [Plugin reload: Advanced noCaptcha & invisible Captcha is now CAP
 * **New features**
 
 	* Plugin renamed to CAPTCHA 4WP.
-	* New UI with improved UX. 
+	* New UI with improved UX.
+	* A setting to choose where to place the CAPTCHA check on the WooCommerce checkout page. 
+	* Added the option to exclude CAPTCHA from specific URLs.
+	* Auto detect visitor language and auto-configure the CAPTCHA test language to match the visitor's language setting.
 	* Plugin can now be activated at multisite network level or at individual child-sites level.
 	
 * **Improvements**
@@ -129,11 +137,11 @@ Release notes: [Plugin reload: Advanced noCaptcha & invisible Captcha is now CAP
 	* Updated a number of translatable strings.
 	* Added a specific upgrade script to handle upgrades from pre v7.0.
 	* Fixed support for PHP v7.2.
+	* Removed the Freemius SDK from free edition.
+	* Added a dedicated help and support area with downloadable "system info" for easier troubleshooting (in case support need it).
 	* Added compatibility support for Wordfence 2FA.
 	* Ensure failed logins filter only runs when apppropriate.
 	* Added ability to detect and ignore REST API requests.
-	* Removed the Freemius SDK.
-	* Added a dedicated help and support area with downloadable "system info" for easier troubleshooting (in case support need it).
 	* Failed login data is now stored in its own table with configurable pruning.
 	* Seperated WooCommerce form logic to allow registration and login forms to be enabled/disabled independantally from the WordPress built-in forms.
 	* Third party plugins extensions are now handled via seperate classes for modularity.
