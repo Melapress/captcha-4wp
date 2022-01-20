@@ -698,15 +698,15 @@ msgstr ""
 msgid "BuddyPress create group"
 msgstr ""
 
-#: extensions/third-party/contact-form-7.php:94
+#: extensions/third-party/contact-form-7.php:93
 msgid "captcha"
 msgstr ""
 
-#: extensions/third-party/contact-form-7.php:101
+#: extensions/third-party/contact-form-7.php:100
 msgid "Add a recaptcha field to your contact form."
 msgstr ""
 
-#: extensions/third-party/contact-form-7.php:122
+#: extensions/third-party/contact-form-7.php:121
 msgid "Insert Tag"
 msgstr ""
 

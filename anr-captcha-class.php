@@ -387,6 +387,11 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 			}
 
 
+			// Bail if we have nothign to work with.
+			if ( ! isset( $_POST['g-recaptcha-response'] ) ) {
+				return $user;
+			}
+
 			$show_captcha = $this->show_login_captcha();
 
 			if ( $show_captcha && ! $this->verify() ) {
