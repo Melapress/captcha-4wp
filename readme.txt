@@ -110,6 +110,11 @@ Simply select the WooCommerce page you want to add CAPTCHA to in the plugin's CA
 
 == Changelog ==
 
+= 7.0.1 (20220119) =
+
+* **Bug fixes**
+	* Fixed: PHP 7.2 Compatibility issue.
+	
 = 7.0.0 (20220119) =
 
 Release notes: [Plugin reload: Advanced noCaptcha & invisible Captcha is now CAPTCHA 4WP](https://www.wpwhitesecurity.com/advanced-nocaptcha-recaptcha-renamed-captcha-4wp]
