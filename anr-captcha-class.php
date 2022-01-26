@@ -387,14 +387,13 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 			}
 
 
-			// Bail if we have nothign to work with.
-			if ( ! isset( $_POST['g-recaptcha-response'] ) ) {
-				return $user;
-			}
-
 			$show_captcha = $this->show_login_captcha();
 
 			if ( $show_captcha && ! $this->verify() ) {
+				// Bail if we have nothign to work with.
+				if ( ! isset( $_POST['g-recaptcha-response'] ) ) {
+					return $user;
+				}
 				return new WP_Error( 'c4wp_error', $this->add_error_to_mgs() );
 			}
 
@@ -458,13 +457,16 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 		}
 
 		function reset_password_verify( $errors, $user ) {
-			
 			// Allow admins to send reset links.
 			if ( current_user_can( 'manage_options' ) && isset( $_REQUEST['action'] ) && in_array( wp_unslash( $_REQUEST['action'] ), array('resetpassword', 'send-password-reset') ) ) {
 				return $errors;
 			}
 			
 			if ( ! $this->verify() ) {
+				// Bail if we have nothign to work with.
+				if ( ! isset( $_POST['g-recaptcha-response'] ) ) {
+					return $user;
+				}
 				$errors->add( 'c4wp_error', $this->add_error_to_mgs() );
 			}
 		}
