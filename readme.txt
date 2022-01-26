@@ -108,8 +108,6 @@ Simply select the WooCommerce page you want to add CAPTCHA to in the plugin's CA
 
 == Changelog ==
 
-== Changelog ==
-
 = 7.0.2 (20220119) =
 
 * **Bug fixes**
