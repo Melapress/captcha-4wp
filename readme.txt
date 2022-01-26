@@ -147,7 +147,7 @@ Release notes: [Plugin reload: Advanced noCaptcha & invisible Captcha is now CAP
 	* Removed obsolete "NoJS" setting.
 	* Improved v2 Checkbox field positioning on WP login page.
 	* Added support for Buddypress comments and activity areas.
-
+	
 = 6.1.7 (20211006) =
 
 * IMPROVEMENT: Updated all the FAQs and help text links to point to the new documentation pages.
