@@ -269,9 +269,9 @@ tr.upgrade-required > th {
 	height: 180px; 
 }
 .premium-title-wrapper th {
-    width: calc( 100% - 43px );
+    width: calc( 100% - 42px ) !important;
     position: absolute;
-    padding: 20px;
+    padding: 20px !important;
     border: 1px solid #c3c4c7;
     box-shadow: 0 1px 1px rgb(0 0 0 / 4%);
     background: #fff;
