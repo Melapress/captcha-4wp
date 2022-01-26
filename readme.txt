@@ -3,7 +3,7 @@ Contributors: WPWhiteSecurity
 Tags: recaptcha, nocaptcha, captcha, invisible captcha, spam protection, captcha for WooCommerce, forms captcha
 Requires at least: 5.0
 Tested up to: 5.8.3
-Stable tag: 7.0.3
+Stable tag: 7.0.2
 Requires PHP: 7.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
@@ -107,16 +107,6 @@ Simply select the WooCommerce page you want to add CAPTCHA to in the plugin's CA
 6. CAPTCHA in lost password request form
 
 == Changelog ==
-
-= 7.0.3 (20220121) =
-
-* **Improvements**
-	* Improved logic to dermine if a login verification should be "skipped" dependant on POSTed values.
-
-* **Bug fixes**
-	* Fixed: Re-implemented support for original CF7 form tag.
-	* Fixed: Fixed issue which could cause login CAPTCHA's to not display.
-	* Fixed: Fixed issue related to null variable in CF7 extension.
 
 = 7.0.2 (20220119) =
 
