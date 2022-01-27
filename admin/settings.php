@@ -27,13 +27,18 @@ class C4WP_Settings {
 		}
 
 
-		add_action('admin_notices', [ $this, 'c4wp_nocaptcha_70_plugin_notice' ] );
-		add_action( 'wp_ajax_c4wp_nocaptcha_upgrade_plugin_notice_ignore', array( $this, 'c4wp_nocaptcha_upgrade_plugin_notice_ignore' ), 10, 1 );
 		if ( is_multisite() ) {
-			$await_confirmation = get_site_option(  'c4wp_70_changes_notice_needed' );
+			$await_confirmation = get_site_option( 'c4wp_70_changes_notice_needed' );
+			$fresh_install      = get_site_option( 'c4wp_is_fresh_install' );		
 		} else {
-			$await_confirmation = get_option(  'c4wp_70_changes_notice_needed' );
+			$await_confirmation = get_option( 'c4wp_70_changes_notice_needed' );
+			$fresh_install      = get_option( 'c4wp_is_fresh_install' );
 		}
+		if ( ! $fresh_install ) {
+			add_action('admin_notices', [ $this, 'c4wp_nocaptcha_70_plugin_notice' ] );
+		}
+		add_action( 'wp_ajax_c4wp_nocaptcha_upgrade_plugin_notice_ignore', array( $this, 'c4wp_nocaptcha_upgrade_plugin_notice_ignore' ), 10, 1 );
+
 		if ( $await_confirmation ) {
 			if ( file_exists( C4WP_PLUGIN_DIR . 'admin/includes/class-plugin-installer.php' ) ) {
 				require_once C4WP_PLUGIN_DIR . 'admin/includes/class-plugin-installer.php';
