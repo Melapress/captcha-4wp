@@ -4,7 +4,15 @@ add_action( 'init', 'c4wp_plugin_update', -15 );
 
 function c4wp_plugin_update() {
 	$prev_version = c4wp_get_option( 'version' );
-	if ( $prev_version && version_compare( $prev_version, C4WP_PLUGIN_VERSION, '!=' ) ) {
+	if ( ! $prev_version ) {
+		if ( is_multisite() ) {
+			update_site_option( 'c4wp_is_fresh_install', true );
+		} else {
+			update_option( 'c4wp_is_fresh_install', true );
+		}
+		$prev_version = '3.1';
+	}
+	if ( version_compare( $prev_version, C4WP_PLUGIN_VERSION, '!=' ) ) {
 		do_action( 'c4wp_plugin_update', $prev_version );
 		c4wp_update_option( 'version', C4WP_PLUGIN_VERSION );
 	}
