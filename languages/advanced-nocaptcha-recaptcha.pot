@@ -24,7 +24,7 @@ msgstr ""
 msgid "ERROR"
 msgstr ""
 
-#: functions.php:53
+#: functions.php:40
 msgid "<strong>ERROR</strong>: "
 msgstr ""
 
