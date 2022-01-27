@@ -50,6 +50,7 @@ class C4WP_Settings {
 		$current_screen = get_current_screen();
 		$notice_nonce   = wp_create_nonce( 'dismiss_captcha_notice' );
 		$logo_img_src   = C4WP_PLUGIN_URL . 'assets/img/c4wp-logo-300x300.png';
+		$captcha_version = c4wp_get_option( 'captcha_version' );
 
 		if ( is_multisite() ) {
 			$upgrade_completed = get_site_option( 'c4wp_70_upgrade_notice_accepted' );
@@ -63,7 +64,7 @@ class C4WP_Settings {
 			$fresh_install     = get_option( 'c4wp_is_fresh_install' );
 		}
 
-		if ( $fresh_install ) {
+		if ( ! $captcha_version || $needed ) {
 			return;
 		}
 
