@@ -27,13 +27,14 @@ class C4WP_Settings {
 		}
 
 
+		if ( is_multisite() ) {
+			$await_confirmation = get_site_option( 'c4wp_70_changes_notice_needed' );	
+		} else {
+			$await_confirmation = get_option( 'c4wp_70_changes_notice_needed' );
+		}
 		add_action('admin_notices', [ $this, 'c4wp_nocaptcha_70_plugin_notice' ] );
 		add_action( 'wp_ajax_c4wp_nocaptcha_upgrade_plugin_notice_ignore', array( $this, 'c4wp_nocaptcha_upgrade_plugin_notice_ignore' ), 10, 1 );
-		if ( is_multisite() ) {
-			$await_confirmation = get_site_option(  'c4wp_70_changes_notice_needed' );
-		} else {
-			$await_confirmation = get_option(  'c4wp_70_changes_notice_needed' );
-		}
+
 		if ( $await_confirmation ) {
 			if ( file_exists( C4WP_PLUGIN_DIR . 'admin/includes/class-plugin-installer.php' ) ) {
 				require_once C4WP_PLUGIN_DIR . 'admin/includes/class-plugin-installer.php';
@@ -49,19 +50,26 @@ class C4WP_Settings {
 		$current_screen = get_current_screen();
 		$notice_nonce   = wp_create_nonce( 'dismiss_captcha_notice' );
 		$logo_img_src   = C4WP_PLUGIN_URL . 'assets/img/c4wp-logo-300x300.png';
+		$captcha_version = c4wp_get_option( 'captcha_version' );
 
 		if ( is_multisite() ) {
 			$upgrade_completed = get_site_option( 'c4wp_70_upgrade_notice_accepted' );
 			$needed            = get_site_option( 'c4wp_70_upgrade_complete' );
 			$is_initial        = get_site_option( 'c4wp_70_changes_notice_needed' );
+			$fresh_install     = get_site_option( 'c4wp_is_fresh_install' );
 		} else {
 			$upgrade_completed = get_option( 'c4wp_70_upgrade_notice_accepted' );
-			$needed     = get_option( 'c4wp_70_upgrade_complete' );
-			$is_initial = get_option( 'c4wp_70_changes_notice_needed' );
+			$needed            = get_option( 'c4wp_70_upgrade_complete' );
+			$is_initial        = get_option( 'c4wp_70_changes_notice_needed' );
+			$fresh_install     = get_option( 'c4wp_is_fresh_install' );
+		}
+
+		if ( ! $captcha_version || $needed ) {
+			return;
 		}
 
 		// General notice in dashboard.
-		if ( $needed && ! $upgrade_completed && current_user_can( 'manage_options' ) && ! get_user_meta( $user_id, 'c4wp_nocaptcha_plugin_notice_ignore') ) {	
+		if ( $needed && ! $is_initial && ! $upgrade_completed && current_user_can( 'manage_options' ) && ! get_user_meta( $user_id, 'c4wp_nocaptcha_plugin_notice_ignore') ) {	
 			// Add scripts.
 			wp_enqueue_script( 'c4wp-admin' );
 			

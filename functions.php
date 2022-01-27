@@ -3,7 +3,7 @@
 add_action( 'init', 'c4wp_plugin_update', -15 );
 
 function c4wp_plugin_update() {
-	$prev_version = c4wp_get_option( 'version', '3.1' );
+	$prev_version    = c4wp_get_option( 'version', '3.1' );
 	if ( version_compare( $prev_version, C4WP_PLUGIN_VERSION, '!=' ) ) {
 		do_action( 'c4wp_plugin_update', $prev_version );
 		c4wp_update_option( 'version', C4WP_PLUGIN_VERSION );
@@ -18,7 +18,9 @@ add_action( 'c4wp_plugin_update', 'c4wp_plugin_update_70', 30 );
 add_action( 'c4wp_plugin_update', 'c4wp_plugin_flag_upgrade', 10 );
 
 function c4wp_plugin_flag_upgrade( $prev_version ) {
-	if ( version_compare( $prev_version, '7.0', '<' ) ) {
+	$captcha_version = c4wp_get_option( 'captcha_version' );
+
+	if ( version_compare( $prev_version, '7.0.2', '<' ) ) {
 		if ( is_multisite() ) {
 			$upgrade_completed = get_site_option( 'c4wp_70_upgrade_notice_accepted' );
 			if ( ! $upgrade_completed ) {
