@@ -20,9 +20,15 @@ add_action( 'c4wp_plugin_update', 'c4wp_plugin_flag_upgrade', 10 );
 function c4wp_plugin_flag_upgrade( $prev_version ) {
 	if ( version_compare( $prev_version, '7.0', '<' ) ) {
 		if ( is_multisite() ) {
-			update_site_option( 'c4wp_70_changes_notice_needed', true );
+			$upgrade_completed = get_site_option( 'c4wp_70_upgrade_notice_accepted' );
+			if ( ! $upgrade_completed ) {
+				update_site_option( 'c4wp_70_changes_notice_needed', true );
+			}
 		} else {
-			update_option( 'c4wp_70_changes_notice_needed', true );
+			$upgrade_completed = get_option( 'c4wp_70_upgrade_notice_accepted' );
+			if ( ! $upgrade_completed ) {
+				update_option( 'c4wp_70_changes_notice_needed', true );
+			}
 		}
 	}
 }
