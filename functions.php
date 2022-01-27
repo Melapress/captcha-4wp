@@ -10,35 +10,28 @@ function c4wp_plugin_update() {
 	}
 }
 
-/**
- * c4wp_upgrade_completed - Attempts to detect if an update has been run manually (via human in browser)
- *
- * @param  mixed $upgrader_object
- * @param  mixed $options
- * @return void
- */
-function c4wp_upgrade_completed( $upgrader_object, $options ) {
-	$our_plugin = plugin_basename( __FILE__ );
-	if ( isset( $_REQUEST['action'] ) && isset( $_REQUEST['_ajax_nonce'] ) ) {
-		if( $options['action'] == 'update' && $options['type'] == 'plugin' && isset( $options['plugins'] ) ) {
-			foreach( $options['plugins'] as $plugin ) {
-				if( $plugin == $our_plugin ) {
-					if ( is_multisite() ) {
-						update_site_option( 'c4wp_70_changes_notice_needed', true );
-					} else {
-						update_option(  'c4wp_70_changes_notice_needed', true );
-					}
-				}
-			}
-		}		
-	}
-}
-add_action( 'upgrader_process_complete', 'c4wp_upgrade_completed', 10, 2 );
-
 // Plugin update actions.
 add_action( 'c4wp_plugin_update', 'c4wp_plugin_update_32', 10 );
 add_action( 'c4wp_plugin_update', 'c4wp_plugin_update_51', 20 );
 add_action( 'c4wp_plugin_update', 'c4wp_plugin_update_70', 30 );
+
+add_action( 'c4wp_plugin_update', 'c4wp_plugin_flag_upgrade', 10 );
+
+function c4wp_plugin_flag_upgrade( $prev_version ) {
+	if ( version_compare( $prev_version, '7.0', '<' ) ) {
+		if ( is_multisite() ) {
+			$upgrade_completed = get_site_option( 'c4wp_70_upgrade_notice_accepted' );
+			if ( ! $upgrade_completed ) {
+				update_site_option( 'c4wp_70_changes_notice_needed', true );
+			}
+		} else {
+			$upgrade_completed = get_option( 'c4wp_70_upgrade_notice_accepted' );
+			if ( ! $upgrade_completed ) {
+				update_option( 'c4wp_70_changes_notice_needed', true );
+			}
+		}
+	}
+}
 
 function c4wp_plugin_update_32( $prev_version ) {
 	if ( version_compare( $prev_version, '3.2', '<' ) ) {
@@ -135,6 +128,15 @@ function c4wp_plugin_update_70( $prev_version ) {
  */
 function c4wp_get_option( $option, $default = '', $section = 'c4wp_admin_options' ) {
 
+	if ( is_multisite() ) {
+		$await_confirmation = get_site_option(  'c4wp_70_changes_notice_needed' );
+	} else {
+		$await_confirmation = get_option(  'c4wp_70_changes_notice_needed' );
+	}
+	if ( $await_confirmation ) {
+		$section = 'anr_admin_options';
+	}
+
 	$get_site_options = is_multisite();
 
 	if ( $get_site_options ) {
@@ -157,6 +159,15 @@ function c4wp_get_option( $option, $default = '', $section = 'c4wp_admin_options
  * Handle updating option for our plugin.
  */
 function c4wp_update_option( $options, $value = '', $section = 'c4wp_admin_options' ) {
+
+	if ( is_multisite() ) {
+		$await_confirmation = get_site_option(  'c4wp_70_changes_notice_needed' );
+	} else {
+		$await_confirmation = get_option(  'c4wp_70_changes_notice_needed' );
+	}
+	if ( $await_confirmation ) {
+		$section = 'anr_admin_options';
+	}
 
 	if ( $options && ! is_array( $options ) ) {
 		$options = array(

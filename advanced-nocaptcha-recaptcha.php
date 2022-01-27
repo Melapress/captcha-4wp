@@ -117,7 +117,7 @@ add_action( 'admin_init', 'c4wp_activation_redirect' );
 function c4wp_activation_redirect() {
     if ( is_admin() && get_option( 'c4wp_redirect_after_activation', false ) ) {
         delete_option( 'c4wp_redirect_after_activation' );
-        $admin_url = ( function_exists( 'c4wp_same_settings_for_all_sites' ) ) ? network_admin_url( 'admin.php?page=c4wp-admin-captcha' ) : admin_url( 'admin.php?page=c4wp-admin-captcha' );
+        $admin_url = ( is_multisite() ) ? network_admin_url( 'admin.php?page=c4wp-admin-captcha' ) : admin_url( 'admin.php?page=c4wp-admin-captcha' );
         exit( wp_redirect( $admin_url ) );
     }
 }
