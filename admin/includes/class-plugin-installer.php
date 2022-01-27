@@ -60,8 +60,10 @@ if ( ! class_exists( 'C4WP_PluginInstallerAction' ) ) {
             
             if ( is_multisite() ) {
                 delete_site_option( 'c4wp_70_changes_notice_needed' );
+				update_site_option( 'c4wp_70_upgrade_notice_accepted', true );
             } else {
                 delete_option( 'c4wp_70_changes_notice_needed' );
+				update_option( 'c4wp_70_upgrade_notice_accepted', true );
             }
 
             $result = 'success';
