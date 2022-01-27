@@ -51,15 +51,17 @@ class C4WP_Settings {
 		$logo_img_src   = C4WP_PLUGIN_URL . 'assets/img/c4wp-logo-300x300.png';
 
 		if ( is_multisite() ) {
-			$needed     = get_site_option( 'c4wp_70_upgrade_complete' );
-			$is_initial = get_site_option( 'c4wp_70_changes_notice_needed' );
+			$upgrade_completed = get_site_option( 'c4wp_70_upgrade_notice_accepted' );
+			$needed            = get_site_option( 'c4wp_70_upgrade_complete' );
+			$is_initial        = get_site_option( 'c4wp_70_changes_notice_needed' );
 		} else {
+			$upgrade_completed = get_option( 'c4wp_70_upgrade_notice_accepted' );
 			$needed     = get_option( 'c4wp_70_upgrade_complete' );
 			$is_initial = get_option( 'c4wp_70_changes_notice_needed' );
 		}
 
 		// General notice in dashboard.
-		if ( $needed && ! $is_initial && current_user_can( 'manage_options' ) && ! get_user_meta( $user_id, 'c4wp_nocaptcha_plugin_notice_ignore') ) {	
+		if ( $needed && ! $upgrade_completed && current_user_can( 'manage_options' ) && ! get_user_meta( $user_id, 'c4wp_nocaptcha_plugin_notice_ignore') ) {	
 			// Add scripts.
 			wp_enqueue_script( 'c4wp-admin' );
 			
@@ -68,15 +70,19 @@ class C4WP_Settings {
 			// Add scripts.
 			wp_enqueue_script( 'c4wp-admin' );
 			$continue_nonce  = wp_create_nonce( 'proceed_with_upgrade' );
-			$downgrade_nonce = wp_create_nonce( 'back_to_617' );
 			echo '<div id="adv-captcha-notice" class="updated notice" style="position: relative; display: flex; border-left-color: #824780;">
 					<img style="width: 85px; height: 85px; margin-top: 10px; margin-right: 12px; margin-bottom: 10px;" src="' . esc_url( $logo_img_src ) . '">
 					<div>
-						<h3 style="position: relative; top: -10px; font-size: 1.7em; margin-top: 20px; margin-bottom: 15px;">Breaking change notification:</h3>
-						<p style="margin-top: -15px;">Support for adding CAPTCHA on forms created with third party plugins (such as WooCommerce and Contact Form 7) has now been moved to the Premium edition. We have fixed a bug that in the past allowed these premium features to be available in the free edition. If you have been using any of these features <a href="https://www.wpwhitesecurity.com/request-captcha-4wp-license-key/" target="_blank">request a free 3-months license</a> so you can keep on using the plugin and have enough time to think what you want to use as CAPTCHA solution without interrupting the operations of your website.</br></br> If you have any other queries or feedback that you might want to share, please <a href="https://www.wpwhitesecurity.com/contact/" target="_blank">get in touch.</a></p>
+						<h3 style="position: relative; top: -10px; font-size: 1.7em; margin-top: 20px; margin-bottom: 15px;">IMPORTANT BREAKING CHANGE NOTE:</h3>
+						<p style="margin-top: -15px;">
+							To add CAPTCHA to forms created with third-party plugins such as Contact Form 7 and WooCommerce, you need the Premium Edition of this plugin. </br></br>
+							If you have CAPTCHA on third-party forms, please <a href="https://www.wpwhitesecurity.com/request-captcha-4wp-license-key/" target="_blank">request a free 3-months license.</a> This will ensure your website\'s operations are not interrupted until you decide if you want to update. </br></br>
+							You also have the option to revert back to the previous version (6.1.7).If you click Download Update 6.1.7, a new download will start and you can deactivate this install of the plugin. </br></br>
+							Thank you for using our plugin.
+						</p>
 							<p>
 							<a href="#" id="proceed-update" class="update_prompt_choice button button-primary" data-nonce="' .esc_attr( $continue_nonce ).'">Ok, proceed with update</a>
-							<a href="https://downloads.wordpress.org/plugin/advanced-nocaptcha-recaptcha.6.1.7.zip" id="back-to-old" class="button button-secondary" data-nonce="' .esc_attr( $downgrade_nonce ).'">Download to 6.1.7</a></p>
+							<a href="https://downloads.wordpress.org/plugin/advanced-nocaptcha-recaptcha.6.1.7.zip" id="back-to-old" class="button button-secondary">Download to 6.1.7</a></p>
 					</div>
 				</div>';	
 		}
