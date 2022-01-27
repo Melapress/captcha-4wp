@@ -54,6 +54,7 @@ class C4WP_Settings {
 			$upgrade_completed = get_site_option( 'c4wp_70_upgrade_notice_accepted' );
 			$needed            = get_site_option( 'c4wp_70_upgrade_complete' );
 			$is_initial        = get_site_option( 'c4wp_70_changes_notice_needed' );
+			
 		} else {
 			$upgrade_completed = get_option( 'c4wp_70_upgrade_notice_accepted' );
 			$needed     = get_option( 'c4wp_70_upgrade_complete' );
@@ -61,7 +62,7 @@ class C4WP_Settings {
 		}
 
 		// General notice in dashboard.
-		if ( $needed && ! $upgrade_completed && current_user_can( 'manage_options' ) && ! get_user_meta( $user_id, 'c4wp_nocaptcha_plugin_notice_ignore') ) {	
+		if ( $needed && ! $is_initial && ! $upgrade_completed && current_user_can( 'manage_options' ) && ! get_user_meta( $user_id, 'c4wp_nocaptcha_plugin_notice_ignore') ) {	
 			// Add scripts.
 			wp_enqueue_script( 'c4wp-admin' );
 			
