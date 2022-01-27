@@ -28,15 +28,11 @@ class C4WP_Settings {
 
 
 		if ( is_multisite() ) {
-			$await_confirmation = get_site_option( 'c4wp_70_changes_notice_needed' );
-			$fresh_install      = get_site_option( 'c4wp_is_fresh_install' );		
+			$await_confirmation = get_site_option( 'c4wp_70_changes_notice_needed' );	
 		} else {
 			$await_confirmation = get_option( 'c4wp_70_changes_notice_needed' );
-			$fresh_install      = get_option( 'c4wp_is_fresh_install' );
 		}
-		if ( ! $fresh_install ) {
-			add_action('admin_notices', [ $this, 'c4wp_nocaptcha_70_plugin_notice' ] );
-		}
+		add_action('admin_notices', [ $this, 'c4wp_nocaptcha_70_plugin_notice' ] );
 		add_action( 'wp_ajax_c4wp_nocaptcha_upgrade_plugin_notice_ignore', array( $this, 'c4wp_nocaptcha_upgrade_plugin_notice_ignore' ), 10, 1 );
 
 		if ( $await_confirmation ) {
@@ -59,11 +55,16 @@ class C4WP_Settings {
 			$upgrade_completed = get_site_option( 'c4wp_70_upgrade_notice_accepted' );
 			$needed            = get_site_option( 'c4wp_70_upgrade_complete' );
 			$is_initial        = get_site_option( 'c4wp_70_changes_notice_needed' );
-			
+			$fresh_install     = get_site_option( 'c4wp_is_fresh_install' );
 		} else {
 			$upgrade_completed = get_option( 'c4wp_70_upgrade_notice_accepted' );
-			$needed     = get_option( 'c4wp_70_upgrade_complete' );
-			$is_initial = get_option( 'c4wp_70_changes_notice_needed' );
+			$needed            = get_option( 'c4wp_70_upgrade_complete' );
+			$is_initial        = get_option( 'c4wp_70_changes_notice_needed' );
+			$fresh_install     = get_option( 'c4wp_is_fresh_install' );
+		}
+
+		if ( $fresh_install ) {
+			return;
 		}
 
 		// General notice in dashboard.
