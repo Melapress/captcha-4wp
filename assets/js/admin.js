@@ -2,14 +2,22 @@ jQuery(document).ready(function( $ ){
 
 	// Tidy desc areas.	
 	function tidySettingsDescs() {
-		jQuery( '.c4wp-desc' ).each(function(index, value) {
-			var height = jQuery( this ).height();
-			jQuery( this ).parent().css( 'height', height - 40 );
-		});
         jQuery( '.premium-title-wrapper th' ).each(function(index, value) {
 			var height = jQuery( this ).height();
 			jQuery( this ).parent().css( 'height', height + 40 );
 		});
+		setTimeout(function() { 				
+			jQuery( '.wrap-around-content' ).each(function(index, value) {
+				var height = jQuery( this ).find('.c4wp-desc:first' ).height() - 20;
+				jQuery( this ).find( '.c4wp-desc' ).parent().css( 'height', height );
+
+				var height = jQuery( this ).find( 'strong:first' ).outerHeight() - 20;
+                if ( height < 18 ) {
+                    height = 18;
+                }
+				jQuery( this ).find( 'strong:first' ).parent().css( 'height', height );
+			});
+		}, 50);
 	}
 		
 	function c4wp_admin_show_hide_fields(){
@@ -235,34 +243,6 @@ jQuery(function() {
 			jQuery( '#c4wp_admin_options_whitelisted_ips' ).append( ',' + newIP ).trigger("change");;
 		}
 		jQuery( '#whitelist_ips_input' ).val( '' );
-	});
-
-	// Handle downgrade.
-	jQuery( 'body' ).on( 'click', '.update_prompt_choice', function ( e ) {
-		e.preventDefault();
-		var button = jQuery( this );
-		if ( jQuery( this ).attr( 'id' ) == 'proceed-update' ) {
-			var action = 'c4wp_proceed_with_upgrade';
-		} else {
-			var action = 'c4wp_run_downgrade';
-		}
-		jQuery.ajax(
-			{
-				type: 'POST',
-				url: ajaxurl,
-				async: true,
-				data: {
-					action: action,
-					_wpnonce: jQuery( button ).data( 'nonce' )
-				},
-				success: function( data ) {
-					location.reload();	
-				},
-				error: function( xhr, textStatus, error ) {	
-					console.log( error );
-				}
-			}
-		);
 	});
 });
 
