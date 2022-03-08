@@ -170,9 +170,28 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 								'theme' : '<?php echo esc_js( c4wp_get_option( 'theme', 'light' ) ); ?>',
 								'badge' : '<?php echo esc_js( c4wp_get_option( 'badge', 'bottomright' ) ); ?>',
 								'callback' : function ( token ) {
-									if ( ( typeof jQuery !== 'undefined' ) && jQuery( '.woocommerce-checkout' ).length ) {
-										jQuery( '.woocommerce-checkout' ).submit();
+									var woo_checkout = form.classList.contains( 'woocommerce-checkout' );
+									var woo_login    = form.getElementsByClassName( 'woocommerce-form-login__submit' );
+									var woo_register = form.getElementsByClassName( 'woocommerce-form-register__submit' );
+									var is_commentform = form.getAttribute('id');
+									if ( woo_checkout ) {
+										form.setAttribute( 'data-captcha-valid', 'yes');
+										if ( typeof jQuery !== 'undefined' ) {
+											jQuery( '.woocommerce-checkout' ).submit();
+										} else {
+											form.submit();
+										}
+									} else if ( woo_login.length ) {
+										form.setAttribute( 'data-captcha-valid', 'yes');
+										form['login'].click();
+									} else if ( woo_register.length ) {
+										form.setAttribute( 'data-captcha-valid', 'yes');
+										form['register'].click();
+									} else if ( 'commentform' === is_commentform ) {
+										form.setAttribute( 'data-captcha-valid', 'yes');
+										form['submit'].click();
 									} else {
+										form.setAttribute( 'data-captcha-valid', 'yes');
 										form.submit();
 									}
 
@@ -194,8 +213,13 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 								echo $additonal_js;
 							?>
 							form.onsubmit = function( e ){
+								if ( 'yes' === form.getAttribute( 'data-captcha-valid' ) ) {
+									return true;
+								}
+
 								e.preventDefault();
 								grecaptcha.execute( c4wp_captcha );
+								return false;
 							};
 						})(form);
 					}
@@ -260,7 +284,7 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 			echo $this->form_field_return();
 		}
 
-		function form_field_return( $return = '' ) {
+		function form_field_return( $return = '' ) {			
 			return $return . $this->captcha_form_field();
 		}
 		
@@ -297,11 +321,12 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 			static $last_verify        = null;
             static $last_response      = null;
             static $duplicate_response = false;
+			
+			$remoteip    = $_SERVER['REMOTE_ADDR'];
 
 	
 			$secret_key  = trim( c4wp_get_option( 'secret_key' ) );
 			$verify      = false;
-			$remoteip    = $_SERVER['REMOTE_ADDR'];
 			
 
 			if ( false === $response ) {
@@ -446,11 +471,11 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 
 			// Allow admins to send reset links.
 			if ( current_user_can( 'manage_options' ) && isset( $_REQUEST['action'] ) && in_array( wp_unslash( $_REQUEST['action'] ), array('resetpassword', 'send-password-reset') ) ) {
-				return $errors;
+				return $result;
 			}
 			
 			if ( ! $this->verify() ) {
-				return new WP_Error( 'c4wp_error', $this->add_error_to_mgs() );
+				$result->add(  'c4wp_error', $this->add_error_to_mgs() );
 			}
 
 			return $result;
