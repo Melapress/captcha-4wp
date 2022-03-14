@@ -8,16 +8,16 @@
  *
  * @wordpress-plugin
  * Plugin Name: CAPTCHA 4WP
- * Version:     7.0.2
+ * Version:     7.0.6
  * Plugin URI:  https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/
- * Description: Easily add any type of Captcha check (such as noCaptcha or invisible Captcha) on any website form, including login pages, comments and password reset forms, and also forms by third party plugins such as Contact Form 7, WooCommerce & BuddyPress.
+ * Description: Easily add any type of CAPTCHA (such as noCaptcha or invisible Captcha) on any website form, including login pages, comments and password reset forms, and also forms by third party plugins such as Contact Form 7, WooCommerce & BuddyPress.
  * Author:      WP White Security
  * Author URI:  https://www.wpwhitesecurity.com/
  * Text Domain: advanced-nocaptcha-recaptcha
  * Domain Path: /languages/
  * License:     GPL v3
  * Requires at least: 5.0
- * WC tested up to: 5.6.0
+ * WC tested up to: 6.3.0
  * Requires PHP: 7.0
  * Network: true
  *
@@ -69,7 +69,7 @@ class C4WP
     
     private function constants()
     {
-        define( 'C4WP_PLUGIN_VERSION', '7.0.2' );
+        define( 'C4WP_PLUGIN_VERSION', '7.0.6' );
         define( 'C4WP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
         define( 'C4WP_PLUGIN_URL', plugins_url( '/', __FILE__ ) );
         define( 'C4WP_PLUGIN_FILE', __FILE__ );
@@ -117,7 +117,7 @@ add_action( 'admin_init', 'c4wp_activation_redirect' );
 function c4wp_activation_redirect() {
     if ( is_admin() && get_option( 'c4wp_redirect_after_activation', false ) ) {
         delete_option( 'c4wp_redirect_after_activation' );
-        $admin_url = ( is_multisite() ) ? network_admin_url( 'admin.php?page=c4wp-admin-captcha' ) : admin_url( 'admin.php?page=c4wp-admin-captcha' );
+        $admin_url = ( function_exists( 'c4wp_same_settings_for_all_sites' ) ) ? network_admin_url( 'admin.php?page=c4wp-admin-captcha' ) : admin_url( 'admin.php?page=c4wp-admin-captcha' );
         exit( wp_redirect( $admin_url ) );
     }
 }
