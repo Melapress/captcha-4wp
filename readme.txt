@@ -293,6 +293,7 @@ Release notes: [Plugin reload: Advanced noCaptcha & invisible Captcha is now CAP
 = 2.6 =
 
 * New: Show captcha after set failed login attempts (may not work if you use ajax based login form, fall back to show always).
+* Fix: contact form 7 deprecated function use.
 
 = 2.5 =
 
