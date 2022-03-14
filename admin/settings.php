@@ -25,7 +25,6 @@ class C4WP_Settings {
 		} else {
 			add_action( 'admin_menu', [ $this, 'menu_page' ] );			
 		}
-
 	}
 
 	function admin_enqueue_scripts() {

@@ -3,7 +3,7 @@
 add_action( 'init', 'c4wp_plugin_update', -15 );
 
 function c4wp_plugin_update() {
-	$prev_version = c4wp_get_option( 'version', '3.1' );
+	$prev_version    = c4wp_get_option( 'version', '3.1' );
 	if ( version_compare( $prev_version, C4WP_PLUGIN_VERSION, '!=' ) ) {
 		do_action( 'c4wp_plugin_update', $prev_version );
 		c4wp_update_option( 'version', C4WP_PLUGIN_VERSION );

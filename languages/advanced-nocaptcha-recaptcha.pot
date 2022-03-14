@@ -583,6 +583,7 @@ msgid "Get a FREE 7-day trial"
 msgstr ""
 
 #: admin/settings.php:870, extensions/pro-feature.php:63
+
 msgid "Settings"
 msgstr ""
 
