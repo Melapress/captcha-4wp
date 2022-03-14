@@ -295,8 +295,10 @@ tr.upgrade-required > th {
 	background: #50284E;
 }
 .premium-link-not-btn {
-	color: #50284E;
-	margin-left: 15px;
+    color: #50284E;
+    clear: both;
+    display: block;
+    margin-top: 15px;
 }
 a[href*=c4wp-admin-upgrade]:not(.premium-link ):not(.premium-link-not-btn ) {
     color: #adff2f !important;
