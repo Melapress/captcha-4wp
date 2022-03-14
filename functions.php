@@ -95,7 +95,6 @@ function c4wp_plugin_update_70( $prev_version ) {
 	}
 }
 
-
 function c4wp_plugin_update_706( $prev_version ) {
 	if ( version_compare( $prev_version, '7.0.6', '<' ) ) {
 		delete_transient( 'c4wp_config_file_hash' );
