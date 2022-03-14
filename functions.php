@@ -3,7 +3,7 @@
 add_action( 'init', 'c4wp_plugin_update', -15 );
 
 function c4wp_plugin_update() {
-	$prev_version    = c4wp_get_option( 'version', '3.1' );
+	$prev_version = c4wp_get_option( 'version', '3.1' );
 	if ( version_compare( $prev_version, C4WP_PLUGIN_VERSION, '!=' ) ) {
 		do_action( 'c4wp_plugin_update', $prev_version );
 		c4wp_update_option( 'version', C4WP_PLUGIN_VERSION );
@@ -14,7 +14,7 @@ function c4wp_plugin_update() {
 add_action( 'c4wp_plugin_update', 'c4wp_plugin_update_32', 10 );
 add_action( 'c4wp_plugin_update', 'c4wp_plugin_update_51', 20 );
 add_action( 'c4wp_plugin_update', 'c4wp_plugin_update_70', 30 );
-add_action( 'c4wp_plugin_update', 'c4wp_plugin_update_704', 30 );
+add_action( 'c4wp_plugin_update', 'c4wp_plugin_update_706', 30 );
 
 function c4wp_plugin_update_32( $prev_version ) {
 	if ( version_compare( $prev_version, '3.2', '<' ) ) {
@@ -96,8 +96,8 @@ function c4wp_plugin_update_70( $prev_version ) {
 }
 
 
-function c4wp_plugin_update_704( $prev_version ) {
-	if ( version_compare( $prev_version, '7.0.4', '<' ) ) {
+function c4wp_plugin_update_706( $prev_version ) {
+	if ( version_compare( $prev_version, '7.0.6', '<' ) ) {
 		delete_transient( 'c4wp_config_file_hash' );
 	}
 }
