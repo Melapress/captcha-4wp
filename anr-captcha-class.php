@@ -448,6 +448,10 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 				$errors->add( 'c4wp_error', $this->add_error_to_mgs() );
 			}
 
+            // Bail if we have nothign to work with.
+            if ( ! isset( $_POST['g-recaptcha-response'] ) ) {
+                return $result;
+            }
 			return $errors;
 		}
 		
@@ -475,6 +479,10 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 			}
 			
 			if ( ! $this->verify() ) {
+                // Bail if we have nothign to work with.
+				if ( ! isset( $_POST['g-recaptcha-response'] ) ) {
+					return $result;
+				}
 				$result->add(  'c4wp_error', $this->add_error_to_mgs() );
 			}
 
