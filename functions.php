@@ -15,6 +15,7 @@ add_action( 'c4wp_plugin_update', 'c4wp_plugin_update_32', 10 );
 add_action( 'c4wp_plugin_update', 'c4wp_plugin_update_51', 20 );
 add_action( 'c4wp_plugin_update', 'c4wp_plugin_update_70', 30 );
 add_action( 'c4wp_plugin_update', 'c4wp_plugin_update_706', 30 );
+add_action( 'c4wp_plugin_update', 'c4wp_plugin_update_7061', 40 );
 
 function c4wp_plugin_update_32( $prev_version ) {
 	if ( version_compare( $prev_version, '3.2', '<' ) ) {
@@ -77,17 +78,21 @@ function c4wp_plugin_update_51( $prev_version ) {
 }
 
 function c4wp_plugin_update_70( $prev_version ) {
-	if ( version_compare( $prev_version, '7.0', '<' ) ) {
+	if ( version_compare( $prev_version, '7.0.6.1', '<' ) ) {
 		if ( is_multisite() ) {
-			$original_options = get_site_option( 'anr_admin_options' );
-			update_site_option( 'c4wp_admin_options', $original_options );
-			update_site_option( 'c4wp_70_upgrade_complete', true );
-			delete_site_option( 'anr_admin_options' );
+            if ( ! get_site_option( 'c4wp_70_upgrade_complete' ) ) {
+                $original_options = get_site_option( 'anr_admin_options' );
+                update_site_option( 'c4wp_admin_options', $original_options );
+                update_site_option( 'c4wp_70_upgrade_complete', true );
+                delete_site_option( 'anr_admin_options' );
+            }
 		} else {
-			$original_options = get_option( 'anr_admin_options' );
-			update_option( 'c4wp_admin_options', $original_options );
-			update_option( 'c4wp_70_upgrade_complete', true );
-			delete_option( 'anr_admin_options' );
+            if ( ! get_option( 'c4wp_70_upgrade_complete' ) ) {
+                $original_options = get_option( 'anr_admin_options' );
+                update_option( 'c4wp_admin_options', $original_options );
+                update_option( 'c4wp_70_upgrade_complete', true );
+                delete_option( 'anr_admin_options' );
+            }
 		}
 		global $wpdb;
 		$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->posts} WHERE post_type = %s", [ 'anr-post' ] ) );
@@ -98,6 +103,19 @@ function c4wp_plugin_update_70( $prev_version ) {
 function c4wp_plugin_update_706( $prev_version ) {
 	if ( version_compare( $prev_version, '7.0.6', '<' ) ) {
 		delete_transient( 'c4wp_config_file_hash' );
+	}
+}
+
+/**
+ * Update langiage if auto-detect was enabled.
+ *
+ * @param  string $prev_version
+ * @return void
+ */
+function c4wp_plugin_update_7061( $prev_version ) {
+    $current_lang = c4wp_get_option( 'language' );
+	if ( version_compare( $prev_version, '7.0.6.1', '<' ) && empty( $current_lang ) ) {
+        c4wp_update_option( 'language', 'en' );
 	}
 }
 

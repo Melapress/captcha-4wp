@@ -3,7 +3,7 @@ Contributors: WPWhiteSecurity
 Tags: recaptcha, nocaptcha, captcha, invisible captcha, spam protection, captcha for WooCommerce, forms captcha
 Requires at least: 5.0
 Tested up to: 5.9.1
-Stable tag: 7.0.6
+Stable tag: 7.0.6.1
 Requires PHP: 7.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
@@ -107,6 +107,12 @@ Simply select the WooCommerce page you want to add CAPTCHA to in the plugin's CA
 6. CAPTCHA in lost password request form
 
 == Changelog ==
+
+= 7.0.6.1 (20220315) =
+
+* **Improvements**
+	* Ensure migration script to new options table is run where needed.
+  	* Ensure correct default language is set during update in free edition.
 
 = 7.0.6 (20220304) =
 
