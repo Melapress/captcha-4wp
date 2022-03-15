@@ -78,17 +78,21 @@ function c4wp_plugin_update_51( $prev_version ) {
 }
 
 function c4wp_plugin_update_70( $prev_version ) {
-	if ( version_compare( $prev_version, '7.0', '<' ) ) {
+	if ( version_compare( $prev_version, '7.0.6.1', '<' ) ) {
 		if ( is_multisite() ) {
-			$original_options = get_site_option( 'anr_admin_options' );
-			update_site_option( 'c4wp_admin_options', $original_options );
-			update_site_option( 'c4wp_70_upgrade_complete', true );
-			delete_site_option( 'anr_admin_options' );
+            if ( ! get_site_option( 'c4wp_70_upgrade_complete' ) ) {
+                $original_options = get_site_option( 'anr_admin_options' );
+                update_site_option( 'c4wp_admin_options', $original_options );
+                update_site_option( 'c4wp_70_upgrade_complete', true );
+                delete_site_option( 'anr_admin_options' );
+            }
 		} else {
-			$original_options = get_option( 'anr_admin_options' );
-			update_option( 'c4wp_admin_options', $original_options );
-			update_option( 'c4wp_70_upgrade_complete', true );
-			delete_option( 'anr_admin_options' );
+            if ( ! get_option( 'c4wp_70_upgrade_complete' ) ) {
+                $original_options = get_option( 'anr_admin_options' );
+                update_option( 'c4wp_admin_options', $original_options );
+                update_option( 'c4wp_70_upgrade_complete', true );
+                delete_option( 'anr_admin_options' );
+            }
 		}
 		global $wpdb;
 		$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->posts} WHERE post_type = %s", [ 'anr-post' ] ) );
