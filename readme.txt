@@ -112,7 +112,8 @@ Simply select the WooCommerce page you want to add CAPTCHA to in the plugin's CA
 
 * **Improvements**
 	* Ensure migration script to new options table is run where needed.
-  	* Ensure correct default language is set during update in free edition.
+	* Ensure correct default language is set during update in free edition.
+	* Ensure verification does not hinder hook requests where no CAPTCHA is posted.
 
 = 7.0.6 (20220304) =
 
