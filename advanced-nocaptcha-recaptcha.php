@@ -7,7 +7,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 or higher
  *
  * @wordpress-plugin
- * Plugin Name: CAPTCHA 4WP
+ * Plugin Name: CAPTCHA 4WP (Premium)
  * Version:     7.0.6.1
  * Plugin URI:  https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/
  * Description: Easily add any type of CAPTCHA (such as noCaptcha or invisible Captcha) on any website form, including login pages, comments and password reset forms, and also forms by third party plugins such as Contact Form 7, WooCommerce & BuddyPress.
@@ -42,7 +42,7 @@ if ( !defined( 'ABSPATH' ) ) {
 }
 
 require_once ABSPATH . '/wp-admin/includes/plugin.php';
-class C4WP
+class C4WP_Pro
 {
     private static $instance;
     private function __construct()
@@ -94,7 +94,7 @@ class C4WP
 //END Class
     
     // ... Your plugin's main file logic ...
-    add_action( 'plugins_loaded', array( 'C4WP', 'init' ) );
+    add_action( 'plugins_loaded', array( 'C4WP_Pro', 'init' ) );
 
 register_activation_hook( __FILE__, 'c4wp_redirect_after_activation' );
 
