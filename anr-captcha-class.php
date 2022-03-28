@@ -445,13 +445,12 @@ if ( ! class_exists( 'c4wp_captcha_class' ) ) {
 		
 		function registration_verify( $errors, $sanitized_user_login, $user_email ) {
 			if ( ! $this->verify() ) {
+                // Bail if we have nothign to work with.
+                if ( ! isset( $_POST['g-recaptcha-response'] ) ) {
+                    return $errors;
+                }
 				$errors->add( 'c4wp_error', $this->add_error_to_mgs() );
 			}
-
-            // Bail if we have nothign to work with.
-            if ( ! isset( $_POST['g-recaptcha-response'] ) ) {
-                return $result;
-            }
 			return $errors;
 		}
 		
