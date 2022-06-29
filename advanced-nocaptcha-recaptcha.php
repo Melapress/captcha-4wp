@@ -115,14 +115,6 @@ class C4WP {
 		add_action( 'init', 'c4wp_translation' );
 		add_action( 'login_enqueue_scripts', 'c4wp_login_enqueue_scripts' );
 
-		/*
-		 */
-		// cleanup after uninstall.
-		c4wp_fs()->add_action( 'after_uninstall', 'c4wp_fs_uninstall_cleanup' );
-		// Support fourm link in admin dashboard sidebar.
-		c4wp_fs()->add_filter( 'support_forum_url', 'c4wp_fs_support_forum_url' );
-
-		c4wp_fs()->add_action( 'is_submenu_visible', 'hide_freemius_submenu_items', 10, 2 );
 	}
 
 
