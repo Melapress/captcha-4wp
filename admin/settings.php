@@ -164,7 +164,7 @@ class C4WP_Settings {
 				'type'       => 'html',
 				'label'      => sprintf(
 					'<strong style="position: absolute; font-size: 16px;">%1$s</strong>',
-					esc_html__( '1 -Select the type of reCAPTCHA you want to use', 'advanced-nocaptcha-recaptcha' )
+					esc_html__( 'STEP 1: Select the type of reCAPTCHA you want to use', 'advanced-nocaptcha-recaptcha' )
 				),
 				'class'      => 'wrap-around-content',
 			),
@@ -185,7 +185,7 @@ class C4WP_Settings {
 				'type'       => 'html',
 				'label'      => sprintf(
 					'<strong style="position: absolute; font-size: 16px">%1$s</strong>',
-					esc_html__( '2 - Specify the Site & Secret key', 'advanced-nocaptcha-recaptcha' )
+					esc_html__( 'STEP 2: Specify the Site & Secret keys', 'advanced-nocaptcha-recaptcha' )
 				),
 				'class'      => 'wrap-around-content',
 			),
@@ -217,7 +217,7 @@ class C4WP_Settings {
 				'type'       => 'html',
 				'label'      => sprintf(
 					'<strong style="position: absolute; font-size: 16px;">%1$s</strong>',
-					esc_html__( '3 - Configure the below optional settings to fine-tune the reCAPTCHA to your requirements.', 'advanced-nocaptcha-recaptcha' )
+					esc_html__( 'STEP 3 (OPTIONAL): Fine-tune reCAPTCHA to your requirements', 'advanced-nocaptcha-recaptcha' )
 				),
 				'class'      => 'wrap-around-content',
 			),

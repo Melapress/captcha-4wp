@@ -84,7 +84,7 @@ msgid "(Incompatible with Jetpack comments)"
 msgstr ""
 
 #: admin/settings.php:167
-msgid "1 -Select the type of reCAPTCHA you want to use"
+msgid "STEP 1: Select the type of reCAPTCHA you want to use"
 msgstr ""
 
 #: admin/settings.php:172
@@ -104,7 +104,7 @@ msgid "Version 3 (verify request with a score without user interaction)"
 msgstr ""
 
 #: admin/settings.php:188
-msgid "2 - Specify the Site & Secret key"
+msgid "STEP 2: Specify the Site & Secret keys"
 msgstr ""
 
 #. translators:link to help page
@@ -125,7 +125,7 @@ msgid "Secret Key"
 msgstr ""
 
 #: admin/settings.php:220
-msgid "3 - Configure the below optional settings to fine-tune the reCAPTCHA to your requirements."
+msgid "STEP 3 (OPTIONAL): Fine-tune reCAPTCHA to your requirements"
 msgstr ""
 
 #: admin/settings.php:230
