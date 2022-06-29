@@ -171,6 +171,15 @@ jQuery(document).ready(function( $ ){
 	jQuery( 'body' ).on( 'click', 'input.disabled', function ( e ) {
 		e.preventDefault();
 	});
+
+	jQuery('.captcha_keys_required .checkbox[id*="enabled_forms"]').change(function() {
+       jQuery( '#captcha_keys_notice' ).slideDown( 500 );  
+    });
+
+	jQuery( 'body' ).on( 'click', '#captcha_keys_notice .button-secondary', function ( e ) {
+		e.preventDefault();
+		jQuery( '#captcha_keys_notice' ).slideUp( 500 );  
+	});
 });
 
 

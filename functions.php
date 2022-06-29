@@ -1,7 +1,18 @@
-<?php
-// Add update hook.
+<?php // phpcs:disable  WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.PHP.DevelopmentFunctions.error_log_print_r
+
+/**
+ * Add update hook.
+ *
+ * @package C4WP
+ */
+
 add_action( 'init', 'c4wp_plugin_update', -15 );
 
+/**
+ * Check if update scripts need to run.
+ *
+ * @return void
+ */
 function c4wp_plugin_update() {
 	$prev_version = c4wp_get_option( 'version', '3.1' );
 	if ( version_compare( $prev_version, C4WP_PLUGIN_VERSION, '!=' ) ) {
@@ -17,6 +28,12 @@ add_action( 'c4wp_plugin_update', 'c4wp_plugin_update_70', 30 );
 add_action( 'c4wp_plugin_update', 'c4wp_plugin_update_706', 30 );
 add_action( 'c4wp_plugin_update', 'c4wp_plugin_update_7061', 40 );
 
+/**
+ * Update script for 3.2 and below.
+ *
+ * @param string $prev_version - Old version number.
+ * @return void
+ */
 function c4wp_plugin_update_32( $prev_version ) {
 	if ( version_compare( $prev_version, '3.2', '<' ) ) {
 		if ( function_exists( 'c4wp_same_settings_for_all_sites' ) && c4wp_same_settings_for_all_sites() ) {
@@ -29,7 +46,7 @@ function c4wp_plugin_update_32( $prev_version ) {
 		}
 		$options['error_message'] = str_replace( esc_html__( '<strong>ERROR</strong>: ', 'advanced-nocaptcha-recaptcha' ), '', c4wp_get_option( 'error_message' ) );
 
-		$enabled_forms = [];
+		$enabled_forms = array();
 		if ( ! empty( $options['login'] ) ) {
 			$enabled_forms[] = 'login';
 		}
@@ -65,9 +82,15 @@ function c4wp_plugin_update_32( $prev_version ) {
 	}
 }
 
+/**
+ * Update script for 5.1 and below.
+ *
+ * @param string $prev_version - Old version number.
+ * @return void
+ */
 function c4wp_plugin_update_51( $prev_version ) {
 	if ( version_compare( $prev_version, '5.1', '<' ) ) {
-		$options = [];
+		$options = array();
 		if ( 'invisible' === c4wp_get_option( 'size' ) ) {
 			$options['size']            = 'normal';
 			$options['captcha_version'] = 'v2_invisible';
@@ -77,29 +100,41 @@ function c4wp_plugin_update_51( $prev_version ) {
 	}
 }
 
+/**
+ * Update script for 7.0 and below.
+ *
+ * @param string $prev_version - Old version number.
+ * @return void
+ */
 function c4wp_plugin_update_70( $prev_version ) {
 	if ( version_compare( $prev_version, '7.0.6.1', '<' ) ) {
 		if ( is_multisite() ) {
-            if ( ! get_site_option( 'c4wp_70_upgrade_complete' ) ) {
-                $original_options = get_site_option( 'anr_admin_options' );
-                update_site_option( 'c4wp_admin_options', $original_options );
-                update_site_option( 'c4wp_70_upgrade_complete', true );
-                delete_site_option( 'anr_admin_options' );
-            }
+			if ( ! get_site_option( 'c4wp_70_upgrade_complete' ) ) {
+				$original_options = get_site_option( 'anr_admin_options' );
+				update_site_option( 'c4wp_admin_options', $original_options );
+				update_site_option( 'c4wp_70_upgrade_complete', true );
+				delete_site_option( 'anr_admin_options' );
+			}
 		} else {
-            if ( ! get_option( 'c4wp_70_upgrade_complete' ) ) {
-                $original_options = get_option( 'anr_admin_options' );
-                update_option( 'c4wp_admin_options', $original_options );
-                update_option( 'c4wp_70_upgrade_complete', true );
-                delete_option( 'anr_admin_options' );
-            }
+			if ( ! get_option( 'c4wp_70_upgrade_complete' ) ) {
+				$original_options = get_option( 'anr_admin_options' );
+				update_option( 'c4wp_admin_options', $original_options );
+				update_option( 'c4wp_70_upgrade_complete', true );
+				delete_option( 'anr_admin_options' );
+			}
 		}
 		global $wpdb;
-		$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->posts} WHERE post_type = %s", [ 'anr-post' ] ) );
+		$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->posts} WHERE post_type = %s", array( 'anr-post' ) ) );
 		$wpdb->query( "DELETE meta FROM {$wpdb->postmeta} meta LEFT JOIN {$wpdb->posts} posts ON posts.ID = meta.post_id WHERE posts.ID IS NULL;" );
 	}
 }
 
+/**
+ * Update script for 7.0.6 and below.
+ *
+ * @param string $prev_version - Old version number.
+ * @return void
+ */
 function c4wp_plugin_update_706( $prev_version ) {
 	if ( version_compare( $prev_version, '7.0.6', '<' ) ) {
 		delete_transient( 'c4wp_config_file_hash' );
@@ -109,18 +144,25 @@ function c4wp_plugin_update_706( $prev_version ) {
 /**
  * Update langiage if auto-detect was enabled.
  *
- * @param  string $prev_version
+ * @param  string $prev_version - Previous version.
  * @return void
  */
 function c4wp_plugin_update_7061( $prev_version ) {
-    $current_lang = c4wp_get_option( 'language' );
+	$current_lang = c4wp_get_option( 'language' );
 	if ( version_compare( $prev_version, '7.0.6.1', '<' ) && empty( $current_lang ) ) {
-        c4wp_update_option( 'language', 'en' );
+		c4wp_update_option( 'language', 'en' );
 	}
 }
 
+
 /**
  * Handle getting options for our plugin.
+ *
+ * @param string $option - Name of option to update.
+ * @param string $default - Default value.
+ * @param string $section - Section which handles the option.
+ *
+ * @return bool:string - Option value.
  */
 function c4wp_get_option( $option, $default = '', $section = 'c4wp_admin_options' ) {
 
@@ -144,6 +186,11 @@ function c4wp_get_option( $option, $default = '', $section = 'c4wp_admin_options
 
 /**
  * Handle updating option for our plugin.
+ *
+ * @param string $options - Name of option to update.
+ * @param string $value - New value.
+ * @param string $section - Section which handles the option.
+ * @return bool - Was option updated.
  */
 function c4wp_update_option( $options, $value = '', $section = 'c4wp_admin_options' ) {
 
@@ -161,39 +208,58 @@ function c4wp_update_option( $options, $value = '', $section = 'c4wp_admin_optio
 	if ( $update_site_options ) {
 		update_site_option( $section, wp_parse_args( $options, get_site_option( $section ) ) );
 	} else {
-		update_option( $section, wp_parse_args( $options, get_option( $section ) ) );		
+		update_option( $section, wp_parse_args( $options, get_option( $section ) ) );
 	}
 
 	return true;
 }
 
 /**
- * Checks if a specific form is enabled within the plugins settings.
+ * Undocumented function
+ *
+ * @param string $form - Form name.
+ * @return bool - Is enabled?
  */
 function c4wp_is_form_enabled( $form ) {
 	if ( ! $form ) {
 		return false;
 	}
 	$enabled_forms = array_merge( c4wp_get_option( 'enabled_forms', array() ), c4wp_get_option( 'enabled_forms_wc', array() ), c4wp_get_option( 'enabled_forms_bp', array() ), c4wp_get_option( 'enabled_forms_bbp', array() ) );
-	
+
 	if ( ! is_array( $enabled_forms ) ) {
 		return false;
 	}
 	return in_array( $form, $enabled_forms, true );
 }
 
+/**
+ * Add transation file.
+ *
+ * @return void
+ */
 function c4wp_translation() {
-	// SETUP TEXT DOMAIN FOR TRANSLATIONS
+	// SETUP TEXT DOMAIN FOR TRANSLATIONS.
 	load_plugin_textdomain( 'advanced-nocaptcha-recaptcha', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 }
 
+/**
+ * Undocumented function
+ *
+ * @return void
+ */
 function c4wp_login_enqueue_scripts() {
 
 	if ( ! c4wp_get_option( 'remove_css' ) && 'normal' === c4wp_get_option( 'size', 'normal' ) && 'v2_checkbox' === c4wp_get_option( 'captcha_version', 'v2_checkbox' ) ) {
-		wp_enqueue_style( 'c4wp-login-style', C4WP_PLUGIN_URL . 'assets/css/style.css' );
+		$verion = C4WP_PLUGIN_VERSION;
+		wp_enqueue_style( 'c4wp-login-style', C4WP_PLUGIN_URL . 'assets/css/style.css', C4WP_PLUGIN_VERSION, $verion );
 	}
 }
 
+/**
+ * Include main plugin settings.
+ *
+ * @return void
+ */
 function c4wp_include_require_files() {
 	$fep_files = array(
 		'main' => 'anr-captcha-class.php',
@@ -211,42 +277,70 @@ function c4wp_include_require_files() {
 add_action( 'wp_footer', 'c4wp_wp_footer', 99999 );
 add_action( 'login_footer', 'c4wp_wp_footer', 99999 );
 
+/**
+ * Add our foot scripts.
+ *
+ * @return void
+ */
 function c4wp_wp_footer() {
-	c4wp_captcha_class::init()->footer_script();
+	C4wp_Captcha_Class::init()->footer_script();
 }
 
-add_action( 'c4wp_captcha_form_field', function() { c4wp_captcha_form_field( true ); } );
-add_shortcode( 'c4wp-captcha', 'c4wp_captcha_form_field' );
 
-// Old versions for back-compat.
-add_action( 'anr_captcha_form_field', function() { c4wp_captcha_form_field( true ); } );
-add_shortcode( 'anr-captcha', 'c4wp_captcha_form_field' );
-
+/**
+ * Create a captcha field.
+ *
+ * @param boolean $echo - Should echo or return.
+ * @return string - HTML Markup.
+ */
 function c4wp_captcha_form_field( $echo = false ) {
 	if ( $echo ) {
-		c4wp_captcha_class::init()->form_field();
+		C4wp_Captcha_Class::init()->form_field();
 	} else {
-		return c4wp_captcha_class::init()->form_field_return();
+		return C4wp_Captcha_Class::init()->form_field_return();
 	}
 
 }
 
+/**
+ * Verify a captcha response (old version of plugin).
+ *
+ * @param boolean $response - Response to check.
+ * @return bool - Verification.
+ */
 function anr_verify_captcha( $response = false ) {
-	return c4wp_captcha_class::init()->verify( $response );
+	return C4wp_Captcha_Class::init()->verify( $response );
 }
 
+/**
+ * Verify a captcha response.
+ *
+ * @param boolean $response - Response to check.
+ * @return bool - Verification.
+ */
 function c4wp_verify_captcha( $response = false ) {
-	return c4wp_captcha_class::init()->verify( $response );
+	return C4wp_Captcha_Class::init()->verify( $response );
 }
 
 add_filter( 'shake_error_codes', 'c4wp_add_shake_error_codes' );
 
+/**
+ * Add shake script to error screen.
+ *
+ * @param array $shake_error_codes - Current error codes.
+ * @return array - Codes, with ours appended.
+ */
 function c4wp_add_shake_error_codes( $shake_error_codes ) {
 	$shake_error_codes[] = 'c4wp_error';
 
 	return $shake_error_codes;
 }
 
+/**
+ * Clean up any used data on uninstall.
+ *
+ * @return void
+ */
 function c4wp_fs_uninstall_cleanup() {
 	global $wpdb;
 
@@ -255,26 +349,50 @@ function c4wp_fs_uninstall_cleanup() {
 	if ( $post_id ) {
 		// There may have too many post meta. delete them first in one query.
 		$wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->postmeta WHERE post_id = %d", $post_id ) );
-		
+
 		wp_delete_post( $post_id, true );
 	}
 }
 
+/**
+ * Create URL for our contact page.
+ *
+ * @param string $wp_org_support_forum_url - Original URL.
+ * @return string - Our URL.
+ */
 function c4wp_fs_support_forum_url( $wp_org_support_forum_url ) {
 	return 'https://www.wpwhitesecurity.com/contact/';
 }
 
-function c4wp_recaptcha_domain(){
+/**
+ * Create correct captcha domain URL.
+ *
+ * @return string - URL.
+ */
+function c4wp_recaptcha_domain() {
 	$domain = c4wp_get_option( 'recaptcha_domain', 'google.com' );
 	return apply_filters( 'c4wp_recaptcha_domain', $domain );
 }
 
 
-function c4wp_settings_page_url( $tab = false ){
+/**
+ * Setup settings page URL.
+ *
+ * @param boolean $tab - Is tab settings.
+ * @return string - URL.
+ */
+function c4wp_settings_page_url( $tab = false ) {
 	$url = ( function_exists( 'c4wp_same_settings_for_all_sites' ) && c4wp_same_settings_for_all_sites() || ! function_exists( 'c4wp_same_settings_for_all_sites' ) ) ? network_admin_url( 'admin.php?page=c4wp-admin-captcha' ) : admin_url( 'admin.php?page=c4wp-admin-captcha' );
 	return $url;
 }
 
+/**
+ * Hode freemius contact link.
+ *
+ * @param bool $is_visible - Is currently visible.
+ * @param int  $submenu_id - Item ID.
+ * @return bool - Is isible.
+ */
 function hide_freemius_submenu_items( $is_visible, $submenu_id ) {
 	if ( 'contact' === $submenu_id ) {
 		$is_visible = false;
@@ -282,6 +400,11 @@ function hide_freemius_submenu_items( $is_visible, $submenu_id ) {
 	return $is_visible;
 }
 
+/**
+ * Create system info for debugging.
+ *
+ * @return string - File markup.
+ */
 function c4wp_get_sysinfo() {
 	// System info.
 	global $wpdb;
@@ -351,7 +474,7 @@ function c4wp_get_sysinfo() {
 	$active_plugins = get_option( 'active_plugins', array() );
 
 	foreach ( $plugins as $plugin_path => $plugin ) {
-		if ( ! in_array( $plugin_path, $active_plugins ) ) {
+		if ( ! in_array( $plugin_path, $active_plugins, true ) ) {
 			continue;
 		}
 
@@ -363,7 +486,7 @@ function c4wp_get_sysinfo() {
 	$sysinfo .= "\n" . '-- WordPress Inactive Plugins --' . "\n\n";
 
 	foreach ( $plugins as $plugin_path => $plugin ) {
-		if ( in_array( $plugin_path, $active_plugins ) ) {
+		if ( in_array( $plugin_path, $active_plugins, true ) ) {
 			continue;
 		}
 
@@ -418,12 +541,12 @@ function c4wp_get_sysinfo() {
 	$c4wp_options = get_option( 'c4wp_admin_options' );
 
 	if ( ! empty( $c4wp_options ) ) {
-		foreach ( $c4wp_options as $option => $value) {
+		foreach ( $c4wp_options as $option => $value ) {
 			$sysinfo .= 'Option: ' . $option . "\n";
 			$sysinfo .= 'Value: ' . print_r( $value, true ) . "\n\n";
 		}
 	}
-	
+
 	$sysinfo .= "\n" . '### System Info → End ###' . "\n\n";
 
 	return $sysinfo;
@@ -432,7 +555,7 @@ function c4wp_get_sysinfo() {
 /**
  * Determines if an install is premium/paying.
  *
- * @return void
+ * @return bool - Is premium or not.
  */
 function c4wp_is_premium_version() {
 	return ( class_exists( 'C4WP_Pro' ) && ! c4wp_fs()->is_not_paying() ) ? true : false;
