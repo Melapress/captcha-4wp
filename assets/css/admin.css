@@ -246,6 +246,9 @@ tr.upgrade-required {
 tr.upgrade-required.c4wp-border-top {
 	border-top: 1px solid #2b597a;
 }
+tr.upgrade-required.c4wp-border-bottom {
+	border-bottom: 1px solid #2b597a;
+}
 
 tr.upgrade-required > th {
 	padding-left: 15px;

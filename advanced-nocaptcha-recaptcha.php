@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:disable WordPress.Files.FileName.InvalidClassFileName
 
 /**
  * CAPTCHA 4WP
@@ -36,65 +36,102 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if ( !defined( 'ABSPATH' ) ) {
-    exit;
-    // Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+	// Exit if accessed directly.
 }
 
 require_once ABSPATH . '/wp-admin/includes/plugin.php';
-class C4WP
-{
-    private static $instance;
-    private function __construct()
-    {
-        
 
-        if ( is_plugin_active( 'advanced-nocaptcha-and-invisible-captcha-pro/advanced-nocaptcha-and-invisible-captcha-pro.php' ) ) {
-            deactivate_plugins( 'advanced-nocaptcha-and-invisible-captcha-pro/advanced-nocaptcha-and-invisible-captcha-pro.php' );
-            return;
-        }
-        
-        $this->constants();
-        $this->includes();
-        $this->actions();
-    }
-    
-    public static function init()
-    {
-        if ( !self::$instance instanceof self ) {
-            self::$instance = new self();
-        }
-        return self::$instance;
-    }
-    
-    private function constants()
-    {
-        define( 'C4WP_PLUGIN_VERSION', '7.0.6.1' );
-        define( 'C4WP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-        define( 'C4WP_PLUGIN_URL', plugins_url( '/', __FILE__ ) );
-        define( 'C4WP_PLUGIN_FILE', __FILE__ );
-        define( 'C4WP_TABLE_PREFIX', 'c4wp_' );
-     }
-    
-    private function includes()
-    {
-        require_once C4WP_PLUGIN_DIR . 'functions.php';
-    }
-    
-    private function actions()
-    {
-        add_action( 'after_setup_theme', 'c4wp_include_require_files' );
-        add_action( 'init', 'c4wp_translation' );
-        add_action( 'login_enqueue_scripts', 'c4wp_login_enqueue_scripts' );
-    }
+/**
+ * Main C4WP Class.
+ */
+class C4WP {
 
-    
+	/**
+	 * Class instance.
+	 *
+	 * @var C4WP instance.
+	 */
+	private static $instance;
+
+	/**
+	 * Class constructor.
+	 */
+	private function __construct() {
+
+
+		if ( is_plugin_active( 'advanced-nocaptcha-and-invisible-captcha-pro/advanced-nocaptcha-and-invisible-captcha-pro.php' ) ) {
+			deactivate_plugins( 'advanced-nocaptcha-and-invisible-captcha-pro/advanced-nocaptcha-and-invisible-captcha-pro.php' );
+			return;
+		}
+
+		$this->constants();
+		$this->includes();
+		$this->actions();
+	}
+
+	/**
+	 * Class initiator.
+	 *
+	 * @return $instance - C4WP instance.
+	 */
+	public static function init() {
+		if ( ! self::$instance instanceof self ) {
+			self::$instance = new self();
+		}
+		return self::$instance;
+	}
+
+	/**
+	 * Setup plugin constants.
+	 *
+	 * @return void
+	 */
+	private function constants() {
+		define( 'C4WP_PLUGIN_VERSION', '7.0.6.1' );
+		define( 'C4WP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+		define( 'C4WP_PLUGIN_URL', plugins_url( '/', __FILE__ ) );
+		define( 'C4WP_PLUGIN_FILE', __FILE__ );
+		define( 'C4WP_TABLE_PREFIX', 'c4wp_' );
+	}
+
+	/**
+	 * Include functions and pro extensions.
+	 *
+	 * @return void
+	 */
+	private function includes() {
+		require_once C4WP_PLUGIN_DIR . 'functions.php';
+	}
+
+	/**
+	 * Add plugin actions.
+	 *
+	 * @return void
+	 */
+	private function actions() {
+		add_action( 'after_setup_theme', 'c4wp_include_require_files' );
+		add_action( 'init', 'c4wp_translation' );
+		add_action( 'login_enqueue_scripts', 'c4wp_login_enqueue_scripts' );
+
+		/*
+		 */
+		// cleanup after uninstall.
+		c4wp_fs()->add_action( 'after_uninstall', 'c4wp_fs_uninstall_cleanup' );
+		// Support fourm link in admin dashboard sidebar.
+		c4wp_fs()->add_filter( 'support_forum_url', 'c4wp_fs_support_forum_url' );
+
+		c4wp_fs()->add_action( 'is_submenu_visible', 'hide_freemius_submenu_items', 10, 2 );
+	}
+
+
 
 }
-//END Class
-    
-    // ... Your plugin's main file logic ...
-    add_action( 'plugins_loaded', array( 'C4WP', 'init' ) );
+// END Class.
+
+	// ... Your plugin's main file logic ...
+	add_action( 'plugins_loaded', array( 'C4WP', 'init' ) );
 
 register_activation_hook( __FILE__, 'c4wp_redirect_after_activation' );
 
@@ -104,7 +141,7 @@ register_activation_hook( __FILE__, 'c4wp_redirect_after_activation' );
  * @return void
  */
 function c4wp_redirect_after_activation() {
-    add_option( 'c4wp_redirect_after_activation', true );
+	add_option( 'c4wp_redirect_after_activation', true );
 }
 
 add_action( 'admin_init', 'c4wp_activation_redirect' );
@@ -115,9 +152,9 @@ add_action( 'admin_init', 'c4wp_activation_redirect' );
  * @return void
  */
 function c4wp_activation_redirect() {
-    if ( is_admin() && get_option( 'c4wp_redirect_after_activation', false ) ) {
-        delete_option( 'c4wp_redirect_after_activation' );
-        $admin_url = ( function_exists( 'c4wp_same_settings_for_all_sites' ) ) ? network_admin_url( 'admin.php?page=c4wp-admin-captcha' ) : admin_url( 'admin.php?page=c4wp-admin-captcha' );
-        exit( wp_redirect( $admin_url ) );
-    }
+	if ( is_admin() && get_option( 'c4wp_redirect_after_activation', false ) ) {
+		delete_option( 'c4wp_redirect_after_activation' );
+		$admin_url = ( function_exists( 'c4wp_same_settings_for_all_sites' ) ) ? network_admin_url( 'admin.php?page=c4wp-admin-captcha' ) : admin_url( 'admin.php?page=c4wp-admin-captcha' );
+		exit( wp_safe_redirect( esc_url( $admin_url ) ) ); // phpcs:ignore
+	}
 }
