@@ -139,8 +139,8 @@ Release notes: [Support for WPForms & Gravity Forms plugins](https://www.wpwhite
 
 * **Improvements**
 	* Ensure migration script to new options table is run where needed.
-    * Ensure correct default language is set during update in free edition.
-    * Ensure verification does not hinder hook requests where no CAPTCHA is posted.
+  * Ensure correct default language is set during update in free edition.
+  * Ensure verification does not hinder hook requests where no CAPTCHA is posted.
 
 = 7.0.6 (20220315) =
 
