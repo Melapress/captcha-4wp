@@ -1,6 +1,17 @@
 <?php
-	// Plugin adverts sidebar
-	require_once 'sidebar.php';
+/**
+ * System info area markup.
+ *
+ * @package C4WP
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
+// Plugin adverts sidebar.
+require_once 'sidebar.php';
+
 ?>
 <div class="c4wp-help-main">
 	<!-- getting started -->

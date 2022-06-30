@@ -1,9 +1,21 @@
+<?php
+/**
+ * Upfate page content.
+ *
+ * @package C4WP
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+?>
+
 <div class="wrap features-wrap">
 	<div class="c4wp-upgrade-section">
 		
 		<div class="content-block">
 			<div class="logo-wrap">
-				<img src="<?php echo C4WP_PLUGIN_URL; ?>assets/img/c4wp-logo-full.png" alt="">
+				<img src="<?php echo esc_url( C4WP_PLUGIN_URL . 'assets/img/c4wp-logo-full.png' ); ?>" alt="">
 			</div>
 			<p><?php esc_html_e( 'Add spam protection to block spam bots and allow real humans to easily interact with your WordPress website by adding CAPTCHA to any form on your website, including comments forms, login forms, and checkout pages.', 'c4wp-wpp' ); ?></p>
 			<p><?php esc_html_e( 'Get started within just minutes with CAPTCHA 4WP, an easy to use WordPress plugin that helps you protect your website from any type of spam and automated bot attacks.', 'c4wp-wpp' ); ?></p>
@@ -369,7 +381,7 @@
 	}
 
 	.logo-wrap img {
-	    max-width: 230px;
+		max-width: 230px;
 		margin-top: 20px;
 	}
 
