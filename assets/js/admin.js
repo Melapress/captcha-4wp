@@ -1,5 +1,100 @@
+function createCaptchaScripts( $captcha_version = 'v2_checkbox', $sitekey = false ) {
+	if ( $captcha_version == 'v2_checkbox' || $captcha_version == 'v2_invisble' ) {
+		var s = document.createElement("script");
+		s.type = "text/javascript";
+		s.src = "https://www.google.com/recaptcha/api.js?render=onload";
+		s.id = 'gscripts';		
+		jQuery("head").append(s);
+	} else if ( $sitekey ) {
+		var s = document.createElement("script");
+		s.type = "text/javascript";
+		s.src = "https://www.google.com/recaptcha/api.js?render=" + $sitekey;
+		s.id = 'gscripts';		
+		jQuery("head").append(s);
+	}
+}
+
+function createRenderArea( $captcha_version = 'v2_checkbox', $sitekey = false  ) {
+	jQuery( '.g-recaptcha, #gscripts, #c4wp-testrender, #warning, #render-wrapper' ).remove();
+	jQuery('.grecaptcha-badge').parent().remove();
+	jQuery( '#render-settings-placeholder' ).css( 'height', 'auto' );
+	if ( $sitekey ) {
+		if ( $captcha_version == 'v2_checkbox' ) {
+			jQuery( '#render-settings-placeholder' ).html( '<div class="g-recaptcha" id="c4wp-testrender" data-sitekey="' + $sitekey + '" style="position: absolute; left: 220px;"></div>' ).css( 'height', '78px' );		
+		} else if ( $captcha_version == 'v2_invisble' ) {
+			jQuery( '#render-settings-placeholder' ).html( '<div class="g-recaptcha" id="c4wp-testrender" data-sitekey="' + $sitekey + '" data-size="invisible"></div>' );
+		} else {
+			jQuery( '#render-settings-placeholder' ).html( '<div id="c4wp-testrender" data-sitekey="' + $sitekey + '"></div>' );
+			setTimeout(function() { 
+				if ( ! jQuery( 'body .grecaptcha-badge' ).length ) {
+					jQuery( '#c4wp-testrender *' ).remove();
+					jQuery( '#c4wp-testrender' ).append( '<strong style="color: red" id="warning">Invalid site key</strong>' );
+				}
+			}, 500);
+		}
+	}
+}
+function c4wpConfirm(dialogText, okFunc, cancelFunc, dialogTitle) {
+	jQuery('<div style="padding: 10px; max-width: 500px; word-wrap: break-word;">' + dialogText + '</div>').dialog({
+	  draggable: false,
+	  modal: true,
+	  dialogClass: "c4wp-alert",
+	  resizable: false,
+	  width: 'auto',
+	  title: dialogTitle || 'Confirm',
+	  minHeight: 75,
+	  buttons: {
+		OK: function () {
+		  if (typeof (okFunc) == 'function') {
+			setTimeout(okFunc, 50);
+		  }
+		  jQuery(this).dialog('destroy');
+		},
+		Cancel: function () {
+		  if (typeof (cancelFunc) == 'function') {
+			setTimeout(cancelFunc, 50);
+		  }
+		  jQuery(this).dialog('destroy');
+		}
+	  }
+	});
+}
+
+
+function testSiteKeys( $captcha_version = 'v2_checkbox', $sitekey = false ) {
+	createCaptchaScripts( $captcha_version, $sitekey );
+	createRenderArea( $captcha_version, $sitekey );
+}
+
 jQuery(document).ready(function( $ ){
 
+	testSiteKeys( $('input[name="c4wp_admin_options[captcha_version]"]:checked').val(), jQuery( '#c4wp_admin_options_site_key' ).attr( 'value' ) );
+
+	$('input[name="c4wp_admin_options[site_key]"]').keyup(function(){
+		testSiteKeys( $('input[name="c4wp_admin_options[captcha_version]"]:checked').val(), $(this).val() );
+	});
+
+	$('.form-table').on( "change", '[name="c4wp_admin_options[captcha_version]"]', function(e) {		
+		testSiteKeys( this.value, $('input[name="c4wp_admin_options[site_key]"]').val() );	
+		c4wp_admin_show_hide_fields();
+	});
+
+	jQuery( 'body' ).on( 'click', '[name="c4wp_admin_options[captcha_version]"]', function ( e ) {
+		var radio = $(this);
+		e.preventDefault();
+		c4wpConfirm( anrScripts.switchingWarning, function () {
+			$(radio).prop('checked', true);
+			$( '#c4wp_admin_options_site_key, #c4wp_admin_options_secret_key' ).attr( 'value', '' ).val( '' );
+			testSiteKeys( $('input[name="c4wp_admin_options[captcha_version]"]:checked').val(), jQuery( '#c4wp_admin_options_site_key' ).attr( 'value' ) );
+			c4wp_admin_show_hide_fields();
+			return true;
+		}, function () {
+			return false;
+		},
+		anrScripts.switchingWarningTitle		
+		);
+	});
+	
 	// Tidy desc areas.	
 	function tidySettingsDescs() {
         jQuery( '.premium-title-wrapper th' ).each(function(index, value) {
