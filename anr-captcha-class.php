@@ -185,7 +185,7 @@ if ( ! class_exists( 'C4wp_Captcha_Class' ) ) {
 							});
 							captcha_div.classList.add( 'rendered' );
 							<?php
-								$additonal_js = apply_filters( 'c4wp_captcha_callback_additonal_js', false );
+								$additonal_js = apply_filters( 'c4wp_captcha_callback_additonal_js', '' );
 								echo $additonal_js;
 							?>
 						})(form);
@@ -214,10 +214,13 @@ if ( ! class_exists( 'C4wp_Captcha_Class' ) ) {
 				var c4wp_onloadCallback = function() {
 					for ( var i = 0; i < document.forms.length; i++ ) {
 						var form = document.forms[i];
-						var captcha_div = form.querySelector( '.c4wp_captcha_field_div' );
-
-						if ( null === captcha_div )
+						var captcha_div = form.querySelector( '.c4wp_captcha_field_div:not(.rendered)' );
+						if ( null === captcha_div ) {
 							continue;
+						}
+						if ( !( captcha_div.offsetWidth || captcha_div.offsetHeight || captcha_div.getClientRects().length ) ) {
+							continue;
+						}
 						captcha_div.innerHTML = '';
 						( function( form ) {
 							var c4wp_captcha = grecaptcha.render( captcha_div,{
@@ -264,6 +267,8 @@ if ( ! class_exists( 'C4wp_Captcha_Class' ) ) {
 								}
 							});
 
+							captcha_div.classList.add( 'rendered' );
+
 							<?php
 								$additonal_js = apply_filters( 'c4wp_captcha_callback_additonal_js', false );
 								echo $additonal_js;
@@ -277,6 +282,8 @@ if ( ! class_exists( 'C4wp_Captcha_Class' ) ) {
 								grecaptcha.execute( c4wp_captcha );
 								return false;
 							};
+							// Remove and append badge on WP login screen.
+							jQuery( '.login form.shake .grecaptcha-badge' ).appendTo( 'body' );
 						})(form);
 					}
 				};

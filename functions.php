@@ -558,5 +558,5 @@ function c4wp_get_sysinfo() {
  * @return bool - Is premium or not.
  */
 function c4wp_is_premium_version() {
-	return ( class_exists( 'C4WP_Pro' ) && ! c4wp_fs()->is_not_paying() ) ? true : false;
+	return ( ( class_exists( 'C4WP_Pro' ) && ! c4wp_fs()->is_not_paying() ) || ( class_exists( 'C4WP_Pro' ) && c4wp_fs()->is_trial() ) ) ? true : false;
 }
