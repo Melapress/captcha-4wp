@@ -89,7 +89,7 @@ class C4WP {
 	 * @return void
 	 */
 	private function constants() {
-		define( 'C4WP_PLUGIN_VERSION', '7.1.0' );
+		define( 'C4WP_PLUGIN_VERSION', '7.1.1' );
 		define( 'C4WP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'C4WP_PLUGIN_URL', plugins_url( '/', __FILE__ ) );
 		define( 'C4WP_PLUGIN_FILE', __FILE__ );
