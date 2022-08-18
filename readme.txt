@@ -2,7 +2,7 @@
 Contributors: WPWhiteSecurity
 Tags: recaptcha, nocaptcha, captcha, invisible captcha, spam protection, captcha for WooCommerce, forms captcha
 Requires at least: 5.0
-Tested up to: 6.0
+Tested up to: 6.0.1
 Stable tag: 7.1.1
 Requires PHP: 7.0
 License: GPLv3
@@ -109,6 +109,22 @@ Simply select the WooCommerce page you want to add CAPTCHA to in the plugin's CA
 6. CAPTCHA in lost password request form
 
 == Changelog ==
+
+= 7.1.1 (20220818) =
+
+* **New features**
+	* Site & secret key validation: plugin displays preview of CAPTCHA to confirm correct setup.
+	* Users are now prompted when attempting to switch CAPTCHA versions to ensure new keys are provided (UX improvement).
+	
+* **Improvements**
+	* Contact Form 7 AJAX validation is now handled independently to avoid compatibility issues.
+	* Improved handling of CAPTCHA JS within the WooCommerce checkout for better compatibility.
+	* Improved presentation of ‘hide CAPTCHA badge’ field within the settings.
+	* Updated Fremius SDK to version 2.4.5.
+
+* **Bug fixes**
+	* Corrected issue in which some trial users were not being shown all features.
+	* Adjusted internal ‘additional callback JS’ filter to append all content rather than override.
 
 = 7.1.0 (20220629) =
 
