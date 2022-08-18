@@ -56,7 +56,8 @@ class C4WP_Settings {
 	 * @return void
 	 */
 	public function admin_enqueue_scripts() {
-		wp_register_script( 'c4wp-admin', C4WP_PLUGIN_URL . 'assets/js/admin.js', array( 'jquery' ), C4WP_PLUGIN_VERSION, false );
+		wp_register_script( 'c4wp-admin', C4WP_PLUGIN_URL . 'assets/js/admin.js', array( 'jquery', 'jquery-ui-dialog' ), C4WP_PLUGIN_VERSION, false );
+		wp_enqueue_style (  'wp-jquery-ui-dialog');
 	}
 
 	/**
@@ -212,6 +213,13 @@ class C4WP_Settings {
 				'section_id' => 'google_keys',
 				'required'   => true,
 			),
+			'key_validation'      => array(
+				'section_id' => 'google_keys',
+				'type'       => 'html',
+				'label'      => esc_html__( 'Key Validation', 'advanced-nocaptcha-recaptcha' ),
+				'std'		 => '<p class="description mb-10">' . esc_html__( 'Once you enter the Site and Secret keys above the CAPTCHA method will appear below, depending on the method chosen. If the keys are incorrect, there will be an error notice. If you do see an error, check they provided keys match the method and the domain as well.', 'advanced-nocaptcha-recaptcha' ) .  '</p><div id="render-settings-placeholder"></div>',
+				'class'      => '',
+			),
 			'score_title'            => array(
 				'section_id' => 'google_keys',
 				'type'       => 'html',
@@ -221,7 +229,7 @@ class C4WP_Settings {
 				),
 				'class'      => 'wrap-around-content',
 			),
-			'score)subtitle'      => array(
+      'score_subtitle'      => array(
 				'section_id' => 'google_keys',
 				'type'       => 'html',
 				'label'      => sprintf(
@@ -351,7 +359,7 @@ class C4WP_Settings {
 				'label'      => esc_html__( 'Badge', 'advanced-nocaptcha-recaptcha' ),
 				'section_id' => 'google_keys',
 				'type'       => 'select',
-				'class'      => 'regular toggleable disabled c4wp-show-field-for-v2_invisible',
+				'class'      => 'regular full-hide toggleable disabled c4wp-show-field-for-v2_invisible',
 				'std'        => 'bottomright',
 				'options'    => array(
 					'bottomright' => esc_html__( 'Bottom Right', 'advanced-nocaptcha-recaptcha' ),
@@ -361,10 +369,10 @@ class C4WP_Settings {
 				'desc'       => esc_html__( 'Badge shows for invisible captcha', 'advanced-nocaptcha-recaptcha' ),
 			),
 			'badge_v3'                  => array(
-				'label'      => esc_html__( 'Badge v3', 'advanced-nocaptcha-recaptcha' ),
+				'label'      => esc_html__( 'Badge', 'advanced-nocaptcha-recaptcha' ),
 				'section_id' => 'google_keys',
 				'type'       => 'select',
-				'class'      => 'regular toggleable disabled c4wp-show-field-for-v3',
+				'class'      => 'regular full-hide toggleable disabled c4wp-show-field-for-v3',
 				'std'        => 'bottomright',
 				'options'    => array(
 					'bottomright' => esc_html__( 'Bottom Right', 'advanced-nocaptcha-recaptcha' ),
@@ -804,8 +812,10 @@ class C4WP_Settings {
 			'c4wp-admin',
 			'anrScripts',
 			array(
-				'ajax_url'  => admin_url( 'admin-ajax.php' ),
-				'ipWarning' => esc_html__( 'Please supply a valid IP', 'advanced-nocaptcha-recaptcha' ),
+				'ajax_url'        		=> admin_url( 'admin-ajax.php' ),
+				'ipWarning'       		=> esc_html__( 'Please supply a valid IP', 'advanced-nocaptcha-recaptcha' ),
+				'switchingWarning' 		=> esc_html__( 'Switching CAPTCHA methods will require your Site Key and Secret key to be replaced, do you wish to proceed?', 'advanced-nocaptcha-recaptcha' ),
+				'switchingWarningTitle' => esc_html__( 'Confirm CAPTCHA method change', 'advanced-nocaptcha-recaptcha' ),				
 			)
 		);
 
@@ -848,6 +858,15 @@ class C4WP_Settings {
 				<div id="post-body" class="metabox-holder columns-2 c4wp-settings">
 					<div id="post-body-content">
 						<div id="tab_container">
+						<div class="overlay" id="overlay" hidden>
+							<div class="confirm-box">
+							<div onclick="closeConfirmBox()" class="close">&#10006;</div>
+							<h2>Confirmation</h2>
+							<p>Are you sure to execute this action?</p>
+							<button onclick="isConfirm(true)">Yes</button>
+							<button onclick="isConfirm(false)">No</button>
+							</div>
+						</div>
 							<?php
 							if ( 'c4wp-admin-captcha' === $current_tab || 'c4wp-admin-settings' === $current_tab ) {
 								$this->settings_form();

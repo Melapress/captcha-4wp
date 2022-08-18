@@ -364,3 +364,30 @@ ul.c4wp-pro-features-ul li.dashicons-yes-alt:before {
 .h-140 {
 	height: 290px;
 }
+.c4wp-alert {
+	border-radius: 13px;
+}
+.c4wp-alert .ui-dialog-titlebar {
+    background: #fff;
+    border-bottom: none;
+    height: 33px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 2;
+    padding: 9px 36px 0 9px;
+}
+
+.c4wp-alert .ui-dialog-buttonpane {
+    background: #fff;
+    border-top: none;
+    padding: 0 16px 16px;
+}
+
+.c4wp-alert .ui-dialog-buttonpane .ui-button + .ui-button {
+	background: #2271b1;
+    color: #fff;
+    border-color: #2271b1;
+}
+.full-hide.disabled {
+	display: none;
+}

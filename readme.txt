@@ -2,8 +2,8 @@
 Contributors: WPWhiteSecurity
 Tags: recaptcha, nocaptcha, captcha, invisible captcha, spam protection, captcha for WooCommerce, forms captcha
 Requires at least: 5.0
-Tested up to: 6.0
-Stable tag: 7.1.0
+Tested up to: 6.0.1
+Stable tag: 7.1.1
 Requires PHP: 7.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
@@ -16,10 +16,9 @@ Stop spam bots, fake accounts, and fake orders and allow prospects and customers
 
 Add CAPTCHA to any form on your WordPress website. Protect the WordPress comments, login, lost password and user registration forms with CAPTCHA. With CAPTCHA 4WP you can also add CAPTCHA to forms created with Contact Form 7, Gravity Forms, MailChimp for WordPress, BuddyPress, WooCommerce, bbPress and many others.
 
-CAPTCHA 4WP is very easy to us, allowing you to implement CAPTCHA to any form easily, including your WooCommerce checkout page within just minutes. The plugin is trusted by more than 200,000 administrators to protect their websites from spam, fake accounts, & fake orders!
+CAPTCHA 4WP is very easy to us, allowing you to implement CAPTCHA to any built-in WordPress form easily. With the Premium edition you can also add CAPTCHA checks to WooCommerce checkout pages and other forms within just minutes.
 
-> With the free edition you can add CAPTCHA to the built-in forms in WordPress, such as the login and comments forms. To add CAPTCHA to forms by third party plugins, such as WooCommerce, Contact Form 7 and BuddyPress <strong>[upgrade to CAPTCHA 4WP Premium](https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/pricing/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=C4WP&utm_content=plugin+repos+description)</strong>.<strong>
->
+With the free edition you can add CAPTCHA to the built-in forms in WordPress, such as the login and comments forms. To add CAPTCHA to forms by third party plugins, such as WooCommerce, Contact Form 7 and BuddyPress <strong>[upgrade to CAPTCHA 4WP Premium](https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/pricing/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=C4WP&utm_content=plugin+repos+description)</strong>.
 
 #### Maintained & Supported by WP White Security
 
@@ -29,20 +28,20 @@ WP White Security is a European development company that builds high-quality Wor
 
 * WordPress Login, user registration and comment form
 * WordPress lost password and reset password pages
-* WooCommerce checkout & registration form
-* WooCommerce login, password reset / lost password pages
-* BuddyPress user registration, comments and group forms
-* bbPress(New topic, reply to topic & registration)
-* Contact & other types of forms created with Contact Form 7, MailChimp for WordPress and other third party plugins.
+* WooCommerce checkout & registration forms (Premium)
+* WooCommerce login, password reset & lost password pages (Premium)
+* BuddyPress user registration, comments and group forms (Premium)
+* bbPress(New topic, reply to topic & registration) (Premium)
+* Contact & other types of forms created with Contact Form 7, Gravity Forms, WPForms, MailChimp for WordPress and other third party plugins (Premium).
 
 ###  Additional features
 
-* Select from different types of CAPTCHA (v2 I'm not robot checkbox, v2 invisible or v3)
+* Select from different types of CAPTCHA (v2 I'm not robot checkbox, v2 invisible or v3 invisible)
 * Set CAPTCHA passmark score
 * Configure the plugin to automatically detect the visitor's language setting and show CAPTCHA in that language
 * Configure the CAPTCHA properties, such as theme, size, badge location & more
-* White-list logged in users, IP address and URLs
-* Add CAPTCHA to any type of form, including PHP forms
+* White-list logged in users, IP address and URLs (Premium)
+* Add CAPTCHA to any type of form, including PHP forms (Premium)
 * Show CAPTCHA on login page if there are failed logins
 
 Refer to the <strong>[CAPTCHA plugin benefits and features](https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/features-benefits/?utm_source=wordpress.org&utm_medium=referral&utm_campaign=all+plugins&utm_content=plugin+repos+description)</strong> for a complete list of all the features you can take advantage of to protect your website and e-commerce store from spam, automated spam bots, fake registrations, and fake orders!
@@ -108,6 +107,22 @@ Simply select the WooCommerce page you want to add CAPTCHA to in the plugin's CA
 
 == Changelog ==
 
+= 7.1.1 (20220818) =
+
+* **New features**
+	* Site & secret key validation: plugin displays preview of CAPTCHA to confirm correct setup.
+	* Users are now prompted when attempting to switch CAPTCHA versions to ensure new keys are provided (UX improvement).
+	
+* **Improvements**
+	* Contact Form 7 AJAX validation is now handled independently to avoid compatibility issues.
+	* Improved handling of CAPTCHA JS within the WooCommerce checkout for better compatibility.
+	* Improved presentation of ‘hide CAPTCHA badge’ field within the settings.
+	* Updated Fremius SDK to version 2.4.5.
+
+* **Bug fixes**
+	* Corrected issue in which some trial users were not being shown all features.
+	* Adjusted internal ‘additional callback JS’ filter to append all content rather than override.
+
 = 7.1.0 (20220629) =
 
 Release notes: [Support for WPForms & Gravity Forms plugins](https://www.wpwhitesecurity.com/captcha-4wp-7-1-0/]
@@ -146,6 +161,11 @@ Release notes: [Support for WPForms & Gravity Forms plugins](https://www.wpwhite
 
 * **New features & functionality**
 	* A new setting that allows you to enable CAPTCHA on WooCommerce logins whilst disabling it on the checkout login form.
+
+Release notes: [CAPTCHA 4WP 7.0.6 Free Edition](https://www.wpwhitesecurity.com/c4wp-free-7-0-6/)
+
+* **Breaking change**
+	* CAPTCHA on forms creatd with third party plugins available through the Premium. [Get a free 7-day trial](https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/plugin-trial/).
 
 * **Improvements**
 	* Update logic to ensure whitelisted IP addresses action only runs when needed.
