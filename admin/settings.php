@@ -229,7 +229,7 @@ class C4WP_Settings {
 				),
 				'class'      => 'wrap-around-content',
 			),
-			'score_subtitle'      => array(
+      'score_subtitle'      => array(
 				'section_id' => 'google_keys',
 				'type'       => 'html',
 				'label'      => sprintf(
