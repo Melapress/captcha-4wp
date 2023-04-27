@@ -1,4 +1,4 @@
-# Copyright (C) 2022 advanced-nocaptcha-recaptcha
+# Copyright (C) 2023 advanced-nocaptcha-recaptcha
 # This file is distributed under the same license as the advanced-nocaptcha-recaptcha package.
 msgid ""
 msgstr ""
@@ -16,609 +16,773 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: anr-captcha-class.php:96
+#: anr-captcha-class.php:113, admin/settings.php:1213, admin/settings.php:1387
+msgid "Nonce Verification Failed."
+msgstr ""
+
+#: anr-captcha-class.php:240
 msgid "Please solve Captcha correctly"
 msgstr ""
 
-#: anr-captcha-class.php:98
+#: anr-captcha-class.php:242
 msgid "ERROR"
 msgstr ""
 
-#: functions.php:47
+#: functions.php:49
 msgid "<strong>ERROR</strong>: "
 msgstr ""
 
-#. translators: link to the settings page with text "Settings page"
-#: admin/settings.php:99
-msgid "Follow the 3 steps on this CAPTCHA configuration page to configure the integration with the Google reCAPTCHA service so you can use CAPTCHA checks on your website. use on your website. Once you configure the integration navigate to the %s page to configure where CAPTCHA should be added on your website, whitelist IP addresses and configure other settings"
+#: admin/settings.php:80
+msgid "Important:"
 msgstr ""
 
-#: admin/settings.php:100
+#: admin/settings.php:81
+msgid "To reconfigure the failover now, once you are redirected to the plugin's configuration page click"
+msgstr ""
+
+#: admin/settings.php:82, admin/settings.php:1337
+msgid "Reconfigure reCAPTCHA integration"
+msgstr ""
+
+#: admin/settings.php:83
+msgid "and click"
+msgstr ""
+
+#: admin/settings.php:84, admin/settings.php:1257, admin/settings.php:1273, admin/settings.php:1286, admin/settings.php:1306
+msgid "Next"
+msgstr ""
+
+#: admin/settings.php:85
+msgid "in the wizard until you get to the failover settings."
+msgstr ""
+
+#: admin/settings.php:89
+msgid "In the latest version of CAPTCHA 4WP you can configure a failover action for your CAPTCHA check. This means that you can configure the plugin to show a CAPTCHA checkbox or redirect the user when the current v3 reCAPTCHA check fails. Use the buttons below to configure the failover or close this admin notice."
+msgstr ""
+
+#: admin/settings.php:91
+msgid "Configure failover action now"
+msgstr ""
+
+#: admin/settings.php:91, admin/settings.php:964
+msgid "I'll configure it later"
+msgstr ""
+
+#. translators: link to the settings page with text "Settings page"
+#: admin/settings.php:161
+msgid "Use the CAPTCHA configuration wizard to integrate the Google reCAPTCHA service so you can add CAPTCHA checks on your website. Once you configure the integration navigate to the %s page to configure where CAPTCHA should be added on your website, whitelist IP addresses and configure other settings"
+msgstr ""
+
+#: admin/settings.php:162
 msgid "Settings & placements"
 msgstr ""
 
-#: admin/settings.php:112
+#: admin/settings.php:175
 msgid "In this page you can configure where on your website you want to add the CAPTCHA check. You can also configure several other settings, such as whitelisting IP addresses, excluding logged in users from CAPTCHA checks and more."
 msgstr ""
 
 #. translators: expression "very restrictive" in bold
-#: admin/settings.php:137
+#: admin/settings.php:200
 msgid "Any value above 0.5 is %s."
 msgstr ""
 
-#: admin/settings.php:138
+#: admin/settings.php:201
 msgid "very restrictive"
 msgstr ""
 
-#: admin/settings.php:140
+#: admin/settings.php:203
 msgid "This means that you might end up locked out from your website. Therefore test this on a staging website website beforehand."
 msgstr ""
 
-#: admin/settings.php:144
+#: admin/settings.php:207
 msgid "You can add a CAPTCHA check to the below list of pages on WordPress."
 msgstr ""
 
-#: admin/settings.php:145
+#: admin/settings.php:208
 msgid "Use the setting below to select the language of the text used in the CAPTCHA text."
 msgstr ""
 
 #. translators:link to upgrade page
-#: admin/settings.php:150
+#: admin/settings.php:213
 msgid "To add CAPTCHA checks to WooCommerce, Contact Form 7, BuddyPress and other forms created by third party plugins you need to %s"
 msgstr ""
 
-#: admin/settings.php:151
+#: admin/settings.php:214
 msgid "upgrade to Premium"
 msgstr ""
 
-#: admin/settings.php:153
+#: admin/settings.php:216
 msgid " In the Premium edition you can configure the plugin to automatically detect the language settings of the visitor's and use that language."
 msgstr ""
 
-#: admin/settings.php:156
+#: admin/settings.php:219
 msgid "Comments form"
 msgstr ""
 
-#: admin/settings.php:159
+#: admin/settings.php:222
 msgid "(Incompatible with Jetpack comments)"
 msgstr ""
 
-#: admin/settings.php:168
-msgid "STEP 1: Select the type of reCAPTCHA you want to use"
+#: admin/settings.php:231
+msgid "Step 1: Select the type of reCAPTCHA you want to use on your website."
 msgstr ""
 
-#: admin/settings.php:173
+#: admin/settings.php:236
 msgid "reCAPTCHA version"
 msgstr ""
 
-#: admin/settings.php:179
+#: admin/settings.php:242
 msgid "Version 2 (Users have to check the \"I’m not a robot” checkbox)"
 msgstr ""
 
-#: admin/settings.php:180
+#: admin/settings.php:243
 msgid "Version 2 (No user interaction needed, however, if traffic is suspicious, users are asked to solve a CAPTCHA)"
 msgstr ""
 
-#: admin/settings.php:181
+#: admin/settings.php:244
 msgid "Version 3 (verify request with a score without user interaction)"
 msgstr ""
 
-#: admin/settings.php:189
-msgid "STEP 2: Specify the Site & Secret keys"
+#: admin/settings.php:252
+msgid "Step 2: Specify the Site & Secret keys"
 msgstr ""
 
 #. translators:link to help page
-#: admin/settings.php:200
-msgid "To communicate with Google and utilize the reCAPTCHA service you need to get a Site Key and Secret Key. You can obtain these keys for free by registering for your Google reCAPTCHA. Refer to %s if you need help with the process."
+#: admin/settings.php:263
+msgid "To utilize the Google reCAPTCHA service on your website you need to get a Site and Secret key. If you do not have these keys yet, you can option them for free by registering to the Google reCAPTCHA service. Refer to the document %s for a step by step explanation of how to get these keys."
 msgstr ""
 
-#: admin/settings.php:201
+#: admin/settings.php:264
 msgid "how to get the Google reCAPTCHA keys"
 msgstr ""
 
-#: admin/settings.php:207
+#: admin/settings.php:270
 msgid "Site Key"
 msgstr ""
 
-#: admin/settings.php:212
+#: admin/settings.php:276
 msgid "Secret Key"
 msgstr ""
 
-#: admin/settings.php:219
+#: admin/settings.php:284, admin/settings.php:503
 msgid "Key Validation"
 msgstr ""
 
-#: admin/settings.php:220
-msgid "Once you enter the Site and Secret keys above the CAPTCHA method will appear below, depending on the method chosen. If the keys are incorrect, there will be an error notice. If you do see an error, check they provided keys match the method and the domain as well."
-msgstr ""
-
-#: admin/settings.php:228
-msgid "STEP 3 (OPTIONAL): Fine-tune reCAPTCHA to your requirements"
-msgstr ""
-
-#: admin/settings.php:238
-msgid "Use the below settings to configure and fine-tune CAPTCHA to your requirements. All the below settings are optional and with them you can configure different aspects of the CAPTCHA checks on your website, such as look and feel and also sensitivy."
-msgstr ""
-
-#: admin/settings.php:244
-msgid "Captcha Score"
-msgstr ""
-
-#: admin/settings.php:250
-msgid "Use this setting to specify sensitivity of the CAPTCHA check. The closer to 1 the more sensitive the CAPTCHA check will be, which also means more traffic will be marked as spam. This option is only available for reCAPTCHA v3."
-msgstr ""
-
-#: admin/settings.php:253
-msgid "Load CAPTCHA v3 scripts on:"
-msgstr ""
-
-#: admin/settings.php:259
-msgid "All Pages"
-msgstr ""
-
-#: admin/settings.php:260
-msgid "Form Pages"
-msgstr ""
-
-#: admin/settings.php:262
-msgid "By default CAPTCHA only loads on the pages where it is required, mainly forms. However, for V3 you can configure it to load on all pages so it has a better context of the traffic and works more efficiently. The CAPTCHA test will never interrupt users on non-form pages."
-msgstr ""
-
-#: admin/settings.php:265
-msgid "CAPTCHA language"
-msgstr ""
-
-#: admin/settings.php:271
-msgid "Select a language"
-msgstr ""
-
-#: admin/settings.php:282
-msgid "Arabic"
-msgstr ""
-
-#: admin/settings.php:283
-msgid "Bulgarian"
-msgstr ""
-
-#: admin/settings.php:284
-msgid "Catalan"
-msgstr ""
-
-#: admin/settings.php:285
-msgid "Chinese (Simplified)"
-msgstr ""
-
-#: admin/settings.php:286
-msgid "Chinese (Traditional)"
-msgstr ""
-
-#: admin/settings.php:287
-msgid "Croatian"
-msgstr ""
-
-#: admin/settings.php:288
-msgid "Czech"
-msgstr ""
-
-#: admin/settings.php:289
-msgid "Danish"
-msgstr ""
-
-#: admin/settings.php:290
-msgid "Dutch"
-msgstr ""
-
-#: admin/settings.php:291
-msgid "English (UK)"
-msgstr ""
-
-#: admin/settings.php:292
-msgid "English (US)"
+#: admin/settings.php:285, admin/settings.php:504
+msgid "Once you enter the correct Site and Secret keys above, the CAPTCHA method you want to use on your website will appear below. If the keys are incorrect you will instead see an error. If you see an error make sure the CAPTCHA version, website domain and both keys match."
 msgstr ""
 
 #: admin/settings.php:293
-msgid "Filipino"
-msgstr ""
-
-#: admin/settings.php:294
-msgid "Finnish"
-msgstr ""
-
-#: admin/settings.php:295
-msgid "French"
-msgstr ""
-
-#: admin/settings.php:296
-msgid "French (Canadian)"
-msgstr ""
-
-#: admin/settings.php:297
-msgid "German"
-msgstr ""
-
-#: admin/settings.php:298
-msgid "German (Austria)"
-msgstr ""
-
-#: admin/settings.php:299
-msgid "German (Switzerland)"
-msgstr ""
-
-#: admin/settings.php:300
-msgid "Greek"
-msgstr ""
-
-#: admin/settings.php:301
-msgid "Hebrew"
-msgstr ""
-
-#: admin/settings.php:302
-msgid "Hindi"
+msgid "Optional settings: Fine-tune reCAPTCHA to your requirements"
 msgstr ""
 
 #: admin/settings.php:303
-msgid "Hungarain"
-msgstr ""
-
-#: admin/settings.php:304
-msgid "Indonesian"
-msgstr ""
-
-#: admin/settings.php:305
-msgid "Italian"
-msgstr ""
-
-#: admin/settings.php:306
-msgid "Japanese"
-msgstr ""
-
-#: admin/settings.php:307
-msgid "Korean"
-msgstr ""
-
-#: admin/settings.php:308
-msgid "Latvian"
+msgid "Use the below settings to configure and fine-tune CAPTCHA to your requirements. All the below settings are optional and with them you can configure different aspects of the CAPTCHA checks on your website, such as look and feel and also sensitivy."
 msgstr ""
 
 #: admin/settings.php:309
-msgid "Lithuanian"
-msgstr ""
-
-#: admin/settings.php:310
-msgid "Norwegian"
-msgstr ""
-
-#: admin/settings.php:311
-msgid "Persian"
-msgstr ""
-
-#: admin/settings.php:312
-msgid "Polish"
-msgstr ""
-
-#: admin/settings.php:313
-msgid "Portuguese"
-msgstr ""
-
-#: admin/settings.php:314
-msgid "Portuguese (Brazil)"
+msgid "Captcha Score"
 msgstr ""
 
 #: admin/settings.php:315
-msgid "Portuguese (Portugal)"
-msgstr ""
-
-#: admin/settings.php:316
-msgid "Romanian"
-msgstr ""
-
-#: admin/settings.php:317
-msgid "Russian"
+msgid "Use this setting to specify sensitivity of the CAPTCHA check. The closer to 1 the more sensitive the CAPTCHA check will be, which also means more traffic will be marked as spam. This option is only available for reCAPTCHA v3."
 msgstr ""
 
 #: admin/settings.php:318
-msgid "Serbian"
-msgstr ""
-
-#: admin/settings.php:319
-msgid "Slovak"
-msgstr ""
-
-#: admin/settings.php:320
-msgid "Slovenian"
-msgstr ""
-
-#: admin/settings.php:321
-msgid "Spanish"
-msgstr ""
-
-#: admin/settings.php:322
-msgid "Spanish (Latin America)"
-msgstr ""
-
-#: admin/settings.php:323
-msgid "Swedish"
+msgid "Load CAPTCHA v3 scripts on:"
 msgstr ""
 
 #: admin/settings.php:324
-msgid "Thai"
+msgid "All Pages"
 msgstr ""
 
 #: admin/settings.php:325
-msgid "Turkish"
-msgstr ""
-
-#: admin/settings.php:326
-msgid "Ukrainian"
+msgid "Form Pages"
 msgstr ""
 
 #: admin/settings.php:327
-msgid "Vietnamese"
+msgid "By default CAPTCHA only loads on the pages where it is required, mainly forms. However, for V3 you can configure it to load on all pages so it has a better context of the traffic and works more efficiently. The CAPTCHA test will never interrupt users on non-form pages."
 msgstr ""
 
-#: admin/settings.php:331
-msgid "Error message"
+#: admin/settings.php:330
+msgid "CAPTCHA language"
 msgstr ""
 
-#: admin/settings.php:333
-msgid "Please solve the CAPTCHA to proceed"
+#: admin/settings.php:336
+msgid "Select a language"
 msgstr ""
 
-#: admin/settings.php:334
-msgid "Specify the message you want to show users who do not complete the CAPTCHA."
-msgstr ""
-
-#: admin/settings.php:337
-msgid "Theme"
-msgstr ""
-
-#: admin/settings.php:343
-msgid "Light"
-msgstr ""
-
-#: admin/settings.php:344
-msgid "Dark"
+#: admin/settings.php:347
+msgid "Arabic"
 msgstr ""
 
 #: admin/settings.php:348
-msgid "Size"
+msgid "Bulgarian"
+msgstr ""
+
+#: admin/settings.php:349
+msgid "Catalan"
+msgstr ""
+
+#: admin/settings.php:350
+msgid "Chinese (Simplified)"
+msgstr ""
+
+#: admin/settings.php:351
+msgid "Chinese (Traditional)"
+msgstr ""
+
+#: admin/settings.php:352
+msgid "Croatian"
+msgstr ""
+
+#: admin/settings.php:353
+msgid "Czech"
 msgstr ""
 
 #: admin/settings.php:354
-msgid "Normal"
+msgid "Danish"
 msgstr ""
 
 #: admin/settings.php:355
-msgid "Compact"
+msgid "Dutch"
 msgstr ""
 
-#: admin/settings.php:359, admin/settings.php:372
-msgid "Badge"
+#: admin/settings.php:356
+msgid "English (UK)"
 msgstr ""
 
-#: admin/settings.php:365, admin/settings.php:378
-msgid "Bottom Right"
+#: admin/settings.php:357
+msgid "English (US)"
 msgstr ""
 
-#: admin/settings.php:366, admin/settings.php:379
-msgid "Bottom Left"
+#: admin/settings.php:358
+msgid "Filipino"
+msgstr ""
+
+#: admin/settings.php:359
+msgid "Finnish"
+msgstr ""
+
+#: admin/settings.php:360
+msgid "French"
+msgstr ""
+
+#: admin/settings.php:361
+msgid "French (Canadian)"
+msgstr ""
+
+#: admin/settings.php:362
+msgid "German"
+msgstr ""
+
+#: admin/settings.php:363
+msgid "German (Austria)"
+msgstr ""
+
+#: admin/settings.php:364
+msgid "German (Switzerland)"
+msgstr ""
+
+#: admin/settings.php:365
+msgid "Greek"
+msgstr ""
+
+#: admin/settings.php:366
+msgid "Hebrew"
 msgstr ""
 
 #: admin/settings.php:367
-msgid "Inline"
+msgid "Hindi"
+msgstr ""
+
+#: admin/settings.php:368
+msgid "Hungarain"
 msgstr ""
 
 #: admin/settings.php:369
-msgid "Badge shows for invisible captcha"
+msgid "Indonesian"
+msgstr ""
+
+#: admin/settings.php:370
+msgid "Italian"
+msgstr ""
+
+#: admin/settings.php:371
+msgid "Japanese"
+msgstr ""
+
+#: admin/settings.php:372
+msgid "Korean"
+msgstr ""
+
+#: admin/settings.php:373
+msgid "Latvian"
+msgstr ""
+
+#: admin/settings.php:374
+msgid "Lithuanian"
+msgstr ""
+
+#: admin/settings.php:375
+msgid "Norwegian"
+msgstr ""
+
+#: admin/settings.php:376
+msgid "Persian"
+msgstr ""
+
+#: admin/settings.php:377
+msgid "Polish"
+msgstr ""
+
+#: admin/settings.php:378
+msgid "Portuguese"
+msgstr ""
+
+#: admin/settings.php:379
+msgid "Portuguese (Brazil)"
+msgstr ""
+
+#: admin/settings.php:380
+msgid "Portuguese (Portugal)"
 msgstr ""
 
 #: admin/settings.php:381
-msgid "Badge shows for invisible captcha v3"
+msgid "Romanian"
+msgstr ""
+
+#: admin/settings.php:382
+msgid "Russian"
+msgstr ""
+
+#: admin/settings.php:383
+msgid "Serbian"
 msgstr ""
 
 #: admin/settings.php:384
-msgid "reCAPTCHA domain"
+msgid "Slovak"
 msgstr ""
 
-#: admin/settings.php:394
-msgid "Use this setting to change the domain if Google is not accessible or blocked."
+#: admin/settings.php:385
+msgid "Slovenian"
 msgstr ""
 
-#: admin/settings.php:397
-msgid "Remove CSS"
+#: admin/settings.php:386
+msgid "Spanish"
 msgstr ""
 
-#: admin/settings.php:401
-msgid "Remove this plugin's css from login page?"
+#: admin/settings.php:387
+msgid "Spanish (Latin America)"
+msgstr ""
+
+#: admin/settings.php:388
+msgid "Swedish"
+msgstr ""
+
+#: admin/settings.php:389
+msgid "Thai"
+msgstr ""
+
+#: admin/settings.php:390
+msgid "Turkish"
+msgstr ""
+
+#: admin/settings.php:391
+msgid "Ukrainian"
+msgstr ""
+
+#: admin/settings.php:392
+msgid "Vietnamese"
+msgstr ""
+
+#: admin/settings.php:396
+msgid "Error message"
+msgstr ""
+
+#: admin/settings.php:398
+msgid "Please solve the CAPTCHA to proceed"
+msgstr ""
+
+#: admin/settings.php:399
+msgid "Specify the message you want to show users who do not complete the CAPTCHA."
 msgstr ""
 
 #: admin/settings.php:402
-msgid "This css increase login page width to adjust with Captcha width."
+msgid "Theme"
 msgstr ""
 
-#: admin/settings.php:411
-msgid "Select where on your website you want to add the CAPTCHA check"
+#: admin/settings.php:408
+msgid "Light"
 msgstr ""
 
-#: admin/settings.php:424
-msgid "WordPress pages"
+#: admin/settings.php:409
+msgid "Dark"
 msgstr ""
 
-#: admin/settings.php:429
-msgid "Login form"
+#: admin/settings.php:413
+msgid "Size"
 msgstr ""
 
-#: admin/settings.php:430
-msgid "Registration form"
+#: admin/settings.php:419
+msgid "Normal"
 msgstr ""
 
-#: admin/settings.php:431
-msgid "Reset password form"
+#: admin/settings.php:420
+msgid "Compact"
+msgstr ""
+
+#: admin/settings.php:424, admin/settings.php:437
+msgid "Badge"
+msgstr ""
+
+#: admin/settings.php:430, admin/settings.php:443
+msgid "Bottom Right"
+msgstr ""
+
+#: admin/settings.php:431, admin/settings.php:444
+msgid "Bottom Left"
 msgstr ""
 
 #: admin/settings.php:432
+msgid "Inline"
+msgstr ""
+
+#: admin/settings.php:434
+msgid "Badge shows for invisible captcha"
+msgstr ""
+
+#: admin/settings.php:446
+msgid "Badge shows for invisible captcha v3"
+msgstr ""
+
+#: admin/settings.php:449
+msgid "reCAPTCHA domain"
+msgstr ""
+
+#: admin/settings.php:459
+msgid "Use this setting to change the domain if Google is not accessible or blocked."
+msgstr ""
+
+#: admin/settings.php:462
+msgid "Remove CSS"
+msgstr ""
+
+#: admin/settings.php:466
+msgid "Remove this plugin's css from login page?"
+msgstr ""
+
+#: admin/settings.php:467
+msgid "This css increase login page width to adjust with Captcha width."
+msgstr ""
+
+#: admin/settings.php:471
+msgid "v3 failover action:"
+msgstr ""
+
+#: admin/settings.php:477
+msgid "Show a v2 CAPTCHA checkbox"
+msgstr ""
+
+#: admin/settings.php:478
+msgid "Redirect the website visitor to a URL"
+msgstr ""
+
+#: admin/settings.php:479
+msgid "Take no action"
+msgstr ""
+
+#: admin/settings.php:483
+msgid "Redirect URL"
+msgstr ""
+
+#: admin/settings.php:489
+msgid "v2 Site key:"
+msgstr ""
+
+#: admin/settings.php:495
+msgid "v2 Secret key:"
+msgstr ""
+
+#: admin/settings.php:514
+msgid "Select where on your website you want to add the CAPTCHA check"
+msgstr ""
+
+#: admin/settings.php:527
+msgid "WordPress pages"
+msgstr ""
+
+#: admin/settings.php:532
+msgid "Login form"
+msgstr ""
+
+#: admin/settings.php:533
+msgid "Registration form"
+msgstr ""
+
+#: admin/settings.php:534
+msgid "Reset password form"
+msgstr ""
+
+#: admin/settings.php:535
 msgid "Lost password form"
 msgstr ""
 
-#: admin/settings.php:446, admin/settings.php:980
+#: admin/settings.php:550, admin/settings.php:1100
 msgid "Upgrade to Premium"
 msgstr ""
 
-#: admin/settings.php:447
+#: admin/settings.php:551
 msgid "Find out more"
 msgstr ""
 
-#: admin/settings.php:450
+#: admin/settings.php:554
 msgid "Checkout and login pages on WooCommerce stores"
 msgstr ""
 
-#: admin/settings.php:451
-msgid "Contact Form 7, MailChimp 4 WordPress forms"
+#: admin/settings.php:555
+msgid "Contact Form 7, Gravity Forms, WPForms, MailChimp 4 WordPress forms"
 msgstr ""
 
-#: admin/settings.php:452
+#: admin/settings.php:556
 msgid "BuddyPress and bbPress"
 msgstr ""
 
-#: admin/settings.php:453
+#: admin/settings.php:557
 msgid "And others"
 msgstr ""
 
 #. translators:field type
-#: admin/settings.php:634
+#: admin/settings.php:746
 msgid "No hook defined for %s"
 msgstr ""
 
-#: admin/settings.php:734, admin/settings.php:735, admin/settings.php:735, admin/settings.php:755, admin/settings.php:756, admin/settings.php:756, admin/settings.php:840
+#: admin/settings.php:851, admin/settings.php:852, admin/settings.php:852, admin/settings.php:872, admin/settings.php:873, admin/settings.php:873, admin/settings.php:962
 msgid "CAPTCHA Configuration"
 msgstr ""
 
-#: admin/settings.php:734, admin/settings.php:755
+#: admin/settings.php:851, admin/settings.php:872
 msgid "CAPTCHA 4WP"
 msgstr ""
 
-#: admin/settings.php:736, admin/settings.php:757
+#: admin/settings.php:853, admin/settings.php:874
 msgid "CAPTCHA 4WP Settings"
 msgstr ""
 
-#: admin/settings.php:736, admin/settings.php:757
+#: admin/settings.php:853, admin/settings.php:874
 msgid "Settings & Placements"
 msgstr ""
 
-#: admin/settings.php:737, admin/settings.php:737, admin/settings.php:758, admin/settings.php:758
+#: admin/settings.php:854, admin/settings.php:854, admin/settings.php:875, admin/settings.php:875
 msgid "Help & Contact Us"
 msgstr ""
 
-#: admin/settings.php:740, admin/settings.php:740, admin/settings.php:761, admin/settings.php:761
+#: admin/settings.php:857, admin/settings.php:857, admin/settings.php:878, admin/settings.php:878
 msgid "Premium Features ➤"
 msgstr ""
 
-#: admin/settings.php:816
+#: admin/settings.php:935
 msgid "Please supply a valid IP"
 msgstr ""
 
-#: admin/settings.php:817
+#: admin/settings.php:936
 msgid "Switching CAPTCHA methods will require your Site Key and Secret key to be replaced, do you wish to proceed?"
 msgstr ""
 
-#: admin/settings.php:818
-msgid "Confirm CAPTCHA method change"
-msgstr ""
-
-#: admin/settings.php:841
-msgid "Configure it now"
-msgstr ""
-
-#: admin/settings.php:842
-msgid "I'll configure it later"
-msgstr ""
-
-#: admin/settings.php:854
-msgid "CAPTCHA Placements"
-msgstr ""
-
-#: admin/settings.php:852
-msgid "CAPTCHA integration & configuration"
-msgstr ""
-
-#: admin/settings.php:930
-msgid "The site key that you have entered is invalid. Please try again."
-msgstr ""
-
-#: admin/settings.php:933
-msgid "The secret key that you have entered is invalid. Please try again."
-msgstr ""
-
-#: admin/settings.php:936
-msgid "Captcha settings"
+#: admin/settings.php:937
+msgid "Confirm change of reCAPTCHA integration"
 msgstr ""
 
 #: admin/settings.php:938
-msgid "Captcha configuration"
+msgid "Confirm removal of reCAPTCHA integration"
 msgstr ""
 
-#: admin/settings.php:940
-msgid " updated"
+#: admin/settings.php:939
+msgid "This will remove the current reCAPTCHA integration, which means all the CAPTCHA checks on your website will stop working. Would you like to proceed?"
 msgstr ""
 
-#: admin/settings.php:962
-msgid "Upgrade to Premium for:"
-msgstr ""
-
-#: admin/settings.php:967
-msgid "Use the language that your website viewers understand"
-msgstr ""
-
-#: admin/settings.php:968
-msgid "Spam protection for your WooCommerce stores"
-msgstr ""
-
-#: admin/settings.php:969
-msgid "Specify where to put the CAPTCHA test on WooCommerce checkout page"
-msgstr ""
-
-#: admin/settings.php:970
-msgid "One-click Contact Form 7 forms spam protection"
-msgstr ""
-
-#: admin/settings.php:971
-msgid "One-click spam protection for Mailchimp for WordPress forms"
-msgstr ""
-
-#: admin/settings.php:972
-msgid "CAPTCHA tests & spam protection for BuddyPress, bbPress & other third party plugins"
-msgstr ""
-
-#: admin/settings.php:973
-msgid "Add CAPTCHA to any type of form, even PHP forms"
-msgstr ""
-
-#: admin/settings.php:974
-msgid "Boost login security, add CAPTCHA tests only failed logins"
-msgstr ""
-
-#: admin/settings.php:975
-msgid "Remove CAPTCHA for logged in users"
+#: admin/settings.php:963
+msgid "Configure it now"
 msgstr ""
 
 #: admin/settings.php:976
+msgid "CAPTCHA Placements"
+msgstr ""
+
+#: admin/settings.php:974
+msgid "CAPTCHA integration & configuration"
+msgstr ""
+
+#: admin/settings.php:1051
+msgid "The site key that you have entered is invalid. Please try again."
+msgstr ""
+
+#: admin/settings.php:1054
+msgid "The secret key that you have entered is invalid. Please try again."
+msgstr ""
+
+#: admin/settings.php:1057
+msgid "CAPTCHA settings"
+msgstr ""
+
+#: admin/settings.php:1059
+msgid "CAPTCHA configuration"
+msgstr ""
+
+#: admin/settings.php:1061
+msgid " updated"
+msgstr ""
+
+#: admin/settings.php:1083
+msgid "Upgrade to Premium for:"
+msgstr ""
+
+#: admin/settings.php:1088
+msgid "Use the language that your website viewers understand"
+msgstr ""
+
+#: admin/settings.php:1089
+msgid "Spam protection for your WooCommerce stores"
+msgstr ""
+
+#: admin/settings.php:1090
+msgid "Specify where to put the CAPTCHA test on WooCommerce checkout page"
+msgstr ""
+
+#: admin/settings.php:1091
+msgid "One-click spam protection for forms built with Contact Form 7, Gravity Forms, WPForms & MailChimp for WordPress"
+msgstr ""
+
+#: admin/settings.php:1092
+msgid "CAPTCHA tests & spam protection for BuddyPress, bbPress & other third party plugins"
+msgstr ""
+
+#: admin/settings.php:1093
+msgid "Add CAPTCHA to any type of form, even PHP forms"
+msgstr ""
+
+#: admin/settings.php:1094
+msgid "Boost login security, add CAPTCHA tests only failed logins"
+msgstr ""
+
+#: admin/settings.php:1095
+msgid "Remove CAPTCHA for logged in users"
+msgstr ""
+
+#: admin/settings.php:1096
 msgid "Remove CAPTCHA for specific IP addresses"
 msgstr ""
 
-#: admin/settings.php:977
+#: admin/settings.php:1097
 msgid "Remove CAPTCHA from specific URLs"
 msgstr ""
 
-#: admin/settings.php:978
+#: admin/settings.php:1098
 msgid "No Ads!"
 msgstr ""
 
-#: admin/settings.php:980
-msgid "Get a FREE 7-day trial"
+#: admin/settings.php:1100
+msgid "Get a FREE 14-day trial"
 msgstr ""
 
-#: admin/settings.php:1036
+#: admin/settings.php:1156
 msgid "Settings"
+msgstr ""
+
+#: admin/settings.php:1254
+msgid "Getting started with the CAPTCHA 4WP plugin"
+msgstr ""
+
+#: admin/settings.php:1255
+msgid "Thank you for installing the CAPTCHA 4WP plugin. This wizard will help you get started with the plugin so you can configure CAPTCHA and protect your website from spam, and fake registrations and orders."
+msgstr ""
+
+#: admin/settings.php:1258, admin/settings.php:1274, admin/settings.php:1288, admin/settings.php:1308
+msgid "Cancel"
+msgstr ""
+
+#: admin/settings.php:1261, admin/settings.php:1287, admin/settings.php:1307
+msgid "Back"
+msgstr ""
+
+#: admin/settings.php:1292
+msgid "Step 3: Configure a failover action for reCAPTCHA v3 failure"
+msgstr ""
+
+#: admin/settings.php:1293
+msgid "reCAPTCHA v3 is fully automated. This means that by default, if the CAPTCHA check fails the website visitor cannot proceed with what they are doing unless you configure a failover action. Use the below setting to configure the failover action."
+msgstr ""
+
+#: admin/settings.php:1296
+msgid "Please specify the full URL, including the protocol (HTTP or HTTPS) where you would like the user to be redirected to. For example: "
+msgstr ""
+
+#: admin/settings.php:1297
+msgid "To show the v2 reCAPTCHA checkbox you need to specify the Site and Secret keys. Please specify them below:"
+msgstr ""
+
+#: admin/settings.php:1312
+msgid " All done - you can now add CAPTCHA checks to your website"
+msgstr ""
+
+#: admin/settings.php:1313
+msgid "Now that the Google reCAPTCHA service is fully integrated you can use the optional settings to fine-tune CAPTCHA to your requirements. All the CAPTCHA settings are optional and with them you can configure aspects such as look and feel and CAPTCHA sensitivity. When you are ready navigate to the Settings & Placements page to configure where you'd like to add the CAPTCHA checks"
+msgstr ""
+
+#: admin/settings.php:1315
+msgid "Finish"
+msgstr ""
+
+#: admin/settings.php:1369
+msgid "Configure Google reCAPTCHA integration"
+msgstr ""
+
+#: admin/settings.php:1337
+msgid "Remove reCAPTCHA integration"
+msgstr ""
+
+#: admin/settings.php:1347
+msgid "CAPTCHA version:"
+msgstr ""
+
+#: admin/settings.php:1348, admin/settings.php:1353
+msgid "Site key:"
+msgstr ""
+
+#: admin/settings.php:1349, admin/settings.php:1354
+msgid "Secret key:"
+msgstr ""
+
+#: admin/settings.php:1356, admin/settings.php:1352
+msgid "Failover action:"
+msgstr ""
+
+#: admin/settings.php:1356
+msgid "Redirect to a URL"
+msgstr ""
+
+#: admin/settings.php:1357
+msgid "Failover redirect URL:"
+msgstr ""
+
+#: admin/settings.php:1352
+msgid "v2 checkbox"
+msgstr ""
+
+#: admin/settings.php:1410
+msgid "Override validation response."
+msgstr ""
+
+#: admin/settings.php:1416
+msgid "Do no override"
+msgstr ""
+
+#: admin/settings.php:1417
+msgid "Return false (failure)"
+msgstr ""
+
+#: admin/settings.php:1418
+msgid "Return true (pass)"
 msgstr ""
 
 #: admin/templates/help/help.php:20

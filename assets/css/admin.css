@@ -365,6 +365,19 @@ ul.c4wp-pro-features-ul li.dashicons-yes-alt:before {
 	height: 290px;
 }
 .c4wp-alert {
+	border-radius: 3px;
+    padding: 38px 34px;
+}
+.c4wp-alert .ui-dialog-buttonpane .ui-dialog-buttonset {
+	float: left !important;
+}
+.c4wp-alert .ui-dialog-buttonpane .ui-button {
+	margin-left: 0 !important;
+	margin-right: 10px;
+}
+.c4wp-alert .ui-dialog-content {
+	padding: 0 !important;
+	padding-bottom: 30px !important;
 	border-radius: 13px;
 }
 .c4wp-alert .ui-dialog-titlebar {
@@ -374,13 +387,13 @@ ul.c4wp-pro-features-ul li.dashicons-yes-alt:before {
     font-size: 16px;
     font-weight: 600;
     line-height: 2;
-    padding: 9px 36px 0 9px;
+    padding: 0px 36px 20px 0px;
 }
 
 .c4wp-alert .ui-dialog-buttonpane {
     background: #fff;
     border-top: none;
-    padding: 0 16px 16px;
+	padding: 0 !important;
 }
 
 .c4wp-alert .ui-dialog-buttonpane .ui-button + .ui-button {
@@ -390,4 +403,166 @@ ul.c4wp-pro-features-ul li.dashicons-yes-alt:before {
 }
 .full-hide.disabled {
 	display: none;
+}
+
+#whitelist-ips-userfacing ul li, #whitelist-urls-userfacing ul li {
+    display: inline-block;
+    border-width: 1px;
+    border-style: solid;
+    padding: 2px 4px;
+    margin: 2px 0 0 2px;
+    border-radius: 3px;
+    cursor: default;
+	background: #EFE;
+    border-color: #5B5;
+}
+
+#whitelist-ips-userfacing ul li span, #whitelist-urls-userfacing ul li span {
+	text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+    color: #FFF;
+    margin-left: 2px;
+    background: #BBB;
+    border-radius: 25px;
+    height: 14px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 14px;
+    text-align: center;
+    line-height: 12px;
+}
+
+#c4wp-testrender .grecaptcha-badge {
+    position: relative !important;
+    right: 0 !important;
+    bottom: 0 !important;
+}
+
+#c4wp-setup-wizard {
+	visibility: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(29 35 39 / 0%);
+    z-index: -1;
+	transition: all 0.25s ease-in-out;
+	overflow-x: clip;
+    overflow-y: auto;
+}
+
+#c4wp-setup-wizard.show-wizard {
+	visibility: visible;
+    background-color: rgb(29 35 39 / 90%);
+	display: block;
+	position: fixed;
+    z-index: 9999;
+	transition: all 0.25s ease-in-out;
+}
+
+.toplevel_page_c4wp-admin-captcha  .ui-widget-overlay {
+	
+    background-color: rgb(29 35 39 / 90%) !important;
+}
+
+#c4wp-setup-wizard #c4wp-setup-wizard-content {
+	opacity: 0;
+    width: 800px;
+    height: auto;
+    background: white;
+    top: 140px;
+    position: absolute;
+    left: calc(50vw - 425px);
+    border-radius: 3px;
+    transition: all 0.25s ease-in-out;
+    z-index: 10000;
+    padding: 38px 34px;
+}
+
+#c4wp-close-wizard {
+	text-decoration: none;
+    position: absolute;
+    right: 38px;
+    display: inline-block;
+    z-index: 9999;
+}
+#c4wp-close-wizard:focus {
+	box-shadow: none;
+	outline: none;
+}
+
+.c4wp-panel-content {
+	margin-bottom: 30px;
+}
+
+#c4wp-setup-wizard.show-wizard #c4wp-setup-wizard-content {
+    top: 200px;
+	opacity: 1;
+}
+
+.c4wp-wizard-panel {
+	visibility: hidden;
+    height: 100%;
+	transition: all 0.25s ease-in-out;
+	height: 0;
+	opacity: 0;
+}
+
+.c4wp-wizard-panel.active {
+    visibility: visible;
+    position: relative;
+	transition: all 0.25s ease-in-out;
+	height: auto;
+	opacity: 1;
+}
+
+.c4wp-panel-content strong,
+.c4wp-panel-content p {
+    position: relative !important;
+    display: block;
+    margin: 0 0 30px 0 !important;
+}
+
+.c4wp-panel-content p {
+	font-size: 13px;
+}
+.c4wp-panel-content p > input, .c4wp-panel-content p > select {
+	position: absolute;
+    left: 115px;
+    top: -4px;
+    min-width: 380px;
+}
+
+.c4wp-panel-content p.disabled {
+	display: none;
+}
+
+.c4wp-current-setup p {
+    margin: 5px 0 8px;
+}
+
+.c4wp-current-setup p span {
+	display: inline-block;
+    width: 150px;
+}
+
+#render-settings-placeholder > div, #render-settings-placeholder-fallback > div {
+	left: 0 !important;
+}
+
+.c4wp-panel-content .toggleable {	
+	height: 0;
+}
+
+#c4wp-setup-wizard-version-select strong + p {
+	display: none;
+}
+
+.wizard-logo {
+	position: relative;
+    max-width: 240px;
+    display: block;
+    margin: 0 0 34px;
 }
