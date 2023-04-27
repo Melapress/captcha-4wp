@@ -3,12 +3,12 @@
 /**
  * CAPTCHA 4WP
  *
- * @copyright Copyright (C) 2013-2022, WP White Security - support@wpwhitesecurity.com
+ * @copyright Copyright (C) 2013-2023, WP White Security - support@wpwhitesecurity.com
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 or higher
  *
  * @wordpress-plugin
  * Plugin Name: CAPTCHA 4WP
- * Version:     7.1.1
+ * Version:     7.2.0
  * Plugin URI:  https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/
  * Description: Easily add any type of CAPTCHA (such as noCaptcha or invisible Captcha) on any website form, including login pages, comments and password reset forms, and also forms by third party plugins such as Contact Form 7, WooCommerce & BuddyPress.
  * Author:      WP White Security
@@ -62,7 +62,7 @@ class C4WP {
 
 
 		if ( is_plugin_active( 'advanced-nocaptcha-and-invisible-captcha-pro/advanced-nocaptcha-and-invisible-captcha-pro.php' ) ) {
-			deactivate_plugins( 'advanced-nocaptcha-and-invisible-captcha-pro/advanced-nocaptcha-and-invisible-captcha-pro.php' );
+			deactivate_plugins( 'advanced-nocaptcha-recaptcha/advanced-nocaptcha-recaptcha.php' );
 			return;
 		}
 
@@ -89,7 +89,7 @@ class C4WP {
 	 * @return void
 	 */
 	private function constants() {
-		define( 'C4WP_PLUGIN_VERSION', '7.1.1' );
+		define( 'C4WP_PLUGIN_VERSION', '7.2.0' );
 		define( 'C4WP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'C4WP_PLUGIN_URL', plugins_url( '/', __FILE__ ) );
 		define( 'C4WP_PLUGIN_FILE', __FILE__ );
@@ -150,3 +150,14 @@ function c4wp_activation_redirect() {
 		exit( wp_safe_redirect( esc_url( $admin_url ) ) ); // phpcs:ignore
 	}
 }
+
+/**
+ * Declare compatibility with WC HPOS.
+ *
+ * @return void
+ */
+add_action( 'before_woocommerce_init', function() {
+	if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+	}
+} );

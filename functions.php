@@ -28,6 +28,8 @@ add_action( 'c4wp_plugin_update', 'c4wp_plugin_update_70', 30 );
 add_action( 'c4wp_plugin_update', 'c4wp_plugin_update_706', 30 );
 add_action( 'c4wp_plugin_update', 'c4wp_plugin_update_7061', 40 );
 
+add_action( 'c4wp_plugin_update', 'c4wp_plugin_update_720', 50 );
+
 /**
  * Update script for 3.2 and below.
  *
@@ -151,6 +153,19 @@ function c4wp_plugin_update_7061( $prev_version ) {
 	$current_lang = c4wp_get_option( 'language' );
 	if ( version_compare( $prev_version, '7.0.6.1', '<' ) && empty( $current_lang ) ) {
 		c4wp_update_option( 'language', 'en' );
+	}
+}
+
+/**
+ * Update script for 7.2.0 and below.
+ *
+ * @param string $prev_version - Old version number.
+ * @return void
+ */
+function c4wp_plugin_update_720( $prev_version ) {
+	$captcha_version = c4wp_get_option( 'captcha_version' );
+	if ( version_compare( $prev_version, '7.2.0', '<' ) && 'v3' == $captcha_version ) {
+		add_option( 'c4wp_v3_failover_available', true );
 	}
 }
 
@@ -559,4 +574,134 @@ function c4wp_get_sysinfo() {
  */
 function c4wp_is_premium_version() {
 	return ( ( class_exists( 'C4WP_Pro' ) && ! c4wp_fs()->is_not_paying() ) || ( class_exists( 'C4WP_Pro' ) && c4wp_fs()->is_trial() ) ) ? true : false;
+}
+
+/**
+ * Add a small log during testing.
+ *
+ * @param array $result - Result data.
+ * @return void
+ */
+function c4wp_log_verify_result( $result ) {
+	$stored = c4wp_get_option( 'c4wp_recent_results' );
+	if ( ! $stored || ! is_array( $stored ) ) {
+		$updated_results[] = $result;
+		c4wp_update_option( 'c4wp_recent_results', $updated_results );
+	} else {
+		$updated_results = array_unshift( $stored, $result );
+		c4wp_update_option( 'c4wp_recent_results', $updated_results );
+	}
+}
+
+/**
+ * An easy to use array of allowed HTML for use with sanitzation of our admin areas etc.
+ *
+ * @return $wp_kses_args - Our array.
+ */
+function c4wp_allowed_kses_args() {
+	$wp_kses_args = array(
+		'input'    => array(
+			'type'     => array(),
+			'id'       => array(),
+			'name'     => array(),
+			'value'    => array(),
+			'size'     => array(),
+			'class'    => array(),
+			'min'      => array(),
+			'required' => array(),
+			'checked'  => array(),
+		),
+		'select'   => array(
+			'id'   => array(),
+			'name' => array(),
+		),
+		'option'   => array(
+			'id'       => array(),
+			'name'     => array(),
+			'value'    => array(),
+			'selected' => array(),
+		),
+		'tr'       => array(
+			'valign' => array(),
+			'class'  => array(),
+			'id'     => array(),
+		),
+		'th'       => array(
+			'scope' => array(),
+			'class' => array(),
+			'id'    => array(),
+		),
+		'td'       => array(
+			'class' => array(),
+			'id'    => array(),
+		),
+		'fieldset' => array(
+			'class' => array(),
+			'id'    => array(),
+		),
+		'legend'   => array(
+			'class' => array(),
+			'id'    => array(),
+		),
+		'label'    => array(
+			'for'   => array(),
+			'class' => array(),
+			'id'    => array(),
+		),
+		'p'        => array(
+			'class' => array(),
+			'id'    => array(),
+		),
+		'span'     => array(
+			'class' => array(),
+			'id'    => array(),
+			'style' => array(),
+		),
+		'li'       => array(
+			'class'         => array(),
+			'id'            => array(),
+			'data-role-key' => array(),
+		),
+		'a'        => array(
+			'class'             => array(),
+			'id'                => array(),
+			'style'             => array(),
+			'data-tab-target'   => array(),
+			'data-wizard-goto'  => array(),
+			'data-check-inputs' => array(),
+			'data-nonce'        => array(),
+			'href'              => array(),
+			'target'            => array(),
+		),
+		'h3'       => array(
+			'class' => array(),
+		),
+		'br'       => array(),
+		'b'        => array(),
+		'i'        => array(),
+		'div'      => array(
+			'style' => array(),
+			'class' => array(),
+			'id'    => array(),
+		),
+		'table'    => array(
+			'class' => array(),
+			'id'    => array(),
+		),
+		'tbody'    => array(
+			'class' => array(),
+			'id'    => array(),
+		),
+		'strong'   => array(
+			'class'            => array(),
+			'data-key-invalid' => array(),
+			'id'               => array(),
+		),
+		'img'   => array(
+			'class' => array(),
+			'src'   => array(),
+			'id'    => array(),
+		),
+	);
+	return $wp_kses_args;
 }
