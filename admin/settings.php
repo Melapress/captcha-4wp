@@ -101,7 +101,7 @@ class C4WP_Settings {
 	 */
 	public function admin_enqueue_scripts() {
 		wp_register_script( 'c4wp-admin', C4WP_PLUGIN_URL . 'assets/js/admin.js', array( 'jquery', 'jquery-ui-dialog' ), C4WP_PLUGIN_VERSION, false );
-		wp_enqueue_style( 'wp-jquery-ui-dialog' );
+    wp_enqueue_style( 'wp-jquery-ui-dialog' );
 	}
 
 	/**
@@ -285,6 +285,13 @@ class C4WP_Settings {
 				'std'        => '<p class="description mb-10">' . esc_html__( 'Once you enter the correct Site and Secret keys above, the CAPTCHA method you want to use on your website will appear below. If the keys are incorrect you will instead see an error. If you see an error make sure the CAPTCHA version, website domain and both keys match.', 'advanced-nocaptcha-recaptcha' ) . '</p><div id="render-settings-placeholder"></div>',
 				'class'      => 'c4wp-wizard-site-keys',
 			),
+			'key_validation'      => array(
+				'section_id' => 'google_keys',
+				'type'       => 'html',
+				'label'      => esc_html__( 'Key Validation', 'advanced-nocaptcha-recaptcha' ),
+				'std'		 => '<p class="description mb-10">' . esc_html__( 'Once you enter the Site and Secret keys above the CAPTCHA method will appear below, depending on the method chosen. If the keys are incorrect, there will be an error notice. If you do see an error, check they provided keys match the method and the domain as well.', 'advanced-nocaptcha-recaptcha' ) .  '</p><div id="render-settings-placeholder"></div>',
+				'class'      => '',
+			),
 			'score_title'            => array(
 				'section_id' => 'google_keys',
 				'type'       => 'html',
@@ -293,7 +300,7 @@ class C4WP_Settings {
 					esc_html__( 'Optional settings: Fine-tune reCAPTCHA to your requirements', 'advanced-nocaptcha-recaptcha' )
 				),
 				'class'      => 'wrap-around-content c4wp-wizard-additional-settings',
-			),
+			
 			'score_subtitle'         => array(
 				'section_id' => 'google_keys',
 				'type'       => 'html',
