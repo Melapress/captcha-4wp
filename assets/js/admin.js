@@ -1,4 +1,4 @@
-function createCaptchaScripts( $captcha_version = 'v2_checkbox', $sitekey = false ) {
+function createCaptchaScripts( $captcha_version = 'v2_checkbox', $sitekey = false, $is_fallback = false ) {
 	if ( $captcha_version == 'v2_checkbox' || $captcha_version == 'v2_invisble' ) {
 		var s = document.createElement("script");
 		s.type = "text/javascript";
@@ -14,25 +14,58 @@ function createCaptchaScripts( $captcha_version = 'v2_checkbox', $sitekey = fals
 	}
 }
 
-function createRenderArea( $captcha_version = 'v2_checkbox', $sitekey = false  ) {
-	jQuery( '.g-recaptcha, #gscripts, #c4wp-testrender, #warning, #render-wrapper' ).remove();
-	jQuery('.grecaptcha-badge').parent().remove();
-	jQuery( '#render-settings-placeholder' ).css( 'height', 'auto' );
-	if ( $sitekey ) {
-		if ( $captcha_version == 'v2_checkbox' ) {
-			jQuery( '#render-settings-placeholder' ).html( '<div class="g-recaptcha" id="c4wp-testrender" data-sitekey="' + $sitekey + '" style="position: absolute; left: 220px;"></div>' ).css( 'height', '78px' );		
-		} else if ( $captcha_version == 'v2_invisble' ) {
-			jQuery( '#render-settings-placeholder' ).html( '<div class="g-recaptcha" id="c4wp-testrender" data-sitekey="' + $sitekey + '" data-size="invisible"></div>' );
-		} else {
-			jQuery( '#render-settings-placeholder' ).html( '<div id="c4wp-testrender" data-sitekey="' + $sitekey + '"></div>' );
-			setTimeout(function() { 
-				if ( ! jQuery( 'body .grecaptcha-badge' ).length ) {
-					jQuery( '#c4wp-testrender *' ).remove();
-					jQuery( '#c4wp-testrender' ).append( '<strong style="color: red" id="warning">Invalid site key</strong>' );
-				}
-			}, 500);
+function createRenderArea( $captcha_version = 'v2_checkbox', $sitekey = false, $is_fallback = false  ) {
+
+	if ( $is_fallback ) {
+		jQuery( '#render-settings-placeholder-fallback' ).css( 'height', 'auto' );
+		if ( $sitekey ) {
+			if ( $captcha_version == 'v2_checkbox' ) {
+				jQuery( '#render-settings-placeholder-fallback' ).html( '<div class="g-recaptcha" id="c4wp-testrender-fb" data-sitekey="' + $sitekey + '" style="position: absolute; left: 220px;"></div>' ).css( 'height', '78px' );		
+			} else if ( $captcha_version == 'v2_invisble' ) {
+				jQuery( '#render-settings-placeholder-fallback' ).html( '<div class="g-recaptcha" id="c4wp-testrender-fb" data-sitekey="' + $sitekey + '" data-size="invisible"></div>' );
+			} else {
+				jQuery( '#render-settings-placeholder-fallback' ).html( '<div id="c4wp-testrender-fb" data-sitekey="' + $sitekey + '"></div>' );
+				setTimeout(function() { 
+					if ( ! jQuery( 'body .grecaptcha-badge' ).length ) {
+						jQuery( '#c4wp-testrender-fb *' ).remove();
+						jQuery( '#c4wp-testrender-fb' ).append( '<strong style="color: red" id="warning">Invalid site key</strong>' );
+						jQuery( '#warning' ).attr( 'data-key-invalid', true );
+					}
+				}, 500);
+				setTimeout(function() { 
+					if ( jQuery( 'body .grecaptcha-badge' ).length ) {
+						jQuery(  'body .grecaptcha-badge' ).detach().appendTo( '#c4wp-testrender-fb' )
+					}
+				}, 600);
+			}
+		}
+	} else {
+		jQuery( '.g-recaptcha, #gscripts, #c4wp-testrender, #warning, #render-wrapper' ).remove();
+		jQuery('.grecaptcha-badge').parent().remove();
+		jQuery( '#render-settings-placeholder' ).css( 'height', 'auto' );
+		if ( $sitekey ) {
+			if ( $captcha_version == 'v2_checkbox' ) {
+				jQuery( '#render-settings-placeholder' ).html( '<div class="g-recaptcha" id="c4wp-testrender" data-sitekey="' + $sitekey + '" style="position: absolute; left: 220px;"></div>' ).css( 'height', '78px' );		
+			} else if ( $captcha_version == 'v2_invisble' ) {
+				jQuery( '#render-settings-placeholder' ).html( '<div class="g-recaptcha" id="c4wp-testrender" data-sitekey="' + $sitekey + '" data-size="invisible"></div>' );
+			} else {
+				jQuery( '#render-settings-placeholder' ).html( '<div id="c4wp-testrender" data-sitekey="' + $sitekey + '"></div>' );
+				setTimeout(function() { 
+					if ( ! jQuery( 'body .grecaptcha-badge' ).length ) {
+						jQuery( '#c4wp-testrender *' ).remove();
+						jQuery( '#c4wp-testrender' ).append( '<strong style="color: red" id="warning">Invalid site key</strong>' );
+						jQuery( '#warning' ).attr( 'data-key-invalid', true );
+					}
+				}, 500);
+				setTimeout(function() { 
+					if ( jQuery( 'body .grecaptcha-badge' ).length ) {
+						jQuery(  'body .grecaptcha-badge' ).detach().appendTo( '#c4wp-testrender' )
+					}
+				}, 600);
+			}
 		}
 	}
+
 }
 function c4wpConfirm(dialogText, okFunc, cancelFunc, dialogTitle) {
 	jQuery('<div style="padding: 10px; max-width: 500px; word-wrap: break-word;">' + dialogText + '</div>').dialog({
@@ -61,9 +94,24 @@ function c4wpConfirm(dialogText, okFunc, cancelFunc, dialogTitle) {
 }
 
 
-function testSiteKeys( $captcha_version = 'v2_checkbox', $sitekey = false ) {
-	createCaptchaScripts( $captcha_version, $sitekey );
-	createRenderArea( $captcha_version, $sitekey );
+function testSiteKeys( $captcha_version = 'v2_checkbox', $sitekey = false, $is_fallback = false ) {
+	createCaptchaScripts( $captcha_version, $sitekey, $is_fallback );
+	createRenderArea( $captcha_version, $sitekey, $is_fallback );
+}
+
+function c4wp_admin_show_hide_failure_fields(){
+	var selected_value = jQuery( '.c4wp-wizard-panel select[name="c4wp_admin_options[failure_action]"] option:selected' ).val();
+	jQuery( '.c4wp-wizard-panel .toggleable' ).slideUp(300).addClass( 'disabled' );
+	jQuery( '.c4wp-wizard-panel .toggletext' ).slideUp(300).addClass( 'disabled' );
+	jQuery( '.c4wp-wizard-panel .c4wp-show-field-for-'+ selected_value ).slideDown(300).removeClass( 'disabled' );
+	jQuery( '.c4wp-wizard-panel .toggleable' ).parent().slideUp(300).addClass( 'disabled' );
+	jQuery( '.c4wp-wizard-panel .c4wp-show-field-for-'+ selected_value ).parent().slideDown(300).removeClass( 'disabled' );
+
+	if ( jQuery( '#c4wp-setup-wizard-v3-fallback' ).hasClass( 'active' ) && 'nothing' == selected_value ) {
+		jQuery( '.show-wizard [data-check-inputs]' ).attr( 'data-check-inputs', '' );
+	} else {
+		jQuery( '.show-wizard [data-check-inputs]' ).attr( 'data-check-inputs', '#c4wp_admin_options_failure_v2_site_key, #c4wp_admin_options_failure_v2_secret_key' );
+	}
 }
 
 jQuery(document).ready(function( $ ){
@@ -74,25 +122,38 @@ jQuery(document).ready(function( $ ){
 		testSiteKeys( $('input[name="c4wp_admin_options[captcha_version]"]:checked').val(), $(this).val() );
 	});
 
-	$('.form-table').on( "change", '[name="c4wp_admin_options[captcha_version]"]', function(e) {		
+	$('input[name="c4wp_admin_options[failure_v2_site_key]"]').keyup(function(){
+		testSiteKeys( 'v2_checkbox', $(this).val(), true );
+	});
+	
+	$('.form-table').on( "change", '[name="c4wp_admin_options[captcha_version]"]', function(e) {	
 		testSiteKeys( this.value, $('input[name="c4wp_admin_options[site_key]"]').val() );	
 		c4wp_admin_show_hide_fields();
 	});
 
+	$( 'body' ).on( "change", 'select[name="c4wp_admin_options[failure_action]"]', function(e) {
+		c4wp_admin_show_hide_failure_fields();
+	});
+
 	jQuery( 'body' ).on( 'click', '[name="c4wp_admin_options[captcha_version]"]', function ( e ) {
 		var radio = $(this);
-		e.preventDefault();
-		c4wpConfirm( anrScripts.switchingWarning, function () {
-			$(radio).prop('checked', true);
-			$( '#c4wp_admin_options_site_key, #c4wp_admin_options_secret_key' ).attr( 'value', '' ).val( '' );
-			testSiteKeys( $('input[name="c4wp_admin_options[captcha_version]"]:checked').val(), jQuery( '#c4wp_admin_options_site_key' ).attr( 'value' ) );
-			c4wp_admin_show_hide_fields();
-			return true;
-		}, function () {
-			return false;
-		},
-		anrScripts.switchingWarningTitle		
-		);
+
+
+		if ( ! jQuery( '#c4wp-admin-wrap' ).hasClass( 'captcha_keys_required' ) ) {
+			e.preventDefault();
+			c4wpConfirm( anrScripts.switchingWarning, function () {
+				$(radio).prop('checked', true);
+				$( '#c4wp_admin_options_site_key, #c4wp_admin_options_secret_key' ).attr( 'value', '' ).val( '' );
+				testSiteKeys( $('input[name="c4wp_admin_options[captcha_version]"]:checked').val(), jQuery( '#c4wp_admin_options_site_key' ).attr( 'value' ) );
+				c4wp_admin_show_hide_fields();
+				return true;
+			}, function () {
+				return false;
+			},
+			anrScripts.switchingWarningTitle		
+			);
+		}
+
 	});
 	
 	// Tidy desc areas.	
@@ -148,7 +209,7 @@ jQuery(document).ready(function( $ ){
 			var text = $('#c4wp_admin_options_whitelisted_ips').val();
 			var output = text.split(',');
 			$( '#whitelist-ips-userfacing' ).html('<ul>' + $.map(output, function(v) { 
-				return '<li>' + v + ' <span id="removeip" class="dashicons dashicons-no-alt" style="color: red" data-value="'+ v +'"></span></li>';
+				return '<li>' + v + ' <span id="removeip" class="dashicons dashicons-no-alt" data-value="'+ v +'"></span></li>';
 			}).join('') + '</ul>');
 		}
 	}
@@ -158,7 +219,7 @@ jQuery(document).ready(function( $ ){
 			var text = $('#c4wp_admin_options_whitelisted_urls').val();
 			var output = text.split(',');
 			$( '#whitelist-urls-userfacing' ).html('<ul>' + $.map(output, function(v) { 
-				return '<li>' + v + ' <span id="removeurl" class="dashicons dashicons-no-alt" style="color: red" data-value="'+ v +'"></span></li>';
+				return '<li>' + v + ' <span id="removeurl" class="dashicons dashicons-no-alt" data-value="'+ v +'"></span></li>';
 			}).join('') + '</ul>');
 		}
 	}
@@ -293,10 +354,11 @@ jQuery(function() {
 			return true;
 	}
 
-	jQuery( 'body' ).on( 'click', 'a[href="#dismiss-captcha-notice"]', function ( e ) {
+	jQuery( 'body' ).on( 'click', 'a[href="#dismiss-captcha-notice"], a[href="#c4wp-cancel-v3-failover-notice"]', function ( e ) {
 		e.preventDefault();
-		var ourButton  = jQuery( this );
+		let ourButton  = jQuery( this );
 		var nonce      = ourButton.attr( 'data-nonce' );
+		var type       = ourButton.attr( 'data-notice-type' );
 		
 		jQuery.ajax({
 			type: 'POST',
@@ -305,9 +367,10 @@ jQuery(function() {
 			data: {
 				action: 'c4wp_nocaptcha_plugin_notice_ignore',
 				nonce: nonce,
+				notice_type: type,
 			},
 			success: function ( result ) {
-				jQuery( '#network-captcha-notice' ).slideUp();
+				jQuery( ourButton ).closest( '.notice' ).slideUp();
 			}
 		});
 	});
@@ -348,6 +411,136 @@ jQuery(function() {
 		}
 		jQuery( '#whitelist_ips_input' ).val( '' );
 	});
+
+	jQuery( 'body' ).on( 'click', 'a#launch-c4wp-wizard', function ( e ) {
+		e.preventDefault();
+
+		showWizard();
+	});
+
+	function showWizard( goToIntro = false ) {
+		if ( goToIntro ) {
+			jQuery( '#c4wp-setup-wizard-intro' ).addClass( 'active' );
+		} else {
+			jQuery( '#c4wp-setup-wizard-intro' ).remove();
+			jQuery( '#c4wp-setup-wizard-version-select' ).addClass( 'active' );
+		}
+		setTimeout(function() { 
+			jQuery( '#c4wp-setup-wizard' ).addClass( 'show-wizard' );
+		}, 100);
+	}
+
+	function validateURL(string) {
+		try {
+			const newUrl = new URL(string);
+			return newUrl.protocol === 'http:' || newUrl.protocol === 'https:';
+		  } catch (err) {
+			return false;
+		  }
+	  }
+
+	jQuery( 'body' ).on( 'click', '#c4wp-close-wizard, a[href="#c4wp-cancel-wizard"]', function ( e ) {
+		e.preventDefault();
+		jQuery( '#c4wp-setup-wizard' ).removeClass( 'show-wizard' );
+	});
+
+	jQuery( 'body' ).on( 'click', '#reset-c4wp-config', function ( e ) {
+		e.preventDefault();
+		c4wpConfirm(
+			anrScripts.removeConfigWarning,
+			function () {
+				c4wp_reset_captcha_config();
+				return true;
+			},
+			function () {
+				return false;
+			},
+			anrScripts.removeConfigWarningTitle
+		);
+	});
+
+	jQuery( 'body' ).on( 'click', 'a[data-wizard-goto]', function ( e ) {
+		e.preventDefault();
+		var targetDiv = jQuery( this ).attr( 'href' );
+		var inputsToCheck = jQuery( this ).attr( 'data-check-inputs' );
+		var current_fallback = jQuery( '#c4wp_admin_options_failure_action option:selected' ).val();
+
+		if ( ! jQuery( '#c4wp-setup-wizard-v3-fallback' ).hasClass( 'active' ) ) {
+			if ( targetDiv == '#c4wp-setup-wizard-additional-settings' ) {
+				var currVal = jQuery('input[name="c4wp_admin_options[captcha_version]"]:checked').val();
+				if ( currVal == 'v3' ) {
+					var targetDiv = '#c4wp-setup-wizard-v3-fallback';
+				}
+				c4wp_admin_show_hide_failure_fields();
+			}	
+		} else {
+			if ( 'redirect' == current_fallback ) {
+				if ( ! jQuery( '#c4wp_admin_options_failure_redirect' ).val() || ! validateURL( jQuery( '#c4wp_admin_options_failure_redirect' ).val() ) ) {
+					jQuery( '#c4wp_admin_options_failure_redirect' ).css( 'border', '1px solid red' );
+					return true;
+				} else {
+					jQuery( '#c4wp_admin_options_failure_redirect' ).css( 'border', '1px solid #8c8f94' );
+					jQuery( this ).parent().removeClass('active').slideUp(200);
+					jQuery( targetDiv ).addClass('active').slideDown(200);
+				}
+			} else if ( 'nothing' == current_fallback ) {
+				jQuery( this ).parent().removeClass('active').slideUp(200);
+				jQuery( targetDiv ).addClass('active').slideDown(200);
+			}
+		}
+
+		if ( targetDiv == '#c4wp-setup-wizard-site-keys' ) {
+			var currVal = jQuery('input[name="c4wp_admin_options[captcha_version]"]:checked').val();
+			if ( typeof currVal == 'undefined' ) {
+				jQuery('input[name="c4wp_admin_options[captcha_version]"]').css( 'border', '1px solid red' );
+				return true;
+			} else {
+				jQuery('input[name="c4wp_admin_options[captcha_version]"]').css( 'border', '1px solid #8c8f94' );
+			}
+		}
+
+		if ( inputsToCheck || jQuery( 'body [data-key-invalid]' ).length ) {
+			if ( ! jQuery( inputsToCheck ).val() || jQuery( 'body [data-key-invalid]' ).length ) {
+				jQuery( inputsToCheck ).css( 'border', '1px solid red' );
+			} else {
+				jQuery( this ).parent().removeClass('active').slideUp(200);
+				jQuery( targetDiv ).addClass('active').slideDown(200);
+			}
+		} else {
+			jQuery( this ).parent().removeClass('active').slideUp(200);
+			jQuery( targetDiv ).addClass('active').slideDown(200);
+		}
+
+		if ( jQuery( '#c4wp-setup-wizard-site-keys' ).hasClass( 'active' ) ) {
+			jQuery( '#c4wp-setup-wizard-site-keys .button-primary[data-check-inputs]' ).attr( 'data-check-inputs', '#c4wp_admin_options_site_key, #c4wp_admin_options_secret_key' );			
+		}
+	});
+
+	jQuery( 'body' ).on( 'click', 'a[href="#finish"]', function ( e ) {
+		e.preventDefault();
+		jQuery( '#c4wp-setup-wizard' ).removeClass( 'show-wizard' );
+		jQuery( '#c4wp-admin-wrap form #submit' ).trigger('click');
+	});
+	
+	function c4wp_reset_captcha_config() {
+		var nonce      = jQuery( '#reset-c4wp-config' ).attr( 'data-nonce' );
+		jQuery.ajax({
+			type: 'POST',
+			url: ajaxurl,
+			async: true,
+			data: {
+				action: 'c4wp_reset_captcha_config',
+				nonce: nonce,
+			},
+			success: function ( result ) {
+				location.reload();
+			}
+		});
+	}
+
+	if ( jQuery( '#c4wp-admin-wrap' ).hasClass( 'show_wizard_on_load' ) ) {
+		showWizard( true );
+	}
 });
 
 /**

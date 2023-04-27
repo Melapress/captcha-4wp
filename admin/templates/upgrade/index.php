@@ -172,6 +172,31 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<p class="c7"><span class="c5"><span class="dashicons dashicons-no"></span></span></p>
 						</td>
 					</tr>
+
+					<tr class="c2">
+						<td class="c6" colspan="1" rowspan="1">
+							<p class="c10"><span class="c5"><strong>1-click spam protection for forms built with Gravity Forms</strong>Add CAPTCHA to any form built with Gravity Forms at the click of a button. No shortcodes required.</span></p>
+						</td>
+						<td class="c8" colspan="1" rowspan="1">
+							<p class="c7"><span class="c5"><span class="dashicons dashicons-saved"></span></span></p>
+						</td>
+						<td class="c12" colspan="1" rowspan="1">
+							<p class="c7"><span class="c5"><span class="dashicons dashicons-no"></span></span></p>
+						</td>
+					</tr>
+
+					<tr class="c2">
+						<td class="c6" colspan="1" rowspan="1">
+							<p class="c10"><span class="c5"><strong>1-click spam protection for forms built with WPForms</strong>Add CAPTCHA to any form built with WPForms at the click of a button. No shortcodes required.</span></p>
+						</td>
+						<td class="c8" colspan="1" rowspan="1">
+							<p class="c7"><span class="c5"><span class="dashicons dashicons-saved"></span></span></p>
+						</td>
+						<td class="c12" colspan="1" rowspan="1">
+							<p class="c7"><span class="c5"><span class="dashicons dashicons-no"></span></span></p>
+						</td>
+					</tr>
+
 					<tr class="c2">
 						<td class="c6" colspan="1" rowspan="1">
 							<p class="c10"><span class="c5"><strong>1-click spam protection for Mailchimp for WordPress forms</strong>Add CAPTCHA to any MC4WP form at the click of a button. No shortcodes required.</span></p>

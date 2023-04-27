@@ -87,10 +87,11 @@ Rails
 # proportion of contributors will probably not be using SublimeText
 *.sublime-project
 
-
+/builds/
 /vendor/
 /vendor-bin/
 /third-party/
 
 /php-scoper/vendor
 .vscode/launch.json
+.vscode/settings.json
