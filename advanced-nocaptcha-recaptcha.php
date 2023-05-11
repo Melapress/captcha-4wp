@@ -8,7 +8,7 @@
  *
  * @wordpress-plugin
  * Plugin Name: CAPTCHA 4WP
- * Version:     7.2.0
+ * Version:     7.2.1
  * Plugin URI:  https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/
  * Description: Easily add any type of CAPTCHA (such as noCaptcha or invisible Captcha) on any website form, including login pages, comments and password reset forms, and also forms by third party plugins such as Contact Form 7, WooCommerce & BuddyPress.
  * Author:      WP White Security
@@ -89,7 +89,7 @@ class C4WP {
 	 * @return void
 	 */
 	private function constants() {
-		define( 'C4WP_PLUGIN_VERSION', '7.2.0' );
+		define( 'C4WP_PLUGIN_VERSION', '7.2.1' );
 		define( 'C4WP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'C4WP_PLUGIN_URL', plugins_url( '/', __FILE__ ) );
 		define( 'C4WP_PLUGIN_FILE', __FILE__ );
@@ -146,7 +146,7 @@ add_action( 'admin_init', 'c4wp_activation_redirect' );
 function c4wp_activation_redirect() {
 	if ( is_admin() && get_option( 'c4wp_redirect_after_activation', false ) ) {
 		delete_option( 'c4wp_redirect_after_activation' );
-		$admin_url = ( function_exists( 'c4wp_same_settings_for_all_sites' ) ) ? network_admin_url( 'admin.php?page=c4wp-admin-captcha' ) : admin_url( 'admin.php?page=c4wp-admin-captcha' );
+		$admin_url = ( function_exists( 'c4wp_same_settings_for_all_sites' ) || ! function_exists( 'c4wp_same_settings_for_all_sites' ) && is_multisite() ) ? network_admin_url( 'admin.php?page=c4wp-admin-captcha' ) : admin_url( 'admin.php?page=c4wp-admin-captcha' );
 		exit( wp_safe_redirect( esc_url( $admin_url ) ) ); // phpcs:ignore
 	}
 }
