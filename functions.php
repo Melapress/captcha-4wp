@@ -164,7 +164,7 @@ function c4wp_plugin_update_7061( $prev_version ) {
  */
 function c4wp_plugin_update_720( $prev_version ) {
 	$captcha_version = c4wp_get_option( 'captcha_version' );
-	if ( version_compare( $prev_version, '7.2.0', '<' ) && 'v3' == $captcha_version ) {
+	if ( version_compare( $prev_version, '7.2.1', '<' ) && 'v3' == $captcha_version ) {
 		add_option( 'c4wp_v3_failover_available', true );
 	}
 }
