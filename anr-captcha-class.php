@@ -498,11 +498,13 @@ if ( ! class_exists( 'C4wp_Captcha_Class' ) ) {
 
 							let form = document.forms[i];
 							let captcha_div = form.querySelector( '.c4wp_captcha_field_div:not(.rendered)' );
+							let jetpack_sso = form.querySelector( '#jetpack-sso-wrap' );
+
 							if ( null === captcha_div ) {
 								continue;
 							}
-							if ( !( captcha_div.offsetWidth || captcha_div.offsetHeight || captcha_div.getClientRects().length ) ) {
-								if ( ! form.classList.contains( 'woocommerce-form-login' ) ) {
+							if ( !( captcha_div.offsetWidth || captcha_div.offsetHeight || captcha_div.getClientRects().length ) ) {						    	
+								if ( jetpack_sso == null && jetpack_sso.length == 0 && ! form.classList.contains( 'woocommerce-form-login' ) ) {
 									continue;
 								}
 							}
@@ -659,8 +661,7 @@ if ( ! class_exists( 'C4wp_Captcha_Class' ) ) {
 							function logSubmit( event, form_type = '', form ) {
 								if ( ! form.classList.contains( 'c4wp_v2_fallback_active' ) && ! form.classList.contains( 'c4wp_verified' ) ) {
 									event.preventDefault();
-									console.log(form_type);
-
+									
 									try {
 										grecaptcha.execute(
 											'<?php echo esc_js( $site_key ); ?>',
@@ -955,7 +956,13 @@ if ( ! class_exists( 'C4wp_Captcha_Class' ) ) {
 
 			$rest_url    = wp_parse_url( trailingslashit( rest_url() ) );
 			$current_url = wp_parse_url( add_query_arg( array() ) );
-			$is_rest     = strpos( $current_url['path'], $rest_url['path'], 0 ) === 0;
+
+			// If no path to check, return.
+			if ( ! isset( $current_url['path'] ) || ! isset( $rest_url['path'] ) ) {
+				return apply_filters( 'c4wp_is_rest_request_no_path_found', false );
+			}
+
+			$is_rest = strpos( $current_url['path'], $rest_url['path'], 0 ) === 0;
 
 			return $is_rest;
 		}

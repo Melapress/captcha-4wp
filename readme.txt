@@ -3,7 +3,7 @@ Contributors: WPWhiteSecurity
 Tags: recaptcha, nocaptcha, captcha, invisible captcha, spam protection, captcha for WooCommerce, forms captcha
 Requires at least: 5.0
 Tested up to: 6.2.0
-Stable tag: 7.2.0
+Stable tag: 7.2.1
 Requires PHP: 7.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
@@ -34,14 +34,15 @@ WP White Security is a European development company that builds high-quality Wor
 * WooCommerce checkout & registration forms (Premium)
 * WooCommerce login, password reset & lost password pages (Premium)
 * BuddyPress user registration, comments and group forms (Premium)
-* bbPress(New topic, reply to topic & registration) (Premium)
+* bbPress (New topic, reply to topic & registration) (Premium)
 * Contact & other types of forms created with Contact Form 7, Gravity Forms, WPForms, MailChimp for WordPress and other third party plugins (Premium).
 
 ###  Additional features
 
 * Select from different types of CAPTCHA (v2 I'm not robot checkbox, v2 invisible or v3 invisible)
+* CAPTCHA v3 failover configuration (ensure no prospect is incorrectly marked as spam)
 * Set CAPTCHA passmark score
-* Configure the plugin to automatically detect the visitor's language setting and show CAPTCHA in that language
+* Plugin automatically detects the visitors' language setting and show CAPTCHA in that language
 * Configure the CAPTCHA properties, such as theme, size, badge location & more
 * White-list logged in users, IP address and URLs (Premium)
 * Add CAPTCHA to any type of form, including PHP forms (Premium)
@@ -101,14 +102,26 @@ Simply select the WooCommerce page you want to add CAPTCHA to in the plugin's CA
 
 == Screenshots ==
 
-1. CAPTCHA in the WordPress login form
-2. CAPTCHA in the WordPress comments form
-3. CAPTCHA in WooCommerce (multiple CAPTCHA's in the same page)
-4. CAPTCHA in user registration form
-5. CAPTCHA in password reset / change form
+1. Configuring reCAPTCHA and the plugin is very easy with the wizard.
+2. In the setup wizard all you have to do is select and configure reCAPTCHA.
+3. When you use reCAPTCHA v3 you can also reconfigure a failover action, to cater for false negatives.
+4. CAPTCHA in the WordPress login form
+5. CAPTCHA in the WordPress comments form
 6. CAPTCHA in lost password request form
+7. CAPTCHA in password reset / change form
+8. The CAPTCHA configuration can be clearly seen from the plugin's configuration.
 
 == Changelog ==
+
+= 7.2.1 (20230511) =
+
+* **New features & functionality**
+	* Added check for 'path' during check for REST request which returns false if no path is found and can be overriden via filter 'c4wp_is_rest_request_no_path_found'
+
+* **Bug fixes**
+	* Jetpack + V3: Fixed issue causing CAPTCHA to return false when logging in.
+	* PHP 7.2 Compatibility: Fixed small PHP errors within settings when running PHP 7.2.
+	* General PHP improvements: Fixed error caused by method not declared as static.
 
 = 7.2.0 (20230427) =
 
@@ -194,12 +207,10 @@ Release notes: [Support for WPForms & Gravity Forms plugins](https://www.wpwhite
   * Ensure correct default language is set during update in free edition.
   * Ensure verification does not hinder hook requests where no CAPTCHA is posted.
 
-= 7.0.6 (20220304) =
+= 7.0.6 (20220315) =
 
-Release notes: [CAPTCHA 4WP 7.0.6 Free Edition](https://www.wpwhitesecurity.com/c4wp-free-7-0-6/)
-
-* **Breaking change**
-	* CAPTCHA on forms creatd with third party plugins available through the Premium. [Get a free 7-day trial](https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/plugin-trial/).
+* **New features & functionality**
+	* A new setting that allows you to enable CAPTCHA on WooCommerce logins whilst disabling it on the checkout login form.
 
 Release notes: [CAPTCHA 4WP 7.0.6 Free Edition](https://www.wpwhitesecurity.com/c4wp-free-7-0-6/)
 
