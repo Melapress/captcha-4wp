@@ -65,6 +65,7 @@ function createRenderArea( $captcha_version = 'v2_checkbox', $sitekey = false, $
 			}
 		}
 	}
+
 }
 function c4wpConfirm(dialogText, okFunc, cancelFunc, dialogTitle) {
 	jQuery('<div style="padding: 10px; max-width: 500px; word-wrap: break-word;">' + dialogText + '</div>').dialog({
@@ -91,6 +92,7 @@ function c4wpConfirm(dialogText, okFunc, cancelFunc, dialogTitle) {
 	  }
 	});
 }
+
 
 function testSiteKeys( $captcha_version = 'v2_checkbox', $sitekey = false, $is_fallback = false ) {
 	createCaptchaScripts( $captcha_version, $sitekey, $is_fallback );
@@ -151,6 +153,7 @@ jQuery(document).ready(function( $ ){
 			anrScripts.switchingWarningTitle		
 			);
 		}
+
 	});
 	
 	// Tidy desc areas.	
