@@ -25,4 +25,30 @@ require_once 'sidebar.php';
 			<?php submit_button( 'Download System Info File', 'primary', 'ppmwp-download-sysinfo', false ); ?>
 		</p>
 	</form>
+	<script>
+
+		function download(filename, text) {
+			// Create temporary element.
+			var element = document.createElement('a');
+			element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+			element.setAttribute('download', filename);
+
+			// Set the element to not display.
+			element.style.display = 'none';
+			document.body.appendChild(element);
+
+			// Simlate click on the element.
+			element.click();
+
+			// Remove temporary element.
+			document.body.removeChild(element);
+		}
+		jQuery( document ).ready( function() {
+			var download_btn = jQuery( '#ppmwp-download-sysinfo' );
+			download_btn.click( function( event ) {
+				event.preventDefault();
+				download( 'mls-system-info.txt', jQuery( '#system-info-textarea' ).val() );
+			} );
+		} );
+		</script>
 </div>
