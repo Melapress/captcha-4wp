@@ -3,7 +3,7 @@ Contributors: WPWhiteSecurity
 Tags: recaptcha, nocaptcha, captcha, invisible captcha, spam protection, captcha for WooCommerce, forms captcha
 Requires at least: 5.0
 Tested up to: 6.2.0
-Stable tag: 7.2.1
+Stable tag: 7.2.2
 Requires PHP: 7.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
@@ -112,6 +112,17 @@ Simply select the WooCommerce page you want to add CAPTCHA to in the plugin's CA
 8. The CAPTCHA configuration can be clearly seen from the plugin's configuration.
 
 == Changelog ==
+
+= 7.2.2 (20230606) =
+
+* **Improvements**
+	* Adding further help text for 3rd party form plugins
+	* Improved help text and settings messages within admin pages & wizards
+	* Improved UX when settings are disabled
+
+* **Bug fixes**
+	* V3: Fixed JS error causing issues with password reset attempts.
+	* System information can now be downloaded in the help area
 
 = 7.2.1 (20230511) =
 
