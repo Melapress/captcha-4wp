@@ -565,3 +565,8 @@ ul.c4wp-pro-features-ul li.dashicons-yes-alt:before {
     display: block;
     margin: 0 0 34px;
 }
+
+.captcha_keys_required tr:not(disabled) {
+	opacity: 0.6;
+    pointer-events: none;
+}

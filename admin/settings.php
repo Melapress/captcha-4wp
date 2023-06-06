@@ -324,8 +324,26 @@ class C4WP_Settings {
 					'all_pages'  => esc_html__( 'All Pages', 'advanced-nocaptcha-recaptcha' ),
 					'form_pages' => esc_html__( 'Form Pages', 'advanced-nocaptcha-recaptcha' ),
 				),
-				'desc'       => esc_html__( 'By default CAPTCHA only loads on the pages where it is required, mainly forms. However, for V3 you can configure it to load on all pages so it has a better context of the traffic and works more efficiently. The CAPTCHA test will never interrupt users on non-form pages.', 'advanced-nocaptcha-recaptcha' ),
+				'desc'       => sprintf(
+					__( 'By default the CAPTCHA service only learns about how users interact with your website via the scripts loaded on the form pages. However, for V3 you can configure it to load on all pages so it can learn and has a better context of the traffic so it can better determine what is spam and not. When CAPTCHA is configured to load on all pages will never interrupt users on non-form pages. Note that the CAPTCHA check still has to be included in the form(s). Refer to the %1$s for more information on how to add the CAPTCHA checks to your forms.', 'advanced-nocaptcha-recaptcha' ),
+					sprintf(
+						'<a href="https://www.wpwhitesecurity.com/support/kb/category/captcha-4wp-plugin-documentation/" target="_blank">' . esc_html__( 'CAPTCHA 4WP knowledge base', 'advanced-nocaptcha-recaptcha' ) . '</a>'
+					)
+				)
 			),
+			// 'v3_script_async'         => array(
+			// 	'label'      => esc_html__( 'Load 3 scripts asynchronously:', 'advanced-nocaptcha-recaptcha' ),
+			// 	'section_id' => 'google_keys',
+			// 	'type'       => 'select',
+			// 	'class'      => 'regular toggleable disabled c4wp-show-field-for-v3',
+			// 	'std'        => 'all_pages',
+			// 	'options'    => array(
+			// 		'no'  => esc_html__( 'No', 'advanced-nocaptcha-recaptcha' ),
+			// 		'yes' => esc_html__( 'Yes', 'advanced-nocaptcha-recaptcha' ),
+			// 	),
+			// 	'desc'       => esc_html__( 'Use this setting to load v3 scripts asynchronously (default no).', 'advanced-nocaptcha-recaptcha' ),
+
+			// ),
 			'language_handling'      => array(
 				'label'      => esc_html__( 'CAPTCHA language', 'advanced-nocaptcha-recaptcha' ),
 				'section_id' => 'google_keys',
@@ -619,7 +637,7 @@ class C4WP_Settings {
 		}
 
 		if ( ! empty( $field['desc'] ) ) {
-			printf( '<p class="description mb-10">%s</p>', esc_html( $field['desc'] ) );
+			printf( '<p class="description mb-10">%s</p>', wp_kses_post( $field['desc'] ) );
 		}
 
 		switch ( $field['type'] ) {
@@ -933,7 +951,7 @@ class C4WP_Settings {
 				'ajax_url'                 => admin_url( 'admin-ajax.php' ),
 				'captcha_version'          => c4wp_get_option( 'captcha_version', 'v2_checkbox' ),
 				'ipWarning'                => esc_html__( 'Please supply a valid IP', 'advanced-nocaptcha-recaptcha' ),
-				'switchingWarning'         => esc_html__( 'Switching CAPTCHA methods will require your Site Key and Secret key to be replaced, do you wish to proceed?', 'advanced-nocaptcha-recaptcha' ),
+				'switchingWarning'         => esc_html__( 'To switch the reCAPTCHA method you need to replace the current Site and Secret keys. Do you want to proceed?', 'advanced-nocaptcha-recaptcha' ),
 				'switchingWarningTitle'    => esc_html__( 'Confirm change of reCAPTCHA integration', 'advanced-nocaptcha-recaptcha' ),
 				'removeConfigWarningTitle' => esc_html__( 'Confirm removal of reCAPTCHA integration', 'advanced-nocaptcha-recaptcha' ),
 				'removeConfigWarning'      => esc_html__( 'This will remove the current reCAPTCHA integration, which means all the CAPTCHA checks on your website will stop working. Would you like to proceed?', 'advanced-nocaptcha-recaptcha' ),
