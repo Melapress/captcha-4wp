@@ -487,8 +487,9 @@ if ( ! class_exists( 'C4wp_Captcha_Class' ) ) {
 			$position = c4wp_get_option( 'badge_v3', 'bottomright' );
 
 			$google_url = apply_filters( 'c4wp_v3_script_api_src', sprintf( 'https://www.%s/recaptcha/api.js?render=' . $site_key . $lang, c4wp_recaptcha_domain() ), $site_key, $lang );
+			$asyng_tag = ( 'yes' === c4wp_get_option( 'v3_script_async', 'no' ) ) ? 'async' : '';
 			?>
-			<script id="c4wp-recaptcha-js" src="<?php echo esc_url( $google_url ); ?>"></script>
+			<script <?php echo esc_url( $asyng_tag ); ?> id="c4wp-recaptcha-js" src="<?php echo esc_url( $google_url ); ?>"></script>
 			<script id="c4wp-inline-js" type="text/javascript">
 				
 				( function( grecaptcha ) {
@@ -613,7 +614,7 @@ if ( ! class_exists( 'C4wp_Captcha_Class' ) ) {
 									// We take over the submit event, so fill this hiddne field.
 									const pass1 = document.querySelector( '#pass1' );
 									const pass2 = document.querySelector( '#pass2' );
-									pass2.setAttribute( 'value', pass1.getAttribute('id') );	
+									pass2.setAttribute( 'value', pass1.value );	
 									logSubmit( event, 'reset_pw_form', form );
 								});
 							} else if ( form.getAttribute('id') == 'signup-form' && form.parentElement.parentElement.getAttribute('id') == 'buddypress' || form.getAttribute('id') == 'create-group-form' ) {
