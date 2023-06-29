@@ -8,7 +8,7 @@
  *
  * @wordpress-plugin
  * Plugin Name: CAPTCHA 4WP
- * Version:     7.2.2
+ * Version:     7.2.3
  * Plugin URI:  https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/
  * Description: Easily add any type of CAPTCHA (such as noCaptcha or invisible Captcha) on any website form, including login pages, comments and password reset forms, and also forms by third party plugins such as Contact Form 7, WooCommerce & BuddyPress.
  * Author:      WP White Security
@@ -89,7 +89,7 @@ class C4WP {
 	 * @return void
 	 */
 	private function constants() {
-		define( 'C4WP_PLUGIN_VERSION', '7.2.2' );
+		define( 'C4WP_PLUGIN_VERSION', '7.2.3' );
 		define( 'C4WP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'C4WP_PLUGIN_URL', plugins_url( '/', __FILE__ ) );
 		define( 'C4WP_PLUGIN_FILE', __FILE__ );
