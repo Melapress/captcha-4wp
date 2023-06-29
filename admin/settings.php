@@ -673,7 +673,7 @@ class C4WP_Settings {
 				break;
 			case 'number-inline':
 				printf(
-					'%8$s <input type="%1$s" id="c4wp_admin_options_%2$s" class="%3$s" name="c4wp_admin_options[%4$s]" placeholder="%5$s" min="%8$s" max="%9$s" value="%6$s" %7$s /> %9$s',
+					'%8$s <input type="%1$s" id="c4wp_admin_options_%2$s" class="%3$s" name="c4wp_admin_options[%4$s]" placeholder="%5$s" min="%10$s" max="%11$s" value="%6$s" %7$s /> %9$s',
 					esc_attr( 'number' ),
 					esc_attr( $field['id'] ),
 					esc_attr( $field['class'] ),
