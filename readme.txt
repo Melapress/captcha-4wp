@@ -113,6 +113,16 @@ Simply select the WooCommerce page you want to add CAPTCHA to in the plugin's CA
 
 == Changelog ==
 
+= 7.2.3 (20230705) =
+
+* **Improvements**
+	* Improved UX for IP input field in Settings & Placements
+	* Improved UX for failed login settings
+	* Improved input validation for IPs and numerical fields.
+
+* **Security fix**
+	*  Updated Freemius SDK
+
 = 7.2.2 (20230606) =
 
 * **Improvements**
