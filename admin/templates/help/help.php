@@ -38,7 +38,7 @@ $settings_admin_url = ( function_exists( 'c4wp_same_settings_for_all_sites' ) ) 
 	<p><?php esc_html_e( 'You can post your question on our support forum or send us an email for 1 to 1 support. Email support is provided to both free and premium plugin users.', 'advanced-nocaptcha-recaptcha' ); ?></p>
 	<div class="btn">
 		<a href="<?php echo esc_url( 'https://wordpress.org/support/plugin/advanced-nocaptcha-recaptcha/' ); ?>" class="button" target="_blank"><?php esc_html_e( 'Free support forum', 'advanced-nocaptcha-recaptcha' ); ?></a>
-		<a href="<?php echo esc_url( 'https://www.wpwhitesecurity.com/support/submit-ticket/?utm_source=plugin&utm_medium=referral&utm_campaign=C4WP&utm_content=free+support+email' ); ?>" class="button" target="_blank"><?php esc_html_e( 'Free email support', 'advanced-nocaptcha-recaptcha' ); ?></a>
+		<a href="<?php echo esc_url( 'https://melapress.com/support/submit-ticket/?utm_source=plugin&utm_medium=referral&utm_campaign=C4WP&utm_content=free+support+email' ); ?>" class="button" target="_blank"><?php esc_html_e( 'Free email support', 'advanced-nocaptcha-recaptcha' ); ?></a>
 	</div>
 	<!-- End -->
 
@@ -49,7 +49,7 @@ $settings_admin_url = ( function_exists( 'c4wp_same_settings_for_all_sites' ) ) 
 	</div>
 	<p><?php esc_html_e( 'For more technical information about the WP Activity Log plugin please visit the plugin’s knowledge base. Refer to the list of WordPress security events for a complete list of Events and IDs that the plugin uses to keep a log of all the changes in the WordPress activity log.', 'advanced-nocaptcha-recaptcha' ); ?></p>
 	<div class="btn">
-		<a href="<?php echo esc_url( 'https://www.wpwhitesecurity.com/support/kb/?utm_source=plugin&utm_medium=referral&utm_campaign=C4WP&utm_content=knowledge+base' ); ?>" class="button" target="_blank"><?php esc_html_e( 'Knowledge Base', 'advanced-nocaptcha-recaptcha' ); ?></a>
+		<a href="<?php echo esc_url( 'https://melapress.com/support/kb/?utm_source=plugin&utm_medium=referral&utm_campaign=C4WP&utm_content=knowledge+base' ); ?>" class="button" target="_blank"><?php esc_html_e( 'Knowledge Base', 'advanced-nocaptcha-recaptcha' ); ?></a>
 	</div>
 	<!-- End -->
 	<br>

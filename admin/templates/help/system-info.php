@@ -19,7 +19,7 @@ require_once 'sidebar.php';
 		<h2><?php esc_html_e( 'System information', 'advanced-nocaptcha-recaptcha' ); ?></h2>
 	</div>
 	<form method="post" dir="ltr">
-		<textarea readonly="readonly" onclick="this.focus(); this.select()" id="system-info-textarea" name="wsal-sysinfo"><?php echo esc_html( c4wp_get_sysinfo() ); ?></textarea>
+		<textarea readonly="readonly" onclick="this.focus(); this.select()" id="system-info-textarea" name="wsal-sysinfo"><?php echo esc_html( C4WP\C4WP_Functions::c4wp_get_sysinfo() ); ?></textarea>
 		<p class="submit">
 			<input type="hidden" name="ppmwp-action" value="download_sysinfo" />
 			<?php submit_button( 'Download System Info File', 'primary', 'ppmwp-download-sysinfo', false ); ?>
@@ -47,7 +47,7 @@ require_once 'sidebar.php';
 			var download_btn = jQuery( '#ppmwp-download-sysinfo' );
 			download_btn.click( function( event ) {
 				event.preventDefault();
-				download( 'mls-system-info.txt', jQuery( '#system-info-textarea' ).val() );
+				download( 'c4wp-system-info.txt', jQuery( '#system-info-textarea' ).val() );
 			} );
 		} );
 		</script>

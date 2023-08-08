@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<p><?php esc_html_e( 'Get started within just minutes with CAPTCHA 4WP, an easy to use WordPress plugin that helps you protect your website from any type of spam and automated bot attacks.', 'c4wp-wpp' ); ?></p>
 			<p><?php esc_html_e( 'Upgrade today for access to these plugin feature\'s and our first class premium support', 'c4wp-wpp' ); ?></p>
 			<div class="premium-cta">
-			<a href="https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/pricing/?utm_source=plugin&utm_medium=referral&utm_campaign=C4WP&utm_content=features+page+upgrade" target="_blank" rel="noopener">Upgrade to Premium</a> <a class="text-link" href="https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/plugin-trial/?utm_source=plugin&utm_medium=banner&utm_campaign=C4WP&utm_content=get+trial" target="_blank" rel="noopener">Get a FREE 7-day trial</a>
+			<a href="https://melapress.com/wordpress-plugins/captcha-plugin-wordpress/pricing/?utm_source=plugin&utm_medium=referral&utm_campaign=C4WP&utm_content=features+page+upgrade" target="_blank" rel="noopener">Upgrade to Premium</a> <a class="text-link" href="https://melapress.com/wordpress-plugins/captcha-plugin-wordpress/plugin-trial/?utm_source=plugin&utm_medium=banner&utm_campaign=C4WP&utm_content=get+trial" target="_blank" rel="noopener">Get a FREE 7-day trial</a>
 				
 			</div>
 		</div>
@@ -289,7 +289,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 
 		<div class="premium-cta">
-			<a href="https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/pricing/?utm_source=plugin&utm_medium=referral&utm_campaign=C4WP&utm_content=features+page+upgrade" target="_blank" rel="noopener">Upgrade to Premium</a> <a class="text-link" href="https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/plugin-trial/?utm_source=plugin&utm_medium=banner&utm_campaign=C4WP&utm_content=get+trial" target="_blank" rel="noopener">Get a FREE 7-day trial</a>
+			<a href="https://melapress.com/wordpress-plugins/captcha-plugin-wordpress/pricing/?utm_source=plugin&utm_medium=referral&utm_campaign=C4WP&utm_content=features+page+upgrade" target="_blank" rel="noopener">Upgrade to Premium</a> <a class="text-link" href="https://melapress.com/wordpress-plugins/captcha-plugin-wordpress/plugin-trial/?utm_source=plugin&utm_medium=banner&utm_campaign=C4WP&utm_content=get+trial" target="_blank" rel="noopener">Get a FREE 7-day trial</a>
 		</div>
 
 	</div>
