@@ -3,22 +3,22 @@
 /**
  * CAPTCHA 4WP
  *
- * @copyright Copyright (C) 2013-2023, WP White Security - support@wpwhitesecurity.com
+ * @copyright Copyright (C) 2013-2023, Melapress - support@melapress.com
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 or higher
  *
  * @wordpress-plugin
  * Plugin Name: CAPTCHA 4WP
- * Version:     7.2.3
- * Plugin URI:  https://www.wpwhitesecurity.com/wordpress-plugins/captcha-plugin-wordpress/
+ * Version:     7.3.0
+ * Plugin URI:  https://melapress.com/wordpress-plugins/captcha-plugin-wordpress/
  * Description: Easily add any type of CAPTCHA (such as noCaptcha or invisible Captcha) on any website form, including login pages, comments and password reset forms, and also forms by third party plugins such as Contact Form 7, WooCommerce & BuddyPress.
- * Author:      WP White Security
- * Author URI:  https://www.wpwhitesecurity.com/
+ * Author:      Melapress
+ * Author URI:  https://melapress.com/
  * Text Domain: advanced-nocaptcha-recaptcha
  * Domain Path: /languages/
  * License:     GPL v3
  * Requires at least: 5.0
  * WC tested up to: 6.3.0
- * Requires PHP: 7.0
+ * Requires PHP: 7.2
  * Network: true
  *
  *
@@ -89,11 +89,12 @@ class C4WP {
 	 * @return void
 	 */
 	private function constants() {
-		define( 'C4WP_PLUGIN_VERSION', '7.2.3' );
+		define( 'C4WP_PLUGIN_VERSION', '7.3.0' );
 		define( 'C4WP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'C4WP_PLUGIN_URL', plugins_url( '/', __FILE__ ) );
 		define( 'C4WP_PLUGIN_FILE', __FILE__ );
 		define( 'C4WP_TABLE_PREFIX', 'c4wp_' );
+		register_uninstall_hook( C4WP_PLUGIN_FILE, 'c4wp_uninstall' );
 	}
 
 	/**
@@ -102,7 +103,18 @@ class C4WP {
 	 * @return void
 	 */
 	private function includes() {
-		require_once C4WP_PLUGIN_DIR . 'functions.php';
+
+		if ( file_exists( C4WP_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
+			require_once C4WP_PLUGIN_DIR . 'vendor/autoload.php';
+		}
+
+		add_action( 'wp_loaded', array( 'C4WP_Settings', 'actions_filters' ) );
+		add_action( 'init', array( 'C4WP\\C4WP_Captcha_Class', 'actions_filters' ), -9 );
+
+
+		add_action( 'init', array( 'C4WP\\Methods\\C4WP_Method_Loader', 'init' ), 0 );
+
+		
 	}
 
 	/**
@@ -111,14 +123,12 @@ class C4WP {
 	 * @return void
 	 */
 	private function actions() {
-		add_action( 'after_setup_theme', 'c4wp_include_require_files' );
-		add_action( 'init', 'c4wp_translation' );
-		add_action( 'login_enqueue_scripts', 'c4wp_login_enqueue_scripts' );
+		add_action( 'init', array( 'C4WP\\C4WP_Functions', 'c4wp_translation' ) );
+		add_action( 'init', array( 'C4WP\\C4WP_Functions', 'actions' ) );
+		add_action( 'init', array( 'C4WP\\C4WP_Functions', 'c4wp_plugin_update' ), -15 );
+		add_action( 'login_enqueue_scripts', array( 'C4WP\\C4WP_Functions', 'c4wp_login_enqueue_scripts' ) );
 
 	}
-
-
-
 }
 // END Class.
 
@@ -161,3 +171,61 @@ add_action( 'before_woocommerce_init', function() {
 		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
 	}
 } );
+
+/**
+ * Uninstall the plugin
+ *
+ * @return void
+ */
+if ( ! function_exists( 'c4wp_uninstall' ) ) {
+
+	function c4wp_uninstall() {
+
+		$get_site_options = is_multisite();
+		if ( $get_site_options ) {
+			$options = get_site_option( 'c4wp_admin_options' );
+		} else {
+			$options = get_option( 'c4wp_admin_options' );
+		}
+	
+		if ( isset( $options['delete_data_enable'] ) && $options['delete_data_enable'] ) {
+			if ( $get_site_options ) {
+				$network_id = get_current_network_id();
+				global $wpdb;
+				$wpdb->query(
+					$wpdb->prepare(
+						"
+						DELETE FROM $wpdb->sitemeta
+						WHERE meta_key LIKE %s
+						AND site_id = %d
+						",
+						array(
+							'%c4wp%',
+							$network_id,
+						)
+					)
+				);
+			} else {
+				global $wpdb;
+				$wpdb->query(
+					$wpdb->prepare(
+						"
+						DELETE FROM $wpdb->options
+						WHERE option_name LIKE %s
+						",
+						array(
+							'%c4wp%',
+						)
+					)
+				);
+			}
+	
+			// Remove wsal specific Freemius entry.
+			delete_site_option( 'fs_c4wpp' );
+			
+			$table_name = $wpdb->prefix . 'c4wp_failed_login_tracking';
+			$wpdb->query( 'DROP TABLE IF EXISTS ' . $table_name ); // phpcs:ignore
+		}
+		
+	}
+}
