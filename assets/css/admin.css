@@ -570,3 +570,11 @@ ul.c4wp-pro-features-ul li.dashicons-yes-alt:before {
 	opacity: 0.6;
     pointer-events: none;
 }
+
+#render-settings-placeholder:empty + br {
+	display: none;
+}
+
+#cloudflare-render iframe {
+	display: block !important;
+}
