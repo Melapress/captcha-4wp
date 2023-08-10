@@ -43,7 +43,7 @@ if ( ! class_exists( 'C4WP_HCaptcha' ) ) {
 		 */
 		public static function add_settings_field( $fields ) {
 			$versions                             = $fields['captcha_version']['options'];
-			$versions['hcaptcha']                 = esc_html__( 'HCaptcha', 'advanced-nocaptcha-recaptcha' );
+			$versions['hcaptcha']                 = esc_html__( 'hCaptcha (Users have to check the "I’m not a robot” checkbox)', 'advanced-nocaptcha-recaptcha' );
 			$fields['captcha_version']['options'] = $versions;
 			return $fields;
 		}

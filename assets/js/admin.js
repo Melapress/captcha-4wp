@@ -244,14 +244,6 @@ function c4wp_admin_show_hide_failure_fields(){
 	} else {
 		jQuery( '.show-wizard [data-check-inputs]' ).attr( 'data-check-inputs', '#c4wp_admin_options_failure_v2_site_key, #c4wp_admin_options_failure_v2_secret_key' );
 	}
-
-	if ( jQuery('#c4wp_admin_options_failed_login_enable').length ) {
-		if ( document.getElementById('c4wp_admin_options_failed_login_enable').checked ) {
-			jQuery( '.failed-captcha-count-input' ).removeClass( 'disabled' );
-		} else {
-			jQuery( '.failed-captcha-count-input' ).addClass( 'disabled' );
-		}
-	}
 }
 
 function c4wp_update_help_texts() {
@@ -260,6 +252,8 @@ function c4wp_update_help_texts() {
 		jQuery( '.wizard_key_intro_text' ).html( anrScripts.hcaptcha_wizard_intro_text );
 	} else if ( currentMethod == 'cloudflare' ) {
 		jQuery( '.wizard_key_intro_text' ).html( anrScripts.cloudflare_wizard_intro_text );
+	} else if ( currentMethod == 'v2_checkbox' )  {
+		jQuery( '.wizard_key_intro_text' ).html( anrScripts.v2_checkbox_wizard_intro_text );
 	} else {
 		jQuery( '.wizard_key_intro_text' ).html( anrScripts.recaptcha_wizard_intro_text );
 	}
@@ -288,8 +282,6 @@ jQuery(document).ready(function( $ ){
 	$( 'body' ).on( "change", 'select[name="c4wp_admin_options[failure_action]"]', function(e) {
 		c4wp_admin_show_hide_failure_fields();
 	});
-
-	c4wp_admin_show_hide_failure_fields();
 
 	jQuery( 'body' ).on( 'click', '[name="c4wp_admin_options[captcha_version]"]', function ( e ) {
 		var radio = $(this);
@@ -321,12 +313,9 @@ jQuery(document).ready(function( $ ){
 
 	});
 
-	$( 'body' ).on( "change", 'input#c4wp_admin_options_failed_login_enable', function(e) {
-		c4wp_admin_show_hide_failure_fields();
-
 	jQuery( 'body' ).on( 'click', 'a[href="#key-validation-step-2"]', function ( e ) {
 		var currentMethod = $('input[name="c4wp_admin_options[captcha_version]"]:checked').val();
-		var warning       = '<span id="key-warning" style="color: red">Please fultill the captcha challenge to proceed</span>';
+		var warning       = '<span id="key-warning" style="color: red">Please fulfill the captcha challenge to proceed</span>';
 		var currResponse  = false;
 		var warningBit    = jQuery( this );
 
@@ -479,6 +468,11 @@ jQuery(document).ready(function( $ ){
 	jQuery(window).on('resize', function(){
 		tidySettingsDescs();
 	});
+
+	// Once more, for good measure.
+	setTimeout(function() { 
+		tidySettingsDescs();
+	}, 500);
 
 	// Toggle options on/off based on current captcha version.
 	if( $( '[name="c4wp_admin_options[captcha_version]"]' ).length ){
@@ -661,6 +655,11 @@ jQuery(function() {
 		jQuery( '#whitelist_ips_input' ).val( '' );
 	});
 
+	jQuery( 'body' ).on( 'click', 'a#launch-c4wp-wizard', function ( e ) {
+		e.preventDefault();		
+		showWizard();
+	});
+
 	if ( jQuery('#whitelist_ips_input').length ) {
 		// Ensure only numbers and periods can be used.
 		const ele = document.getElementById('whitelist_ips_input');
@@ -683,10 +682,22 @@ jQuery(function() {
 		});
 	}
 
+	if ( jQuery('#c4wp_admin_options_failed_login_enable').length ) {
+		if ( document.getElementById('c4wp_admin_options_failed_login_enable').checked ) {
+			jQuery( '.failed-captcha-count-input' ).removeClass( 'disabled' );
+		} else {
+			jQuery( '.failed-captcha-count-input' ).addClass( 'disabled' );
+		}
+	}
 
-	jQuery( 'body' ).on( 'click', 'a#launch-c4wp-wizard', function ( e ) {
-		e.preventDefault();		
-		showWizard();
+	jQuery( 'body' ).on( "change", 'input#c4wp_admin_options_failed_login_enable', function(e) {
+		if ( jQuery('#c4wp_admin_options_failed_login_enable').length ) {
+			if ( document.getElementById('c4wp_admin_options_failed_login_enable').checked ) {
+				jQuery( '.failed-captcha-count-input' ).removeClass( 'disabled' );
+			} else {
+				jQuery( '.failed-captcha-count-input' ).addClass( 'disabled' );
+			}
+		}
 	});
 
 	function showWizard( goToIntro = false ) {
@@ -803,6 +814,11 @@ jQuery(function() {
 			}
 			jQuery( '#c4wp-setup-wizard-site-keys .button-primary[data-check-inputs]' ).attr( 'data-check-inputs', '#c4wp_admin_options_site_key, #c4wp_admin_options_secret_key' );			
 		}
+
+		if ( jQuery( '#c4wp-setup-wizard-v3-fallback' ).hasClass( 'active' ) ) {
+			c4wp_admin_show_hide_failure_fields();
+		}
+			
 	});
 
 	jQuery( 'body' ).on( 'click', 'a[href="#finish"]', function ( e ) {

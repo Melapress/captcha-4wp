@@ -17,12 +17,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="logo-wrap">
 				<img src="<?php echo esc_url( C4WP_PLUGIN_URL . 'assets/img/c4wp-logo-full.png' ); ?>" alt="">
 			</div>
-			<p><?php esc_html_e( 'Add spam protection to block spam bots and allow real humans to easily interact with your WordPress website by adding CAPTCHA to any form on your website, including comments forms, login forms, and checkout pages.', 'c4wp-wpp' ); ?></p>
-			<p><?php esc_html_e( 'Get started within just minutes with CAPTCHA 4WP, an easy to use WordPress plugin that helps you protect your website from any type of spam and automated bot attacks.', 'c4wp-wpp' ); ?></p>
-			<p><?php esc_html_e( 'Upgrade today for access to these plugin feature\'s and our first class premium support', 'c4wp-wpp' ); ?></p>
+			<p><?php esc_html_e( 'Add antispam protection to block bots and allow real humans to interact with your website. Add CAPTCHA from services such as Google reCAPTCHA, hCaptcha and Cloudflare Turnstile to any form on your website such as comments forms, login pages and checkout forms.', 'c4wp-wpp' ); ?></p>
+			<p><?php esc_html_e( 'Get started with just a few clicks with CAPTCHA 4WP, the only plugin that supports multiple CAPTCHA services. Upgrade today and benefit from numerous features, some of which are listed below.', 'c4wp-wpp' ); ?></p>
 			<div class="premium-cta">
-			<a href="https://melapress.com/wordpress-plugins/captcha-plugin-wordpress/pricing/?utm_source=plugin&utm_medium=referral&utm_campaign=C4WP&utm_content=features+page+upgrade" target="_blank" rel="noopener">Upgrade to Premium</a> <a class="text-link" href="https://melapress.com/wordpress-plugins/captcha-plugin-wordpress/plugin-trial/?utm_source=plugin&utm_medium=banner&utm_campaign=C4WP&utm_content=get+trial" target="_blank" rel="noopener">Get a FREE 7-day trial</a>
-				
+			<a href=" https://melapress.com/wordpress-captcha/plugin-trial/?utm_source=plugin&utm_medium=banner&utm_campaign=C4WP&utm_content=get+trial" target="_blank" rel="noopener">Get a Free-14 day trial</a> <a class="text-link" href="https://melapress.com/wordpress-captcha/pricing/?utm_source=wp+repo&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp" target="_blank" rel="noopener">Upgrade to Premium</a>				
 			</div>
 		</div>
 
@@ -40,6 +38,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<p class="c7"><span class="c5">Free</span></p>
 						</td>
 					</tr>
+					<tr class="c2">
+						<td class="c6" colspan="1" rowspan="1">
+							<p class="c10"><span class="c5"><strong>Add CAPTCHA checks from Google reCAPTCHA</strong>Add CAPTCHA antispam checks on any website from Google reCAPTCHA.</span></p>
+						</td>
+						<td class="c8" colspan="1" rowspan="1">
+							<p class="c7"><span class="c5"><span class="dashicons dashicons-saved"></span></span></p>
+						</td>
+						<td class="c12" colspan="1" rowspan="1">
+							<p class="c7"><span class="c5"><span class="dashicons dashicons-saved"></span></span></p>
+						</td>
+					</tr>
+					<tr class="c2">
+						<td class="c6" colspan="1" rowspan="1">
+							<p class="c10"><span class="c5"><strong>Add CAPTCHA checks from other services</strong>Add CAPTCHA antispam checks on any website from hCaptcha and Cloudflare Turnstile.</span></p>
+						</td>
+						<td class="c8" colspan="1" rowspan="1">
+							<p class="c7"><span class="c5"><span class="dashicons dashicons-saved"></span></span></p>
+						</td>
+						<td class="c12" colspan="1" rowspan="1">
+							<p class="c7"><span class="c5"><span class="dashicons dashicons-no"></span></span></p>
+						</td>
+					</tr>
+
 					<tr class="c2">
 						<td class="c6" colspan="1" rowspan="1">
 							<p class="c10"><span class="c5"><strong>Email support and forum access</strong>We stand behind all of our products with world-class support and a team of professionals who absolutely care.</span></p>
@@ -128,6 +149,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<p class="c7"><span class="c5"><span class="dashicons dashicons-saved"></span></span></p>
 						</td>
 					</tr>
+
+
+					<tr class="c2">
+						<td class="c6" colspan="1" rowspan="1">
+							<p class="c10"><span class="c5"><strong>Failover check for automated CAPTCHA</strong>Configure CAPTCHA failover to eliminate false positives and ensure customers’ journeys are not disrupted. Choose from multiple failover options, depending on your requirements.</span></p>
+						</td>
+						<td class="c8" colspan="1" rowspan="1">
+							<p class="c7"><span class="c5"><span class="dashicons dashicons-saved"></span></span></p>
+						</td>
+						<td class="c12" colspan="1" rowspan="1">
+							<p class="c7"><span class="c5"><span class="dashicons dashicons-saved"></span></span></p>
+						</td>
+					</tr>
+
 					<tr class="c2">
 						<td class="c6" colspan="1" rowspan="1">
 							<p class="c10"><span class="c5"><strong>Use the language that your website viewers understand</strong>Avoid confusion and configure the plugin to automatically change the CAPTCHA text language to match that of the visitor.</span></p>
@@ -289,7 +324,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 
 		<div class="premium-cta">
-			<a href="https://melapress.com/wordpress-plugins/captcha-plugin-wordpress/pricing/?utm_source=plugin&utm_medium=referral&utm_campaign=C4WP&utm_content=features+page+upgrade" target="_blank" rel="noopener">Upgrade to Premium</a> <a class="text-link" href="https://melapress.com/wordpress-plugins/captcha-plugin-wordpress/plugin-trial/?utm_source=plugin&utm_medium=banner&utm_campaign=C4WP&utm_content=get+trial" target="_blank" rel="noopener">Get a FREE 7-day trial</a>
+			<a href="https://melapress.com/wordpress-captcha/plugin-trial/?utm_source=plugin&utm_medium=banner&utm_campaign=C4WP&utm_content=get+trial" target="_blank" rel="noopener">Get a FREE 14-day trial</a> <a class="text-link" href="https://melapress.com/wordpress-captcha/pricing/?utm_source=wp+repo&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp" target="_blank" rel="noopener">Upgrade to Premium</a> 
 		</div>
 
 	</div>

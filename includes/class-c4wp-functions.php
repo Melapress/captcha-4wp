@@ -279,7 +279,7 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 		 * @param boolean $response - Response to check.
 		 * @return bool - Verification.
 		 */
-		public function c4wp_verify_captcha( $response = false ) {
+		public static function c4wp_verify_captcha( $response = false ) {
 			return C4WP_Captcha_Class::init()->verify( $response );
 		}
 

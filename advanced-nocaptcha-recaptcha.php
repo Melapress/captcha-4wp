@@ -229,3 +229,17 @@ if ( ! function_exists( 'c4wp_uninstall' ) ) {
 		
 	}
 }
+
+/**
+ * Backfill function for users with C4WP integrated into a custom form.
+ *
+ * @return bool - Result.
+ */
+if ( ! function_exists( 'c4wp_verify_captcha' ) ) {
+	function c4wp_verify_captcha( $response = false ) {
+		if ( class_exists( 'C4WP\C4WP_Functions' ) ) {
+			return C4WP\C4WP_Functions::c4wp_verify_captcha( $response );
+		}
+		return false;
+	}
+}
