@@ -24,7 +24,7 @@ msgstr ""
 msgid "To reconfigure the failover now, once you are redirected to the plugin's configuration page click"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:93, admin/class-c4wp-settings.php:1409
+#: admin/class-c4wp-settings.php:93, admin/class-c4wp-settings.php:1410
 msgid "Reconfigure CAPTCHA integration"
 msgstr ""
 
@@ -32,7 +32,7 @@ msgstr ""
 msgid "and click"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:95, admin/class-c4wp-settings.php:1315, admin/class-c4wp-settings.php:1332, admin/class-c4wp-settings.php:1353, admin/class-c4wp-settings.php:1377
+#: admin/class-c4wp-settings.php:95, admin/class-c4wp-settings.php:1315, admin/class-c4wp-settings.php:1333, admin/class-c4wp-settings.php:1354, admin/class-c4wp-settings.php:1378
 msgid "Next"
 msgstr ""
 
@@ -701,7 +701,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1270, admin/class-c4wp-settings.php:1467, includes/class-c4wp-captcha-class.php:139, includes/class-c4wp-captcha-class.php:164
+#: admin/class-c4wp-settings.php:1270, admin/class-c4wp-settings.php:1468, includes/class-c4wp-captcha-class.php:139, includes/class-c4wp-captcha-class.php:164
 msgid "Nonce Verification Failed."
 msgstr ""
 
@@ -713,123 +713,123 @@ msgstr ""
 msgid "Thank you for installing the CAPTCHA 4WP plugin. This wizard will help you get started with the plugin so you can configure CAPTCHA and protect your website from spam, and fake registrations and orders."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1316, admin/class-c4wp-settings.php:1333, admin/class-c4wp-settings.php:1356, admin/class-c4wp-settings.php:1379
+#: admin/class-c4wp-settings.php:1316, admin/class-c4wp-settings.php:1334, admin/class-c4wp-settings.php:1357, admin/class-c4wp-settings.php:1380
 msgid "Cancel"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1319, admin/class-c4wp-settings.php:1344, admin/class-c4wp-settings.php:1354, admin/class-c4wp-settings.php:1378
+#: admin/class-c4wp-settings.php:1319, admin/class-c4wp-settings.php:1345, admin/class-c4wp-settings.php:1355, admin/class-c4wp-settings.php:1379
 msgid "Back"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1343
+#: admin/class-c4wp-settings.php:1344
 msgid "Proceed to secret key"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1347
+#: admin/class-c4wp-settings.php:1348
 msgid "Step 3 - Validation and saving"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1348
+#: admin/class-c4wp-settings.php:1349
 msgid "Use the response from your CAPTCHA input, we can validate your security key"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1352
+#: admin/class-c4wp-settings.php:1353
 msgid "Validate & proceed"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1355
+#: admin/class-c4wp-settings.php:1356
 msgid "Proceed"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1363
+#: admin/class-c4wp-settings.php:1364
 msgid "Step 3: Configure a failover action for reCAPTCHA v3 failure"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1364
+#: admin/class-c4wp-settings.php:1365
 msgid "reCAPTCHA v3 is fully automated. This means that by default, if the CAPTCHA check fails the website visitor cannot proceed with what they are doing unless you configure a failover action. Use the below setting to configure the failover action."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1367
+#: admin/class-c4wp-settings.php:1368
 msgid "Please specify the full URL, including the protocol (HTTP or HTTPS) where you would like the user to be redirected to. For example: "
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1368
+#: admin/class-c4wp-settings.php:1369
 msgid "To show the v2 reCAPTCHA checkbox you need to specify the Site and Secret keys. Please specify them below:"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1383
+#: admin/class-c4wp-settings.php:1384
 msgid "All done - you can now add CAPTCHA checks to your website"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1384
+#: admin/class-c4wp-settings.php:1385
 msgid "Now that your chosen CAPTCHA service is fully integrated you can use the optional settings to fine-tune CAPTCHA to your requirements."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1387
+#: admin/class-c4wp-settings.php:1388
 msgid "Finish"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1446
+#: admin/class-c4wp-settings.php:1447
 msgid "Configure Google reCAPTCHA integration"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1442
+#: admin/class-c4wp-settings.php:1443
 msgid "Configure CAPTCHA integration"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1409
+#: admin/class-c4wp-settings.php:1410
 msgid "Remove CAPTCHA integration"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1419
+#: admin/class-c4wp-settings.php:1420
 msgid "CAPTCHA version:"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1420, admin/class-c4wp-settings.php:1425
+#: admin/class-c4wp-settings.php:1421, admin/class-c4wp-settings.php:1426
 msgid "Site key:"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1421, admin/class-c4wp-settings.php:1426
+#: admin/class-c4wp-settings.php:1422, admin/class-c4wp-settings.php:1427
 msgid "Secret key:"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1428, admin/class-c4wp-settings.php:1424
+#: admin/class-c4wp-settings.php:1429, admin/class-c4wp-settings.php:1425
 msgid "Failover action:"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1428
+#: admin/class-c4wp-settings.php:1429
 msgid "Redirect to a URL"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1429
+#: admin/class-c4wp-settings.php:1430
 msgid "Failover redirect URL:"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1424
+#: admin/class-c4wp-settings.php:1425
 msgid "v2 checkbox"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1490
+#: admin/class-c4wp-settings.php:1491
 msgid "Override validation response."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1496
+#: admin/class-c4wp-settings.php:1497
 msgid "Do no override"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1497
+#: admin/class-c4wp-settings.php:1498
 msgid "Return false (failure)"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1498
+#: admin/class-c4wp-settings.php:1499
 msgid "Return true (pass)"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1524
+#: admin/class-c4wp-settings.php:1525
 msgid "Do you want delete all plugin data when uninstalling the plugin?"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1528
+#: admin/class-c4wp-settings.php:1529
 msgid "Delete data"
 msgstr ""
 

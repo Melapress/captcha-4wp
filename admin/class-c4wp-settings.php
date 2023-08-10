@@ -1317,6 +1317,7 @@ class C4WP_Settings {
 		</div>
 		';
 		$back_to_intro     = '<a data-wizard-goto href="#c4wp-setup-wizard-intro" class="button button-secondary">' . esc_html__( 'Back', 'advanced-nocaptcha-recaptcha' ) . '</a>';
+		$method_select_upgrade_message = ( ! isset( C4WP_Method_Loader::$methods[ 'hcaptcha' ] ) ) ? '<p>Do you want to use hCaptcha or Cloudflare Turnstile for your website CAPTCHA instead? You can do so with the Premium edition of the plugin. <a href="https://melapress.com/wordpress-captcha/plugin-trial/?utm_source=wp+repo&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp" target="_blank">Download the free 14-day trial</a></p>' : '';
 
 		$markup = '
 			<div id="c4wp-setup-wizard-content">
@@ -1327,7 +1328,7 @@ class C4WP_Settings {
 						' . $fields['captcha_version_title']['label'] . '
 						<p>' . $fields['captcha_version']['label'] . '</p>
 						' . self::callback( $fields['captcha_version'], true ) . '
-						<p>Do you want to use hCaptcha or Cloudflare Turnstile for your website CAPTCHA instead? You can do so with the Premium edition of the plugin. <a href="https://melapress.com/wordpress-captcha/plugin-trial/?utm_source=wp+repo&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp" target="_blank">Download the free 14-day trial</a></p>
+						' . $method_select_upgrade_message . '
 					</div>
 					<a data-wizard-goto href="#c4wp-setup-wizard-site-keys" class="button button-primary">' . esc_html__( 'Next', 'advanced-nocaptcha-recaptcha' ) . '</a>
 					<a href="#c4wp-cancel-wizard" class="button button-secondary">' . esc_html__( 'Cancel', 'advanced-nocaptcha-recaptcha' ) . '</a>
