@@ -44,7 +44,7 @@ if ( ! class_exists( 'C4WP_Cloudflare' ) ) {
 		 */
 		public static function add_settings_field( $fields ) {
 			$versions                             = $fields['captcha_version']['options'];
-			$versions['cloudflare']               = esc_html__( 'Cloudflare', 'advanced-nocaptcha-recaptcha' );
+			$versions['cloudflare']               = esc_html__( 'Cloudflare Turnsite (users might have to check a checkbox if service thinks it is spam traffic)', 'advanced-nocaptcha-recaptcha' );
 			$fields['captcha_version']['options'] = $versions;
 			return $fields;
 		}
