@@ -169,7 +169,7 @@ class C4WP_Settings {
 					echo '<span style="margin-top: 10px; display: block;">';
 					printf(
 						/* translators: link to the settings page with text "Settings page" */
-						esc_html__( 'Use the CAPTCHA configuration wizard to integrate the Google reCAPTCHA service so you can add CAPTCHA checks on your website. Once you configure the integration navigate to the %s page to configure where CAPTCHA should be added on your website, whitelist IP addresses and configure other settings', 'advanced-nocaptcha-recaptcha' ),
+						esc_html__( 'Use the CAPTCHA configuration wizard to configure CAPTCHA service integration with your website. Once you set up the integration, navigate to the %s page to configure where CAPTCHA should be added on your website, whitelist IP addresses, and other settings.', 'advanced-nocaptcha-recaptcha' ),
 						'<a href="' . esc_url( $settings_url ) . '">' . esc_html__( 'Settings & placements', 'advanced-nocaptcha-recaptcha' ) . '</a>'
 					);
 					echo '</span>';
@@ -326,7 +326,7 @@ class C4WP_Settings {
 				'desc'       => esc_html__( 'Use this setting to specify sensitivity of the CAPTCHA check. The closer to 1 the more sensitive the CAPTCHA check will be, which also means more traffic will be marked as spam. This option is only available for reCAPTCHA v3.', 'advanced-nocaptcha-recaptcha' ),
 			),
 			'v3_script_load'         => array(
-				'label'      => esc_html__( 'Load CAPTCHA v3 scripts on:', 'advanced-nocaptcha-recaptcha' ),
+				'label'      => esc_html__( 'Load ReCAPTCHA v3 scripts on:', 'advanced-nocaptcha-recaptcha' ),
 				'section_id' => 'google_keys',
 				'type'       => 'select',
 				'class'      => 'regular toggleable disabled c4wp-show-field-for-v3',
@@ -336,7 +336,7 @@ class C4WP_Settings {
 					'form_pages' => esc_html__( 'Form Pages', 'advanced-nocaptcha-recaptcha' ),
 				),
 				'desc'       => sprintf(
-					__( 'By default the CAPTCHA service only learns about how users interact with your website via the scripts loaded on the form pages. However, for V3 you can configure it to load on all pages so it can learn and has a better context of the traffic so it can better determine what is spam and not. When CAPTCHA is configured to load on all pages will never interrupt users on non-form pages. Note that the CAPTCHA check still has to be included in the form(s). Refer to the %1$s for more information on how to add the CAPTCHA checks to your forms.', 'advanced-nocaptcha-recaptcha' ),
+					__( 'By default, the ReCAPTCHA service can only assess user behavior via the scripts loaded on the form pages. However, when using V3, you can configure it to load on all pages. This allows ReCAPTCHA to get a better context of the traffic so that it can better determine what is spam and what is not. When ReCAPTCHA V3 is configured to load on all pages, it will never prompt or otherwise interrupt users on non-form pages. Note that the ReCAPTCHA V3 check still needs to be included in the form(s). Refer to the %1$s for more information on how to add CAPTCHA checks to your forms.', 'advanced-nocaptcha-recaptcha' ),
 					sprintf(
 						'<a href="https://melapress.com/support/kb/?utm_source=wp+repo&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp" target="_blank">' . esc_html__( 'CAPTCHA 4WP knowledge base', 'advanced-nocaptcha-recaptcha' ) . '</a>'
 					)
@@ -1317,7 +1317,7 @@ class C4WP_Settings {
 		</div>
 		';
 		$back_to_intro     = '<a data-wizard-goto href="#c4wp-setup-wizard-intro" class="button button-secondary">' . esc_html__( 'Back', 'advanced-nocaptcha-recaptcha' ) . '</a>';
-		$method_select_upgrade_message = ( ! isset( C4WP_Method_Loader::$methods[ 'hcaptcha' ] ) ) ? '<p>Do you want to use hCaptcha or Cloudflare Turnstile for your website CAPTCHA instead? You can do so with the Premium edition of the plugin. <a href="https://melapress.com/wordpress-captcha/plugin-trial/?utm_source=wp+repo&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp" target="_blank">Download the free 14-day trial</a></p>' : '';
+		$method_select_upgrade_message = ( ! isset( C4WP_Method_Loader::$methods[ 'hcaptcha' ] ) ) ? '<p>Do you want to use hCaptcha or Cloudflare Turnstile for your website CAPTCHA? <a href="https://melapress.com/wordpress-captcha/pricing/?&utm_source=plugins&utm_medium=link&utm_campaign=c4wp" target="_blank">Upgrade to Business plan.</a></p>' : '';
 
 		$markup = '
 			<div id="c4wp-setup-wizard-content">
