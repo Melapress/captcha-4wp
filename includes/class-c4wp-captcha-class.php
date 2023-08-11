@@ -436,9 +436,9 @@ if ( ! class_exists( 'C4WP_Captcha_Class' ) ) {
 		 * @param string $field - Original markup.
 		 * @return string $field - Field markup.
 		 */
-		public function login_form_return( $field = '' ) {
-			if ( $this->show_login_captcha() ) {
-				$field = $this->form_field_return( $field );
+		public static function login_form_return( $field = '' ) {
+			if ( self::show_login_captcha() ) {
+				$field = self::form_field_return( $field );
 			}
 			return $field;
 		}
@@ -462,12 +462,12 @@ if ( ! class_exists( 'C4WP_Captcha_Class' ) ) {
 		 * @param WP_Error $errors - Error messages.
 		 * @return void
 		 */
-		public function ms_form_field( $errors ) {
+		public static function ms_form_field( $errors ) {
 			$err_messages = $errors->get_error_message( 'c4wp_error' );
 			if ( $err_messages ) {
 				echo '<p class="error">' . esc_attr( $errmsg ) . '</p>';
 			}
-			$this->form_field();
+			self::form_field();
 		}
 
 		/**
