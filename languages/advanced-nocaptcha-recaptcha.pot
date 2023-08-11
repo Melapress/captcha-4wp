@@ -54,7 +54,7 @@ msgstr ""
 
 #. translators: link to the settings page with text "Settings page"
 #: admin/class-c4wp-settings.php:172
-msgid "Use the CAPTCHA configuration wizard to integrate the Google reCAPTCHA service so you can add CAPTCHA checks on your website. Once you configure the integration navigate to the %s page to configure where CAPTCHA should be added on your website, whitelist IP addresses and configure other settings"
+msgid "Use the CAPTCHA configuration wizard to configure CAPTCHA service integration with your website. Once you set up the integration, navigate to the %s page to configure where CAPTCHA should be added on your website, whitelist IP addresses, and other settings."
 msgstr ""
 
 #: admin/class-c4wp-settings.php:173
@@ -173,7 +173,7 @@ msgid "Use this setting to specify sensitivity of the CAPTCHA check. The closer 
 msgstr ""
 
 #: admin/class-c4wp-settings.php:329
-msgid "Load CAPTCHA v3 scripts on:"
+msgid "Load ReCAPTCHA v3 scripts on:"
 msgstr ""
 
 #: admin/class-c4wp-settings.php:335
@@ -185,7 +185,7 @@ msgid "Form Pages"
 msgstr ""
 
 #: admin/class-c4wp-settings.php:339
-msgid "By default the CAPTCHA service only learns about how users interact with your website via the scripts loaded on the form pages. However, for V3 you can configure it to load on all pages so it can learn and has a better context of the traffic so it can better determine what is spam and not. When CAPTCHA is configured to load on all pages will never interrupt users on non-form pages. Note that the CAPTCHA check still has to be included in the form(s). Refer to the %1$s for more information on how to add the CAPTCHA checks to your forms."
+msgid "By default, the ReCAPTCHA service can only assess user behavior via the scripts loaded on the form pages. However, when using V3, you can configure it to load on all pages. This allows ReCAPTCHA to get a better context of the traffic so that it can better determine what is spam and what is not. When ReCAPTCHA V3 is configured to load on all pages, it will never prompt or otherwise interrupt users on non-form pages. Note that the ReCAPTCHA V3 check still needs to be included in the form(s). Refer to the %1$s for more information on how to add CAPTCHA checks to your forms."
 msgstr ""
 
 #: admin/class-c4wp-settings.php:341
