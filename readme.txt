@@ -1,5 +1,5 @@
 === CAPTCHA 4WP - Antispam CAPTCHA solution for WordPress ===
-Contributors: Melapress
+Contributors: Melapress, freemius
 Plugin URI: https://melapress.com/wordpress-captcha/
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl.html
