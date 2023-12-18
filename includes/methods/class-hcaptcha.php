@@ -68,7 +68,7 @@ if ( ! class_exists( 'C4WP_HCaptcha' ) ) {
 		 * @param boolean $response - Current response.
 		 * @return boolean $response - Actual response from method provider.
 		 */
-		public static function verify( $response = false ) {
+		public static function verify( $response = false, $is_fallback_challenge = false ) {
 			static $last_verify        = null;
 			static $last_response      = null;
 			static $duplicate_response = false;
@@ -105,7 +105,8 @@ if ( ! class_exists( 'C4WP_HCaptcha' ) ) {
 
 			// Bail if we have nothign to work with.
 			if ( empty( $response ) && ! isset( $_POST['h-captcha-response'] ) && ! $is_ajax_verification ) { // phpcs:ignore
-				return true;
+				$return = ( 'proceed' == C4WP_Functions::c4wp_get_option( 'pass_on_no_captcha_found', 'proceed' ) ) ? true : false;
+				return $return;
 			}
 
 			if ( ! $response || ! $remoteip ) {
@@ -184,11 +185,22 @@ if ( ! class_exists( 'C4WP_HCaptcha' ) ) {
 			<script id="c4wp-inline-js" type="text/javascript">
 				var c4wp_onloadCallback = function() {
 					for ( var i = 0; i < document.forms.length; i++ ) {
-						let form = document.forms[i];
-						let captcha_div = form.querySelector( '.c4wp_captcha_field_div:not(.rendered)' );
+						let form           = document.forms[i];
+						let captcha_div    = form.querySelector( '.c4wp_captcha_field_div:not(.rendered)' );						
+						let foundSubmitBtn = null;
+						<?php if ( C4WP_Functions::c4wp_get_option( 'disable_submit', false ) ) { ?>
+							foundSubmitBtn = form.querySelector( '[type=submit]' );
+						<?php } ?>
+
 						if ( null === captcha_div )
 							continue;						
 						captcha_div.innerHTML = '';
+
+						if ( null != foundSubmitBtn ) {
+							foundSubmitBtn.classList.add( 'disabled' );
+							foundSubmitBtn.setAttribute( 'disabled', 'disabled' );
+						}
+						
 						( function( form ) {
 							var c4wp_captcha = grecaptcha.render( captcha_div,{
 								'sitekey' : '<?php echo esc_js( trim( C4WP_Functions::c4wp_get_option( 'site_key' ) ) ); ?>',
@@ -196,11 +208,17 @@ if ( ! class_exists( 'C4WP_HCaptcha' ) ) {
 								'theme' : '<?php echo esc_js( C4WP_Functions::c4wp_get_option( 'theme', 'light' ) ); ?>',
 								'expired-callback' : function(){
 									grecaptcha.reset( c4wp_captcha );
+								},
+								'callback' : function(){
+									if ( null != foundSubmitBtn ) {
+										foundSubmitBtn.classList.remove( 'disabled' );
+										foundSubmitBtn.removeAttribute( 'disabled' );
+									}
 								}
 							});
 							captcha_div.classList.add( 'rendered' );
 							<?php
-								$additonal_js = apply_filters( 'c4wp_hcaptcha_callback_additonal_js', '' );
+								$additonal_js = apply_filters( 'c4wp_captcha_callback_additonal_js', '' );
 								echo $additonal_js; // phpcs:ignore
 							?>
 						})(form);

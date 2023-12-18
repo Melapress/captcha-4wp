@@ -371,7 +371,7 @@ class C4WP_Settings {
 				'section_id' => 'google_keys',
 				'type'       => 'select',
 				'std'        => 'en',
-				'class'      => 'regular lang_select',
+				'class'      => 'regular lang_select hide-if-disabled toggleable',
 				'options'    => array(
 					'ar'     => esc_html__( 'Arabic', 'advanced-nocaptcha-recaptcha' ),
 					'bg'     => esc_html__( 'Bulgarian', 'advanced-nocaptcha-recaptcha' ),
@@ -419,6 +419,38 @@ class C4WP_Settings {
 					'tr'     => esc_html__( 'Turkish', 'advanced-nocaptcha-recaptcha' ),
 					'uk'     => esc_html__( 'Ukrainian', 'advanced-nocaptcha-recaptcha' ),
 					'vi'     => esc_html__( 'Vietnamese', 'advanced-nocaptcha-recaptcha' ),
+				),
+			),
+			'language_cloudflare' => array(
+				'label'      => '',
+				'section_id' => 'google_keys',
+				'type'       => 'select',
+				'std'        => 'en',
+				'class'      => 'regular lang_select hide-if-disabled toggleable c4wp-show-field-for-cloudflare',
+				'options'    => array(
+					'ar-eg'     => esc_html__( 'Arabic (Egypt)', 'advanced-nocaptcha-recaptcha' ),
+					'ar'     => esc_html__( 'Arabic', 'advanced-nocaptcha-recaptcha' ),
+					'de'     => esc_html__( 'German', 'advanced-nocaptcha-recaptcha' ),
+					'en'     => esc_html__( 'English (US)', 'advanced-nocaptcha-recaptcha' ),
+					'es'     => esc_html__( 'Spanish', 'advanced-nocaptcha-recaptcha' ),
+					'fa'     => esc_html__( 'Persian', 'advanced-nocaptcha-recaptcha' ),
+					'fr'     => esc_html__( 'French', 'advanced-nocaptcha-recaptcha' ),
+					'id'     => esc_html__( 'Indonesian', 'advanced-nocaptcha-recaptcha' ),
+					'it'     => esc_html__( 'Italian', 'advanced-nocaptcha-recaptcha' ),
+					'ja'     => esc_html__( 'Japanese', 'advanced-nocaptcha-recaptcha' ),
+					'ko'     => esc_html__( 'Korean', 'advanced-nocaptcha-recaptcha' ),
+					'nl'     => esc_html__( 'Dutch', 'advanced-nocaptcha-recaptcha' ),
+					'pl'     => esc_html__( 'Polish', 'advanced-nocaptcha-recaptcha' ),
+					'pt'     => esc_html__( 'Portuguese', 'advanced-nocaptcha-recaptcha' ),
+					'pt-br'  => esc_html__( 'Portuguese (Brazil)', 'advanced-nocaptcha-recaptcha' ),
+					'ru'     => esc_html__( 'Russian', 'advanced-nocaptcha-recaptcha' ),
+					'tlh'    => esc_html__( 'Klingon', 'advanced-nocaptcha-recaptcha' ),
+					'tr'     => esc_html__( 'Turkish', 'advanced-nocaptcha-recaptcha' ),
+					'uk'     => esc_html__( 'Ukrainian', 'advanced-nocaptcha-recaptcha' ),
+					'uk-ua'  => esc_html__( 'Ukrainian (Ukraine)', 'advanced-nocaptcha-recaptcha' ),
+					'zh'     => esc_html__( 'Chinese', 'advanced-nocaptcha-recaptcha' ),
+					'zh-cm'  => esc_html__( 'Chinese (Simplified)', 'advanced-nocaptcha-recaptcha' ),
+					'zh-tw'  => esc_html__( 'Chinese (Traditional)', 'advanced-nocaptcha-recaptcha' ),
 				),
 			),
 			'error_message'          => array(
@@ -491,7 +523,7 @@ class C4WP_Settings {
 				'label'      => esc_html__( 'Remove CSS', 'advanced-nocaptcha-recaptcha' ),
 				'section_id' => 'google_keys',
 				'type'       => 'checkbox',
-				'class'      => 'checkbox toggleable disabled c4wp-show-field-for-v2_checkbox',
+				'class'      => 'checkbox',
 				'cb_label'   => esc_html__( "Remove this plugin's css from login page?", 'advanced-nocaptcha-recaptcha' ),
 				'desc'       => __( 'This css increase login page width to adjust with Captcha width.', 'advanced-nocaptcha-recaptcha' ),
 			),
@@ -1152,12 +1184,11 @@ class C4WP_Settings {
 								<li class="dashicons-before dashicons-yes-alt"> ' . esc_html__( 'Exempt logged in users, IP addresses and specific URLs from CAPTCHA checks.', 'advanced-nocaptcha-recaptcha' ) . '</li>
 								<li class="dashicons-before dashicons-yes-alt"> ' . esc_html__( 'No Ads!', 'advanced-nocaptcha-recaptcha' ) . '</li>
 							</ul>
-							<p style="text-align: center; margin: auto"><a class="premium-link" href="%2$s" target="_blank">' . esc_html__( 'Get a FREE 14-day trial', 'advanced-nocaptcha-recaptcha' ) . '</a> <a class="premium-link-not-btn" href="%1$s" target="_blank">' . esc_html__( 'Upgrade to Premium', 'advanced-nocaptcha-recaptcha' ) . '</a></p>
+							<p style="text-align: center; margin: auto"><a class="premium-link" href="%1$s" target="_blank">' . esc_html__( 'Upgrade to Premium', 'advanced-nocaptcha-recaptcha' ) . '</a></p>
 						</div>
 					</div>
 				</div>',
-				esc_url( 'https://melapress.com/wordpress-captcha/pricing/?utm_source=wp+repo&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp' ),
-				function_exists( 'c4wp_fs' ) ? c4wp_fs()->get_upgrade_url() : 'https://melapress.com/wordpress-captcha/plugin-trial/?utm_source=wp+repo&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp'
+				esc_url( 'https://melapress.com/wordpress-captcha/pricing/?utm_source=wp+repo&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp' )
 			);
 		endif;
 		return $return;
@@ -1361,7 +1392,7 @@ class C4WP_Settings {
 				</div>
 				<div class="c4wp-wizard-panel" id="c4wp-setup-wizard-v3-fallback">
 					<div class="c4wp-panel-content">
-						<strong>' . esc_html__( 'Step 3: Configure a failover action for reCAPTCHA v3 failure', 'advanced-nocaptcha-recaptcha' ) . '</strong>
+						<strong>' . esc_html__( 'Step 4: Configure a failover action for reCAPTCHA v3 failure', 'advanced-nocaptcha-recaptcha' ) . '</strong>
 						<p class="description c4wp-desc" style="position: absolute;">' . esc_html__( 'reCAPTCHA v3 is fully automated. This means that by default, if the CAPTCHA check fails the website visitor cannot proceed with what they are doing unless you configure a failover action. Use the below setting to configure the failover action.', 'advanced-nocaptcha-recaptcha' ) . '</p>
 						<p>' . $fields['failure_action']['label'] . '
 						' . self::callback( $fields['failure_action'], true ) . '</p>	
@@ -1516,6 +1547,60 @@ class C4WP_Settings {
 
 	public static function add_delete_data_settings( $fields ) {
 		$additonal_hide_fields = array(
+			'disable_submit_title'  => array(
+				'section_id' => 'forms',
+				'type'       => 'html',
+				'class'      => 'wrap-around-content',
+				'label'      => sprintf(
+					'<strong style="position: absolute;">%1$s</strong>',
+					esc_html__( 'Disable submit button untill CAPTCHA response is provided?', 'advanced-nocaptcha-recaptcha' )
+				),
+			),
+			'disable_submit_subtitle' => array(
+				'section_id' => 'forms',
+				'type'       => 'html',
+				'class'      => 'wrap-around-content',
+				'label'      => sprintf(
+					'<p class="description c4wp-desc" style="position: absolute;">%1$s</p>',
+					esc_html__( 'When using a visible CAPTCHA method (V2 checkbox etc), should we disable the submit button untill the CAPTCHA challenge is completed?', 'advanced-nocaptcha-recaptcha' )
+				),
+			),
+			'disable_submit'           => array(
+				'label'      => esc_html__( 'Disable submit button', 'advanced-nocaptcha-recaptcha' ),
+				'section_id' => 'forms',
+				'std'        => 0,
+				'type'       => 'checkbox',
+				'class'      => 'checkbox',
+			),
+			'pass_on_no_captcha_found_title'  => array(
+				'section_id' => 'forms',
+				'type'       => 'html',
+				'class'      => 'wrap-around-content',
+				'label'      => sprintf(
+					'<strong style="position: absolute;">%1$s</strong>',
+					esc_html__( 'Should CAPTCHA 4WP pass or fail a submission if no CAPTCHA field is found?', 'advanced-nocaptcha-recaptcha' )
+				),
+			),
+			'pass_on_no_captcha_found_subtitle' => array(
+				'section_id' => 'forms',
+				'type'       => 'html',
+				'class'      => 'wrap-around-content',
+				'label'      => sprintf(
+					'<p class="description c4wp-desc" style="position: absolute;">%1$s</p>',
+					esc_html__( 'If a form is passed through our plugin for verification and no CAPTCHA field is present, you can choose to either allow the submission or return a failure.', 'advanced-nocaptcha-recaptcha' )
+				),
+			),
+			'pass_on_no_captcha_found'   => array(
+				'label'      => esc_html__( 'Disable CAPTCHA tests for logged in users', 'advanced-nocaptcha-recaptcha' ),
+				'section_id' => 'forms',
+				'type'       => 'radio',
+				'class'      => 'regular remove-space-below remove-radio-br',
+				'std'        => 'proceed',
+				'options'    => array(
+					'proceed' => esc_html__( 'Proceed with submission', 'advanced-nocaptcha-recaptcha' ),
+					'fail'    => esc_html__( 'Fail submission', 'advanced-nocaptcha-recaptcha' ),
+				),
+			),
 			'delete_data_subtitle'  => array(
 				'section_id' => 'forms',
 				'type'       => 'html',

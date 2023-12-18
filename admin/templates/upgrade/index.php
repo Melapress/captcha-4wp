@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<p><?php esc_html_e( 'Add antispam protection to block bots and allow real humans to interact with your website. Add CAPTCHA from services such as Google reCAPTCHA, hCaptcha and Cloudflare Turnstile to any form on your website such as comments forms, login pages and checkout forms.', 'c4wp-wpp' ); ?></p>
 			<p><?php esc_html_e( 'Get started with just a few clicks with CAPTCHA 4WP, the only plugin that supports multiple CAPTCHA services. Upgrade today and benefit from numerous features, some of which are listed below.', 'c4wp-wpp' ); ?></p>
 			<div class="premium-cta">
-			<a href=" https://melapress.com/wordpress-captcha/plugin-trial/?utm_source=plugin&utm_medium=banner&utm_campaign=C4WP&utm_content=get+trial" target="_blank" rel="noopener">Get a Free-14 day trial</a> <a class="text-link" href="https://melapress.com/wordpress-captcha/pricing/?utm_source=wp+repo&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp" target="_blank" rel="noopener">Upgrade to Premium</a>				
+			<a href="https://melapress.com/wordpress-captcha/pricing/?utm_source=wp+repo&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp" target="_blank" rel="noopener">Upgrade to Premium</a>				
 			</div>
 		</div>
 
@@ -324,7 +324,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 
 		<div class="premium-cta">
-			<a href="https://melapress.com/wordpress-captcha/plugin-trial/?utm_source=plugin&utm_medium=banner&utm_campaign=C4WP&utm_content=get+trial" target="_blank" rel="noopener">Get a FREE 14-day trial</a> <a class="text-link" href="https://melapress.com/wordpress-captcha/pricing/?utm_source=wp+repo&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp" target="_blank" rel="noopener">Upgrade to Premium</a> 
+			<a href="https://melapress.com/wordpress-captcha/pricing/?utm_source=wp+repo&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp" target="_blank" rel="noopener">Upgrade to Premium</a> 
 		</div>
 
 	</div>

@@ -93,13 +93,13 @@ if ( ! class_exists( 'C4WP_Method_Loader' ) ) {
          * @param boolean $response
          * @return void
          */
-        public static function method_verify( $current_method = 'captcha', $response = false ) {
+        public static function method_verify( $current_method = 'captcha', $response = false, $is_fallback_challenge = false ) {
             if ( empty( $current_method ) ) {
                 return true;
             }
 
             if ( method_exists( self::$methods[$current_method], 'verify' ) ) {
-                return self::$methods[$current_method]::verify( $response );
+                return self::$methods[$current_method]::verify( $response, $is_fallback_challenge );
             } 
 
             return false;
