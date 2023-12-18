@@ -124,7 +124,7 @@ Simply select the WooCommerce page you want to add CAPTCHA to in the plugin's CA
 
 == Changelog ==
 
-= 7.4.0 (19122024) =
+= 7.4.0 (20122024) =
 
 * **New features & functionality**
 	* Added Support for Ninja Forms

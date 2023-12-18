@@ -100,7 +100,6 @@ class C4WP {
 		if ( ! defined( 'C4WP_BASE_NAME' ) ) {
 			define( 'C4WP_BASE_NAME', plugin_basename( __FILE__ ) );
 		}
-
 		register_uninstall_hook( C4WP_PLUGIN_FILE, 'c4wp_uninstall' );
 	}
 
