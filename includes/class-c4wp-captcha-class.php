@@ -225,6 +225,8 @@ if ( ! class_exists( 'C4WP_Captcha_Class' ) ) {
 			$fail_action         = C4WP_Functions::c4wp_get_option( 'failure_action', 'nothing' );
 			$redirect            = C4WP_Functions::c4wp_get_option( 'failure_redirect' );
 			$failure_v2_site_key = C4WP_Functions::c4wp_get_option( 'failure_v2_site_key' );
+			$size                = C4WP_Functions::c4wp_get_option( 'size', 'normal' );
+			$theme               = C4WP_Functions::c4wp_get_option( 'theme', 'normal' );
 
 			$code = "
 
@@ -260,56 +262,45 @@ if ( ! class_exists( 'C4WP_Captcha_Class' ) ) {
 						res => res.json()
 					)
 					.then( data => {
+
 						if ( data['success'] ) {
 							form.classList.add( 'c4wp_verified' );
-							if ( typeof jQuery !== 'undefined' && form_type == 'wc_checkout' ) {
-								form.classList.add( 'c4wp_v2_fallback_active' );
-								jQuery( '.woocommerce-checkout' ).submit();
-								return true;
-							} else if ( typeof jQuery !== 'undefined' && form_type == 'wc_login' ) {		
-								jQuery( '.woocommerce-form-login__submit' ).trigger('click');
-								return true;
-							} else if ( typeof jQuery !== 'undefined' && form_type == 'wc_reg' ) {		
-								jQuery( '.woocommerce-form-register__submit' ).trigger('click');
-								return true;
-							} else if ( typeof jQuery !== 'undefined' && form_type == 'bp_comment' ) {
-								return true;
-							} else if ( typeof jQuery !== 'undefined' && form_type == 'bp_group' ) {							
-								jQuery( '#group-creation-create' ).trigger('click');
-							} else if ( typeof jQuery !== 'undefined' && form_type == 'bp_signup' ) {								
-								jQuery( '#submit' ).trigger('click');
-							} else {
+							// Submit as usual.
+							if ( foundSubmitBtn ) {
+								foundSubmitBtn.click();
+							} else {								
 								if ( typeof form.submit === 'function' ) {
 									form.submit();
 								} else {
 									HTMLFormElement.prototype.submit.call(form);
 								}
 							}
+
 						} else {
 							";
 
 			if ( 'redirect' === $fail_action ) {
-				$code .= "
-									window.location.href = '" . $redirect . "';
-								";
+				$code .= "window.location.href = '" . $redirect . "';";
 			}
 
 			if ( 'v2_checkbox' === $fail_action ) {
 				$code .= "
-									captcha_div.innerHTML = '';
-									form.classList.add( 'c4wp_v2_fallback_active' );
-									flagMarkupDiv.firstChild.setAttribute( 'name', 'c4wp_v2_fallback' );
+					captcha_div.innerHTML = '';
+					form.classList.add( 'c4wp_v2_fallback_active' );
+					flagMarkupDiv.firstChild.setAttribute( 'name', 'c4wp_v2_fallback' );
 
-									var c4wp_captcha = grecaptcha.render( captcha_div,{
-										'sitekey' : '" . $failure_v2_site_key . "',							
-											'expired-callback' : function(){
-												grecaptcha.reset( c4wp_captcha );
-											}
-									}); 
-								";
+					var c4wp_captcha = grecaptcha.render( captcha_div,{
+						'sitekey' : '" . $failure_v2_site_key . "',		
+						'size'  : '" . $size . "',
+						'theme' : '" . $theme . "',				
+						'expired-callback' : function(){
+							grecaptcha.reset( c4wp_captcha );
+						}
+					}); 
+				";
 			}
 
-							$code .= '						
+			$code .= '						
 							// Prevent further submission
 							event.preventDefault();
 							return false;
@@ -476,8 +467,8 @@ if ( ! class_exists( 'C4WP_Captcha_Class' ) ) {
 		 * @param boolean $response - Current response.
 		 * @return bool - Was request valid?
 		 */
-		public static function verify( $response = false ) {
-			$verify = C4WP_Method_Loader::method_verify( C4WP_Method_Loader::get_currently_selected_method( true, false ), $response );
+		public static function verify( $response = false, $is_fallback_challenge = false ) {
+			$verify = C4WP_Method_Loader::method_verify( C4WP_Method_Loader::get_currently_selected_method( true, false ), $response, $is_fallback_challenge );
 			return $verify;
 		}
 
@@ -562,7 +553,7 @@ if ( ! class_exists( 'C4WP_Captcha_Class' ) ) {
 		 * @return array $result - Error array with ours added, if applicable.
 		 */
 		public static function ms_form_field_verify( $result ) {
-			if ( isset( $_POST['stage'] ) && 'validate-user-signup' === $_POST['stage'] && ! $this->verify() ) { // phpcs:ignore
+			if ( isset( $_POST['stage'] ) && 'validate-user-signup' === $_POST['stage'] && ! self::verify() ) { // phpcs:ignore
 				$result['errors']->add( 'c4wp_error', C4WP_Functions::c4wp_get_option( 'error_message' ) );
 			}
 
@@ -576,7 +567,7 @@ if ( ! class_exists( 'C4WP_Captcha_Class' ) ) {
 		 * @return array $result - Error array with ours added, if applicable.
 		 */
 		public static function ms_blog_verify( $result ) {
-			if ( ! $this->verify() ) {
+			if ( ! self::verify() ) {
 				$result['errors']->add( 'c4wp_error', C4WP_Functions::c4wp_get_option( 'error_message' ) );
 			}
 

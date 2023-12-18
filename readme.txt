@@ -9,7 +9,7 @@ Tested up to: 6.2.2
 Stable tag: 2.5.0
 Requires PHP: 7.2.0
 
-Stop bots, fake accounts, and fake orders. Allow prospects, customers, and users to interact with your website with ease while avoiding false positives falling through the cracks.
+Use CAPTCHA to stop spam and allow customers & users to interact with your website easily. Block fake accounts and orders. Avoid false positives.
 
 == Description ==
 
@@ -123,6 +123,35 @@ Simply select the WooCommerce page you want to add CAPTCHA to in the plugin's CA
 8. The CAPTCHA configuration can easily be seen in the plugin's configuration page.
 
 == Changelog ==
+
+= 7.4.0 (19122024) =
+
+* **New features & functionality**
+	* Added Support for Ninja Forms
+	* Added Support for Fluent Forms
+	* Added Support for Formidable Forms
+	* Added Support for Everest Forms
+	* V3 + V2 Fallback - V2 Checkbox now adheres to size/styling settings
+	* V2 Checkbox, cloud flare and hcaptcha can now disable a forms submit button until CAPTCHA is validated.
+	* Cloudflare languages are now supported
+	* Added new setting to control submissions if no CAPTCHA value/field is found
+	* Improved help text within admin areas
+
+* **Bug fixes**
+	* BuddyPress + v3 + V2 Fallback - Fixed issue where checkbox would not appear on v3 failure
+	* BuddyPress + v2 Checkbox - Fixed issue which could cause comments to be submitted without CAPTCHA validation.
+	* Cloudflare - Fixed issue where box exceeds width of WP Core forms
+	* 3 + v2 Fallback - Fixes issue caused by missing jetpack_sso var
+	* Whitelisting URLs - Fixed logic issue which would cause whilelisting to fail if visitor uses the whitelisted URL + an arg (eg domain.com/page is whilelisted, domain.com/page?argument=value was being ignored)
+	* BuddyPress + V2 Invisible - Fixed issue where successful registration would not be forward to the confirmation page correctly
+	* WPForms + V3 + V2 Fallback - Foxed issue where multiple captcha failed messages may appear on failed submission
+	* Fixed PHP 8.2 Error within certain multisite registration forms.
+	* WP Forms + V2 Checkbox - Fixed CSS issue which can partially hide the checkbox
+	* Fixed logic issue when switching between Premium and Free editions
+	* CF7 + V2 Invisible - Fixed issue which would cause ‘sent’ message to be hidden
+
+* **Improvements**
+	* Improved help text and prompts for better user experience when setting up the plugin.
 
 = 7.3.1 (08142023) =
 

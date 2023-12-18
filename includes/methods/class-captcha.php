@@ -73,13 +73,13 @@ if ( ! class_exists( 'C4WP_Captcha' ) ) {
 		 * @param boolean $response - Current response.
 		 * @return boolean $response - Actual response from method provider.
 		 */
-		public static function verify( $response = false ) {
+		public static function verify( $response = false, $is_fallback_challenge = false ) {
 			static $last_verify        = null;
 			static $last_response      = null;
 			static $duplicate_response = false;
 			
 			$remoteip   = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
-			$secret_key = isset( $_POST['c4wp_v2_fallback'] ) ? trim( C4WP_Functions::c4wp_get_option( 'failure_v2_secret_key' ) ) : trim( C4WP_Functions::c4wp_get_option( 'secret_key' ) ); // phpcs:ignore
+			$secret_key = isset( $_POST['c4wp_v2_fallback'] ) || $is_fallback_challenge ? trim( C4WP_Functions::c4wp_get_option( 'failure_v2_secret_key' ) ) : trim( C4WP_Functions::c4wp_get_option( 'secret_key' ) ); // phpcs:ignore
 			$verify     = false;
 
 			if ( false === $response ) {
@@ -110,7 +110,8 @@ if ( ! class_exists( 'C4WP_Captcha' ) ) {
 
 			// Bail if we have nothign to work with.
 			if ( empty( $response ) && ! isset( $_POST['c4wp_v2_fallback'] ) && ! isset( $_POST['g-recaptcha-response'] ) && ! $is_ajax_verification ) { // phpcs:ignore
-				return true;
+				$return = ( 'proceed' == C4WP_Functions::c4wp_get_option( 'pass_on_no_captcha_found', 'proceed' ) ) ? true : false;
+				return $return;
 			}
 
 			if ( ! $response && ! isset( $_POST['c4wp_v2_fallback'] ) || ! $remoteip ) {
@@ -150,6 +151,33 @@ if ( ! class_exists( 'C4WP_Captcha' ) ) {
 					$verify = C4WP_Functions::c4wp_get_option( 'score', '0.5' ) <= $score;
 				} else {
 					$verify = true;
+				}
+			} else {
+				if ( 'v3' === C4WP_Functions::c4wp_get_option( 'captcha_version' ) ) {
+					$secret_key = trim( C4WP_Functions::c4wp_get_option( 'secret_key' ) );
+					$request = wp_remote_post(
+						$url,
+						array(
+							'timeout' => 10,
+							'body'    => array(
+								'secret'   => $secret_key,
+								'response' => $response,
+								'remoteip' => $remoteip,
+							),
+						)
+					);
+		
+					// get the request response body.
+					$request_body = wp_remote_retrieve_body( $request );
+					if ( ! $request_body ) {
+						return $verify;
+					}			
+		
+					$result = json_decode( $request_body, true );
+					if ( isset( $result['success'] ) && true === $result['success'] ) {
+						$score  = isset( $result['score'] ) ? $result['score'] : true;
+						$verify = C4WP_Functions::c4wp_get_option( 'score', '0.5' ) <= $score;
+					}
 				}
 			}
 
@@ -207,10 +235,32 @@ if ( ! class_exists( 'C4WP_Captcha' ) ) {
 				var c4wp_onloadCallback = function() {
 					for ( var i = 0; i < document.forms.length; i++ ) {
 						let form = document.forms[i];
+
 						let captcha_div = form.querySelector( '.c4wp_captcha_field_div:not(.rendered)' );
-						if ( null === captcha_div )
-							continue;						
+						let foundSubmitBtn = null;
+						<?php if ( C4WP_Functions::c4wp_get_option( 'disable_submit', false ) ) { ?>
+							foundSubmitBtn = form.querySelector( '[type=submit]' );
+						<?php } ?>
+						
+						if ( null === captcha_div ) {
+							continue;	
+						}					
+
 						captcha_div.innerHTML = '';
+
+						if ( null != foundSubmitBtn ) {
+							foundSubmitBtn.classList.add( 'disabled' );
+							foundSubmitBtn.setAttribute( 'disabled', 'disabled' );
+
+							if ( form.classList.contains( 'woocommerce-checkout' ) ) {
+								setTimeout( function(){ 
+									foundSubmitBtn = form.querySelector( '#place_order' );
+									foundSubmitBtn.classList.add( 'disabled' );
+									foundSubmitBtn.setAttribute( 'disabled', 'disabled' );
+								}, 2500 );
+							}
+						}
+
 						( function( form ) {
 							var c4wp_captcha = grecaptcha.render( captcha_div,{
 								'sitekey' : '<?php echo esc_js( trim( C4WP_Functions::c4wp_get_option( 'site_key' ) ) ); ?>',
@@ -218,6 +268,12 @@ if ( ! class_exists( 'C4WP_Captcha' ) ) {
 								'theme' : '<?php echo esc_js( C4WP_Functions::c4wp_get_option( 'theme', 'light' ) ); ?>',
 								'expired-callback' : function(){
 									grecaptcha.reset( c4wp_captcha );
+								},
+								'callback' : function(){
+									if ( null != foundSubmitBtn ) {
+										foundSubmitBtn.classList.remove( 'disabled' );
+										foundSubmitBtn.removeAttribute( 'disabled' );
+									}
 								}
 							});
 							captcha_div.classList.add( 'rendered' );
@@ -249,6 +305,7 @@ if ( ! class_exists( 'C4WP_Captcha' ) ) {
 		public static function v2_invisible_script() {
 			?>
 			<script id="c4wp-inline-js" type="text/javascript">
+
 				var c4wp_onloadCallback = function() {
 					for ( var i = 0; i < document.forms.length; i++ ) {
 						var form = document.forms[i];
@@ -259,9 +316,11 @@ if ( ! class_exists( 'C4WP_Captcha' ) ) {
 						if ( !( captcha_div.offsetWidth || captcha_div.offsetHeight || captcha_div.getClientRects().length ) ) {
 							continue;
 						}
+
 						captcha_div.innerHTML = '';
 
 						( function( form ) {
+							
 							var c4wp_captcha = grecaptcha.render( captcha_div,{
 								'sitekey' : '<?php echo esc_js( trim( C4WP_Functions::c4wp_get_option( 'site_key' ) ) ); ?>',
 								'size'  : 'invisible',
@@ -292,8 +351,21 @@ if ( ! class_exists( 'C4WP_Captcha' ) ) {
 										form.setAttribute( 'data-captcha-valid', 'yes');
 										jQuery( form ).find( '[name="ac_form_submit"]' ).click(); 
 									} else if ( form.id == 'create-group-form' ) {
+										// Buddypress group.
 										form.setAttribute( 'data-captcha-valid', 'yes');
 										jQuery( form ).find( '#group-creation-create' ).click(); 
+									} else if ( form.id == 'signup-form' && form.classList.contains( 'signup-form' ) ) {
+										// Buddyboss.
+										form.setAttribute( 'data-captcha-valid', 'yes');
+										jQuery( form ).find( '[type="submit"]' ).click(); 
+										return true;
+									} else if ( form.classList.contains( 'frm-fluent-form' ) ) {;
+										form.setAttribute( 'data-captcha-valid', 'yes');
+										jQuery( form ).find( '[type="submit"]' ).click(); 
+										return true;
+
+									}  else if ( form.parentElement.classList.contains( 'nf-form-layout' ) ) {
+										return true;
 									} else {
 										form.setAttribute( 'data-captcha-valid', 'yes');
 										form.submit();
@@ -331,6 +403,15 @@ if ( ! class_exists( 'C4WP_Captcha' ) ) {
 							if ( typeof jQuery !== 'undefined' ) {
 								// Remove and append badge on WP login screen.
 								jQuery( '.login form.shake .grecaptcha-badge' ).appendTo( 'body' );
+								//, .ninja-forms-field[type="submit"]
+								jQuery( 'body' ).on( 'click', 'form:not(.c4wp-primed) .ff-btn-submit,form:not(.c4wp-primed) .everest-forms-submit-button', function ( e ) {
+									e.preventDefault();
+									grecaptcha.execute( c4wp_captcha ).then( function( data ) {
+										var responseElem = form.querySelector( '.g-recaptcha-response' );
+										responseElem.setAttribute( 'value', data );	
+										form.classList.add( 'c4wp-primed' );
+									});	
+								});
 							}
 						})(form);
 					}
@@ -367,200 +448,68 @@ if ( ! class_exists( 'C4WP_Captcha' ) ) {
 
 					let c4wp_onloadCallback = function() {
 						for ( var i = 0; i < document.forms.length; i++ ) {
-
 							let form = document.forms[i];
 							let captcha_div = form.querySelector( '.c4wp_captcha_field_div:not(.rendered)' );
 							let jetpack_sso = form.querySelector( '#jetpack-sso-wrap' );
 
-							if ( null === captcha_div ) {
+							if ( null === captcha_div || form.id == 'create-group-form' ) {								
 								continue;
 							}
 							if ( !( captcha_div.offsetWidth || captcha_div.offsetHeight || captcha_div.getClientRects().length ) ) {					    	
-								if ( jetpack_sso == null && jetpack_sso.length == 0 && ! form.classList.contains( 'woocommerce-form-login' ) ) {
+								if ( jetpack_sso == null && ! form.classList.contains( 'woocommerce-form-login' ) ) {
 									continue;
 								}
 							}
-							
-							var woo_register = form.getElementsByClassName( 'woocommerce-form-register__submit' );
-							var woo_ppc      = form.querySelector('#ppc-button-ppcp-gateway');
-							
-							if ( woo_ppc != null &&  woo_ppc.length ) {
-								woo_ppc.addEventListener( 'click', function ( event ) {
-									if ( form.classList.contains( 'c4wp_verify_underway' ) ) {
-										return true;
-									} else {
-										logSubmit( event, 'wc_login', form );
-									}
-								});
-							} else if ( woo_register != null && woo_register.length ) {
-								// Execute early to ensure response is populated.
-								grecaptcha.execute(
-									'<?php echo esc_js( $site_key ); ?>',
-								).then( function( data ) {
-									var responseElem = form.querySelector( '.c4wp_response' );
-									responseElem.setAttribute( 'value', data );
-									form.classList.add( 'c4wp_v3_init' );
-								});
 
-								if ( captcha_div.parentElement.getAttribute('data-c4wp-use-ajax') == 'true' ) {
-									form.addEventListener( 'submit', function( event ) {
-										if ( form.classList.contains( 'c4wp_v2_fallback_active' ) ) {
-											return true;
-										} else {
-											logSubmit( event, 'wc_reg', form );
-										}
-									});
-								}
+							let alreadyCloned = form.querySelector( '.c4wp-submit' );
+							if ( null != alreadyCloned ) {
+								continue;
 							}
-							// is WC Checkout?
-							else if ( form.classList.contains( 'checkout' ) ) {
-								// Execute early to ensure response is populated.
-								grecaptcha.execute(
-									'<?php echo esc_js( $site_key ); ?>',
-								).then( function( data ) {
-									var responseElem = form.querySelector( '.c4wp_response' );
-									responseElem.setAttribute( 'value', data );	
-									form.classList.add( 'c4wp_v3_init' );
-								});
-								
-								if ( typeof jQuery !== 'undefined' && jQuery( captcha_div ).parent().attr( 'data-c4wp-use-ajax' ) == 'true' ) {
-									jQuery( 'form.checkout' ).on( 'checkout_place_order', function( event ) {
-										if ( jQuery( form ).hasClass( 'c4wp_v2_fallback_active' ) ) {
-											return true;
-										} else {
-											logSubmit( event, 'wc_checkout', form );
-											return false;
-										}
-									});
-								}
-							// is WC Login?
-							} else if ( form.classList.contains( 'woocommerce-form-login' )  ) {
-								// Execute early to ensure response is populated.
-								grecaptcha.execute(
-									'<?php echo esc_js( $site_key ); ?>',
-								).then( function( data ) {
-									var responseElem = form.querySelector( '.c4wp_response' );
-									responseElem.setAttribute( 'value', data );	
-								});
 
-								if ( captcha_div.parentElement.getAttribute('data-c4wp-use-ajax') == 'true' ) {
-									const searchElement = form.querySelector( '.woocommerce-form-login__submit' );
-									searchElement.addEventListener( 'click', function ( event ) {
-										if ( form.classList.contains( 'c4wp_verify_underway' ) ) {
-											return true;
-										} else {
-											logSubmit( event, 'wc_login', form );
-										}
-									});
-								}
+							let foundSubmitBtn = form.querySelector( '#signup-form [type=submit], [type=submit]:not(.nf-element):not(#group-creation-create):not([name="signup_submit"]):not([name="ac_form_submit"]):not(.verify-captcha)' );
+							let cloned = false;
+							let clone  = false;
 
-							} else if ( form.classList.contains( 'lost_reset_password' ) ) {
-								const searchElement = form.querySelector( '.lost_reset_password button[type="submit"]' );
-								searchElement.addEventListener( 'click', function ( event ) {
-									if ( form.classList.contains( 'c4wp_verify_underway' ) ) {
-										return true;
-									} else {
-										logSubmit( event, 'wc_reset_pass', form );
-									}
-								});
-
-							// is CF7?
-							} else if ( form.classList.contains( 'wpcf7-form' ) ) {
-								// Execute early to ensure response is populated.
-								grecaptcha.execute(
-									'<?php echo esc_js( $site_key ); ?>',
-								).then( function( data ) {
-									var responseElem = form.querySelector( '.c4wp_response' );
-									responseElem.setAttribute( 'value', data );	
-								});
-								if ( captcha_div.parentElement.getAttribute('data-c4wp-use-ajax') == 'true' ) {
-									const searchElement = form.querySelector( '.wpcf7-submit' );
-									searchElement.addEventListener( 'click', function ( event ) {
-										logSubmit( event, 'cf7', form );
-									});
-								}
-							} else if ( form.getAttribute('id') == 'resetpassform' ) {
-								const searchElement = document.querySelector( '#wp-submit' );
-								searchElement.addEventListener( 'click', function ( event ) {
-									// We take over the submit event, so fill this hiddne field.
-									const pass1 = document.querySelector( '#pass1' );
-									const pass2 = document.querySelector( '#pass2' );
-									pass2.setAttribute( 'value', pass1.value );	
-									logSubmit( event, 'reset_pw_form', form );
-								});
-							} else if ( form.getAttribute('id') == 'signup-form' && form.parentElement.parentElement.getAttribute('id') == 'buddypress' || form.getAttribute('id') == 'create-group-form' ) {
-								// Execute early to ensure response is populated.
-								grecaptcha.execute(
-									'<?php echo esc_js( $site_key ); ?>',
-								).then( function( data ) {
-									var responseElem = form.querySelector( '.c4wp_response' );
-									responseElem.setAttribute( 'value', data );	
-								});
-
-								if ( captcha_div.parentElement.getAttribute('data-c4wp-use-ajax') == 'true' ) {
-									form.addEventListener( 'submit', function ( event ) {
-										if ( form.classList.contains( 'c4wp_verify_underway' ) ) {
-											return true;
-										} else {
-											if ( form.getAttribute('id') == 'create-group-form' ) {
-												logSubmit( event, 'bp_group', form );
-											} else {
-												logSubmit( event, 'bp_signup', form );
-											}
-										}
-									});	
-								}
-
-							} else if ( form.parentElement.classList.contains( 'gform_wrapper' ) ) {
-								// Execute early to ensure response is populated.
-								grecaptcha.execute(
-									'<?php echo esc_js( $site_key ); ?>',
-								).then( function( data ) {
-									var responseElem = form.querySelector( '.c4wp_response' );
-									responseElem.setAttribute( 'value', data );	
-								});
-
-								var GFsearchElement = form.querySelector( 'input[type=submit]' );
-
-								GFsearchElement.addEventListener( 'click', function ( event ) {	
-									logSubmit( event, 'gf', form );
-								});
-
-							} else {
-								if ( captcha_div.parentElement.getAttribute('data-c4wp-use-ajax') != 'true' ) {
-									// Execute early to ensure response is populated.
-									grecaptcha.execute(
-										'<?php echo esc_js( $site_key ); ?>',
-									).then( function( data ) {
-										var responseElem = form.querySelector( '.c4wp_response' );
-										responseElem.setAttribute( 'value', data );	
-									});
+							// Submit button found, clone it.
+							if ( foundSubmitBtn ) {
+								clone = foundSubmitBtn.cloneNode(true);
+								clone.classList.add( 'c4wp-submit' );
+								clone.removeAttribute( 'onclick' );
+								clone.removeAttribute( 'onkeypress' );
+								if ( foundSubmitBtn.parentElement.form === null ) {
+									foundSubmitBtn.parentElement.prepend(clone);
 								} else {
-									if ( form.classList.contains( 'ac-form' ) ) {
-										jQuery( 'body' ).on( 'click', '.verify-captcha', function ( e ) {											
-											if ( form.classList.contains( 'c4wp_verify_underway' ) ) {
-												return true;
-											} else {
-												event.preventDefault();
-												if ( form.classList.contains( 'bp_comment' ) ) {
-													logSubmit( event, 'bp_comment', form );
-												} else {
-													logSubmit( event, 'other', form );
-												}
-											}
-										});
-									}
-									// Anything else.
-									form.addEventListener( 'submit', function ( event ) {
-										logSubmit( event, 'other', form );
-									});	
-								}						
+									foundSubmitBtn.parentElement.insertBefore( clone, foundSubmitBtn );
+								}
+								foundSubmitBtn.style.display = "none";
+								cloned = true;
+							}
+							
+							// Clone created, listen to its click.
+							if ( cloned ) {
+								clone.addEventListener( 'click', function ( event ) {
+									logSubmit( event, 'cloned', form, foundSubmitBtn );
+								});
+							// No clone, execture and watch for form submission.
+							} else {
+								grecaptcha.execute(
+									'<?php echo esc_js( $site_key ); ?>',
+								).then( function( data ) {
+									var responseElem = form.querySelector( '.c4wp_response' );
+									responseElem.setAttribute( 'value', data );	
+								});
+
+								// Anything else.
+								form.addEventListener( 'submit', function ( event ) {
+									logSubmit( event, 'other', form );
+								});	
 							}
 
-							function logSubmit( event, form_type = '', form ) {
+							function logSubmit( event, form_type = '', form, foundSubmitBtn ) {
+
+								// Standard v3 check.
 								if ( ! form.classList.contains( 'c4wp_v2_fallback_active' ) && ! form.classList.contains( 'c4wp_verified' ) ) {
 									event.preventDefault();
-									
 									try {
 										grecaptcha.execute(
 											'<?php echo esc_js( $site_key ); ?>',
@@ -578,23 +527,36 @@ if ( ! class_exists( 'C4WP_Captcha' ) ) {
 											}
 											?>
 
-											if ( typeof form.submit === 'function' ) {
-												form.submit();
+											// Submit as usual.
+											if ( foundSubmitBtn ) {
+												foundSubmitBtn.click();
 											} else {
-												HTMLFormElement.prototype.submit.call(form);
+												
+												if ( typeof form.submit === 'function' ) {
+													form.submit();
+												} else {
+													HTMLFormElement.prototype.submit.call(form);
+												}
 											}
 
 											return true;
 										});
 									} catch (e) {
-
+										// Slience.
 									}
+								// V2 fallback.
 								} else {
+									if ( form.classList.contains( 'wpforms-form' ) || form.classList.contains( 'frm-fluent-form' )) {
+										return true;
+									}
+									
+									// Submit as usual.
 									if ( typeof form.submit === 'function' ) {
 										form.submit();
 									} else {
 										HTMLFormElement.prototype.submit.call(form);
 									}
+
 									return true;
 								}
 							};
@@ -603,12 +565,19 @@ if ( ! class_exists( 'C4WP_Captcha' ) ) {
 
 					grecaptcha.ready( c4wp_onloadCallback );
 
-					jQuery( 'body' ).on( 'click', '.acomment-reply.bp-primary-action', function ( e ) {
-						c4wp_onloadCallback();
-					});	
+					if ( typeof jQuery !== 'undefined' ) {
+						jQuery( 'body' ).on( 'click', '.acomment-reply.bp-primary-action', function ( e ) {
+							c4wp_onloadCallback();
+						});	
+					}
 
 					//token is valid for 2 minutes, So get new token every after 1 minutes 50 seconds
 					setInterval(c4wp_onloadCallback, 110000);
+
+					<?php
+						$additonal_js = apply_filters( 'c4wp_captcha_callback_additonal_js', false );
+						echo $additonal_js; // phpcs:ignore
+					?>
 
 				} )( grecaptcha );
 			</script>

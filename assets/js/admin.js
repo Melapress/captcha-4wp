@@ -411,6 +411,16 @@ jQuery(document).ready(function( $ ){
 		var selected_value = $( '[name="c4wp_admin_options[captcha_version]"]:checked' ).val();
 		$( '.toggleable' ).addClass( 'disabled' );
 		$( '.c4wp-show-field-for-'+ selected_value ).removeClass( 'disabled' );
+
+		if ( selected_value != 'cloudflare' ) {
+			$( '#c4wp_admin_options_language' ).removeClass( 'disabled' );
+			$( '#c4wp_admin_options_language_cloudflare' ).remove();			
+		}
+
+		var fb_selected_value = jQuery( '.c4wp-wizard-panel select[name="c4wp_admin_options[failure_action]"] option:selected' ).val();
+		if ( fb_selected_value == 'v2_checkbox' ) {
+			$( '.c4wp-show-field-for-'+ fb_selected_value ).removeClass( 'disabled' );
+		}
 	}
 	
 	/**

@@ -44,7 +44,7 @@ if ( ! class_exists( 'C4WP_Cloudflare' ) ) {
 		 */
 		public static function add_settings_field( $fields ) {
 			$versions                             = $fields['captcha_version']['options'];
-			$versions['cloudflare']               = esc_html__( 'Cloudflare Turnsite (users might have to check a checkbox if service thinks it is spam traffic)', 'advanced-nocaptcha-recaptcha' );
+			$versions['cloudflare']               = esc_html__( 'Cloudflare Turnstile (users might have to check a checkbox if service thinks it is spam traffic)', 'advanced-nocaptcha-recaptcha' );
 			$fields['captcha_version']['options'] = $versions;
 			return $fields;
 		}
@@ -57,7 +57,12 @@ if ( ! class_exists( 'C4WP_Cloudflare' ) ) {
 		 */
 		public static function form_field( $captcha_count = 0 ) {
 			$verify_nonce = wp_create_nonce( 'c4wp_verify_nonce' );
-			$field  = '<div class="c4wp_captcha_field" style="margin-bottom: 10px;"><div id="c4wp_captcha_field_' . esc_attr( $captcha_count ) . '" class="c4wp_captcha_field_div" data-nonce="' . esc_attr( $verify_nonce ) . '">';
+			$lang = 'auto';
+			$language = trim( C4WP_Functions::c4wp_get_option( 'language_cloudflare' ) );
+			if ( ! $language || empty( $language ) ) {
+				$language = 'auto';
+			}
+			$field  = '<div class="c4wp_captcha_field" style="margin-bottom: 10px;"><div id="c4wp_captcha_field_' . esc_attr( $captcha_count ) . '" class="c4wp_captcha_field_div" data-nonce="' . esc_attr( $verify_nonce ) . '" data-language="' . esc_attr( $language ) . '">';
 			$field .= '</div></div>';
 
 			return $field;
@@ -76,10 +81,20 @@ if ( ! class_exists( 'C4WP_Cloudflare' ) ) {
 					for ( var i = 0; i < document.forms.length; i++ ) {
 						let form = document.forms[i];
 						let captcha_div = form.querySelector( '.c4wp_captcha_field_div:not(.rendered)' );
-						
+						let foundSubmitBtn = null;
+						<?php if ( C4WP_Functions::c4wp_get_option( 'disable_submit', false ) ) { ?>
+							foundSubmitBtn = form.querySelector( '[type=submit]' );
+						<?php } ?>
+					
 						if ( null === captcha_div )
 							continue;						
 						captcha_div.innerHTML = '';
+
+						if ( null != foundSubmitBtn ) {
+							foundSubmitBtn.classList.add( 'disabled' );
+							foundSubmitBtn.setAttribute( 'disabled', 'disabled' );
+						}
+
 						( function( form ) {
 							var c4wp_captcha =  turnstile.render( captcha_div,{
 								'sitekey' : '<?php echo esc_js( trim( C4WP_Functions::c4wp_get_option( 'site_key' ) ) ); ?>',
@@ -87,6 +102,12 @@ if ( ! class_exists( 'C4WP_Cloudflare' ) ) {
 								'theme' : '<?php echo esc_js( C4WP_Functions::c4wp_get_option( 'theme', 'light' ) ); ?>',
 								'expired-callback' : function(){
 									turnstile.reset( c4wp_captcha );
+								},
+								'callback' : function(){
+									if ( null != foundSubmitBtn ) {
+										foundSubmitBtn.classList.remove( 'disabled' );
+										foundSubmitBtn.removeAttribute( 'disabled' );
+									}
 								}
 							});
 							
@@ -113,7 +134,7 @@ if ( ! class_exists( 'C4WP_Cloudflare' ) ) {
 		 * @param boolean $response - Current response.
 		 * @return boolean $response - Actual response from method provider.
 		 */
-		public static function verify( $response = false ) {
+		public static function verify( $response = false, $is_fallback_challenge = false ) {
 			static $last_verify        = null;
 			static $last_response      = null;
 			static $duplicate_response = false;
@@ -150,7 +171,8 @@ if ( ! class_exists( 'C4WP_Cloudflare' ) ) {
 
 			// Bail if we have nothign to work with.
 			if ( empty( $response ) && ! isset( $_POST['cf-turnstile-response'] ) && ! $is_ajax_verification ) { // phpcs:ignore
-				return true;
+				$return = ( 'proceed' == C4WP_Functions::c4wp_get_option( 'pass_on_no_captcha_found', 'proceed' ) ) ? true : false;
+				return $return;
 			}
 
 			if ( ! $response || ! $remoteip ) {
