@@ -578,3 +578,7 @@ ul.c4wp-pro-features-ul li.dashicons-yes-alt:before {
 #cloudflare-render iframe {
 	display: block !important;
 }
+
+.hide-if-disabled.disabled {
+	display: none;
+}

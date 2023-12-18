@@ -134,7 +134,7 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 				add_option( 'c4wp_v3_failover_available', true );
 			}
 
-			if ( version_compare( $prev_version, '7.3.1', '<' ) ) {
+			if ( version_compare( $prev_version, '7.4.0', '<' ) ) {
 				delete_transient( 'c4wp_config_file_hash' );
 			}
 		}
@@ -232,8 +232,7 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 		 * @return void
 		 */
 		public static function c4wp_login_enqueue_scripts() {
-
-			if ( ! self::c4wp_get_option( 'remove_css' ) && 'normal' === self::c4wp_get_option( 'size', 'normal' ) ) {
+			if ( ! self::c4wp_get_option( 'remove_css' ) && 'normal' === self::c4wp_get_option( 'size', 'normal' ) && ( 'v2_checkbox' == self::c4wp_get_option( 'captcha_version' ) || 'hcaptcha' == self::c4wp_get_option( 'captcha_version' ) || 'cloudflare' == self::c4wp_get_option( 'captcha_version' ) ) ) {
 				$verion = C4WP_PLUGIN_VERSION;
 				wp_enqueue_style( 'c4wp-login-style', C4WP_PLUGIN_URL . 'assets/css/style.css', C4WP_PLUGIN_VERSION, $verion );
 			}
@@ -633,5 +632,20 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 			return $wp_kses_args;
 		}
 
+		/**
+		 * WordPress Filter
+		 *
+		 * @param array $old_links - Array of old links.
+		 */
+		public static function add_plugin_shortcuts( $old_links ) {
+			$new_links = array();
+
+			if ( ! self::c4wp_is_premium_version() ) {
+				$new_links[] = '<a style="font-weight:bold; color:#824780 !important" href="https://melapress.com/wordpress-captcha/pricing/?utm_source=plugins&utm_medium=referral&utm_campaign=c4wp" target="_blank">' . __( 'Get Premium!', 'captcha-4wp' ) . '</a>';
+				$old_links = array_merge( array_slice( $old_links, 0, 1 ), $new_links, array_slice( $old_links, 1 ) );
+			}
+
+			return $old_links;
+		}
 	}
 }
