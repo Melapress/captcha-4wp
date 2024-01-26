@@ -1,4 +1,4 @@
-# Copyright (C) 2023 advanced-nocaptcha-recaptcha
+# Copyright (C) 2024 advanced-nocaptcha-recaptcha
 # This file is distributed under the same license as the advanced-nocaptcha-recaptcha package.
 msgid ""
 msgstr ""
@@ -742,7 +742,7 @@ msgid "Step 3 - Validation and saving"
 msgstr ""
 
 #: admin/class-c4wp-settings.php:1380
-msgid "Use the response from your CAPTCHA input, we can validate your security key"
+msgid "Using the response from your CAPTCHA input, we can validate your security key"
 msgstr ""
 
 #: admin/class-c4wp-settings.php:1384

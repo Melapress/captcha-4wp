@@ -1113,7 +1113,7 @@ class C4WP_Settings {
 
 		?>
 			<?php self::c4wp_settings_notice(); ?>
-			<form method="post" action="">
+			<form method="post" action="" class="c4wp-admin-wrapper">
 				<?php
 				settings_fields( 'c4wp_admin_options' );
 				do_settings_sections( 'c4wp_admin_options' );
@@ -1377,7 +1377,7 @@ class C4WP_Settings {
 						</div>
 						<div id="key-validation-step-2" class="hidden">
 							<strong style="position: absolute; font-size: 16px">' . esc_html__( 'Step 3 - Validation and saving', 'advanced-nocaptcha-recaptcha' ) . '</strong>
-							<p>' . esc_html__( 'Use the response from your CAPTCHA input, we can validate your security key', 'advanced-nocaptcha-recaptcha' ) . '</p>
+							<p>' . esc_html__( 'Using the response from your CAPTCHA input, we can validate your security key', 'advanced-nocaptcha-recaptcha' ) . '</p>
 							<p>' . $fields['secret_key']['label'] . '
 							' . self::callback( $fields['secret_key'], true ) . '</p>
 							<p><div id="secret_key_validation_feedback"></div></p>
