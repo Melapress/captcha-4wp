@@ -100,7 +100,6 @@ class C4WP {
 		if ( ! defined( 'C4WP_BASE_NAME' ) ) {
 			define( 'C4WP_BASE_NAME', plugin_basename( __FILE__ ) );
 		}
-
 		register_uninstall_hook( C4WP_PLUGIN_FILE, 'c4wp_uninstall' );
 	}
 
@@ -270,4 +269,5 @@ if ( ! function_exists( 'c4wp_free_on_plugin_activation' ) ) {
 		}
 	}
 }
+
 register_activation_hook( __FILE__, 'c4wp_free_on_plugin_activation' );
