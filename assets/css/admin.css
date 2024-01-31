@@ -582,3 +582,12 @@ ul.c4wp-pro-features-ul li.dashicons-yes-alt:before {
 .hide-if-disabled.disabled {
 	display: none;
 }
+
+label[for="auto_detect"],  #auto_detect, #loggedin_hide,  label[for="loggedin_hide"], [for="loggedin_hide_for_roles"], #loggedin_hide_for_roles, input[name="c4wp_admin_options[pass_on_no_captcha_found]"], input[name="c4wp_admin_options[pass_on_no_captcha_found]"] + label {
+	margin-top: 10px !important;
+    display: inline-block;
+}
+
+.c4wp-admin-wrapper select:not(#c4wp_admin_options_score) {
+    min-width: 200px;
+}
