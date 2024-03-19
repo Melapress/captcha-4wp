@@ -414,7 +414,7 @@ if ( ! class_exists( 'C4WP_Captcha' ) ) {
 								});
 							}
 						})(form);
-					}
+					}					
 				};
 			</script>
 			<?php
@@ -424,6 +424,13 @@ if ( ! class_exists( 'C4WP_Captcha' ) ) {
 			<script id="c4wp-recaptcha-js" src="<?php echo esc_url( $google_url ); ?>"
 				async defer>
 			</script>
+			<style>
+				.login-action-lostpassword.login form.shake {
+					animation: none;
+					animation-iteration-count: 0;
+					transform: none !important;
+				}
+			</style>
 			<?php
 		}
 
@@ -597,6 +604,13 @@ if ( ! class_exists( 'C4WP_Captcha' ) ) {
 			</style>
 				<?php
 			endif;
+			?>
+			<style type="text/css">
+				.login #login, .login #lostpasswordform {
+					min-width: 350px !important;
+				}
+			</style>
+			<?php
 		}
 
 		public static function get_verify_url() {
