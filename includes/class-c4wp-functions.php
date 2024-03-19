@@ -134,7 +134,7 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 				add_option( 'c4wp_v3_failover_available', true );
 			}
 
-			if ( version_compare( $prev_version, '7.4.1', '<' ) ) {
+    if ( version_compare( $prev_version, '7.5.0', '<' ) ) {
 				delete_transient( 'c4wp_config_file_hash' );
 			}
 		}
@@ -208,7 +208,7 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 			if ( ! $form ) {
 				return false;
 			}
-			$enabled_forms = array_merge( self::c4wp_get_option( 'enabled_forms', array() ), self::c4wp_get_option( 'enabled_forms_wc', array() ), self::c4wp_get_option( 'enabled_forms_bp', array() ), self::c4wp_get_option( 'enabled_forms_bbp', array() ) );
+			$enabled_forms = array_merge( self::c4wp_get_option( 'enabled_forms', array() ), self::c4wp_get_option( 'enabled_forms_ms', array() ), self::c4wp_get_option( 'enabled_forms_wc', array() ), self::c4wp_get_option( 'enabled_forms_bp', array() ), self::c4wp_get_option( 'enabled_forms_bbp', array() ) );
 
 			if ( ! is_array( $enabled_forms ) ) {
 				return false;
