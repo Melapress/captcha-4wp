@@ -787,6 +787,7 @@ msgid "Step 3 - Validation and saving"
 msgstr ""
 
 #: admin/class-c4wp-settings.php:1546
+#: admin/class-c4wp-settings.php:1380
 msgid "Using the response from your CAPTCHA input, we can validate your security key"
 msgstr ""
 

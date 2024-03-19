@@ -134,7 +134,7 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 				add_option( 'c4wp_v3_failover_available', true );
 			}
 
-			if ( version_compare( $prev_version, '7.5.0', '<' ) ) {
+    if ( version_compare( $prev_version, '7.5.0', '<' ) ) {
 				delete_transient( 'c4wp_config_file_hash' );
 			}
 		}
