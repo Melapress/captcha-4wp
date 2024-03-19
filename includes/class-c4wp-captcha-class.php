@@ -14,6 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 use C4WP\C4WP_Functions as C4WP_Functions;
 use C4WP\Methods\C4WP_Method_Loader as C4WP_Method_Loader;
 use C4WP\C4WP_Hide_Captcha as C4WP_Hide_Captcha;
+use C4WP\Geo_Blocking as Geo_Blocking;
 
 if ( ! class_exists( 'C4WP_Captcha_Class' ) ) {
 
@@ -89,11 +90,12 @@ if ( ! class_exists( 'C4WP_Captcha_Class' ) ) {
 				} else {
 					add_filter( 'comment_form_field_comment', array( __CLASS__, 'form_field_return' ), 99 );
 				}
+
 				if ( version_compare( get_bloginfo( 'version' ), '4.9.0', '>=' ) ) {
-					add_filter( 'pre_comment_approved', array( __CLASS__, 'comment_verify_490' ), 99 );
+					add_filter( 'pre_comment_approved', array( __CLASS__, 'comment_verify' ), 99 );
 				} else {
-					add_filter( 'preprocess_comment', array( __CLASS__, 'comment_verify' ) );
-				}
+					add_filter( 'preprocess_comment', array( __CLASS__, 'comment_verify_old' ) );
+				}				
 			}
 
 			add_action( 'wp_ajax_c4wp_ajax_verify', array( __CLASS__, 'c4wp_ajax_verify' ), 10, 1 );
@@ -456,7 +458,7 @@ if ( ! class_exists( 'C4WP_Captcha_Class' ) ) {
 		public static function ms_form_field( $errors ) {
 			$err_messages = $errors->get_error_message( 'c4wp_error' );
 			if ( $err_messages ) {
-				echo '<p class="error">' . esc_attr( $errmsg ) . '</p>';
+				echo '<p class="error">' . esc_attr( C4WP_Functions::c4wp_get_option( 'error_message' ) ) . '</p>';
 			}
 			self::form_field();
 		}
@@ -469,6 +471,15 @@ if ( ! class_exists( 'C4WP_Captcha_Class' ) ) {
 		 */
 		public static function verify( $response = false, $is_fallback_challenge = false ) {
 			$verify = C4WP_Method_Loader::method_verify( C4WP_Method_Loader::get_currently_selected_method( true, false ), $response, $is_fallback_challenge );
+
+			if ( class_exists( 'C4WP\\Geo_Blocking' ) ) {
+				$fails_additional_verify = apply_filters( 'c4wp_post_method_verify', true, $verify, Geo_Blocking::sanitize_incoming_ip( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) );
+
+				if ( $fails_additional_verify ) {
+					return false;
+				}
+			}
+
 			return $verify;
 		}
 
@@ -491,6 +502,11 @@ if ( ! class_exists( 'C4WP_Captcha_Class' ) ) {
 				return $user;
 			}
 
+
+			// Do not authenticate WC login if form is not enabled.
+			if ( isset( $_POST[ 'woocommerce-login-nonce' ] ) && ! C4WP_Functions::c4wp_is_form_enabled( 'wc_login' ) ) {
+				return $user;
+			}
 
 			$show_captcha = self::show_login_captcha();
 
@@ -588,6 +604,11 @@ if ( ! class_exists( 'C4WP_Captcha_Class' ) ) {
 				return $result;
 			}
 
+			// Do not authenticate WC login if form is not enabled.
+			if ( isset( $_POST[ 'wc_reset_password' ] ) && isset( $_POST[ '[woocommerce-lost-password-nonce' ] ) && ! C4WP_Functions::c4wp_is_form_enabled( 'wc_lost_password' ) ) {
+				return $user;
+			}
+
 			if ( ! self::verify() ) {
 				$result->add( 'c4wp_error', self::add_error_to_mgs() );
 			}
@@ -623,9 +644,29 @@ if ( ! class_exists( 'C4WP_Captcha_Class' ) ) {
 		 * @param array $commentdata - Submitted data.
 		 * @return array - New comment data.
 		 */
-		public static function comment_verify( $commentdata ) {
+		public static function comment_verify_old( $commentdata ) {
+			$auto_detect = C4WP_Functions::c4wp_get_option( 'language_handling' );
+			
 			if ( ! isset( $_POST['c4wp_ajax_flag'] ) ) { // phpcs:ignore
-				if ( ! self::verify() ) {
+				$verify = self::verify();
+
+				if ( class_exists( 'C4WP\\Geo_Blocking' ) ) {
+					$fails_additional_verify = apply_filters( 'c4wp_post_method_verify', true, $verify, Geo_Blocking::sanitize_incoming_ip( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ), 'comment_verify' );
+
+					if ( $fails_additional_verify ) {
+						$mgs = C4WP_Functions::c4wp_get_option( 'comment_blocked_message', '' );
+						wp_die(
+							'<p>' . wp_kses_post( $mgs ) . '</p>',
+							esc_html__( 'Comment Submission Failure' ),
+							array(
+								'response'  => 403,
+								'back_link' => true,
+							)
+						);
+					}
+				}
+
+				if ( ! $verify ) {
 					wp_die(
 						'<p>' . wp_kses_post( self::add_error_to_mgs() ) . '</p>',
 						esc_html__( 'Comment Submission Failure' ),
@@ -646,10 +687,29 @@ if ( ! class_exists( 'C4WP_Captcha_Class' ) ) {
 		 * @param  bool $approved - Approval currently.
 		 * @returnb ool $approved - Our approval.
 		 */
-		public static function comment_verify_490( $approved ) {
+		public static function comment_verify( $approved ) {
 
 			if ( ! isset( $_POST['c4wp_ajax_flag'] ) ) { // phpcs:ignore
-				if ( ! self::verify() ) {
+				$verify = C4WP_Method_Loader::method_verify( C4WP_Method_Loader::get_currently_selected_method( true, false ), false, false );
+
+				if ( class_exists( 'C4WP\\Geo_Blocking' ) ) {
+					if ( 'default' != C4WP_Functions::c4wp_get_option( 'comment_rule_countries_method', 'default' ) ) {
+						$fails_additional_verify = apply_filters( 'c4wp_post_method_verify', true, $verify, Geo_Blocking::sanitize_incoming_ip( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ), 'comment_verify' );
+						
+						if ( $fails_additional_verify ) {
+							if ( 'allow_only' == C4WP_Functions::c4wp_get_option( 'comment_rule_countries_method', 'default' ) || 'deny_to_error' == C4WP_Functions::c4wp_get_option( 'comment_rule_countries_method', 'default' ) ) {
+								$mgs = C4WP_Functions::c4wp_get_option( 'comment_blocked_message', '' );
+								return new \WP_Error( 'c4wp_error', $mgs, 403 );
+							} else if ( 'deny_to_moderation' == C4WP_Functions::c4wp_get_option( 'comment_rule_countries_method', 'default' ) ) {								
+								$approved = 0;
+							} else {
+								$approved = 'spam';
+							}
+						}
+					}
+				}
+
+				if ( ! $verify ) {
 					return new \WP_Error( 'c4wp_error', self::add_error_to_mgs(), 403 );
 				}
 			}
