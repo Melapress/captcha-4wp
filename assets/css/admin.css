@@ -560,4 +560,47 @@ textarea.regular {
 	display: inline-table;
     margin-left: 10px;
 }
+label[for="auto_detect"],  #auto_detect, #loggedin_hide,  label[for="loggedin_hide"], [for="loggedin_hide_for_roles"], #loggedin_hide_for_roles, input[name="c4wp_admin_options[pass_on_no_captcha_found]"], input[name="c4wp_admin_options[pass_on_no_captcha_found]"] + label {
+	margin-top: 10px !important;
+	display: inline-block;
+}
+.c4wp-admin-wrapper select:not(#c4wp_admin_options_score) {
+	min-width: 200px;
+}
+tr[class*=" sub-section-"] {
+	display: none;
+}
+tr[class*=" sub-section-"].not-hidden {
+	display: table-row;
+}
+#denied-countries-userfacing, #allowed-countries-userfacing {
+	text-transform: uppercase;
+}
+.sub-section-comment-form-settings, .sub-section-forms-placements {
+	display: none;
+}
+textarea.regular {
+	width: 100%;
+	min-height: 120px;
+}
+#c4wp-not-found-error {
+	color: red;
+	margin-left: 10px;
+}
+#c4wp_admin_options_allowed_countries, #c4wp_admin_options_denied_countries {
+	display: none !important;
+}
+.c4wp-settings-tab-wrapper a:focus {
+    box-shadow: none !important;
+    outline: 1px solid transparent;
+}
+
+.c4wp-wizard-checkbox strong {
+	display: inline-block;
+    min-width: 150px;
+}
+.c4wp-wizard-checkbox span {
+	display: inline-table;
+    margin-left: 10px;
+}
 
