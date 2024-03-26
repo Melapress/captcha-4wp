@@ -409,6 +409,11 @@ jQuery(document).ready(function($) {
 				}
 				jQuery(this).find('strong:first').parent().css('height', height);
 			});
+
+			jQuery('.wrap-around-content-alt').each(function(index, value) {
+				var height = jQuery(this).find('.c4wp-desc:first').height();
+				jQuery( this ).find( 'th:first' ).css( 'height', height );
+			});
 		}, 50);
 
 		if (anrScripts.captcha_version == 'v3') {
@@ -681,7 +686,6 @@ jQuery(document).ready(function($) {
 		}
 		setTimeout(() => {
 			tidySettingsDescs();
-			console.log('1');
 		}, 500);
 	} else {
 		jQuery('.sub-section-general_settings').addClass('not-hidden');

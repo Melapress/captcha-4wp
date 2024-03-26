@@ -8,7 +8,7 @@
  *
  * @wordpress-plugin
  * Plugin Name: CAPTCHA 4WP
- * Version:     7.4.1
+ * Version:     7.5.0.1
  * Plugin URI:  https://melapress.com/wordpress-captcha/
  * Description: Easily add Google reCAPTCHA to WordPress forms. Upgrade to Premium and gain access to additional features, including hCaptcha and CloudFlare Turnstile integration, CAPTCHA one-click form integration with plugins such as WooCommerce, Contact Form 7, and WP Forms, and many other features.
  * Author:      Melapress
@@ -18,7 +18,7 @@
  * License:     GPL v3
  * Requires at least: 5.0
  * WC tested up to: 6.3.0
- * Requires PHP: 7.2
+ * Requires PHP: 7.4
  * Network: true
  *
  *
@@ -83,7 +83,7 @@ class C4WP {
 	 */
 	private function constants() {
 		if ( ! defined( 'C4WP_PLUGIN_VERSION' ) ) {
-			define( 'C4WP_PLUGIN_VERSION', '7.4.1' );
+			define( 'C4WP_PLUGIN_VERSION', '7.5.0.1' );
 		}
 		if ( ! defined( 'C4WP_PLUGIN_DIR' ) ) {
 			define( 'C4WP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
@@ -100,6 +100,7 @@ class C4WP {
 		if ( ! defined( 'C4WP_BASE_NAME' ) ) {
 			define( 'C4WP_BASE_NAME', plugin_basename( __FILE__ ) );
 		}
+
 		register_uninstall_hook( C4WP_PLUGIN_FILE, 'c4wp_uninstall' );
 	}
 
@@ -269,5 +270,4 @@ if ( ! function_exists( 'c4wp_free_on_plugin_activation' ) ) {
 		}
 	}
 }
-
 register_activation_hook( __FILE__, 'c4wp_free_on_plugin_activation' );
