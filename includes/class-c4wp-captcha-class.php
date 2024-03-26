@@ -473,7 +473,7 @@ if ( ! class_exists( 'C4WP_Captcha_Class' ) ) {
 			$verify = C4WP_Method_Loader::method_verify( C4WP_Method_Loader::get_currently_selected_method( true, false ), $response, $is_fallback_challenge );
 
 			if ( class_exists( 'C4WP\\Geo_Blocking' ) ) {
-				$fails_additional_verify = apply_filters( 'c4wp_post_method_verify', true, $verify, Geo_Blocking::sanitize_incoming_ip( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) );
+				$fails_additional_verify = apply_filters( 'c4wp_post_method_verify', false, $verify, Geo_Blocking::sanitize_incoming_ip( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) );
 
 				if ( $fails_additional_verify ) {
 					return false;
