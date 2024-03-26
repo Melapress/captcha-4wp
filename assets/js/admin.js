@@ -1294,6 +1294,7 @@ jQuery(function() {
 		jQuery('#comment_rule_countries_input').val('');
 	});
 
+
 	jQuery('body').on('click', 'a#add-comment_allowed-countries', function(e) {
 		e.preventDefault();
 		var newIP = jQuery('#comment_allowed_countries_input').val().toUpperCase();
