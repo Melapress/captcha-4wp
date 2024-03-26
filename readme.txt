@@ -184,4 +184,3 @@ Version 7.5.0 (2024-03-19) introduces several enhancements and new features to i
 * **Bug fixes**
 	* Fixed fatal error related to a non-static method when using a custom login form.
 	* Fixed PHP warning when updating the plugin due to and SDK location update.
-
