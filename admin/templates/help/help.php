@@ -5,6 +5,8 @@
  * @package C4WP
  */
 
+declare(strict_types=1);
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -19,7 +21,7 @@ $settings_admin_url = ( function_exists( 'c4wp_same_settings_for_all_sites' ) ) 
 	<div class="title">
 		<h2 style="margin-top: 15px; padding-left: 0;"><?php esc_html_e( 'Getting Started', 'advanced-nocaptcha-recaptcha' ); ?></h2>
 	</div>
-	<p><?php esc_html_e( 'Adding CAPTCHA checks on your website with CAPTCHA 4WP is really easy. All you need to do is:', 'c4wp-wpp' ); ?></p>
+	<p><?php esc_html_e( 'Adding CAPTCHA checks on your website with CAPTCHA 4WP is really easy. All you need to do is:', 'advanced-nocaptcha-recaptcha' ); ?></p>
 	<ol>
 		<li><?php echo wp_sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_url( 'https://www.google.com/recaptcha/admin#list' ), esc_html__( 'Configure the CAPTCHA & Get the API keys', 'advanced-nocaptcha-recaptcha' ) ); ?></li>
 		<li><?php echo wp_sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_url( $admin_url ), esc_html__( 'Configure the CAPTCHA and add specify the keys in the plugin', 'advanced-nocaptcha-recaptcha' ) ); ?></li>

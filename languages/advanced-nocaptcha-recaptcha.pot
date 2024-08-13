@@ -16,1060 +16,1310 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: admin/class-c4wp-settings.php:91
+#: admin/class-c4wp-settings.php:234
 msgid "Important:"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:92
+#: admin/class-c4wp-settings.php:235
 msgid "To reconfigure the failover now, once you are redirected to the plugin's configuration page click"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:93, admin/class-c4wp-settings.php:1627
+#: admin/class-c4wp-settings.php:236, admin/class-c4wp-settings.php:1793
 msgid "Reconfigure CAPTCHA integration"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:94
+#: admin/class-c4wp-settings.php:237
 msgid "and click"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:95, admin/class-c4wp-settings.php:1512, admin/class-c4wp-settings.php:1530, admin/class-c4wp-settings.php:1551, admin/class-c4wp-settings.php:1575, admin/class-c4wp-settings.php:1586
+#: admin/class-c4wp-settings.php:238, admin/class-c4wp-settings.php:1679, admin/class-c4wp-settings.php:1697, admin/class-c4wp-settings.php:1718, admin/class-c4wp-settings.php:1742, admin/class-c4wp-settings.php:1753
 msgid "Next"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:96
+#: admin/class-c4wp-settings.php:239
 msgid "in the wizard until you get to the failover settings."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:100
+#: admin/class-c4wp-settings.php:243
 msgid "In the latest version of CAPTCHA 4WP you can configure a failover action for your CAPTCHA check. This means that you can configure the plugin to show a CAPTCHA checkbox or redirect the user when the current v3 reCAPTCHA check fails. Use the buttons below to configure the failover or close this admin notice."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:102
+#: admin/class-c4wp-settings.php:245
 msgid "Configure failover action now"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:102, admin/class-c4wp-settings.php:1183
+#: admin/class-c4wp-settings.php:245, admin/class-c4wp-settings.php:1325
 msgid "I'll configure it later"
 msgstr ""
 
 #. translators: link to the settings page with text "Settings page"
-#: admin/class-c4wp-settings.php:175
+#: admin/class-c4wp-settings.php:325
 msgid "Use the CAPTCHA configuration wizard to configure CAPTCHA service integration with your website. Once you set up the integration, navigate to the %s page to configure where CAPTCHA should be added on your website, whitelist IP addresses, and other settings."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:176
+#: admin/class-c4wp-settings.php:326
 msgid "Settings & placements"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:194
-msgid "In this page you can configure where on your website you want to add the CAPTCHA check."
+#: admin/class-c4wp-settings.php:345
+msgid "In this page you can configure where on your website you want to add the CAPTCHA check as well as which forms you wish to enable location rules on."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:220
+#: admin/class-c4wp-settings.php:369
 msgid "In this page you can configure several settings, such as whitelisting IP addresses, excluding logged in users from CAPTCHA checks and more."
 msgstr ""
 
 #. translators: expression "very restrictive" in bold
-#: admin/class-c4wp-settings.php:255
+#: admin/class-c4wp-settings.php:415
 msgid "Any value above 0.5 is %s."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:256
+#: admin/class-c4wp-settings.php:416
 msgid "very restrictive"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:258
+#: admin/class-c4wp-settings.php:418
 msgid "This means that you might end up locked out from your website. Therefore test this on a staging website website beforehand."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:262
+#: admin/class-c4wp-settings.php:422
 msgid "You can add a CAPTCHA check to the below list of pages on WordPress."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:263
+#: admin/class-c4wp-settings.php:423
 msgid "Use the setting below to select the language of the text used in the CAPTCHA text."
 msgstr ""
 
 #. translators:link to upgrade page
-#: admin/class-c4wp-settings.php:268
+#: admin/class-c4wp-settings.php:428
 msgid "To add CAPTCHA checks to WooCommerce, Contact Form 7, BuddyPress and other forms created by third party plugins you need to %s"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:269
+#: admin/class-c4wp-settings.php:429
 msgid "upgrade to Premium"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:271
+#: admin/class-c4wp-settings.php:431
 msgid " In the Premium edition you can configure the plugin to automatically detect the language settings of the visitor's and use that language."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:274
+#: admin/class-c4wp-settings.php:434
 msgid "Comments form"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:277
+#: admin/class-c4wp-settings.php:437
+msgid "(Includes WooCommerce Reviews)"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:441
 msgid "(Incompatible with Jetpack comments)"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:282
-msgid ""
-"When a comment contains any of these words in its content, author name, URL, email, IP address, or browser’s user agent string, it will be put in the Trash. One word or IP address per line. It will match inside words, so “press” will match “WordPress”.\n"
-"\n"
-"		"
-msgstr ""
-
-#. translators:link to upgrade page
-#: admin/class-c4wp-settings.php:287
-msgid "This setting and more can be adjusted in your %s"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:288
-msgid "Discussion settings"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:297
+#: admin/class-c4wp-settings.php:452
 msgid "Step 1: Select the type of CAPTCHA you want to use on your website."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:302
+#: admin/class-c4wp-settings.php:457
 msgid "reCAPTCHA version"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:308
+#: admin/class-c4wp-settings.php:463
 msgid "Google reCAPTCHA Version 2 (Users have to check the \"I’m not a robot” checkbox)"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:309
+#: admin/class-c4wp-settings.php:464
 msgid "Google reCAPTCHA 2 (No user interaction needed, however, if traffic is suspicious, users are asked to solve a CAPTCHA)"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:310
+#: admin/class-c4wp-settings.php:465
 msgid "Google reCAPTCHA 3 (verify request with a score without user interaction)"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:318
+#: admin/class-c4wp-settings.php:473
 msgid "Step 2: Specify the Site & Secret keys"
 msgstr ""
 
 #. translators:link to help page
-#: admin/class-c4wp-settings.php:329
+#: admin/class-c4wp-settings.php:484
 msgid "To utilize the Google reCAPTCHA service on your website you need to get a Site and Secret key. If you do not have these keys yet, you can option them for free by registering to the Google reCAPTCHA service. Refer to the document %s for a step by step explanation of how to get these keys."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:330, admin/class-c4wp-settings.php:1142, admin/class-c4wp-settings.php:1147
+#: admin/class-c4wp-settings.php:485, admin/class-c4wp-settings.php:1276, admin/class-c4wp-settings.php:1281
 msgid "how to get the Google reCAPTCHA keys"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:336
+#: admin/class-c4wp-settings.php:491
 msgid "Site Key"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:342
+#: admin/class-c4wp-settings.php:497
 msgid "Secret Key"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:350, admin/class-c4wp-settings.php:619
+#: admin/class-c4wp-settings.php:505, admin/class-c4wp-settings.php:761
 msgid "Key Validation"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:351
+#: admin/class-c4wp-settings.php:506
 msgid "Once you enter the correct Site key above, the CAPTCHA method you want to use on your website will appear below. If the key is incorrect you will instead see an error. If you see an error make sure the CAPTCHA version, website domain and the Site keys match. Before the plugin verifies your secret key, it needs a response to send to your CAPTCHA provider. If needed, please interact with/complete the CAPTCHA challenge below if presented to you to proceed."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:359
+#: admin/class-c4wp-settings.php:514
 msgid "Optional settings: Fine-tune CAPTCHA to your requirements"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:369
+#: admin/class-c4wp-settings.php:524
 msgid "Use the below settings to configure and fine-tune CAPTCHA to your requirements. All the below settings are optional and with them you can configure different aspects of the CAPTCHA checks on your website, such as look and feel and also sensitivy."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:375
+#: admin/class-c4wp-settings.php:530
 msgid "Captcha Score"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:381
+#: admin/class-c4wp-settings.php:536
 msgid "Use this setting to specify sensitivity of the CAPTCHA check. The closer to 1 the more sensitive the CAPTCHA check will be, which also means more traffic will be marked as spam. This option is only available for reCAPTCHA v3."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:384
+#: admin/class-c4wp-settings.php:539
 msgid "Load ReCAPTCHA v3 scripts on:"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:390
+#: admin/class-c4wp-settings.php:545
 msgid "All Pages"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:391
+#: admin/class-c4wp-settings.php:546
 msgid "Form Pages"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:394
+#. translators: %s: link to article.
+#: admin/class-c4wp-settings.php:550
 msgid "By default, the ReCAPTCHA service can only assess user behavior via the scripts loaded on the form pages. However, when using V3, you can configure it to load on all pages. This allows ReCAPTCHA to get a better context of the traffic so that it can better determine what is spam and what is not. When ReCAPTCHA V3 is configured to load on all pages, it will never prompt or otherwise interrupt users on non-form pages. Note that the ReCAPTCHA V3 check still needs to be included in the form(s). Refer to the %1$s for more information on how to add CAPTCHA checks to your forms."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:396, admin/class-c4wp-settings.php:1501
+#: admin/class-c4wp-settings.php:552, admin/class-c4wp-settings.php:1668
 msgid "CAPTCHA 4WP knowledge base"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:414
+#: admin/class-c4wp-settings.php:557
 msgid "CAPTCHA language"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:420
+#: admin/class-c4wp-settings.php:563
 msgid "Select a language"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:431, admin/class-c4wp-settings.php:487
+#: admin/class-c4wp-settings.php:574, admin/class-c4wp-settings.php:629
 msgid "Arabic"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:432
+#: admin/class-c4wp-settings.php:575
 msgid "Bulgarian"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:433
+#: admin/class-c4wp-settings.php:576
 msgid "Catalan"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:434, admin/class-c4wp-settings.php:507
+#: admin/class-c4wp-settings.php:577, admin/class-c4wp-settings.php:649
 msgid "Chinese (Simplified)"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:435, admin/class-c4wp-settings.php:508
-msgid "Chinese (Traditional)"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:436
+#: admin/class-c4wp-settings.php:578
 msgid "Croatian"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:437
+#: admin/class-c4wp-settings.php:579
 msgid "Czech"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:438
+#: admin/class-c4wp-settings.php:580
 msgid "Danish"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:439, admin/class-c4wp-settings.php:497
+#: admin/class-c4wp-settings.php:581, admin/class-c4wp-settings.php:639
 msgid "Dutch"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:440
+#: admin/class-c4wp-settings.php:582
 msgid "English (UK)"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:441, admin/class-c4wp-settings.php:489
+#: admin/class-c4wp-settings.php:583, admin/class-c4wp-settings.php:631
 msgid "English (US)"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:442
+#: admin/class-c4wp-settings.php:584
 msgid "Filipino"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:443
+#: admin/class-c4wp-settings.php:585
 msgid "Finnish"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:444, admin/class-c4wp-settings.php:492
+#: admin/class-c4wp-settings.php:586, admin/class-c4wp-settings.php:634
 msgid "French"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:445
+#: admin/class-c4wp-settings.php:587
 msgid "French (Canadian)"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:446, admin/class-c4wp-settings.php:488
+#: admin/class-c4wp-settings.php:588, admin/class-c4wp-settings.php:630
 msgid "German"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:447
+#: admin/class-c4wp-settings.php:589
 msgid "German (Austria)"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:448
+#: admin/class-c4wp-settings.php:590
 msgid "German (Switzerland)"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:449
+#: admin/class-c4wp-settings.php:591
 msgid "Greek"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:450
+#: admin/class-c4wp-settings.php:592
 msgid "Hebrew"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:451
+#: admin/class-c4wp-settings.php:593
 msgid "Hindi"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:452
+#: admin/class-c4wp-settings.php:594
 msgid "Hungarain"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:453, admin/class-c4wp-settings.php:493
+#: admin/class-c4wp-settings.php:595, admin/class-c4wp-settings.php:635
 msgid "Indonesian"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:454, admin/class-c4wp-settings.php:494
+#: admin/class-c4wp-settings.php:596, admin/class-c4wp-settings.php:636
 msgid "Italian"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:455, admin/class-c4wp-settings.php:495
+#: admin/class-c4wp-settings.php:597, admin/class-c4wp-settings.php:637
 msgid "Japanese"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:456, admin/class-c4wp-settings.php:496
+#: admin/class-c4wp-settings.php:598, admin/class-c4wp-settings.php:638
 msgid "Korean"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:457
+#: admin/class-c4wp-settings.php:599
 msgid "Latvian"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:458
+#: admin/class-c4wp-settings.php:600
 msgid "Lithuanian"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:459
+#: admin/class-c4wp-settings.php:601
 msgid "Norwegian"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:460, admin/class-c4wp-settings.php:491
+#: admin/class-c4wp-settings.php:602, admin/class-c4wp-settings.php:633
 msgid "Persian"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:461, admin/class-c4wp-settings.php:498
+#: admin/class-c4wp-settings.php:603, admin/class-c4wp-settings.php:640
 msgid "Polish"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:462, admin/class-c4wp-settings.php:499
+#: admin/class-c4wp-settings.php:604, admin/class-c4wp-settings.php:641
 msgid "Portuguese"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:463, admin/class-c4wp-settings.php:500
+#: admin/class-c4wp-settings.php:605, admin/class-c4wp-settings.php:642
 msgid "Portuguese (Brazil)"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:464
+#: admin/class-c4wp-settings.php:606
 msgid "Portuguese (Portugal)"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:465
+#: admin/class-c4wp-settings.php:607
 msgid "Romanian"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:466, admin/class-c4wp-settings.php:501
+#: admin/class-c4wp-settings.php:608, admin/class-c4wp-settings.php:643
 msgid "Russian"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:467
+#: admin/class-c4wp-settings.php:609
 msgid "Serbian"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:468
+#: admin/class-c4wp-settings.php:610
 msgid "Slovak"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:469
+#: admin/class-c4wp-settings.php:611
 msgid "Slovenian"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:470, admin/class-c4wp-settings.php:490
+#: admin/class-c4wp-settings.php:612, admin/class-c4wp-settings.php:632
 msgid "Spanish"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:471
+#: admin/class-c4wp-settings.php:613
 msgid "Spanish (Latin America)"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:472
+#: admin/class-c4wp-settings.php:614
 msgid "Swedish"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:473
+#: admin/class-c4wp-settings.php:615
 msgid "Thai"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:474, admin/class-c4wp-settings.php:503
+#: admin/class-c4wp-settings.php:616, admin/class-c4wp-settings.php:645
 msgid "Turkish"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:475, admin/class-c4wp-settings.php:504
+#: admin/class-c4wp-settings.php:617, admin/class-c4wp-settings.php:646
 msgid "Ukrainian"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:476
+#: admin/class-c4wp-settings.php:618
 msgid "Vietnamese"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:486
+#: admin/class-c4wp-settings.php:628
 msgid "Arabic (Egypt)"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:502
+#: admin/class-c4wp-settings.php:644
 msgid "Klingon"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:505
+#: admin/class-c4wp-settings.php:647
 msgid "Ukrainian (Ukraine)"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:506
+#: admin/class-c4wp-settings.php:648
 msgid "Chinese"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:512
-msgid "Error message"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:514
-msgid "Please solve the CAPTCHA to proceed"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:515
-msgid "Specify the message you want to show users who do not complete the CAPTCHA."
-msgstr ""
-
-#: admin/class-c4wp-settings.php:518
-msgid "Theme"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:524
-msgid "Light"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:525
-msgid "Dark"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:529
-msgid "Size"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:535
-msgid "Normal"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:536
-msgid "Compact"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:540, admin/class-c4wp-settings.php:553
-msgid "Badge"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:546, admin/class-c4wp-settings.php:559
-msgid "Bottom Right"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:547, admin/class-c4wp-settings.php:560
-msgid "Bottom Left"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:548
-msgid "Inline"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:550
-msgid "Badge shows for invisible captcha"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:562
-msgid "Badge shows for invisible captcha v3"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:565
-msgid "reCAPTCHA domain"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:575
-msgid "Use this setting to change the domain if Google is not accessible or blocked."
-msgstr ""
-
-#: admin/class-c4wp-settings.php:578
-msgid "Remove CSS"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:582
-msgid "Remove this plugin's css from login page?"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:583
-msgid "This css increase login page width to adjust with Captcha width."
-msgstr ""
-
-#: admin/class-c4wp-settings.php:587
-msgid "v3 failover action:"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:593
-msgid "Show a v2 CAPTCHA checkbox"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:594
-msgid "Redirect the website visitor to a URL"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:595
-msgid "Take no action"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:599
-msgid "Redirect URL"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:605
-msgid "v2 Site key:"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:611
-msgid "v2 Secret key:"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:620
-msgid "Once you enter the correct Site and Secret keys above, the CAPTCHA method you want to use on your website will appear below. If the keys are incorrect you will instead see an error. If you see an error make sure the CAPTCHA version, website domain and both keys match."
-msgstr ""
-
-#: admin/class-c4wp-settings.php:631
-msgid "Select where on your website you want to add the CAPTCHA check"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:645
-msgid "WordPress pages"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:651
-msgid "Login form"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:652
-msgid "Registration form"
-msgstr ""
-
-#: admin/class-c4wp-settings.php:653
-msgid "Reset password form"
+#: admin/class-c4wp-settings.php:650
+msgid "Chinese (Traditional)"
 msgstr ""
 
 #: admin/class-c4wp-settings.php:654
-msgid "Lost password form"
+msgid "Error message"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:664
-msgid "Further protection of your comments form"
+#: admin/class-c4wp-settings.php:656
+msgid "Please solve the CAPTCHA to proceed"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:657
+msgid "Specify the message you want to show users who do not complete the CAPTCHA."
+msgstr ""
+
+#: admin/class-c4wp-settings.php:660
+msgid "Theme"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:666
+msgid "Light"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:667
+msgid "Dark"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:671
+msgid "Size"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:677
+msgid "Normal"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:678
+msgid "Compact"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:682, admin/class-c4wp-settings.php:695
+msgid "Badge"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:688, admin/class-c4wp-settings.php:701
+msgid "Bottom Right"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:689, admin/class-c4wp-settings.php:702
+msgid "Bottom Left"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:690
+msgid "Inline"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:692
+msgid "Badge shows for invisible captcha"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:704
+msgid "Badge shows for invisible captcha v3"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:707
+msgid "reCAPTCHA domain"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:717
+msgid "Use this setting to change the domain if Google is not accessible or blocked."
 msgstr ""
 
 #: admin/class-c4wp-settings.php:720
-msgid "Multisite pages"
+msgid "Remove CSS"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:726
-msgid "Multisite Signup form"
+#: admin/class-c4wp-settings.php:724
+msgid "Remove this plugin's css from login page?"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:742, admin/class-c4wp-settings.php:1323
-msgid "Upgrade to Premium"
+#: admin/class-c4wp-settings.php:725
+msgid "This css increase login page width to adjust with Captcha width."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:743
-msgid "Find out more"
+#: admin/class-c4wp-settings.php:729
+msgid "v3 failover action:"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:746
-msgid "Checkout and login pages on WooCommerce stores"
+#: admin/class-c4wp-settings.php:735
+msgid "Show a v2 CAPTCHA checkbox"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:736
+msgid "Redirect the website visitor to a URL"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:737
+msgid "Take no action"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:741
+msgid "Redirect URL"
 msgstr ""
 
 #: admin/class-c4wp-settings.php:747
+msgid "v2 Site key:"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:753
+msgid "v2 Secret key:"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:762
+msgid "Once you enter the correct Site and Secret keys above, the CAPTCHA method you want to use on your website will appear below. If the keys are incorrect you will instead see an error. If you see an error make sure the CAPTCHA version, website domain and both keys match."
+msgstr ""
+
+#: admin/class-c4wp-settings.php:773
+msgid "Select where on your website you want to add the CAPTCHA check"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:787
+msgid "WordPress pages"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:793
+msgid "Login form"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:794
+msgid "Registration form"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:795
+msgid "Reset password form"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:796
+msgid "Lost password form"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:830
+msgid "Multisite pages"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:836
+msgid "Multisite Signup form"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:852, admin/class-c4wp-settings.php:1473, admin/templates/upgrade/index.php:23, admin/templates/upgrade/index.php:328
+msgid "Upgrade to Premium"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:853
+msgid "Find out more"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:856
+msgid "Checkout and login pages on WooCommerce stores"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:857
 msgid "Contact Form 7, Gravity Forms, WPForms, MailChimp 4 WordPress forms"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:748
+#: admin/class-c4wp-settings.php:858
 msgid "BuddyPress and bbPress"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:749
+#: admin/class-c4wp-settings.php:859
 msgid "And others"
 msgstr ""
 
 #. translators:field type
-#: admin/class-c4wp-settings.php:938
+#: admin/class-c4wp-settings.php:1049
 msgid "No hook defined for %s"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1043, admin/class-c4wp-settings.php:1044, admin/class-c4wp-settings.php:1044, admin/class-c4wp-settings.php:1067, admin/class-c4wp-settings.php:1068, admin/class-c4wp-settings.php:1068, admin/class-c4wp-settings.php:1181
+#: admin/class-c4wp-settings.php:1155, admin/class-c4wp-settings.php:1156, admin/class-c4wp-settings.php:1156, admin/class-c4wp-settings.php:1201, admin/class-c4wp-settings.php:1202, admin/class-c4wp-settings.php:1202, admin/class-c4wp-settings.php:1323
 msgid "CAPTCHA Configuration"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1043, admin/class-c4wp-settings.php:1067
+#: admin/class-c4wp-settings.php:1155, admin/class-c4wp-settings.php:1201
 msgid "CAPTCHA 4WP"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1045, admin/class-c4wp-settings.php:1069
+#: admin/class-c4wp-settings.php:1157, admin/class-c4wp-settings.php:1203
 msgid "CAPTCHA 4WP Forms"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1045, admin/class-c4wp-settings.php:1069
+#: admin/class-c4wp-settings.php:1157, admin/class-c4wp-settings.php:1203
 msgid "Form Placements"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1046, admin/class-c4wp-settings.php:1070
+#: admin/class-c4wp-settings.php:1158, admin/class-c4wp-settings.php:1204
 msgid "CAPTCHA 4WP Settings"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1046, admin/class-c4wp-settings.php:1070, admin/class-c4wp-settings.php:1382
+#: admin/class-c4wp-settings.php:1158, admin/class-c4wp-settings.php:1204, admin/class-c4wp-settings.php:1534
 msgid "Settings"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1047, admin/class-c4wp-settings.php:1047, admin/class-c4wp-settings.php:1071, admin/class-c4wp-settings.php:1071
+#: admin/class-c4wp-settings.php:1159, admin/class-c4wp-settings.php:1159, admin/class-c4wp-settings.php:1205, admin/class-c4wp-settings.php:1205
 msgid "Help & Contact Us"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1050, admin/class-c4wp-settings.php:1050, admin/class-c4wp-settings.php:1074, admin/class-c4wp-settings.php:1074
+#: admin/class-c4wp-settings.php:1162, admin/class-c4wp-settings.php:1162, admin/class-c4wp-settings.php:1208, admin/class-c4wp-settings.php:1208
 msgid "Premium Features ➤"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1133
+#: admin/class-c4wp-settings.php:1172, admin/class-c4wp-settings.php:1172
+msgid "Country Blocking Configuration"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:1267
 msgid "Please supply a valid IP"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1134
+#: admin/class-c4wp-settings.php:1268
 msgid "To switch the CAPTCHA method you need to replace the current Site and Secret keys. Do you want to proceed?"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1135
+#: admin/class-c4wp-settings.php:1269
 msgid "Confirm change of CAPTCHA integration"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1136
+#: admin/class-c4wp-settings.php:1270
 msgid "Confirm removal of CAPTCHA integration"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1137
+#: admin/class-c4wp-settings.php:1271
 msgid "This will remove the current CAPTCHA integration, which means all the CAPTCHA checks on your website will stop working. Would you like to proceed?"
 msgstr ""
 
 #. translators:link to help page
 #. translators:link to help page
-#: admin/class-c4wp-settings.php:1141, admin/class-c4wp-settings.php:1146
+#: admin/class-c4wp-settings.php:1275, admin/class-c4wp-settings.php:1280
 msgid "To utilize the Google reCAPTCHA service on your website you need to get a Site and Secret key. If you do not have these keys yet, you can get them for free by registering to the Google reCAPTCHA service. Refer to the document %s for a step by step explanation of how to get these keys."
 msgstr ""
 
 #. translators:link to help page
-#: admin/class-c4wp-settings.php:1151
+#: admin/class-c4wp-settings.php:1285
 msgid "To utilize the hCaptcha service on your website you need to get a Site and Secret key. If you do not have these keys yet, you can get them for free by registering to the hCaptcha service. Refer to the document %s for a step by step explanation of how to get these keys."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1152
+#: admin/class-c4wp-settings.php:1286
 msgid "how to get the hCaptcha keys"
 msgstr ""
 
 #. translators:link to help page
-#: admin/class-c4wp-settings.php:1156
+#: admin/class-c4wp-settings.php:1290
 msgid "To utilize the Cloudflare Turnstile service on your website you need to get a Site and Secret key. If you do not have these keys yet, you can get them for free by registering to the Cloudflare Turnstile service. Refer to the document %s for a step by step explanation of how to get these keys."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1157
+#: admin/class-c4wp-settings.php:1291
 msgid "how to get the Cloudflare Turnstile keys"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1182
+#: admin/class-c4wp-settings.php:1324
 msgid "Configure it now"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1200
+#: admin/class-c4wp-settings.php:1346
 msgid "CAPTCHA Placements"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1198
+#: admin/class-c4wp-settings.php:1344
 msgid "CAPTCHA Settings"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1196
+#: admin/class-c4wp-settings.php:1342
+msgid "Country blocking configuration"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:1340
 msgid "CAPTCHA integration & configuration"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1275
+#: admin/class-c4wp-settings.php:1356
+msgid "Confimation"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:1357
+msgid "Are you sure to execute this action?"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:1423
 msgid "The site key that you have entered is invalid. Please try again."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1278
+#: admin/class-c4wp-settings.php:1426
 msgid "The secret key that you have entered is invalid. Please try again."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1281
+#: admin/class-c4wp-settings.php:1429
 msgid "CAPTCHA settings"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1283
+#: admin/class-c4wp-settings.php:1433
 msgid "CAPTCHA configuration"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1285
+#: admin/class-c4wp-settings.php:1435
 msgid " updated"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1307
+#: admin/class-c4wp-settings.php:1457
 msgid "Upgrade to Premium and benefit from the below features:"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1312
+#: admin/class-c4wp-settings.php:1462
 msgid "Add CAPTCHA antispam checks also from hCaptcha and Cloudflare Turnstile."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1313
+#: admin/class-c4wp-settings.php:1463, admin/templates/upgrade/index.php:169
 msgid "Use the language that your website viewers understand"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1314
+#: admin/class-c4wp-settings.php:1464, admin/templates/upgrade/index.php:180
 msgid "Spam protection for your WooCommerce stores"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1315
+#: admin/class-c4wp-settings.php:1465, admin/templates/upgrade/index.php:191
 msgid "Specify where to put the CAPTCHA test on WooCommerce checkout page"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1316
+#: admin/class-c4wp-settings.php:1466
 msgid "One-click spam protection for forms built with Contact Form 7, Gravity Forms, WPForms & MailChimp for WordPress"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1317
+#: admin/class-c4wp-settings.php:1467
 msgid "CAPTCHA tests & spam protection for BuddyPress, bbPress & other third party plugins"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1318
+#: admin/class-c4wp-settings.php:1468, admin/templates/upgrade/index.php:260
 msgid "Add CAPTCHA to any type of form, even PHP forms"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1319
+#: admin/class-c4wp-settings.php:1469
 msgid "Boost login security, add CAPTCHA tests only failed logins"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1320
+#: admin/class-c4wp-settings.php:1470
 msgid "Exempt logged in users, IP addresses and specific URLs from CAPTCHA checks."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1321
+#: admin/class-c4wp-settings.php:1471, admin/templates/upgrade/index.php:314
 msgid "No Ads!"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1441, admin/class-c4wp-settings.php:1685, includes/class-c4wp-captcha-class.php:141, includes/class-c4wp-captcha-class.php:166
+#: admin/class-c4wp-settings.php:1593, admin/class-c4wp-settings.php:1849, includes/class-c4wp-captcha-class.php:232, includes/class-c4wp-captcha-class.php:262, includes/class-plugin-update-notice.php:131
 msgid "Nonce Verification Failed."
 msgstr ""
 
 #. translators:knowlegdebase link
-#: admin/class-c4wp-settings.php:1499
+#: admin/class-c4wp-settings.php:1666
 msgid "Please refer to the %1$s for more information on how to add CAPTCHA checks from our plugin on forms created with Contact Form 7, Gravity Forms, Ninja Forms, Everest Forms, Formidable Forms and more."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1509
+#: admin/class-c4wp-settings.php:1676
 msgid "Getting started with the CAPTCHA 4WP plugin"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1510
+#: admin/class-c4wp-settings.php:1677
 msgid "Thank you for installing the CAPTCHA 4WP plugin. This wizard will help you get started with the plugin so you can configure CAPTCHA and protect your website from spam, and fake registrations and orders."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1513, admin/class-c4wp-settings.php:1531, admin/class-c4wp-settings.php:1554, admin/class-c4wp-settings.php:1577, admin/class-c4wp-settings.php:1587
+#: admin/class-c4wp-settings.php:1680, admin/class-c4wp-settings.php:1698, admin/class-c4wp-settings.php:1721, admin/class-c4wp-settings.php:1744, admin/class-c4wp-settings.php:1754
 msgid "Cancel"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1516, admin/class-c4wp-settings.php:1542, admin/class-c4wp-settings.php:1552, admin/class-c4wp-settings.php:1576
+#: admin/class-c4wp-settings.php:1683, admin/class-c4wp-settings.php:1709, admin/class-c4wp-settings.php:1719, admin/class-c4wp-settings.php:1743
 msgid "Back"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1541
+#: admin/class-c4wp-settings.php:1708
 msgid "Proceed to secret key"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1545
+#: admin/class-c4wp-settings.php:1712
 msgid "Step 3 - Validation and saving"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1546
+#: admin/class-c4wp-settings.php:1713
 msgid "Using the response from your CAPTCHA input, we can validate your security key"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1550
+#: admin/class-c4wp-settings.php:1717
 msgid "Validate & proceed"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1553
+#: admin/class-c4wp-settings.php:1720
 msgid "Proceed"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1561
+#: admin/class-c4wp-settings.php:1728
 msgid "Step 4: Configure a failover action for reCAPTCHA v3 failure"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1562
+#: admin/class-c4wp-settings.php:1729
 msgid "reCAPTCHA v3 is fully automated. This means that by default, if the CAPTCHA check fails the website visitor cannot proceed with what they are doing unless you configure a failover action. Use the below setting to configure the failover action."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1565
+#: admin/class-c4wp-settings.php:1732
 msgid "Please specify the full URL, including the protocol (HTTP or HTTPS) where you would like the user to be redirected to. For example: "
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1566
+#: admin/class-c4wp-settings.php:1733
 msgid "To show the v2 reCAPTCHA checkbox you need to specify the Site and Secret keys. Please specify them below:"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1581
+#: admin/class-c4wp-settings.php:1748
 msgid "Choose which forms to protect"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1582
+#: admin/class-c4wp-settings.php:1749
 msgid "Here you can choose which forms to begin protected with your chosen CAPTCHA method."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1591
+#: admin/class-c4wp-settings.php:1758
 msgid "All done - you can now add CAPTCHA checks to your website"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1592
+#: admin/class-c4wp-settings.php:1759
 msgid "Now that your chosen CAPTCHA service is fully integrated you can use the optional settings to fine-tune CAPTCHA to your requirements."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1595
+#: admin/class-c4wp-settings.php:1762
 msgid "Finish"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1616
+#: admin/class-c4wp-settings.php:1782
 msgid "V2 Checkbox"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1617
+#: admin/class-c4wp-settings.php:1783
 msgid "V2 Invisible CAPTCHA"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1618
+#: admin/class-c4wp-settings.php:1784
 msgid "V3 Invisible CAPTCHA"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1619
+#: admin/class-c4wp-settings.php:1785
 msgid "hCaptcha"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1620
+#: admin/class-c4wp-settings.php:1786
 msgid "Cloudflare Turnstile"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1664
+#: admin/class-c4wp-settings.php:1829
 msgid "Configure Google reCAPTCHA integration"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1660
+#: admin/class-c4wp-settings.php:1825
 msgid "Configure CAPTCHA integration"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1627
+#: admin/class-c4wp-settings.php:1793
 msgid "Remove CAPTCHA integration"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1637
+#: admin/class-c4wp-settings.php:1803
 msgid "CAPTCHA version:"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1638, admin/class-c4wp-settings.php:1643
+#: admin/class-c4wp-settings.php:1804, admin/class-c4wp-settings.php:1809
 msgid "Site key:"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1639, admin/class-c4wp-settings.php:1644
+#: admin/class-c4wp-settings.php:1805, admin/class-c4wp-settings.php:1810
 msgid "Secret key:"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1646, admin/class-c4wp-settings.php:1642
+#: admin/class-c4wp-settings.php:1812, admin/class-c4wp-settings.php:1808
 msgid "Failover action:"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1646
+#: admin/class-c4wp-settings.php:1812
 msgid "Redirect to a URL"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1647
+#: admin/class-c4wp-settings.php:1813
 msgid "Failover redirect URL:"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1642
+#: admin/class-c4wp-settings.php:1808
 msgid "v2 checkbox"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1708
-msgid "Override validation response."
+#: admin/class-c4wp-settings.php:1873
+msgid "Override validation response"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1714
+#: admin/class-c4wp-settings.php:1879
 msgid "Do no override"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1715
+#: admin/class-c4wp-settings.php:1880
 msgid "Return false (failure)"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1716
+#: admin/class-c4wp-settings.php:1881
 msgid "Return true (pass)"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1743
+#: admin/class-c4wp-settings.php:1968
+msgid "Force submission locale (testing):"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:1996
 msgid "Disable submit button untill CAPTCHA response is provided?"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1753
+#: admin/class-c4wp-settings.php:2006
 msgid "When using a visible CAPTCHA method that requires users' interaction, should the plugin disable the submit button until the CAPTCHA challenge is completed?"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1757
+#: admin/class-c4wp-settings.php:2010
 msgid "Disable submit button"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1771
+#: admin/class-c4wp-settings.php:2024
 msgid "Should CAPTCHA 4WP pass or fail a submission if no CAPTCHA field is found?"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1781
+#: admin/class-c4wp-settings.php:2034
 msgid "If a form is passed through our plugin for verification and no CAPTCHA field is present, you can choose to either allow the submission or return a failure."
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1785
+#: admin/class-c4wp-settings.php:2038
 msgid "How to handle failed submissions"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1792
+#: admin/class-c4wp-settings.php:2045
 msgid "Proceed with submission"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1793
+#: admin/class-c4wp-settings.php:2046
 msgid "Fail submission"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1803
+#: admin/class-c4wp-settings.php:2057
+msgid "Load scripts inline or via file?"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:2067
+msgid "By default the plugin loads its JS inline within wp_footer, would you like to switch to loading via a JS file instead? In can lead to increased performance in many instances."
+msgstr ""
+
+#: admin/class-c4wp-settings.php:2071
+msgid "Script loading method"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:2078
+msgid "Load inline"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:2079
+msgid "Load file"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:2083
+msgid "File loading method"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:2090
+msgid "Footer"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:2091
+msgid "Header"
+msgstr ""
+
+#: admin/class-c4wp-settings.php:2102
 msgid "Do you want delete all plugin data when uninstalling the plugin?"
 msgstr ""
 
-#: admin/class-c4wp-settings.php:1807
+#: admin/class-c4wp-settings.php:2106
 msgid "Delete data"
 msgstr ""
 
-#: includes/class-c4wp-captcha-class.php:333
+#: includes/class-c4wp-captcha-class.php:427
 msgid "Please solve Captcha correctly"
 msgstr ""
 
-#: includes/class-c4wp-captcha-class.php:335
+#: includes/class-c4wp-captcha-class.php:429
 msgid "ERROR"
 msgstr ""
 
-#: includes/class-c4wp-functions.php:59
+#: includes/class-c4wp-functions.php:78
 msgid "<strong>ERROR</strong>: "
 msgstr ""
 
-#: includes/methods/class-c4wp-method-loader.php:142
+#. translators: %s: version number.
+#: includes/class-plugin-update-notice.php:57
+msgid "Thank you for updating CAPTCHA 4WP."
+msgstr ""
+
+#: includes/class-plugin-update-notice.php:57
+msgid "This is version %s. Check out the release notes to see what is new and improved in this update."
+msgstr ""
+
+#: includes/class-plugin-update-notice.php:57
+msgid "Release notes"
+msgstr ""
+
+#: includes/class-plugin-update-notice.php:136
+msgid "Complete."
+msgstr ""
+
+#: includes/methods/class-c4wp-method-loader.php:165
 msgid "Business or Enterprise"
 msgstr ""
 
-#: includes/methods/class-c4wp-method-loader.php:143
+#: includes/methods/class-c4wp-method-loader.php:166
 msgid "Update my license"
 msgstr ""
 
-#: includes/methods/class-c4wp-method-loader.php:144
+#: includes/methods/class-c4wp-method-loader.php:167
 msgid "Close and update settings"
 msgstr ""
 
-#: includes/methods/class-cloudflare.php:47
+#: includes/methods/class-cloudflare.php:56
 msgid "Cloudflare Turnstile (users might have to check a checkbox if service thinks it is spam traffic)"
 msgstr ""
 
-#: includes/methods/class-hcaptcha.php:46
+#: includes/methods/class-hcaptcha.php:55
 msgid "hCaptcha (Users have to check the \"I’m not a robot” checkbox)"
 msgstr ""
 
-#: admin/templates/help/help.php:20
+#: admin/templates/help/help.php:22
 msgid "Getting Started"
 msgstr ""
 
 #: admin/templates/help/help.php:24
-msgid "Configure the CAPTCHA & Get the API keys"
-msgstr ""
-
-#: admin/templates/help/help.php:25
-msgid "Configure the CAPTCHA and add specify the keys in the plugin"
+msgid "Adding CAPTCHA checks on your website with CAPTCHA 4WP is really easy. All you need to do is:"
 msgstr ""
 
 #: admin/templates/help/help.php:26
+msgid "Configure the CAPTCHA & Get the API keys"
+msgstr ""
+
+#: admin/templates/help/help.php:27
+msgid "Configure the CAPTCHA and add specify the keys in the plugin"
+msgstr ""
+
+#: admin/templates/help/help.php:28
 msgid "Configure on which pages you want to add the CAPTCHA test"
 msgstr ""
 
-#: admin/templates/help/help.php:29
+#: admin/templates/help/help.php:31
 msgid "It should only take you a few minutes to get started. Should you encounter any problems or require assistance, you can use any of the following options:"
 msgstr ""
 
-#: admin/templates/help/help.php:36
+#: admin/templates/help/help.php:38
 msgid "Plugin Support"
 msgstr ""
 
-#: admin/templates/help/help.php:38
+#: admin/templates/help/help.php:40
 msgid "You can post your question on our support forum or send us an email for 1 to 1 support. Email support is provided to both free and premium plugin users."
 msgstr ""
 
-#: admin/templates/help/help.php:40
+#: admin/templates/help/help.php:42
 msgid "Free support forum"
 msgstr ""
 
-#: admin/templates/help/help.php:41
+#: admin/templates/help/help.php:43
 msgid "Free email support"
 msgstr ""
 
-#: admin/templates/help/help.php:48
+#: admin/templates/help/help.php:50
 msgid "Plugin Documentation"
 msgstr ""
 
-#: admin/templates/help/help.php:50
+#: admin/templates/help/help.php:52
 msgid "For more technical information about the WP Activity Log plugin please visit the plugin’s knowledge base. Refer to the list of WordPress security events for a complete list of Events and IDs that the plugin uses to keep a log of all the changes in the WordPress activity log."
 msgstr ""
 
-#: admin/templates/help/help.php:52
+#: admin/templates/help/help.php:54
 msgid "Knowledge Base"
 msgstr ""
 
-#: admin/templates/help/help.php:58
+#: admin/templates/help/help.php:60
 msgid "Rate CAPTCHA 4WP"
 msgstr ""
 
-#: admin/templates/help/help.php:60
+#: admin/templates/help/help.php:62
 msgid "We work really hard to deliver a plugin that enables you to add CAPTCHA checks and tests on your WordPress website to protect it against spam bots and other automated malicious attacks. It takes thousands of man-hours every year and an endless amount of dedication to research, develop and maintain the free edition of CAPTCHA 4WP. If you like what you see, and find CAPTCHA 4WP useful we ask you nothing more than to please rate our plugin. We appreciate every star!"
 msgstr ""
 
-#: admin/templates/help/help.php:62
+#: admin/templates/help/help.php:64
 msgid "Rate plugin"
 msgstr ""
 
-#: admin/templates/help/index.php:19
+#: admin/templates/help/index.php:21
 msgid "Help"
 msgstr ""
 
-#: admin/templates/help/index.php:20
+#: admin/templates/help/index.php:22
 msgid "System Info"
 msgstr ""
 
-#: admin/templates/help/sidebar.php:14
+#: admin/templates/help/sidebar.php:16
 msgid "Other plugins developed by us:"
 msgstr ""
 
-#: admin/templates/help/sidebar.php:22
+#: admin/templates/help/sidebar.php:24
 msgid "Keep a log of users and under the hood site activity."
 msgstr ""
 
-#: admin/templates/help/sidebar.php:24, admin/templates/help/sidebar.php:37, admin/templates/help/sidebar.php:50
+#: admin/templates/help/sidebar.php:26, admin/templates/help/sidebar.php:39, admin/templates/help/sidebar.php:52
 msgid "Discover plugin"
 msgstr ""
 
-#: admin/templates/help/sidebar.php:35
+#: admin/templates/help/sidebar.php:37
 msgid "Add an extra layer of security to your login pages with 2FA & require your users to use it."
 msgstr ""
 
-#: admin/templates/help/sidebar.php:48
+#: admin/templates/help/sidebar.php:50
 msgid "Easily implement login and password policies for your WordPress users."
 msgstr ""
 
-#: admin/templates/help/system-info.php:19
+#: admin/templates/help/system-info.php:21
 msgid "System information"
+msgstr ""
+
+#: admin/templates/upgrade/index.php:20
+msgid "Add antispam protection to block bots and allow real humans to interact with your website. Add CAPTCHA from services such as Google reCAPTCHA, hCaptcha and Cloudflare Turnstile to any form on your website such as comments forms, login pages and checkout forms."
+msgstr ""
+
+#: admin/templates/upgrade/index.php:21
+msgid "Get started with just a few clicks with CAPTCHA 4WP, the only plugin that supports multiple CAPTCHA services. Upgrade today and benefit from numerous features, some of which are listed below."
+msgstr ""
+
+#: admin/templates/upgrade/index.php:35
+msgid "Premium"
+msgstr ""
+
+#: admin/templates/upgrade/index.php:38
+msgid "Free"
+msgstr ""
+
+#: admin/templates/upgrade/index.php:43
+msgid "Add CAPTCHA checks from Google reCAPTCHA"
+msgstr ""
+
+#: admin/templates/upgrade/index.php:43
+msgid "Add CAPTCHA antispam checks on any website from Google reCAPTCHA."
+msgstr ""
+
+#: admin/templates/upgrade/index.php:54
+msgid "Add CAPTCHA checks from other services"
+msgstr ""
+
+#: admin/templates/upgrade/index.php:54
+msgid "Add CAPTCHA antispam checks on any website from hCaptcha and Cloudflare Turnstile."
+msgstr ""
+
+#: admin/templates/upgrade/index.php:66
+msgid "Email support and forum access"
+msgstr ""
+
+#: admin/templates/upgrade/index.php:66
+msgid "We stand behind all of our products with world-class support and a team of professionals who absolutely care."
+msgstr ""
+
+#: admin/templates/upgrade/index.php:77
+msgid "Easy to set up and use"
+msgstr ""
+
+#: admin/templates/upgrade/index.php:77
+msgid "Set up CAPTCHA in minutes and add it to virtually any form you want at the click of a button."
+msgstr ""
+
+#: admin/templates/upgrade/index.php:89
+msgid "Choose from different types of tests"
+msgstr ""
+
+#: admin/templates/upgrade/index.php:89
+msgid "With support for multiple CAPTCHA methods available straight out of the box, you can choose the one that best fits your requirements."
+msgstr ""
+
+#: admin/templates/upgrade/index.php:100
+msgid "WordPress login and comments spam protection"
+msgstr ""
+
+#: admin/templates/upgrade/index.php:100
+msgid "Easily add CAPTCHA to your WordPress login page and comments section to protect your website from spam."
+msgstr ""
+
+#: admin/templates/upgrade/index.php:111
+msgid "WordPress registration and lost password/reset form protection"
+msgstr ""
+
+#: admin/templates/upgrade/index.php:111
+msgid "Easily add CAPTCHA to protect your website from spam and fake users registration and lost password/reset pages from spam."
+msgstr ""
+
+#: admin/templates/upgrade/index.php:122
+msgid "Use CAPTCHA in any country"
+msgstr ""
+
+#: admin/templates/upgrade/index.php:122
+msgid "Select from different domains to prevent service outages due to domain restrictions."
+msgstr ""
+
+#: admin/templates/upgrade/index.php:133
+msgid "Set CAPTCHA passmark score"
+msgstr ""
+
+#: admin/templates/upgrade/index.php:133
+msgid "Fine-tune CAPTCHA tests in real-time by setting the passmark score to avoid false positives."
+msgstr ""
+
+#: admin/templates/upgrade/index.php:144
+msgid "Configurable CAPTCHA language"
+msgstr ""
+
+#: admin/templates/upgrade/index.php:144
+msgid "Choose from multiple CAPTCHA text languages."
+msgstr ""
+
+#: admin/templates/upgrade/index.php:157
+msgid "Failover check for automated CAPTCHA"
+msgstr ""
+
+#: admin/templates/upgrade/index.php:157
+msgid "Configure CAPTCHA failover to eliminate false positives and ensure customers’ journeys are not disrupted. Choose from multiple failover options, depending on your requirements."
+msgstr ""
+
+#: admin/templates/upgrade/index.php:169
+msgid "Avoid confusion and configure the plugin to automatically change the CAPTCHA text language to match that of the visitor."
+msgstr ""
+
+#: admin/templates/upgrade/index.php:180
+msgid "Add CAPTCHA to WooCommerce forms such as the login page and checkout at the click of a mouse."
+msgstr ""
+
+#: admin/templates/upgrade/index.php:191
+msgid "Personalize your customers' experience and meet your branding requirements."
+msgstr ""
+
+#: admin/templates/upgrade/index.php:202
+msgid "1-click Contact Form 7 spam protection"
+msgstr ""
+
+#: admin/templates/upgrade/index.php:202
+msgid "Add CAPTCHA to any Contact Form 7 form at the click of a button. No shortcodes required."
+msgstr ""
+
+#: admin/templates/upgrade/index.php:214
+msgid "1-click spam protection for forms built with Gravity Forms"
+msgstr ""
+
+#: admin/templates/upgrade/index.php:214
+msgid "Add CAPTCHA to any form built with Gravity Forms at the click of a button. No shortcodes required."
+msgstr ""
+
+#: admin/templates/upgrade/index.php:226
+msgid "1-click spam protection for forms built with WPForms"
+msgstr ""
+
+#: admin/templates/upgrade/index.php:226
+msgid "Add CAPTCHA to any form built with WPForms at the click of a button. No shortcodes required."
+msgstr ""
+
+#: admin/templates/upgrade/index.php:238
+msgid "1-click spam protection for Mailchimp for WordPress forms"
+msgstr ""
+
+#: admin/templates/upgrade/index.php:238
+msgid "Add CAPTCHA to any MC4WP form at the click of a button. No shortcodes required."
+msgstr ""
+
+#: admin/templates/upgrade/index.php:249
+msgid "CAPTCHA spam protection for BuddyPress, bbPress, & many other third-party plugins"
+msgstr ""
+
+#: admin/templates/upgrade/index.php:249
+msgid "Out of the box support for many popular third-party plugins."
+msgstr ""
+
+#: admin/templates/upgrade/index.php:260
+msgid "Use the plugin's shortcode or code snippet to add CAPTCHA tests to any type of forms, even non-WordPress PHP forms."
+msgstr ""
+
+#: admin/templates/upgrade/index.php:271
+msgid "Strike a balance between security and usability"
+msgstr ""
+
+#: admin/templates/upgrade/index.php:271
+msgid "Request CAPTCHA on failed logins only for an improved user experience that doesn't compromise security."
+msgstr ""
+
+#: admin/templates/upgrade/index.php:282
+msgid "White-list logged in users"
+msgstr ""
+
+#: admin/templates/upgrade/index.php:282
+msgid "Logged in users can be trusted, so there is no need for CAPTCHA. You can also configure this by user role."
+msgstr ""
+
+#: admin/templates/upgrade/index.php:293
+msgid "White-list specific IP addresses"
+msgstr ""
+
+#: admin/templates/upgrade/index.php:293
+msgid "White-list IPs to ensure automated process & integrations running to your website continue to operate smoothly."
+msgstr ""
+
+#: admin/templates/upgrade/index.php:304
+msgid "White-list specific URLs"
+msgstr ""
+
+#: admin/templates/upgrade/index.php:304
+msgid "If you configure CAPTCHA to run invisibly on all pages, use this setting to exclude it from specific URLs."
 msgstr ""

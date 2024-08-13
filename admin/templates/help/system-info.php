@@ -5,6 +5,8 @@
  * @package C4WP
  */
 
+declare(strict_types=1);
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -25,7 +27,7 @@ require_once 'sidebar.php';
 			<?php submit_button( 'Download System Info File', 'primary', 'ppmwp-download-sysinfo', false ); ?>
 		</p>
 	</form>
-	<script>
+	<script type="text/javascript">
 
 		function download(filename, text) {
 			// Create temporary element.
