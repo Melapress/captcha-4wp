@@ -1,9 +1,0 @@
-<wpml-config>
- 
-<admin-texts>
- <key name="c4wp_admin_options">
-  <key name="error_message" />
- </key>
-</admin-texts>
- 
-</wpml-config>
