@@ -108,7 +108,7 @@ Yes. You can show an unlimited number of CAPTCHA's on the same page.
 Use the unique 1-click feature: simply click the "Add CAPTCHA" button in the Contact Form 7 form builder to add the CAPTCHA to the form. Support for Contact Form 7, WPForms, Gravity Forms and other popular third party plugins is only available in [CAPTCHA 4WP Premium](https://melapress.com/wordpress-captcha/?utm_source=wp+repo&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp).
 
 = How can I add Captcha to WooCommerce checkout and other pages? =
-Simply select the WooCommerce page you want to add CAPTCHA to in the plugin's CAPTCHA placement settings. You can also specify where exactly you want to add the CAPTCHA test on the checkout page. Support for WooCommerce and other third party plugins is only available in CAPTCHA 4WP Premium. [Get your free 14-day plugin trial](https://melapress.com/wordpress-captcha/plugin-trial/?utm_source=wp+repo&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp) today.
+Simply select the WooCommerce page you want to add CAPTCHA to in the plugin's CAPTCHA placement settings. You can also specify where exactly you want to add the CAPTCHA test on the checkout page. Support for WooCommerce and other third party plugins is only available in CAPTCHA 4WP Premium.
 
 
 == Screenshots ==
