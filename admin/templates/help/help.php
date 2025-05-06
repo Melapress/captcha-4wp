@@ -3,15 +3,18 @@
  * Help page content.
  *
  * @package C4WP
+ * @since 7.0.0
  */
+
+declare(strict_types=1);
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
 require_once 'sidebar.php';
-$admin_url          = ( function_exists( 'c4wp_same_settings_for_all_sites' ) ) ? network_admin_url( 'admin.php?page=c4wp-admin-captcha' ) : admin_url( 'admin.php?page=c4wp-admin-captcha' );
-$settings_admin_url = ( function_exists( 'c4wp_same_settings_for_all_sites' ) ) ? network_admin_url( 'admin.php?page=c4wp-admin-settings' ) : admin_url( 'admin.php?page=c4wp-admin-settings' );
+$admin_url          = add_query_arg( array( 'page' => 'c4wp-admin-captcha' ), network_admin_url( 'admin.php' ) );
+$settings_admin_url = add_query_arg( array( 'page' => 'c4wp-admin-settings' ), network_admin_url( 'admin.php' ) );
 
 ?>
 <div class="c4wp-help-main">
@@ -19,7 +22,7 @@ $settings_admin_url = ( function_exists( 'c4wp_same_settings_for_all_sites' ) ) 
 	<div class="title">
 		<h2 style="margin-top: 15px; padding-left: 0;"><?php esc_html_e( 'Getting Started', 'advanced-nocaptcha-recaptcha' ); ?></h2>
 	</div>
-	<p><?php esc_html_e( 'Adding CAPTCHA checks on your website with CAPTCHA 4WP is really easy. All you need to do is:', 'c4wp-wpp' ); ?></p>
+	<p><?php esc_html_e( 'Adding CAPTCHA checks on your website with CAPTCHA 4WP is really easy. All you need to do is:', 'advanced-nocaptcha-recaptcha' ); ?></p>
 	<ol>
 		<li><?php echo wp_sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_url( 'https://www.google.com/recaptcha/admin#list' ), esc_html__( 'Configure the CAPTCHA & Get the API keys', 'advanced-nocaptcha-recaptcha' ) ); ?></li>
 		<li><?php echo wp_sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_url( $admin_url ), esc_html__( 'Configure the CAPTCHA and add specify the keys in the plugin', 'advanced-nocaptcha-recaptcha' ) ); ?></li>
@@ -35,10 +38,10 @@ $settings_admin_url = ( function_exists( 'c4wp_same_settings_for_all_sites' ) ) 
 	<div class="title">
 		<h2 style="padding-left: 0;"><?php esc_html_e( 'Plugin Support', 'advanced-nocaptcha-recaptcha' ); ?></h2>
 	</div>
-	<p><?php esc_html_e( 'You can post your question on our support forum or send us an email for 1 to 1 support. Email support is provided to both free and premium plugin users.', 'advanced-nocaptcha-recaptcha' ); ?></p>
+	<p><?php esc_html_e( 'Do you need technical support? If you are using the Free edition, use the free support forums. 1 to 1 email support is only provided to the Premium edition users.', 'advanced-nocaptcha-recaptcha' ); ?></p>
 	<div class="btn">
 		<a href="<?php echo esc_url( 'https://wordpress.org/support/plugin/advanced-nocaptcha-recaptcha/' ); ?>" class="button" target="_blank"><?php esc_html_e( 'Free support forum', 'advanced-nocaptcha-recaptcha' ); ?></a>
-		<a href="<?php echo esc_url( 'https://melapress.com/support/submit-ticket/?utm_source=plugin&utm_medium=referral&utm_campaign=C4WP&utm_content=free+support+email' ); ?>" class="button" target="_blank"><?php esc_html_e( 'Free email support', 'advanced-nocaptcha-recaptcha' ); ?></a>
+		<a href="<?php echo esc_url( 'https://melapress.com/support/submit-ticket/?utm_source=plugin&utm_medium=referral&utm_campaign=C4WP&utm_content=premium+support+email' ); ?>" class="button" target="_blank"><?php esc_html_e( 'Premium email support', 'advanced-nocaptcha-recaptcha' ); ?></a>
 	</div>
 	<!-- End -->
 

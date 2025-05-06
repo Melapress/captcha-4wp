@@ -3,14 +3,19 @@
  * Util functions.
  *
  * @package C4WP
+ * @since 7.6.0
  */
+
+declare(strict_types=1);
 
 namespace C4WP;
 
-if ( ! class_exists( 'C4WP_Functions' ) ) {
+if ( ! class_exists( '\C4WP\C4WP_Functions' ) ) {
 
 	/**
 	 * Main class.
+	 *
+	 * @since 7.6.0
 	 */
 	class C4WP_Functions {
 
@@ -25,6 +30,8 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 		 * Adding required actions.
 		 *
 		 * @return void
+		 *
+		 * @since 7.6.0
 		 */
 		public static function actions() {
 
@@ -35,17 +42,36 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 		 * Check if update scripts need to run.
 		 *
 		 * @return void
+		 *
+		 * @since 7.6.0
 		 */
 		public static function c4wp_plugin_update() {
 			$prev_version = self::c4wp_get_option( 'version', '3.1' );
 
-			if ( version_compare( $prev_version, C4WP_PLUGIN_VERSION, '!=' ) ) {
-				self::do_plugin_updpate( $prev_version );
-				self::c4wp_update_option( 'version', C4WP_PLUGIN_VERSION );
+			if ( version_compare( $prev_version, C4WP_VERSION, '!=' ) ) {
+				self::do_plugin_update( $prev_version );
+				if ( method_exists( __CLASS__, 'c4wp_same_settings_for_all_sites' ) && self::c4wp_same_settings_for_all_sites() ) {
+					$options = get_site_option( 'c4wp_admin_options' );
+				} else {
+					$options = get_option( 'c4wp_admin_options' );
+				}
+				if ( ! empty( $options ) ) {
+					update_site_option( 'c4wp_update_redirection_needed', true );
+				}
+				self::c4wp_update_option( 'version', C4WP_VERSION );
 			}
 		}
 
-		public static function do_plugin_updpate( $prev_version  ) {
+		/**
+		 * Handle plugin updates.
+		 *
+		 * @param string $prev_version - Old outgoing version number.
+		 *
+		 * @return void
+		 *
+		 * @since 7.6.0
+		 */
+		public static function do_plugin_update( $prev_version ) {
 			// 3.2.
 			if ( version_compare( $prev_version, '3.2', '<' ) ) {
 				if ( method_exists( __CLASS__, 'c4wp_same_settings_for_all_sites' ) && self::c4wp_same_settings_for_all_sites() ) {
@@ -111,44 +137,117 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 						update_site_option( 'c4wp_70_upgrade_complete', true );
 						delete_site_option( 'anr_admin_options' );
 					}
-				} else {
-					if ( ! get_option( 'c4wp_70_upgrade_complete' ) ) {
+				} elseif ( ! get_option( 'c4wp_70_upgrade_complete' ) ) {
 						$original_options = get_option( 'anr_admin_options' );
 						update_option( 'c4wp_admin_options', $original_options );
 						update_option( 'c4wp_70_upgrade_complete', true );
 						delete_option( 'anr_admin_options' );
-					}
 				}
 				global $wpdb;
-				$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->posts} WHERE post_type = %s", array( 'anr-post' ) ) );
-				$wpdb->query( "DELETE meta FROM {$wpdb->postmeta} meta LEFT JOIN {$wpdb->posts} posts ON posts.ID = meta.post_id WHERE posts.ID IS NULL;" );
+				$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->posts} WHERE post_type = %s", array( 'anr-post' ) ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching 
+				$wpdb->query( $wpdb->prepare( "DELETE meta FROM {$wpdb->postmeta} meta LEFT JOIN {$wpdb->posts} posts ON posts.ID = meta.post_id WHERE posts.ID IS %s", null ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching 
 			}
 
+			/* @free:start */
 			$current_lang = self::c4wp_get_option( 'language' );
 			if ( version_compare( $prev_version, '7.0.6.1', '<' ) && empty( $current_lang ) ) {
 				self::c4wp_update_option( 'language', 'en' );
 			}
+			/* @free:end */
 
 			$captcha_version = self::c4wp_get_option( 'captcha_version' );
-			if ( version_compare( $prev_version, '7.2.1', '<' ) && 'v3' == $captcha_version ) {
+			if ( version_compare( $prev_version, '7.2.1', '<' ) && 'v3' === $captcha_version ) {
 				add_option( 'c4wp_v3_failover_available', true );
 			}
 
 			if ( version_compare( $prev_version, '7.5.0.1', '<' ) ) {
 				delete_transient( 'c4wp_config_file_hash' );
 			}
+
+			$current_load = self::c4wp_get_option( 'inline_or_file' );
+			if ( version_compare( $prev_version, '7.6.0.0', '<' ) && empty( $current_load ) ) {
+				self::c4wp_update_option( 'inline_or_file', 'inline' );
+			} else {
+				self::c4wp_update_option( 'inline_or_file', 'file' );
+			}
+		}
+
+		/**
+		 * Simple function to return site key.
+		 *
+		 * @return string - Site key.
+		 *
+		 * @since 7.6.0
+		 */
+		public static function c4wp_get_site_key() {
+			/* @dev:start */
+			$dev_mode = apply_filters( 'c4wp_enable_dev_mode', false );
+			if ( $dev_mode ) {
+				// phpcs:disable
+				if ( isset( $_GET['override-captcha-version'] ) ) {
+					$override = trim( sanitize_key( wp_unslash( $_GET['override-captcha-version'] ) ) );
+					if ( 'v2_checkbox' === $override ) {
+						return self::c4wp_get_option( 'testing_v2_checkbox_key' );
+					} elseif ( 'v2_invisible' === $override ) {
+						return self::c4wp_get_option( 'testing_v2_invisible_key' );
+					} elseif ( 'v3' === $override ) {
+						return self::c4wp_get_option( 'testing_v3_key' );
+					} elseif ( 'hcaptcha' === $override ) {
+						return self::c4wp_get_option( 'testing_hcaptcha_key' );
+					} elseif ( 'cloudflare' === $override ) {
+						return self::c4wp_get_option( 'testing_cloudflare_key' );
+					}
+				}
+				// phpcs:enable
+			}
+			/* @dev:end */
+			return self::c4wp_get_option( 'site_key' );
+		}
+
+		/**
+		 * Simple function to return secret key.
+		 *
+		 * @return string - Secret key.
+		 *
+		 * @since 7.6.0
+		 */
+		public static function c4wp_get_secret_key() {
+			/* @dev:start */
+			$dev_mode = apply_filters( 'c4wp_enable_dev_mode', false );
+			if ( $dev_mode ) {
+				// phpcs:disable
+				if ( isset( $_GET['override-captcha-version'] ) ) {
+					$override = trim( sanitize_key( wp_unslash( $_GET['override-captcha-version'] ) ) );
+					if ( 'v2_checkbox' === $override ) {
+						return self::c4wp_get_option( 'testing_v2_checkbox_secret' );
+					} elseif ( 'v2_invisible' === $override ) {
+						return self::c4wp_get_option( 'testing_v2_invisible_secret' );
+					} elseif ( 'v3' === $override ) {
+						return self::c4wp_get_option( 'testing_v3_secret' );
+					} elseif ( 'hcaptcha' === $override ) {
+						return self::c4wp_get_option( 'testing_hcaptcha_secret' );
+					} elseif ( 'cloudflare' === $override ) {
+						return self::c4wp_get_option( 'testing_cloudflare_secret' );
+					}
+				}
+				// phpcs:enable
+			}
+			/* @dev:end */
+			return self::c4wp_get_option( 'secret_key' );
 		}
 
 		/**
 		 * Handle getting options for our plugin.
 		 *
 		 * @param string $option - Name of option to update.
-		 * @param string $default - Default value.
+		 * @param string $default_value - Default value.
 		 * @param string $section - Section which handles the option.
 		 *
-		 * @return bool:string - Option value.
+		 * @return bool|string|array - Option value.
+		 *
+		 * @since 7.6.0
 		 */
-		public static function c4wp_get_option( $option, $default = '', $section = 'c4wp_admin_options' ) {
+		public static function c4wp_get_option( $option, $default_value = '', $section = 'c4wp_admin_options' ) {
 
 			$get_site_options = is_multisite();
 
@@ -161,11 +260,13 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 			if ( isset( $options[ $option ] ) ) {
 				$value      = $options[ $option ];
 				$is_default = false;
+			} elseif ( 'all' === $option ) {
+				return $options;
 			} else {
-				$value      = $default;
+				$value      = $default_value;
 				$is_default = true;
 			}
-			return apply_filters( 'c4wp_get_option', $value, $option, $default, $is_default );
+			return apply_filters( 'c4wp_get_option', $value, $option, $default_value, $is_default );
 		}
 
 		/**
@@ -174,7 +275,10 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 		 * @param string $options - Name of option to update.
 		 * @param string $value - New value.
 		 * @param string $section - Section which handles the option.
+		 *
 		 * @return bool - Was option updated.
+		 *
+		 * @since 7.6.0
 		 */
 		public static function c4wp_update_option( $options, $value = '', $section = 'c4wp_admin_options' ) {
 
@@ -199,16 +303,53 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 		}
 
 		/**
-		 * Undocumented function
+		 * Check if form is enabled or not.
 		 *
 		 * @param string $form - Form name.
+		 *
 		 * @return bool - Is enabled?
+		 *
+		 * @since 7.6.0
 		 */
 		public static function c4wp_is_form_enabled( $form ) {
 			if ( ! $form ) {
 				return false;
 			}
-			$enabled_forms = array_merge( self::c4wp_get_option( 'enabled_forms', array() ), self::c4wp_get_option( 'enabled_forms_ms', array() ), self::c4wp_get_option( 'enabled_forms_wc', array() ), self::c4wp_get_option( 'enabled_forms_bp', array() ), self::c4wp_get_option( 'enabled_forms_bbp', array() ) );
+
+			$all = self::c4wp_get_option( 'all' );
+
+			if ( ! is_array( $all ) ) {
+				return false;
+			}
+
+			$result = array_filter(
+				$all,
+				function ( $key ) {
+					if ( 'enabled_forms_title' === $key || 'enabled_forms_subtitle' === $key ) {
+						return false;
+					} else {
+						return ( strpos( $key, 'enabled_forms' ) === 0 || strpos( $key, 'blocked_countries' ) === 0 );
+					}
+				},
+				ARRAY_FILTER_USE_KEY
+			);
+
+			$enabled_forms = array();
+			foreach ( $result as $k => $v ) {
+				if ( is_array( $v ) && ! empty( $v ) ) {
+					foreach ( $v as $item ) {
+						if ( strpos( $k, 'blocked_countries' ) === 0 ) {
+							array_push( $enabled_forms, 'blocked_countries_' . $item );
+						} else {
+							array_push( $enabled_forms, $item );
+						}
+					}
+				} elseif ( is_int( $v ) && 1 === $v ) {
+					array_push( $enabled_forms, str_replace( '_enabled_forms', '', $k ) );
+				}
+			}
+
+			$enabled_forms = apply_filters( 'c4wp_add_to_enabled_forms_array', $enabled_forms );
 
 			if ( ! is_array( $enabled_forms ) ) {
 				return false;
@@ -217,9 +358,11 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 		}
 
 		/**
-		 * Add transation file.
+		 * Add translation file.
 		 *
 		 * @return void
+		 *
+		 * @since 7.6.0
 		 */
 		public static function c4wp_translation() {
 			// SETUP TEXT DOMAIN FOR TRANSLATIONS.
@@ -227,14 +370,16 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 		}
 
 		/**
-		 * Undocumented function
+		 * Added Login css.
 		 *
 		 * @return void
+		 *
+		 * @since 7.6.0
 		 */
 		public static function c4wp_login_enqueue_scripts() {
-			if ( ! self::c4wp_get_option( 'remove_css' ) && 'normal' === self::c4wp_get_option( 'size', 'normal' ) && ( 'v2_checkbox' == self::c4wp_get_option( 'captcha_version' ) || 'hcaptcha' == self::c4wp_get_option( 'captcha_version' ) || 'cloudflare' == self::c4wp_get_option( 'captcha_version' ) ) ) {
-				$verion = C4WP_PLUGIN_VERSION;
-				wp_enqueue_style( 'c4wp-login-style', C4WP_PLUGIN_URL . 'assets/css/style.css', C4WP_PLUGIN_VERSION, $verion );
+			if ( ! self::c4wp_get_option( 'remove_css' ) && 'normal' === self::c4wp_get_option( 'size', 'normal' ) && ( 'v2_checkbox' === self::c4wp_get_option( 'captcha_version' ) || 'hcaptcha' === self::c4wp_get_option( 'captcha_version' ) || 'cloudflare' === self::c4wp_get_option( 'captcha_version' ) ) ) {
+				$version = C4WP_VERSION;
+				wp_enqueue_style( 'c4wp-login-style', C4WP_PLUGIN_URL . 'assets/css/style.css', C4WP_VERSION, $version );
 			}
 		}
 
@@ -242,6 +387,8 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 		 * Add our foot scripts.
 		 *
 		 * @return void
+		 *
+		 * @since 7.6.0
 		 */
 		public function c4wp_wp_footer() {
 			C4WP_Captcha_Class::footer_script();
@@ -250,23 +397,28 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 		/**
 		 * Create a captcha field.
 		 *
-		 * @param boolean $echo - Should echo or return.
+		 * @param boolean $echo_needed - Should echo or return.
+		 *
 		 * @return string - HTML Markup.
+		 *
+		 * @since 7.6.0
 		 */
-		public static function c4wp_captcha_form_field( $echo = false ) {
-			if ( $echo ) {
+		public static function c4wp_captcha_form_field( $echo_needed = false ) {
+			if ( $echo_needed ) {
 				C4WP_Captcha_Class::form_field();
 			} else {
 				return C4WP_Captcha_Class::form_field_return();
 			}
-
 		}
 
 		/**
 		 * Verify a captcha response (old version of plugin).
 		 *
 		 * @param boolean $response - Response to check.
+		 *
 		 * @return bool - Verification.
+		 *
+		 * @since 7.6.0
 		 */
 		public function anr_verify_captcha( $response = false ) {
 			return C4WP_Captcha_Class::init()->verify( $response );
@@ -276,7 +428,10 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 		 * Verify a captcha response.
 		 *
 		 * @param boolean $response - Response to check.
+		 *
 		 * @return bool - Verification.
+		 *
+		 * @since 7.6.0
 		 */
 		public static function c4wp_verify_captcha( $response = false ) {
 			return C4WP_Captcha_Class::init()->verify( $response );
@@ -286,7 +441,10 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 		 * Add shake script to error screen.
 		 *
 		 * @param array $shake_error_codes - Current error codes.
+		 *
 		 * @return array - Codes, with ours appended.
+		 *
+		 * @since 7.6.0
 		 */
 		public static function c4wp_add_shake_error_codes( $shake_error_codes ) {
 			$shake_error_codes[] = 'c4wp_error';
@@ -297,17 +455,20 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 		/**
 		 * Create URL for our contact page.
 		 *
-		 * @param string $wp_org_support_forum_url - Original URL.
 		 * @return string - Our URL.
+		 *
+		 * @since 7.6.0
 		 */
-		public static function c4wp_fs_support_forum_url( $wp_org_support_forum_url ) {
-			return 'https://melapress.com/contact/?utm_source=wp+repo&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp';
+		public static function c4wp_fs_support_forum_url() {
+			return 'https://melapress.com/contact/?utm_source=plugin&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp';
 		}
 
 		/**
 		 * Create correct captcha domain URL.
 		 *
 		 * @return string - URL.
+		 *
+		 * @since 7.6.0
 		 */
 		public static function c4wp_recaptcha_domain() {
 			$domain = self::c4wp_get_option( 'recaptcha_domain', 'google.com' );
@@ -318,20 +479,24 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 		/**
 		 * Setup settings page URL.
 		 *
-		 * @param boolean $tab - Is tab settings.
 		 * @return string - URL.
+		 *
+		 * @since 7.6.0
 		 */
-		public static function c4wp_settings_page_url( $tab = false ) {
-			$url = ( method_exists( __CLASS__, 'c4wp_same_settings_for_all_sites' ) && self::c4wp_same_settings_for_all_sites() || ! method_exists( __CLASS__, 'c4wp_same_settings_for_all_sites' ) ) ? network_admin_url( 'admin.php?page=c4wp-admin-captcha' ) : admin_url( 'admin.php?page=c4wp-admin-captcha' );
+		public static function c4wp_settings_page_url() {
+			$url = add_query_arg( array( 'page' => 'c4wp-admin-captcha' ), network_admin_url( 'admin.php' ) );
 			return $url;
 		}
 
 		/**
-		 * Hode freemius contact link.
+		 * Hide freemius contact link.
 		 *
 		 * @param bool $is_visible - Is currently visible.
 		 * @param int  $submenu_id - Item ID.
-		 * @return bool - Is isible.
+		 *
+		 * @return bool - Is visible.
+		 *
+		 * @since 7.6.0
 		 */
 		public static function hide_freemius_submenu_items( $is_visible, $submenu_id ) {
 			if ( 'contact' === $submenu_id ) {
@@ -344,6 +509,8 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 		 * Create system info for debugging.
 		 *
 		 * @return string - File markup.
+		 *
+		 * @since 7.6.0
 		 */
 		public static function c4wp_get_sysinfo() {
 			// System info.
@@ -359,11 +526,11 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 
 			// Get theme info.
 			$theme_data   = wp_get_theme();
-			$theme        = $theme_data->Name . ' ' . $theme_data->Version; // phpcs:ignore.
-			$parent_theme = $theme_data->Template; // phpcs:ignore.
+			$theme        = $theme_data->Name . ' ' . $theme_data->Version; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			$parent_theme = $theme_data->Template; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 			if ( ! empty( $parent_theme ) ) {
 				$parent_theme_data = wp_get_theme( $parent_theme );
-				$parent_theme      = $parent_theme_data->Name . ' ' . $parent_theme_data->Version; // phpcs:ignore.
+				$parent_theme      = $parent_theme_data->Name . ' ' . $parent_theme_data->Version; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 			}
 
 			// Language information.
@@ -456,7 +623,7 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 
 			// Server configuration.
 			$posted          = filter_input_array( INPUT_SERVER );
-			$server_software = sanitize_text_field( $posted[ 'SERVER_SOFTWARE' ] );
+			$server_software = sanitize_text_field( $posted['SERVER_SOFTWARE'] );
 			$sysinfo        .= "\n" . '-- Webserver Configuration --' . "\n\n";
 			$sysinfo        .= 'PHP Version:              ' . PHP_VERSION . "\n";
 			$sysinfo        .= 'MySQL Version:            ' . $wpdb->db_version() . "\n";
@@ -484,7 +651,8 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 			if ( ! empty( $c4wp_options ) ) {
 				foreach ( $c4wp_options as $option => $value ) {
 					$sysinfo .= 'Option: ' . $option . "\n";
-					$sysinfo .= 'Value: ' . print_r( $value, true ) . "\n\n";
+					// Ignore, is for debugging purposes.
+					$sysinfo .= 'Value: ' . print_r( $value, true ) . "\n\n"; // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 				}
 			}
 
@@ -497,6 +665,8 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 		 * Determines if an install is premium/paying.
 		 *
 		 * @return bool - Is premium or not.
+		 *
+		 * @since 7.6.0
 		 */
 		public static function c4wp_is_premium_version() {
 			return ( ( class_exists( 'C4WP_Pro' ) && ! c4wp_fs()->is_not_paying() ) || ( class_exists( 'C4WP_Pro' ) && c4wp_fs()->is_trial() ) ) ? true : false;
@@ -506,7 +676,10 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 		 * Add a small log during testing.
 		 *
 		 * @param array $result - Result data.
+		 *
 		 * @return void
+		 *
+		 * @since 7.6.0
 		 */
 		public static function c4wp_log_verify_result( $result ) {
 			$stored = self::c4wp_get_option( 'c4wp_recent_results' );
@@ -520,22 +693,26 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 		}
 
 		/**
-		 * An easy to use array of allowed HTML for use with sanitzation of our admin areas etc.
+		 * An easy to use array of allowed HTML for use with sanitization of our admin areas etc.
 		 *
 		 * @return $wp_kses_args - Our array.
+		 *
+		 * @since 7.6.0
 		 */
 		public static function c4wp_allowed_kses_args() {
 			$wp_kses_args = array(
 				'input'    => array(
-					'type'     => array(),
-					'id'       => array(),
-					'name'     => array(),
-					'value'    => array(),
-					'size'     => array(),
-					'class'    => array(),
-					'min'      => array(),
-					'required' => array(),
-					'checked'  => array(),
+					'type'          => array(),
+					'id'            => array(),
+					'name'          => array(),
+					'value'         => array(),
+					'size'          => array(),
+					'class'         => array(),
+					'min'           => array(),
+					'required'      => array(),
+					'checked'       => array(),
+					'aria-label'    => array(),
+					'aria-readonly' => array(),
 				),
 				'select'   => array(
 					'id'   => array(),
@@ -588,6 +765,10 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 					'id'            => array(),
 					'data-role-key' => array(),
 				),
+				'ul'       => array(
+					'class' => array(),
+					'id'    => array(),
+				),
 				'a'        => array(
 					'class'             => array(),
 					'id'                => array(),
@@ -606,9 +787,13 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 				'b'        => array(),
 				'i'        => array(),
 				'div'      => array(
-					'style' => array(),
-					'class' => array(),
-					'id'    => array(),
+					'style'                      => array(),
+					'class'                      => array(),
+					'id'                         => array(),
+					'data-nonce'                 => array(),
+					'data-c4wp-use-ajax'         => array(),
+					'data-c4wp-failure-redirect' => array(),
+					'data-c4wp-v2-site-key'      => array(),
 				),
 				'table'    => array(
 					'class' => array(),
@@ -625,6 +810,7 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 				),
 				'img'      => array(
 					'class' => array(),
+					'style' => array(),
 					'src'   => array(),
 					'id'    => array(),
 				),
@@ -636,16 +822,95 @@ if ( ! class_exists( 'C4WP_Functions' ) ) {
 		 * WordPress Filter
 		 *
 		 * @param array $old_links - Array of old links.
+		 *
+		 * @since 7.6.0
 		 */
 		public static function add_plugin_shortcuts( $old_links ) {
 			$new_links = array();
 
 			if ( ! self::c4wp_is_premium_version() ) {
-				$new_links[] = '<a style="font-weight:bold; color:#824780 !important" href="https://melapress.com/wordpress-captcha/pricing/?utm_source=plugins&utm_medium=referral&utm_campaign=c4wp" target="_blank">' . __( 'Get Premium!', 'captcha-4wp' ) . '</a>';
-				$old_links = array_merge( array_slice( $old_links, 0, 1 ), $new_links, array_slice( $old_links, 1 ) );
+				$new_links[] = '<a style="font-weight:bold; color:#824780 !important" href="https://melapress.com/wordpress-captcha/pricing/?utm_source=plugin&utm_medium=referral&utm_campaign=c4wp" target="_blank">' . __( 'Get Premium!', 'captcha-4wp' ) . '</a>';
+				$old_links   = array_merge( array_slice( $old_links, 0, 1 ), $new_links, array_slice( $old_links, 1 ) );
 			}
 
 			return $old_links;
+		}
+
+		/**
+		 * Check whether we are on an admin and plugin page.
+		 *
+		 * @return bool
+		 *
+		 * @since 7.6.0
+		 */
+		public static function is_admin_page() {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$cur_page = isset( $_GET['page'] ) ? sanitize_key( $_GET['page'] ) : '';
+			$check    = 'c4wp-';
+
+			return \is_admin() && ( false !== strpos( $cur_page, $check ) );
+		}
+
+		/**
+		 * Remove all non-WP Mail SMTP plugin notices from our plugin pages.
+		 *
+		 * @return void
+		 *
+		 * @since 7.6.0
+		 */
+		public static function hide_unrelated_notices() {
+			// Bail if we're not on our screen or page.
+			if ( ! self::is_admin_page() ) {
+				return;
+			}
+
+			self::remove_unrelated_actions( 'user_admin_notices' );
+			self::remove_unrelated_actions( 'admin_notices' );
+			self::remove_unrelated_actions( 'all_admin_notices' );
+			self::remove_unrelated_actions( 'network_admin_notices' );
+		}
+
+		/**
+		 * Remove all non-WP Mail SMTP notices from the our plugin pages based on the provided action hook.
+		 *
+		 * @param string $action The name of the action.
+		 *
+		 * @return void
+		 *
+		 * @since 7.6.0
+		 */
+		private static function remove_unrelated_actions( $action ) {
+
+			global $wp_filter;
+
+			if ( empty( $wp_filter[ $action ]->callbacks ) || ! is_array( $wp_filter[ $action ]->callbacks ) ) {
+				return;
+			}
+
+			foreach ( $wp_filter[ $action ]->callbacks as $priority => $hooks ) {
+				foreach ( $hooks as $name => $arr ) {
+					if (
+						( // Cover object method callback case.
+							is_array( $arr['function'] ) &&
+							isset( $arr['function'][0] ) &&
+							is_object( $arr['function'][0] ) &&
+							false !== strpos( strtolower( get_class( $arr['function'][0] ) ), C4WP_PREFIX )
+						) ||
+						( // Cover class static method callback case.
+							! empty( $name ) &&
+							false !== strpos( strtolower( $name ), C4WP_PREFIX )
+						) ||
+						( // Cover class static method callback case.
+							! empty( $name ) &&
+							false !== strpos( strtolower( $name ), 'c4wp\\' )
+						)
+					) {
+						continue;
+					}
+
+					unset( $wp_filter[ $action ]->callbacks[ $priority ][ $name ] );
+				}
+			}
 		}
 	}
 }

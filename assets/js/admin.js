@@ -262,6 +262,10 @@ function c4wp_update_help_texts() {
 jQuery(document).ready(function($) {
 	testSiteKeys($('input[name="c4wp_admin_options[captcha_version]"]:checked').val(), jQuery('#c4wp_admin_options_site_key').attr('value'));
 
+	if ( jQuery( '#c4wp_admin_options_blocked_countries_enabled_forms_comment' ).length ) {
+		jQuery( '#c4wp_admin_options_blocked_countries_enabled_forms_comment' ).parent().remove();
+	}
+
 	$('input[name="c4wp_admin_options[site_key]"]').keyup(function() {
 		testSiteKeys($('input[name="c4wp_admin_options[captcha_version]"]:checked').val(), $(this).val());
 	});
@@ -283,10 +287,14 @@ jQuery(document).ready(function($) {
 		c4wp_admin_show_hide_failure_fields();
 	});
 
+	$( '#c4wp_admin_options_blocked_countries_enabled_forms_bp_bp_comments_form, #c4wp_admin_options_blocked_countries_enabled_forms_bp_bp_create_group, #c4wp_admin_options_blocked_countries_enabled_forms_bp_bp_register' ).prop( 'disabled', true );
+	$( '#c4wp_admin_options_blocked_countries_enabled_forms_bp_bp_comments_form, #c4wp_admin_options_blocked_countries_enabled_forms_bp_bp_create_group, #c4wp_admin_options_blocked_countries_enabled_forms_bp_bp_register' ).parent().addClass( 'disabled' );
+	jQuery('<br><br><span class="disabled">'+ anrScripts.buddypressNotSupported +'</span>').insertAfter( $( '#c4wp_admin_options_blocked_countries_enabled_forms_bp_bp_comments_form' ).parent() );
+
 	jQuery('body').on('click', '[name="c4wp_admin_options[captcha_version]"]', function(e) {
 		var radio = $(this);
 
-		if (!jQuery('#c4wp-admin-wrap').hasClass('captcha_keys_required')) {
+		if (!jQuery('#c4wp-admin-wrap').hasClass('captcha_keys_required') && !jQuery('#c4wp-admin-wrap').hasClass('show_wizard_on_load')) {
 			e.preventDefault();
 			c4wpConfirm(anrScripts.switchingWarning, function() {
 					$(radio).prop('checked', true);
@@ -528,9 +536,10 @@ jQuery(document).ready(function($) {
 	buildWhitelistListURLs();
 	moveLangPicker();
 	tidySettingsDescs();
-
 	buildDeniedCountries();
 	buildAllowedCountries();
+	hideShowCountryInputs();
+	hideShowCommentCountryInputs();
 
 	jQuery(window).on('resize', function() {
 		tidySettingsDescs();
@@ -708,6 +717,12 @@ jQuery(document).ready(function($) {
 		jQuery('a[href="?page=c4wp-admin-forms&tab=comment-form-settings"]').addClass('nav-tab-active');
 		jQuery('.sub-section-comment-form-settings:not(.remain-hidden)').fadeIn(200);
 		hideShowCommentCountryInputs();
+	}
+
+	if (window.location.href.indexOf("country-blocking-forms-placements") > -1) {
+		jQuery('a[href="?page=c4wp-admin-forms&tab=country-blocking-forms-placements"]').addClass('nav-tab-active');
+		jQuery('.sub-section-country-blocking-forms-placements:not(.remain-hidden)').fadeIn(200);
+		hideShowCommentCountryInputs();
 	} else {
 		jQuery('a[href="?page=c4wp-admin-forms&tab=forms-placements"]').addClass('nav-tab-active');
 		jQuery('.sub-section-forms-placements').fadeIn(200);
@@ -852,21 +867,26 @@ jQuery(document).ready(function($) {
 
 function hideShowCountryInputs() {
 	var currentValue = jQuery('#c4wp_admin_options_denied_countries_method').find(":selected").val();
-	jQuery('#denied_countries_input, #allowed_countries_input, #c4wp_admin_options_denied_countries, #c4wp_admin_options_allowed_countries').closest('tr').fadeOut(0);
-
-	if (currentValue == 'allow_only') {
-		jQuery('#allowed_countries_input').closest('tr').fadeIn();
+	jQuery('#denied_countries_input, #c4wp_admin_options_geo_blocked_message').closest('tr').fadeOut(0);
+	if ( currentValue == 'deny_from' || currentValue == 'allow_only') {
+		jQuery('#denied_countries_input, #c4wp_admin_options_geo_blocked_message').closest('tr').fadeIn();
 	} else {
-		jQuery('#denied_countries_input').closest('tr').fadeIn();
+		jQuery('#denied_countries_input, #c4wp_admin_options_geo_blocked_message').closest('tr').fadeOut();
 	}
 }
 
 function hideShowCommentCountryInputs() {
 	var currentValue = jQuery('#c4wp_admin_options_comment_rule_countries_method').find(":selected").val();
+	jQuery('#c4wp_admin_options_comment_blocked_message, #add-comment_denied-countries').closest('tr').fadeOut(0);
 	if (currentValue == 'deny_to_error' || currentValue == 'allow_only') {
 		jQuery('#c4wp_admin_options_comment_blocked_message').closest('tr').fadeIn(0);
 	} else {
 		jQuery('#c4wp_admin_options_comment_blocked_message').closest('tr').fadeOut(0);
+	}
+	if ( currentValue !== 'default' ) {
+		jQuery(' #add-comment_denied-countries').closest('tr').fadeIn(0);
+	} else {
+		jQuery('#add-comment_denied-countries').closest('tr').fadeOut(0);
 	}
 }
 
@@ -1293,6 +1313,7 @@ jQuery(function() {
 		}
 		jQuery('#comment_rule_countries_input').val('');
 	});
+
 
 	jQuery('body').on('click', 'a#add-comment_allowed-countries', function(e) {
 		e.preventDefault();
