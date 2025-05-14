@@ -12,7 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-require_once 'sidebar.php';
 $admin_url          = add_query_arg( array( 'page' => 'c4wp-admin-captcha' ), network_admin_url( 'admin.php' ) );
 $settings_admin_url = add_query_arg( array( 'page' => 'c4wp-admin-settings' ), network_admin_url( 'admin.php' ) );
 
@@ -41,7 +40,7 @@ $settings_admin_url = add_query_arg( array( 'page' => 'c4wp-admin-settings' ), n
 	<p><?php esc_html_e( 'Do you need technical support? If you are using the Free edition, use the free support forums. 1 to 1 email support is only provided to the Premium edition users.', 'advanced-nocaptcha-recaptcha' ); ?></p>
 	<div class="btn">
 		<a href="<?php echo esc_url( 'https://wordpress.org/support/plugin/advanced-nocaptcha-recaptcha/' ); ?>" class="button" target="_blank"><?php esc_html_e( 'Free support forum', 'advanced-nocaptcha-recaptcha' ); ?></a>
-		<a href="<?php echo esc_url( 'https://melapress.com/support/submit-ticket/?utm_source=plugin&utm_medium=referral&utm_campaign=C4WP&utm_content=premium+support+email' ); ?>" class="button" target="_blank"><?php esc_html_e( 'Premium email support', 'advanced-nocaptcha-recaptcha' ); ?></a>
+		<a href="<?php echo esc_url( 'https://captcha4wp.com/submit-ticket/?utm_source=plugin&utm_medium=referral&utm_campaign=C4WP&utm_content=premium+support+email' ); ?>" class="button" target="_blank"><?php esc_html_e( 'Premium email support', 'advanced-nocaptcha-recaptcha' ); ?></a>
 	</div>
 	<!-- End -->
 
@@ -52,7 +51,7 @@ $settings_admin_url = add_query_arg( array( 'page' => 'c4wp-admin-settings' ), n
 	</div>
 	<p><?php esc_html_e( 'For more technical information about the WP Activity Log plugin please visit the plugin’s knowledge base. Refer to the list of WordPress security events for a complete list of Events and IDs that the plugin uses to keep a log of all the changes in the WordPress activity log.', 'advanced-nocaptcha-recaptcha' ); ?></p>
 	<div class="btn">
-		<a href="<?php echo esc_url( 'https://melapress.com/support/kb/?utm_source=plugin&utm_medium=referral&utm_campaign=C4WP&utm_content=knowledge+base' ); ?>" class="button" target="_blank"><?php esc_html_e( 'Knowledge Base', 'advanced-nocaptcha-recaptcha' ); ?></a>
+		<a href="<?php echo esc_url( 'https://captcha4wp.com/documentation/?utm_source=plugin&utm_medium=referral&utm_campaign=C4WP&utm_content=knowledge+base' ); ?>" class="button" target="_blank"><?php esc_html_e( 'Knowledge Base', 'advanced-nocaptcha-recaptcha' ); ?></a>
 	</div>
 	<!-- End -->
 	<br>

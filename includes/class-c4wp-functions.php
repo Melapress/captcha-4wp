@@ -160,7 +160,7 @@ if ( ! class_exists( '\C4WP\C4WP_Functions' ) ) {
 				add_option( 'c4wp_v3_failover_available', true );
 			}
 
-			if ( version_compare( $prev_version, '7.5.0.1', '<' ) ) {
+			if ( version_compare( $prev_version, '7.5.1', '<' ) ) {
 				delete_transient( 'c4wp_config_file_hash' );
 			}
 
@@ -460,7 +460,7 @@ if ( ! class_exists( '\C4WP\C4WP_Functions' ) ) {
 		 * @since 7.6.0
 		 */
 		public static function c4wp_fs_support_forum_url() {
-			return 'https://melapress.com/contact/?utm_source=plugin&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp';
+			return 'https://captcha4wp.com/contact/?utm_source=plugin&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp';
 		}
 
 		/**
@@ -829,7 +829,7 @@ if ( ! class_exists( '\C4WP\C4WP_Functions' ) ) {
 			$new_links = array();
 
 			if ( ! self::c4wp_is_premium_version() ) {
-				$new_links[] = '<a style="font-weight:bold; color:#824780 !important" href="https://melapress.com/wordpress-captcha/pricing/?utm_source=plugin&utm_medium=referral&utm_campaign=c4wp" target="_blank">' . __( 'Get Premium!', 'captcha-4wp' ) . '</a>';
+				$new_links[] = '<a style="font-weight:bold; color:#824780 !important" href="https://captcha4wp.com/?utm_source=plugin&utm_medium=referral&utm_campaign=c4wp" target="_blank">' . __( 'Get Premium!', 'captcha-4wp' ) . '</a>';
 				$old_links   = array_merge( array_slice( $old_links, 0, 1 ), $new_links, array_slice( $old_links, 1 ) );
 			}
 
