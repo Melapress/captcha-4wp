@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<p><?php esc_html_e( 'Add antispam protection to block bots and allow real humans to interact with your website. Add CAPTCHA from services such as Google reCAPTCHA, hCaptcha and Cloudflare Turnstile to any form on your website such as comments forms, login pages and checkout forms.', 'advanced-nocaptcha-recaptcha' ); ?></p>
 			<p><?php esc_html_e( 'Get started with just a few clicks with CAPTCHA 4WP, the only plugin that supports multiple CAPTCHA services. Upgrade today and benefit from numerous features, some of which are listed below.', 'advanced-nocaptcha-recaptcha' ); ?></p>
 			<div class="premium-cta">
-			<a href="https://melapress.com/wordpress-captcha/pricing/?utm_source=plugin&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp" target="_blank" rel="noopener"><?php esc_html_e( 'Upgrade to Premium', 'advanced-nocaptcha-recaptcha' ); ?></a>				
+			<a href="https://captcha4wp.com/?utm_source=plugin&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp" target="_blank" rel="noopener"><?php esc_html_e( 'Upgrade to Premium', 'advanced-nocaptcha-recaptcha' ); ?></a>				
 			</div>
 		</div>
 
@@ -326,7 +326,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 
 		<div class="premium-cta">
-			<a href="https://melapress.com/wordpress-captcha/pricing/?utm_source=plugin&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp" target="_blank" rel="noopener"><?php esc_html_e( 'Upgrade to Premium', 'advanced-nocaptcha-recaptcha' ); ?></a> 
+			<a href="https://captcha4wp.com/?utm_source=plugin&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp" target="_blank" rel="noopener"><?php esc_html_e( 'Upgrade to Premium', 'advanced-nocaptcha-recaptcha' ); ?></a> 
 		</div>
 
 	</div>

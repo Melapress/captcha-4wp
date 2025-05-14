@@ -496,7 +496,7 @@ class C4WP_Settings {
 					sprintf(
 						/* translators:link to help page */
 						esc_html__( 'To utilize the Google reCAPTCHA service on your website you need to get a Site and Secret key. If you do not have these keys yet, you can option them for free by registering to the Google reCAPTCHA service. Refer to the document %s for a step by step explanation of how to get these keys.', 'advanced-nocaptcha-recaptcha' ),
-						'<a href="' . esc_url( 'https://melapress.com/support/kb/get-google-recaptcha-keys/?utm_source=plugin&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp' ) . '" target="_blank">' . esc_html__( 'how to get the Google reCAPTCHA keys', 'advanced-nocaptcha-recaptcha' ) . '</a>'
+						'<a href="' . esc_url( 'https://captcha4wp.com/documentation/get-google-recaptcha-keys/' ) . '" target="_blank">' . esc_html__( 'how to get the Google reCAPTCHA keys', 'advanced-nocaptcha-recaptcha' ) . '</a>'
 					)
 				),
 				'class'      => 'wrap-around-content c4wp-wizard-site-keys',
@@ -563,7 +563,7 @@ class C4WP_Settings {
 					/* translators: %s: link to article. */
 					__( 'By default, the ReCAPTCHA service can only assess user behavior via the scripts loaded on the form pages. However, when using V3, you can configure it to load on all pages. This allows ReCAPTCHA to get a better context of the traffic so that it can better determine what is spam and what is not. When ReCAPTCHA V3 is configured to load on all pages, it will never prompt or otherwise interrupt users on non-form pages. Note that the ReCAPTCHA V3 check still needs to be included in the form(s). Refer to the %1$s for more information on how to add CAPTCHA checks to your forms.', 'advanced-nocaptcha-recaptcha' ),
 					sprintf(
-						'<a href="https://melapress.com/support/kb/?utm_source=plugin&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp" target="_blank">' . esc_html__( 'CAPTCHA 4WP knowledge base', 'advanced-nocaptcha-recaptcha' ) . '</a>'
+						'<a href="https://captcha4wp.com/documentation/" target="_blank">' . esc_html__( 'CAPTCHA 4WP knowledge base', 'advanced-nocaptcha-recaptcha' ) . '</a>'
 					)
 				),
 			),
@@ -872,7 +872,7 @@ class C4WP_Settings {
 					'<span class="premium-title"><strong>Upgrade to Premium to:</strong><p>Add spam protection to block spam bots and allow real humans to easily interact with your WordPress website by adding CAPTCHA to any form on your website, including out of the box support for forms on third party plugins such as:</p><p><ul style="list-style: disc; padding-left: 17px; font-weight: 400;"><li>%5$s</li><li>%6$s</li><li>%7$s</li><li>%8$s</li></ul></p><img src="%9$s" style="max-width: 600px; clear: both; display: block;"><a href="%3$s" class="premium-link" target="_blank">%1$s</a> <a href="%4$s" class="premium-link-not-btn">%2$s</a></span>',
 					esc_html__( 'Upgrade to Premium', 'advanced-nocaptcha-recaptcha' ),
 					esc_html__( 'Find out more', 'advanced-nocaptcha-recaptcha' ),
-					esc_url( 'https://melapress.com/wordpress-captcha/pricing/?utm_source=plugin&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp' ),
+					esc_url( 'https://captcha4wp.com/' ),
 					esc_url( $features_url ),
 					esc_html__( 'Checkout and login pages on WooCommerce stores', 'advanced-nocaptcha-recaptcha' ),
 					esc_html__( 'Contact Form 7, Gravity Forms, WPForms, MailChimp 4 WordPress forms', 'advanced-nocaptcha-recaptcha' ),
@@ -1325,22 +1325,22 @@ class C4WP_Settings {
 				'recaptcha_wizard_intro_text'   => sprintf(
 					/* translators:link to help page */
 					esc_html__( 'To utilize the Google reCAPTCHA service on your website you need to get a Site and Secret key. If you do not have these keys yet, you can get them for free by registering to the Google reCAPTCHA service. Refer to the document %s for a step by step explanation of how to get these keys.', 'advanced-nocaptcha-recaptcha' ),
-					'<a href="' . esc_url( 'https://melapress.com/support/kb/captcha-4wp-get-google-recaptcha-keys/?&utm_source=plugin&utm_medium=link&utm_campaign=c4wp' ) . '" target="_blank">' . esc_html__( 'how to get the Google reCAPTCHA keys', 'advanced-nocaptcha-recaptcha' ) . '</a>'
+					'<a href="' . esc_url( 'https://captcha4wp.com/documentation/captcha-4wp-get-google-recaptcha-keys/' ) . '" target="_blank">' . esc_html__( 'how to get the Google reCAPTCHA keys', 'advanced-nocaptcha-recaptcha' ) . '</a>'
 				),
 				'v2_checkbox_wizard_intro_text' => sprintf(
 					/* translators:link to help page */
 					esc_html__( 'To utilize the Google reCAPTCHA service on your website you need to get a Site and Secret key. If you do not have these keys yet, you can get them for free by registering to the Google reCAPTCHA service. Refer to the document %s for a step by step explanation of how to get these keys.', 'advanced-nocaptcha-recaptcha' ),
-					'<a href="' . esc_url( 'https://melapress.com/support/kb/get-google-recaptcha-keys/?utm_source=plugin&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp' ) . '" target="_blank">' . esc_html__( 'how to get the Google reCAPTCHA keys', 'advanced-nocaptcha-recaptcha' ) . '</a>'
+					'<a href="' . esc_url( 'https://captcha4wp.com/documentation/get-google-recaptcha-keys/' ) . '" target="_blank">' . esc_html__( 'how to get the Google reCAPTCHA keys', 'advanced-nocaptcha-recaptcha' ) . '</a>'
 				),
 				'hcaptcha_wizard_intro_text'    => sprintf(
 					/* translators:link to help page */
 					esc_html__( 'To utilize the hCaptcha service on your website you need to get a Site and Secret key. If you do not have these keys yet, you can get them for free by registering to the hCaptcha service. Refer to the document %s for a step by step explanation of how to get these keys.', 'advanced-nocaptcha-recaptcha' ),
-					'<a href="' . esc_url( 'https://melapress.com/support/kb/captcha-4wp-get-hcaptcha-keys/?&utm_source=plugin&utm_medium=link&utm_campaign=c4wp' ) . '" target="_blank">' . esc_html__( 'how to get the hCaptcha keys', 'advanced-nocaptcha-recaptcha' ) . '</a>'
+					'<a href="' . esc_url( 'https://captcha4wp.com/documentation/captcha-4wp-get-hcaptcha-keys/' ) . '" target="_blank">' . esc_html__( 'how to get the hCaptcha keys', 'advanced-nocaptcha-recaptcha' ) . '</a>'
 				),
 				'cloudflare_wizard_intro_text'  => sprintf(
 					/* translators:link to help page */
 					esc_html__( 'To utilize the Cloudflare Turnstile service on your website you need to get a Site and Secret key. If you do not have these keys yet, you can get them for free by registering to the Cloudflare Turnstile service. Refer to the document %s for a step by step explanation of how to get these keys.', 'advanced-nocaptcha-recaptcha' ),
-					'<a href="' . esc_url( 'https://melapress.com/support/kb/captcha-4wp-get-cloudflare-turnstile-keys/?&utm_source=plugin&utm_medium=link&utm_campaign=c4wp' ) . '" target="_blank">' . esc_html__( 'how to get the Cloudflare Turnstile keys', 'advanced-nocaptcha-recaptcha' ) . '</a>'
+					'<a href="' . esc_url( 'https://captcha4wp.com/documentation/captcha-4wp-get-cloudflare-turnstile-keys/' ) . '" target="_blank">' . esc_html__( 'how to get the Cloudflare Turnstile keys', 'advanced-nocaptcha-recaptcha' ) . '</a>'
 				),
 			)
 		);
@@ -1534,7 +1534,7 @@ class C4WP_Settings {
 						</div>
 					</div>
 				</div>',
-				esc_url( 'https://melapress.com/wordpress-captcha/pricing/?utm_source=plugin&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp' )
+				esc_url( 'https://captcha4wp.com/' )
 			);
 		endif;
 		return $return;
@@ -1744,7 +1744,7 @@ class C4WP_Settings {
 			/* translators:knowledge base link */
 			__( 'Please refer to the %1$s for mre information about the plugin.', 'advanced-nocaptcha-recaptcha' ),
 			sprintf(
-				'<a href="https://melapress.com/support/kb/adding-captcha-contact-form-7-forms/?utm_source=plugin&utm_medium=repo+link&utm_campaign=wordpress_org&utm_content=c4wp" target="_blank">' . esc_html__( 'CAPTCHA 4WP knowledge base', 'advanced-nocaptcha-recaptcha' ) . '</a>'
+				'<a href="https://captcha4wp.com/documentation/adding-captcha-contact-form-7-forms/" target="_blank">' . esc_html__( 'CAPTCHA 4WP knowledge base', 'advanced-nocaptcha-recaptcha' ) . '</a>'
 			)
 		);
 
@@ -1753,7 +1753,7 @@ class C4WP_Settings {
 			/* translators:knowledge base link */
 			__( 'To add CAPTCHA checks and geo-blocking rules to forms created with Contact Form 7, Gravity Forms, Ninja Forms, WPForms and other third party plugins, %1$s.', 'advanced-nocaptcha-recaptcha' ),
 			sprintf(
-				'<a href="https://melapress.com/wordpress-captcha/pricing/?&utm_source=plugin&utm_medium=link&utm_campaign=c4wp" target="_blank">' . esc_html__( 'upgrade to Premium', 'advanced-nocaptcha-recaptcha' ) . '</a>'
+				'<a href="https://captcha4wp.com/pricing/" target="_blank">' . esc_html__( 'upgrade to Premium', 'advanced-nocaptcha-recaptcha' ) . '</a>'
 			)
 		);
 		/* @free:end */
@@ -1770,7 +1770,7 @@ class C4WP_Settings {
 		</div>
 		';
 		$back_to_intro                 = '<a data-wizard-goto href="#c4wp-setup-wizard-intro" class="button button-secondary">' . esc_html__( 'Back', 'advanced-nocaptcha-recaptcha' ) . '</a>';
-		$method_select_upgrade_message = ( ! isset( C4WP_Method_Loader::$methods['hcaptcha'] ) ) ? '<p>Do you want to use hCaptcha or Cloudflare Turnstile for your website CAPTCHA? <a href="https://melapress.com/wordpress-captcha/pricing/?&utm_source=plugin&utm_medium=link&utm_campaign=c4wp" target="_blank">Upgrade to Premium.</a></p>' : '';
+		$method_select_upgrade_message = ( ! isset( C4WP_Method_Loader::$methods['hcaptcha'] ) ) ? '<p>Do you want to use hCaptcha or Cloudflare Turnstile for your website CAPTCHA? <a href="https://captcha4wp.com/?&utm_source=plugin&utm_medium=link&utm_campaign=c4wp" target="_blank">Upgrade to Premium.</a></p>' : '';
 
 		$markup = '
 			<div id="c4wp-setup-wizard-content">
@@ -1818,7 +1818,7 @@ class C4WP_Settings {
 						<p class="description c4wp-desc" style="position: absolute;">' . esc_html__( 'reCAPTCHA v3 is fully automated. This means that by default, if the CAPTCHA check fails the website visitor cannot proceed with what they are doing unless you configure a failover action. Use the below setting to configure the failover action.', 'advanced-nocaptcha-recaptcha' ) . '</p>
 						<p>' . $fields['failure_action']['label'] . '
 						' . self::callback( $fields['failure_action'], true ) . '</p>	
-						<p class="toggletext hidden disabled c4wp-show-field-for-redirect">' . esc_html__( 'Please specify the full URL, including the protocol (HTTP or HTTPS) where you would like the user to be redirected to. For example: ', 'advanced-nocaptcha-recaptcha' ) . '<i>https://melapress.com/blog/</i></p>
+						<p class="toggletext hidden disabled c4wp-show-field-for-redirect">' . esc_html__( 'Please specify the full URL, including the protocol (HTTP or HTTPS) where you would like the user to be redirected to. For example: ', 'advanced-nocaptcha-recaptcha' ) . '<i>https://captcha4wp.com/blog/</i></p>
 						<p class="toggletext hidden disabled c4wp-show-field-for-v2_checkbox">' . esc_html__( 'To show the v2 reCAPTCHA checkbox you need to specify the Site and Secret keys. Please specify them below:', 'advanced-nocaptcha-recaptcha' ) . '</p>
 						<p>' . $fields['failure_redirect']['label'] . '
 						' . self::callback( $fields['failure_redirect'], true ) . '</p>			

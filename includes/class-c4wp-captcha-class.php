@@ -533,7 +533,7 @@ if ( ! class_exists( '\C4WP\C4WP_Captcha_Class' ) ) {
 
 
 			$included = true;
-			echo '<!-- CAPTCHA added with CAPTCHA 4WP plugin. More information: https://melapress.com -->';
+			echo '<!-- CAPTCHA added with CAPTCHA 4WP plugin. More information: https://captcha4wp.com -->';
 			C4WP_Method_Loader::get_footer_scripts( C4WP_Method_Loader::get_currently_selected_method( true, false ) );
 			echo '<!-- / CAPTCHA by CAPTCHA 4WP plugin -->';
 		}
@@ -656,7 +656,7 @@ if ( ! class_exists( '\C4WP\C4WP_Captcha_Class' ) ) {
 		 * @since 7.6.0
 		 */
 		public static function form_field_return( $return_markup = '' ) {
-			$field_markup  = '<!-- CAPTCHA added with CAPTCHA 4WP plugin. More information: https://melapress.com -->';
+			$field_markup  = '<!-- CAPTCHA added with CAPTCHA 4WP plugin. More information: https://captcha4wp.com -->';
 			$field_markup .= apply_filters( 'c4wp_form_field_markup', self::captcha_form_field() );
 			$field_markup .= '<!-- / CAPTCHA by CAPTCHA 4WP plugin -->';
 
@@ -1027,7 +1027,6 @@ if ( ! class_exists( '\C4WP\C4WP_Captcha_Class' ) ) {
 			$language = trim( C4WP_Functions::c4wp_get_option( 'language' ) );
 
 			$language = apply_filters( 'c4wp_captcha_language_filter', $language );
-
 
 			/* @free:start */
 			$lang = '&hl=' . $language;

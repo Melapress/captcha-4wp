@@ -3,16 +3,16 @@
 /**
  * CAPTCHA 4WP
  *
- * @copyright Copyright (C) 2013-2025, Melapress - support@melapress.com
+ * @copyright Copyright (C) 2013-2025, Melapress - support@captcha4wp.com
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 or higher
  *
  * @wordpress-plugin
  * Plugin Name: CAPTCHA 4WP
  * Version:     7.6.0
- * Plugin URI:  https://melapress.com/wordpress-captcha/
+ * Plugin URI:  https://captcha4wp.com/
  * Description: Easily add Google reCAPTCHA to WordPress forms. Upgrade to Premium and gain access to additional features, including hCaptcha and CloudFlare Turnstile integration, CAPTCHA one-click form integration with plugins such as WooCommerce, Contact Form 7, and WP Forms, and many other features.
  * Author:      Melapress
- * Author URI:  https://melapress.com/
+ * Author URI:  https://captcha4wp.com/
  * Text Domain: advanced-nocaptcha-recaptcha
  * Domain Path: /languages/
  * License:     GPL v3
