@@ -442,7 +442,7 @@ class C4WP_Settings {
 			$forms_preamble_desc .= sprintf(
 				/* translators:link to upgrade page */
 				__( 'To add CAPTCHA checks to WooCommerce, Contact Form 7, BuddyPress and other forms created by third party plugins you need to %s', 'advanced-nocaptcha-recaptcha' ),
-				'<a target="_blank" rel="noopener noreferrer" href="' . esc_url( '#' ) . '">' . esc_html__( 'upgrade to Premium', 'advanced-nocaptcha-recaptcha' ) . '</a>'
+				'<a target="_blank" rel="noopener noreferrer" href="' . esc_url( 'https://captcha4wp.com/' ) . '">' . esc_html__( 'upgrade to Premium', 'advanced-nocaptcha-recaptcha' ) . '</a>'
 			);
 			$lang_selector_desc .= esc_html__( ' In the Premium edition you can configure the plugin to automatically detect the language settings of the visitor\'s and use that language.', 'advanced-nocaptcha-recaptcha' );
 		}
