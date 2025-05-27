@@ -340,7 +340,7 @@ class PluginUpdatedNotice {
 					<p class="c4wp-plugin-update-text">
 						<?php esc_html_e( 'As part of our ongoing efforts to focus more on our core plugins, we\'ve decided to sell CAPTCHA 4WP to WPKube. Devesh and his team are well-known for their expertise in WordPress, and we\'re confident that CAPTCHA 4 WP will continue to thrive under their leadership.', 'advanced-nocaptcha-recaptcha' ); ?>							
 					</p>
-					<a href="https://captcha4wp.com/captcha-4-wp-plugin-acquired-by-wpkube/?utm_source=plugin&utm_medium=banner&utm_campaign=c4wp" target="_blank" class="c4wp-cta-link"><?php esc_html_e( 'Read the announcement', 'advanced-nocaptcha-recaptcha' ); ?></a>
+					<a href="https://melapress.com/captcha-4-wp-plugin-acquired-by-wpkube/?utm_source=plugin&utm_medium=acquired-banner&utm_campaign=c4wp" target="_blank" class="c4wp-cta-link"><?php esc_html_e( 'Read the announcement', 'advanced-nocaptcha-recaptcha' ); ?></a>
 				</div>
 				<button aria-label="Close button" class="c4wp-owner-notice-close" data-dismiss-nonce="<?php echo esc_attr( wp_create_nonce( C4WP_PREFIX . 'dismiss_owner_notice_nonce' ) ); ?>"></button>
 			</div>
