@@ -49,6 +49,9 @@ if ( ! class_exists( '\C4WP\C4WP_Functions' ) ) {
 			$prev_version = self::c4wp_get_option( 'version', '3.1' );
 
 			if ( version_compare( $prev_version, C4WP_VERSION, '!=' ) ) {
+				// Clear config hash.
+				delete_transient( 'c4wp_config_file_hash' );
+
 				self::do_plugin_update( $prev_version );
 				if ( method_exists( __CLASS__, 'c4wp_same_settings_for_all_sites' ) && self::c4wp_same_settings_for_all_sites() ) {
 					$options = get_site_option( 'c4wp_admin_options' );
@@ -158,10 +161,6 @@ if ( ! class_exists( '\C4WP\C4WP_Functions' ) ) {
 			$captcha_version = self::c4wp_get_option( 'captcha_version' );
 			if ( version_compare( $prev_version, '7.2.1', '<' ) && 'v3' === $captcha_version ) {
 				add_option( 'c4wp_v3_failover_available', true );
-			}
-
-			if ( version_compare( $prev_version, '7.5.1', '<' ) ) {
-				delete_transient( 'c4wp_config_file_hash' );
 			}
 
 			$current_load = self::c4wp_get_option( 'inline_or_file' );
